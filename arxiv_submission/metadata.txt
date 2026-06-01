@@ -6,12 +6,12 @@ title: YLYW: A Federated Neuro-Symbolic Embodied Decision Framework Based on I C
 title_zh: YLYW：一种基于《易经》先验符号知识的联邦式神经符号具身决策框架
 
 authors:
-  - Shengjie Ma (马圣洁)
-  - Jinhan Li (李金函)
+  - Xinglu Ma (马兴录)
   - Guoan Zhang (张国安)
+  - Jinhan Li (李金函)
   - Jingtao Yu (于敬涛)
   - Wang Li (李望)
-  - Xinglu Ma* (马兴录*, corresponding author)
+  - Shengjie Ma* (马圣洁*, corresponding author)
   
 affiliation: School of Information Science and Technology, Qingdao University of Science and Technology, Qingdao 266061, China
 
