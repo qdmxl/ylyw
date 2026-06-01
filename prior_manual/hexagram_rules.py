@@ -806,6 +806,361 @@ class HexagramRuleBase:
             'avoid': ['重物', '需要大力的场景']
         }
 
+
+        # ========== B档衍生卦象补充（22卦，策略复用A档） ==========
+
+        # 13. 天火同人 ☰☲ —— 协同合作
+        rules[Hexagram.TONGREN] = {
+            'name': '天火同人',
+            'upper_lower': ('☰', '☲'),
+            'description': '类族辨物，与人协同，通天下之志',
+            'grasp_strategy': {
+                'type': 'coordinated_grasp',
+                'force': 0.50,
+                'approach_angle': 0,
+                'speed': 'medium',
+                'cautions': ['多指协调用力', '保持力分布均匀']
+            },
+            'suitable_for': ['需要多指协同的物体', '不规则形状'],
+            'avoid': ['简单二指即可']
+        }
+
+        # 14. 火天大有 ☲☰ —— 大面积吸附
+        rules[Hexagram.DAYOU] = {
+            'name': '火天大有',
+            'upper_lower': ('☲', '☰'),
+            'description': '其德刚健而文明，大获所有，顺天休命',
+            'grasp_strategy': {
+                'type': 'adhesion_grasp',
+                'force': 0.45,
+                'approach_angle': 0,
+                'speed': 'medium',
+                'cautions': ['利用大面积接触', '确保吸附稳定']
+            },
+            'suitable_for': ['大面积光滑物体', '平面物体'],
+            'avoid': ['粗糙表面', '多孔物体']
+        }
+
+        # 15. 地山谦 ☷☶ —— 谦逊轻柔
+        rules[Hexagram.QIAN_GUA] = {
+            'name': '地山谦',
+            'upper_lower': ('☷', '☶'),
+            'description': '谦谦君子，卑以自牧，天道亏盈而益谦',
+            'grasp_strategy': {
+                'type': 'reduced_force_grasp',
+                'force': 0.25,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['以最小力维持', '持续监控滑脱']
+            },
+            'suitable_for': ['易碎品', '精密物体', '贵重物品'],
+            'avoid': ['重物']
+        }
+
+        # 22. 山火贲 ☶☲ —— 外观观察
+        rules[Hexagram.BI_GUA] = {
+            'name': '山火贲',
+            'upper_lower': ('☶', '☲'),
+            'description': '观乎人文，以化成天下，饰也',
+            'grasp_strategy': {
+                'type': 'observational_grasp',
+                'force': 0.40,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['充分观察外观特征', '选择最佳抓取面']
+            },
+            'suitable_for': ['外观重要的物体', '装饰品', '需要评估表面的物体'],
+            'avoid': ['紧急任务']
+        }
+
+        # 27. 山雷颐 ☶☳ —— 养正保持
+        rules[Hexagram.YI] = {
+            'name': '山雷颐',
+            'upper_lower': ('☶', '☳'),
+            'description': '养正也，自求口实，观颐养正',
+            'grasp_strategy': {
+                'type': 'endurance_grasp',
+                'force': 0.50,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['保持恒定力输出', '定期检查状态']
+            },
+            'suitable_for': ['需长时间保持的抓取', '搬运任务'],
+            'avoid': ['短时操作']
+        }
+
+        # 42. 风雷益 ☴☳ —— 增益渐进
+        rules[Hexagram.YI_GUA] = {
+            'name': '风雷益',
+            'upper_lower': ('☴', '☳'),
+            'description': '损上益下，其道大光，天施地生',
+            'grasp_strategy': {
+                'type': 'progressive_grasp',
+                'force': 0.40,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['从轻到重逐步加力', '每阶段评估']
+            },
+            'suitable_for': ['精密物体', '需逐步施力的场景'],
+            'avoid': ['快速场景']
+        }
+
+        # 43. 泽天夬 ☱☰ —— 果断执行
+        rules[Hexagram.GUAI] = {
+            'name': '泽天夬',
+            'upper_lower': ('☱', '☰'),
+            'description': '决也，刚决柔也，健而说',
+            'grasp_strategy': {
+                'type': 'direct_grasp',
+                'force': 0.60,
+                'approach_angle': 0,
+                'speed': 'fast',
+                'cautions': ['确认条件后果断执行', '不犹豫不绕弯']
+            },
+            'suitable_for': ['条件明确的场景', '高效率要求'],
+            'avoid': ['不确定场景']
+        }
+
+        # 44. 天风姤 ☰☴ —— 初次遭遇
+        rules[Hexagram.GOU] = {
+            'name': '天风姤',
+            'upper_lower': ('☰', '☴'),
+            'description': '遇也，天地相遇品物咸章，刚遇中正',
+            'grasp_strategy': {
+                'type': 'adaptive_grasp',
+                'force': 0.50,
+                'approach_angle': 5,
+                'speed': 'slow',
+                'cautions': ['首次接触需试探', '根据反馈调整']
+            },
+            'suitable_for': ['首次遭遇的物体', '未知物体'],
+            'avoid': ['已知物体（用确定策略）']
+        }
+
+        # 45. 泽地萃 ☱☷ —— 聚集有序
+        rules[Hexagram.CUI] = {
+            'name': '泽地萃',
+            'upper_lower': ('☱', '☷'),
+            'description': '聚也，观其所聚而天地万物之情可见',
+            'grasp_strategy': {
+                'type': 'sequential_grasp',
+                'force': 0.55,
+                'approach_angle': 0,
+                'speed': 'medium',
+                'cautions': ['按顺序逐一抓取', '保持间距']
+            },
+            'suitable_for': ['批量物体', '流水线抓取'],
+            'avoid': ['单物体']
+        }
+
+        # 46. 地风升 ☷☴ —— 自下而上
+        rules[Hexagram.SHENG] = {
+            'name': '地风升',
+            'upper_lower': ('☷', '☴'),
+            'description': '柔以时升，积小以高大，南征吉',
+            'grasp_strategy': {
+                'type': 'top_down_grasp',
+                'force': 0.45,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['从正上方向下接近', '利用重力辅助']
+            },
+            'suitable_for': ['桌面物体', '从上方抓取'],
+            'avoid': ['侧向优先的场景']
+        }
+
+        # 47. 泽水困 ☱☵ —— 困境难取
+        rules[Hexagram.KUN_GUA] = {
+            'name': '泽水困',
+            'upper_lower': ('☱', '☵'),
+            'description': '困也，险以说，困而不失其所',
+            'grasp_strategy': {
+                'type': 'difficult_grasp',
+                'force': 0.50,
+                'approach_angle': 20,
+                'speed': 'slow',
+                'cautions': ['识别困难来源', '调整策略应对']
+            },
+            'suitable_for': ['高难度场景', '被包围/卡住的物体'],
+            'avoid': ['简单场景']
+        }
+
+        # 48. 水风井 ☵☴ —— 稳定重复
+        rules[Hexagram.JING] = {
+            'name': '水风井',
+            'upper_lower': ('☵', '☴'),
+            'description': '改邑不改井，无丧无得，往来井井',
+            'grasp_strategy': {
+                'type': 'stable_grasp',
+                'force': 0.40,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['固定位置重复操作', '保持一致性']
+            },
+            'suitable_for': ['固定位置物体', '重复操作'],
+            'avoid': ['移动物体']
+        }
+
+        # 49. 泽火革 ☱☲ —— 变革重试
+        rules[Hexagram.GE] = {
+            'name': '泽火革',
+            'upper_lower': ('☱', '☲'),
+            'description': '天地革而四时成，治历明时，顺天应人',
+            'grasp_strategy': {
+                'type': 'corrective_grasp',
+                'force': 0.45,
+                'approach_angle': 10,
+                'speed': 'slow',
+                'cautions': ['分析失败原因', '调整策略后重试']
+            },
+            'suitable_for': ['失败后调整', '需要改变策略的场景'],
+            'avoid': ['首次尝试（用直接策略）']
+        }
+
+        # 50. 火风鼎 ☲☴ —— 平衡稳定
+        rules[Hexagram.DING] = {
+            'name': '火风鼎',
+            'upper_lower': ('☲', '☴'),
+            'description': '象也，以木巽火亨饪也，君子以正位凝命',
+            'grasp_strategy': {
+                'type': 'balanced_grasp',
+                'force': 0.50,
+                'approach_angle': 0,
+                'speed': 'medium',
+                'cautions': ['保持力平衡', '全程监控']
+            },
+            'suitable_for': ['常规物体', '多用途场景'],
+            'avoid': ['极端情况']
+        }
+
+        # 53. 风山渐 ☴☶ —— 缓慢渐进
+        rules[Hexagram.JIAN_GUA] = {
+            'name': '风山渐',
+            'upper_lower': ('☴', '☶'),
+            'description': '进也，女归吉也，进得位往有功也',
+            'grasp_strategy': {
+                'type': 'progressive_grasp',
+                'force': 0.40,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['以极慢速度渐进', '每步检查状态']
+            },
+            'suitable_for': ['需极慢渐进的操作', '精密装配'],
+            'avoid': ['快速场景']
+        }
+
+        # 54. 雷泽归妹 ☳☱ —— 顺应归附
+        rules[Hexagram.GUIMEI] = {
+            'name': '雷泽归妹',
+            'upper_lower': ('☳', '☱'),
+            'description': '归也，天地之大义也，永终知敝',
+            'grasp_strategy': {
+                'type': 'compliant_grasp',
+                'force': 0.35,
+                'approach_angle': 15,
+                'speed': 'slow',
+                'cautions': ['顺应物体自然姿态', '不强行改变朝向']
+            },
+            'suitable_for': ['需顺应姿态的物体', '不规则摆放'],
+            'avoid': ['需精确定位的场景']
+        }
+
+        # 55. 雷火丰 ☳☲ —— 丰盛强力
+        rules[Hexagram.FENG] = {
+            'name': '雷火丰',
+            'upper_lower': ('☳', '☲'),
+            'description': '大也，明以动故丰，日中则昃',
+            'grasp_strategy': {
+                'type': 'robust_power_grasp',
+                'force': 0.75,
+                'approach_angle': 0,
+                'speed': 'medium',
+                'cautions': ['确保物体坚固', '用足力但不过力']
+            },
+            'suitable_for': ['重且坚固的物体', '金属零件'],
+            'avoid': ['易碎品', '精密器件']
+        }
+
+        # 56. 火山旅 ☲☶ —— 旅居适应
+        rules[Hexagram.LU_GUA] = {
+            'name': '火山旅',
+            'upper_lower': ('☲', '☶'),
+            'description': '旅也，柔得中乎外而顺乎刚，止而丽乎明',
+            'grasp_strategy': {
+                'type': 'conditional_grasp',
+                'force': 0.55,
+                'approach_angle': 5,
+                'speed': 'medium',
+                'cautions': ['适应移动环境', '动态调整策略']
+            },
+            'suitable_for': ['动态环境', '移动中的物体'],
+            'avoid': ['静态简单场景']
+        }
+
+        # 59. 风水涣 ☴☵ —— 散乱观望
+        rules[Hexagram.HUAN] = {
+            'name': '风水涣',
+            'upper_lower': ('☴', '☵'),
+            'description': '涣也，风行水上，涣奔其机',
+            'grasp_strategy': {
+                'type': 'abort_or_retry',
+                'force': 0.40,
+                'approach_angle': 10,
+                'speed': 'slow',
+                'cautions': ['确认条件是否满足', '不满足则暂缓']
+            },
+            'suitable_for': ['散乱不确定场景', '条件不充分的'],
+            'avoid': ['确定性强的场景']
+        }
+
+        # 60. 水泽节 ☵☱ —— 节制控制
+        rules[Hexagram.JIE] = {
+            'name': '水泽节',
+            'upper_lower': ('☵', '☱'),
+            'description': '节也，天地节而四时成，节以制度',
+            'grasp_strategy': {
+                'type': 'reduced_force_grasp',
+                'force': 0.30,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['严格控制力输出', '不超出预设范围']
+            },
+            'suitable_for': ['需精确控力的物体', '易损表面'],
+            'avoid': ['重物', '需大力的场景']
+        }
+
+        # 61. 风泽中孚 ☴☱ —— 诚信感应
+        rules[Hexagram.ZHONGFU] = {
+            'name': '风泽中孚',
+            'upper_lower': ('☴', '☱'),
+            'description': '信也，豚鱼吉，信及豚鱼也',
+            'grasp_strategy': {
+                'type': 'tactile_feedback_grasp',
+                'force': 0.40,
+                'approach_angle': 0,
+                'speed': 'slow',
+                'cautions': ['依赖触觉传感器反馈', '实时调整']
+            },
+            'suitable_for': ['需触觉反馈的场景', '表面特性不明'],
+            'avoid': ['无触觉传感器的场景']
+        }
+
+        # 62. 雷山小过 ☳☶ —— 稍过谨慎
+        rules[Hexagram.XIAOGUO] = {
+            'name': '雷山小过',
+            'upper_lower': ('☳', '☶'),
+            'description': '过也，小者过而亨也，行过乎恭',
+            'grasp_strategy': {
+                'type': 'cautious_grasp',
+                'force': 0.35,
+                'approach_angle': 5,
+                'speed': 'slow',
+                'cautions': ['稍微过度谨慎', '小力试探，逐步确认']
+            },
+            'suitable_for': ['稍高风险物体', '需额外小心的场景'],
+            'avoid': ['常规任务']
+        }
+
         return rules
 
     def get_rule(self, hexagram):
@@ -929,6 +1284,30 @@ class HexagramRuleBase:
             # 下经终端卦
             Hexagram.JIJI:  np.array([0.92, 0.10, 0.89, 0.10, 0.93, 0.10]),   # ☵☲ 水火既济
             Hexagram.WEIJI: np.array([0.07, 0.88, 0.11, 0.07, 0.06, 0.11]),   # ☲☵ 火水未济
+
+            # B档衍生卦象补充（22卦）
+            Hexagram.TONGREN: np.array([0.29, 0.52, 0.32, 0.23, 0.34, 0.61]),  # ☰☲ 天火同人
+            Hexagram.DAYOU: np.array([0.75, 0.55, 0.23, 0.19, 0.31, 0.47]),  # ☲☰ 火天大有
+            Hexagram.QIAN_GUA: np.array([0.51, 0.63, 0.29, 0.21, 0.38, 0.61]),  # ☷☶ 地山谦
+            Hexagram.BI_GUA: np.array([0.57, 0.53, 0.29, 0.18, 0.31, 0.56]),  # ☶☲ 山火贲
+            Hexagram.YI: np.array([0.34, 0.64, 0.50, 0.68, 0.50, 0.77]),  # ☶☳ 山雷颐
+            Hexagram.YI_GUA: np.array([0.39, 0.66, 0.22, 0.40, 0.36, 0.68]),  # ☴☳ 风雷益
+            Hexagram.GUAI: np.array([0.75, 0.55, 0.63, 0.80, 0.39, 0.70]),  # ☱☰ 泽天夬
+            Hexagram.GOU: np.array([0.22, 0.59, 0.48, 0.74, 0.45, 0.61]),  # ☰☴ 天风姤
+            Hexagram.CUI: np.array([0.19, 0.11, 0.23, 0.14, 0.15, 0.83]),  # ☱☷ 泽地萃
+            Hexagram.SHENG: np.array([0.47, 0.66, 0.24, 0.38, 0.37, 0.65]),  # ☷☴ 地风升
+            Hexagram.KUN_GUA: np.array([0.30, 0.53, 0.57, 0.71, 0.42, 0.60]),  # ☱☵ 泽水困
+            Hexagram.JING: np.array([0.91, 0.86, 0.18, 0.13, 0.10, 0.12]),  # ☵☴ 水风井
+            Hexagram.GE: np.array([0.37, 0.53, 0.55, 0.65, 0.48, 0.70]),  # ☱☲ 泽火革
+            Hexagram.DING: np.array([0.76, 0.56, 0.61, 0.70, 0.43, 0.64]),  # ☲☴ 火风鼎
+            Hexagram.JIAN_GUA: np.array([0.47, 0.59, 0.24, 0.18, 0.32, 0.66]),  # ☴☶ 风山渐
+            Hexagram.GUIMEI: np.array([0.35, 0.52, 0.60, 0.73, 0.40, 0.66]),  # ☳☱ 雷泽归妹
+            Hexagram.FENG: np.array([0.54, 0.58, 0.58, 0.74, 0.47, 0.64]),  # ☳☲ 雷火丰
+            Hexagram.LU_GUA: np.array([0.22, 0.60, 0.40, 0.69, 0.49, 0.75]),  # ☲☶ 火山旅
+            Hexagram.HUAN: np.array([0.08, 0.88, 0.07, 0.10, 0.05, 0.11]),  # ☴☵ 风水涣
+            Hexagram.JIE: np.array([0.49, 0.60, 0.29, 0.21, 0.32, 0.64]),  # ☵☱ 水泽节
+            Hexagram.ZHONGFU: np.array([0.33, 0.57, 0.34, 0.19, 0.33, 0.59]),  # ☴☱ 风泽中孚
+            Hexagram.XIAOGUO: np.array([0.36, 0.57, 0.35, 0.20, 0.36, 0.55]),  # ☳☶ 雷山小过
         }
 
         return templates.get(hexagram, None)
