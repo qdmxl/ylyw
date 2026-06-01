@@ -85,9 +85,11 @@ p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER; p.paragraph_fo
 r = p.add_run('YLYW：一种基于《易经》先验符号知识的\n联邦式神经符号具身决策框架')
 r.font.size=Pt(22); r.font.bold=True; fn(r,'黑体','Times New Roman',Pt(22)); r.font.color.rgb=RGBColor.from_string('1A1A2E')
 p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-r = p.add_run('\n马老师课题组'); fn(r,'宋体','Times New Roman',Pt(14))
+r = p.add_run('\n马圣洁，李金函，张国安，于敬涛，李望，马兴录*'); fn(r,'宋体','Times New Roman',Pt(14))
 p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 r = p.add_run('青岛科技大学 信息科学技术学院，山东 青岛 266061'); fn(r,'宋体','Times New Roman',Pt(11)); r.font.color.rgb=RGBColor(0x66,0x66,0x66)
+p = doc.add_paragraph(); p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+r = p.add_run('* 通讯作者: 马兴录'); fn(r,'宋体','Times New Roman',Pt(9)); r.font.color.rgb=RGBColor(0x88,0x88,0x88)
 doc.add_page_break()
 
 # ============================================================
