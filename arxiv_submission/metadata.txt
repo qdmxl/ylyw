@@ -1,0 +1,43 @@
+# arXiv Submission Package — YLYW
+# Prepared: 2026-06-01
+# Target: cs.AI (Artificial Intelligence) / cs.RO (Robotics)
+
+[metadata]
+title: YLYW: A Federated Neuro-Symbolic Embodied Decision Framework Based on I Ching Prior Symbolic Knowledge
+title_zh: YLYW：一种基于《易经》先验符号知识的联邦式神经符号具身决策框架
+
+authors:
+  - name: Qingdao University of Science and Technology, School of Information Science and Technology
+    affiliation: Qingdao University of Science and Technology, Qingdao 266061, China
+    note: Ma Laoshi Research Group (马老师课题组)
+
+abstract: >
+  Current embodied intelligence decision-making methods predominantly rely on 
+  data-driven deep learning paradigms, suffering from fundamental bottlenecks in 
+  data efficiency, interpretability, and physical compliance. This paper proposes 
+  YLYW (Yi-Li Inspired Physical World Modeling), a knowledge-driven third path 
+  that formalizes the I Ching's 64-hexagram symbolic system as a prior knowledge 
+  manual within a federated neuro-symbolic architecture.
+  
+  Our core innovations include: (1) treating the eight trigrams as continuous fuzzy 
+  membership bases, resolving the symbol grounding problem; (2) proposing a systematic 
+  hexagram template optimization method based on object yao-vector centroids; 
+  (3) for the first time, formalizing the five yao-position relationships (proper 
+  position, central position, override, support, adjacency harmony, resonance) from 
+  the Zhou Yi as computable operators, establishing a hierarchical decision system 
+  where the hexagram determines "what to do" and yao relations determine "how to do it."
+  
+  Under a full 64-hexagram rule base, the system achieves 92.7% strategy rationality 
+  rate and 0% critical error rate on 300-object zero-shot baseline testing, with pure 
+  prior reasoning requiring only 1.7ms per object. The performance leap from 48.0% to 
+  92.7% itself serves as a vivid validation of the interpretability of the Yi-Li model. 
+  Three-dimensional ablation experiments verify the independent contributions of 
+  Yi-Li rules (+33.6%), three-layer architecture (+12.7%), and continuous fuzzy 
+  membership (+23.0%). Comparative experiments show YLYW (92.7%) significantly 
+  outperforming zero-shot MLP (28.7%) and random strategy (37.5%).
+
+comments: 17 tables, 4 figures, 1 appendix, 22 references. Preprint.
+pages: 26
+classification: cs.AI (Artificial Intelligence), cs.RO (Robotics)
+keywords: Neuro-Symbolic Systems, I Ching, Prior Knowledge, Zero-Shot Learning, 
+  Yao Relation Computation, Explainable AI, Robotic Grasping
