@@ -1,0 +1,24 @@
+{
+  "meta": {
+    "experiment": "ablation_study",
+    "n_objects": 300,
+    "timestamp": "2026-05-31 20:50:00"
+  },
+  "results": {
+    "A": {
+      "delta": 0.035999999999999976,
+      "control_mean": 0.29999999999999993,
+      "ablation_mean": 0.26399999999999996
+    },
+    "B": {
+      "delta": 0.1499999999999999,
+      "control_mean": 0.29999999999999993,
+      "ablation_mean": 0.15000000000000002
+    },
+    "C": {
+      "delta": 0.019999999999999962,
+      "control_mean": 0.29999999999999993,
+      "ablation_mean": 0.27999999999999997
+    }
+  }
+}

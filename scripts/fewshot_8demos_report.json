@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "n_shots_per_type": 1,
+    "total_demos": 8,
+    "alpha": 0.5,
+    "n_eval": 200,
+    "timestamp": "2026-05-31 20:20:21"
+  },
+  "baseline": {
+    "total": 200,
+    "reasonable_rate": 0.31,
+    "exact_rate": 0.065,
+    "by_type": {
+      "cube": {
+        "count": 37,
+        "rate": 0.2972972972972973
+      },
+      "bottle": {
+        "count": 19,
+        "rate": 0.3684210526315789
+      },
+      "plate": {
+        "count": 23,
+        "rate": 0.0
+      },
+      "cylinder": {
+        "count": 22,
+        "rate": 0.3181818181818182
+      },
+      "vase": {
+        "count": 24,
+        "rate": 0.5
+      },
+      "rock": {
+        "count": 32,
+        "rate": 0.1875
+      },
+      "sphere": {
+        "count": 26,
+        "rate": 0.34615384615384615
+      },
+      "bowl": {
+        "count": 17,
+        "rate": 0.5882352941176471
+      }
+    }
+  },
+  "after": {
+    "total": 200,
+    "reasonable_rate": 0.31,
+    "exact_rate": 0.065,
+    "by_type": {
+      "cube": {
+        "count": 37,
+        "rate": 0.2972972972972973
+      },
+      "bottle": {
+        "count": 19,
+        "rate": 0.3684210526315789
+      },
+      "plate": {
+        "count": 23,
+        "rate": 0.0
+      },
+      "cylinder": {
+        "count": 22,
+        "rate": 0.3181818181818182
+      },
+      "vase": {
+        "count": 24,
+        "rate": 0.5
+      },
+      "rock": {
+        "count": 32,
+        "rate": 0.1875
+      },
+      "sphere": {
+        "count": 26,
+        "rate": 0.34615384615384615
+      },
+      "bowl": {
+        "count": 17,
+        "rate": 0.5882352941176471
+      }
+    }
+  },
+  "improvement": {
+    "reasonable_delta": 0.0,
+    "exact_delta": 0.0,
+    "avg_per_type_delta": 0.0
+  }
+}

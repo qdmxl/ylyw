@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+*.egg-info/
+
+# Simulation artifacts
+*.urdf
+*.obj
+
+# Temp files
+*.tmp
+*.swp
+*~
+
+# Large binary files (keep small reports)
+*.mp4
+*.gif
+
+# OS files
+.DS_Store
+Thumbs.db
