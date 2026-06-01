@@ -24,6 +24,7 @@ import numpy as np
 from .trigram_base import TrigramBase, Trigram
 from .yao_encoder import YaoEncoder, YaoPosition
 from .hexagram_rules import HexagramRuleBase, Hexagram
+from .yao_relations import YaoRelations, YaoRelationReport
 
 
 class PriorManual:
@@ -54,6 +55,7 @@ class PriorManual:
         self.trigram_base = TrigramBase()
         self.yao_encoder = YaoEncoder()
         self.hexagram_rules = HexagramRuleBase()
+        self.yao_relations = YaoRelations()  # 爻位关系运算
 
         self.verbose = verbose
         if verbose:
@@ -131,6 +133,15 @@ class PriorManual:
             print(f"  卦辞: {rule['description']}")
             print(f"  Top-3: {[(h.name, f'{s:.4f}') for h, s in top_k]}")
 
+        # === L3+ 爻位关系分析：乘承比应当位得中 ===
+        yao_report = self.yao_relations.analyze(yao_vector)
+
+        if self.verbose:
+            print(f"\n[L3+ 爻位关系]")
+            print(f"  当位: {yao_report.dangwei_count}/6 | 得中: {yao_report.score_dezhong:.2f}")
+            print(f"  乘(逆): {yao_report.cheng_count}处 | 应: {yao_report.ying_count}/3")
+            print(f"  综合质量: {yao_report.score_overall:.2f} | 谨慎: {yao_report.caution_level}")
+
         return {
             'yao_vector': yao_vector,
             'trigram_memberships': trigram_memberships,
@@ -139,6 +150,7 @@ class PriorManual:
             'best_hexagram': best_hexagram,
             'hexagram_match_score': match_score,
             'top_k_hexagrams': top_k,
+            'yao_relations': yao_report,  # 新增：爻位关系分析
         }
 
     def get_grasp_strategy(self, perception_result):
@@ -167,6 +179,16 @@ class PriorManual:
 
         strategy = rule['grasp_strategy'].copy()
         strategy['hexagram'] = rule['name']
+
+        # === 爻位关系修正：根据乘承比应当位得中微调策略参数 ===
+        yao_report = perception_result.get('yao_relations')
+        if yao_report is not None:
+            modifier = yao_report.strategy_modifier
+            original_force = strategy['force']
+            strategy['force'] = round(min(1.0, max(0.1, original_force * modifier)), 2)
+            strategy['force_modifier'] = modifier
+            strategy['caution_level'] = yao_report.caution_level
+            strategy['yao_quality'] = yao_report.score_overall
 
         if self.verbose:
             print(f"\n[决策输出]")
@@ -250,7 +272,21 @@ class PriorManual:
                     alt_names.append(f'「{n}」({s:.3f})')
                 lines.append(f"  备选卦象: {', '.join(alt_names)}")
 
-        # --- Decision ---
+        # --- L3+ 爻位关系分析 ---
+        yao_report = perception_result.get('yao_relations')
+        if yao_report is not None:
+            lines.append(f"\n▎L3+ 爻位关系（乘承比应当位得中）")
+            lines.append(f"  当位: {yao_report.dangwei_count}/6爻")
+            er_yao = '阳' if yao[1] >= 0.5 else '阴'
+            wu_yao = '阳' if yao[4] >= 0.5 else '阴'
+            lines.append(f"  得中: 二爻{er_yao} 五爻{wu_yao}")
+            lines.append(f"  乘(逆): {yao_report.cheng_count}处  承(顺): {5 - yao_report.cheng_count - yao_report.bi_disharmony}处")
+            lines.append(f"  亲比: {yao_report.bi_harmony}/5对和谐")
+            lines.append(f"  呼应: {yao_report.ying_count}/3对有应")
+            lines.append(f"  综合爻位质量: {yao_report.score_overall:.2f}")
+            if yao_report.advice:
+                for a in yao_report.advice[:2]:  # 只显示前2条
+                    lines.append(f"  → {a}")
         strategy = self.get_grasp_strategy(perception_result)
         lines.append(f"\n▎决策输出")
         lines.append(f"  抓取类型: {strategy['type']}")
