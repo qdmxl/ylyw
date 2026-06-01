@@ -631,20 +631,21 @@ doc.add_page_break()
 # ============================================================
 H('参考文献')
 refs = [
-    '[1] Driess D, et al. PaLM-E: An Embodied Multimodal Language Model. ICML, 2023.',
-    '[2] Ahn M, et al. Do As I Can, Not As I Say: Grounding Language in Robotic Affordances. CoRL, 2022.',
-    '[3] Brohan A, et al. RT-2: Vision-Language-Action Models. arXiv:2307.15818, 2023.',
-    '[4] Kim M J, et al. OpenVLA: An Open-Source Vision-Language-Action Model. arXiv:2406.09246, 2024.',
-    '[5] Octo Model Team. Octo: An Open-Source Generalist Robot Policy. RSS, 2024.',
-    '[6] Black K, et al. π₀: A Vision-Language-Action Flow Model. arXiv:2410.24164, 2024.',
-    '[6] Garcez A, Lamb L C. Neurosymbolic AI: The 3rd Wave. Artificial Intelligence Review, 2023.',
-    '[8] Manhaeve R, et al. DeepProbLog: Neural Probabilistic Logic Programming. NeurIPS, 2018.',
-    '[6] Badreddine S, et al. Logic Tensor Networks. Artificial Intelligence, 2022.',
-    '[8] van Krieken E, et al. Analyzing Differentiable Fuzzy Logic Operators. Artificial Intelligence, 2022.',
-    '[6] Raissi M, Perdikaris P, Karniadakis G E. Physics-Informed Neural Networks. Journal of Computational Physics, 2019.',
-    '[8] Morrison D, et al. Closing the Loop for Robotic Grasping. RSS, 2018.',
-    '[8] Fang H S, et al. GraspNet-1Billion. CVPR, 2020.',
+    '[1] Driess D, Xia F, Sajjadi M S M, et al. PaLM-E: An embodied multimodal language model[C] //ICML. 2023: 8469-8488.',
+    '[2] Ahn M, Brohan A, Brown N, et al. Do as I can, not as I say[C] //CoRL. 2022: 287-318.',
+    '[3] Brohan A, Brown N, Carbajal J, et al. RT-2: Vision-language-action models[J]. arXiv:2307.15818, 2023.',
+    '[4] Kim M J, Pertsch K, Karamcheti S, et al. OpenVLA: An open-source VLA model[J]. arXiv:2406.09246, 2024.',
+    '[5] Octo Model Team. Octo: An open-source generalist robot policy[C] //RSS. 2024.',
+    '[6] Black K, Brown N, Driess D, et al. Pi-zero: A vision-language-action flow model[J]. arXiv:2410.24164, 2024.',
+    '[7] Garcez A, Lamb L C. Neurosymbolic AI: The 3rd wave[J]. Artificial Intelligence Review, 2023, 56(11): 12387-12426.',
+    '[8] Manhaeve R, Dumancic S, Kimmig A, et al. DeepProbLog: Neural probabilistic logic programming[C] //NeurIPS. 2018: 3753-3763.',
+    '[9] Badreddine S, Garcez A, Serafini L, et al. Logic tensor networks[J]. Artificial Intelligence, 2022, 303: 103649.',
+    '[10] van Krieken E, Acar E, van Harmelen F. Analyzing differentiable fuzzy logic operators[J]. Artificial Intelligence, 2022, 302: 103602.',
+    '[11] Raissi M, Perdikaris P, Karniadakis G E. Physics-informed neural networks[J]. Journal of Computational Physics, 2019, 378: 686-707.',
+    '[12] Morrison D, Corke P, Leitner J. Closing the loop for robotic grasping[C] //RSS. 2018.',
+    '[13] Fang H S, Wang C, Gou M, et al. GraspNet-1Billion[C] //CVPR. 2020: 11444-11453.',
 ]
+
 for ref in refs:
     p = doc.add_paragraph(); p.paragraph_format.space_after = Pt(2)
     r = p.add_run(ref); fn(r, '宋体', 'Times New Roman', Pt(9))
@@ -652,14 +653,15 @@ for ref in refs:
 p = doc.add_paragraph(); p.paragraph_format.space_before = Pt(12)
 r = p.add_run('附：易学原典参考文献'); r.font.bold=True; fn(r, '黑体', 'Times New Roman', Pt(10))
 classics = [
-    '[8] 王弼（魏）. 周易注.',
-    '[8] 孔颖达（唐）. 周易正义.',
-    '[8] 程颐（宋）. 程氏易传.',
-    '[8] 朱熹（宋）. 周易本义.',
-    '[8] 黄寿祺, 张善文. 周易译注. 上海古籍出版社, 2007.',
-    '[8] 高亨. 周易古经今注. 中华书局, 1984.',
-    '[8] 李学勤. 周易溯源. 巴蜀书社, 2005.',
+    '[14] 王弼（魏）. 周易注.',
+    '[15] 孔颖达（唐）. 周易正义.',
+    '[16] 程颐（宋）. 程氏易传.',
+    '[17] 朱熹（宋）. 周易本义.',
+    '[18] 黄寿祺, 张善文. 周易译注. 上海古籍出版社, 2007.',
+    '[19] 高亨. 周易古经今注. 中华书局, 1984.',
+    '[20] 李学勤. 周易溯源. 巴蜀书社, 2005.',
 ]
+
 for ref in classics:
     p = doc.add_paragraph(); p.paragraph_format.space_after = Pt(2)
     r = p.add_run(ref); fn(r, '宋体', 'Times New Roman', Pt(9))
