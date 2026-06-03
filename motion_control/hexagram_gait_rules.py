@@ -122,7 +122,16 @@ class HexagramGaitRules:
         self._build_full_templates()
     
     def _build_full_templates(self):
-        """为所有64卦生成爻模板（未定义的用默认值）"""
+        """为所有64卦生成爻模板"""
+        import json, os
+        # 优先加载优化后的模板
+        opt_path = os.path.join(os.path.dirname(__file__), 'experiments', 'optimized_templates.json')
+        if os.path.exists(opt_path):
+            with open(opt_path) as f:
+                opt = json.load(f)
+            self.HEXAGRAM_YAO_TEMPLATES = {int(k): v for k, v in opt.items()}
+            return
+        
         default_template = [0.50, 0.50, 0.50, 0.50, 0.50, 0.50]
         for i in range(1, 65):
             if i not in self.HEXAGRAM_YAO_TEMPLATES:
