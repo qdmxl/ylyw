@@ -1,9 +1,8 @@
 /**
  * ylyw_8051.h — YLYW运动控制推理引擎（8051定点版 v2）
+ * 兼容Keil uVision2 (C51)，所有变量在函数开头声明
  *
- * 新增: ADC三轴陀螺仪闭环平衡 + 步态控制
  * 功能: 陀螺仪读数 → 六爻编码 → 卦象匹配 → 步态决策 → 24舵机
- * 资源: ~3KB代码 + 512字节Flash表格
  *
  * 使用方法:
  *   1. main.c开头: #include "ylyw_8051.h"
@@ -20,6 +19,7 @@
 
 typedef unsigned char u8;
 typedef unsigned int  u16;
+typedef unsigned long u32;
 typedef signed   short s16;
 
 /* ============================================================
@@ -71,7 +71,7 @@ const u8 code HEXAGRAM[64][6] = {
 };
 
 /* ============================================================
- * 步态表 (64字节 Flash)
+ * 步态表 (Flash)
  * 0站 1爬 2慢走 3走 4快走 5小跑 6跑 7恢复 8过渡 9自适应 10下坡 11爬坡
  * ============================================================ */
 const u8 code GAIT_MAP[64] = {
@@ -87,30 +87,19 @@ const u8 code GAIT_PARAM[12][4] = {
     {15,35, 5,50},{12,35, 5,50},{ 8,20, 4,35},{10,50, 5,50},
 };
 
-/* 卦名表（调试用） */
-const char code *HEX_NAMES[64] = {
-    "乾","坤","屯","蒙","需","讼","师","比",
-    "小畜","履","泰","否","同人","大有","谦","豫",
-    "随","蛊","临","观","噬嗑","贲","剥","复",
-    "无妄","大畜","颐","大过","坎","离","咸","恒",
-    "遁","大壮","晋","明夷","家人","睽","蹇","解",
-    "损","益","夬","姤","萃","升","困","井",
-    "革","鼎","震","艮","渐","归妹","丰","旅",
-    "巽","兑","涣","节","中孚","小过","既济","未济",
-};
-
 /* ============================================================
  * 运行时变量
  * ============================================================ */
-u8  ylyw_hex;        // 卦象 1-64
-u8  ylyw_gait;       // 步态 0-11
-u16 ylyw_phase;      // 步态相位
-u8  ylyw_yao[6];     // 六爻值 [0-255]
-u8  ylyw_state[6];   // 六维状态 [0-255]
-u8  ylyw_last_hex;   // 上一帧卦象（检测切换）
-u16 ylyw_stable_cnt; // 稳定计数
+u8  ylyw_hex;         /* 卦象 1-64 */
+u8  ylyw_gait;        /* 步态 0-11 */
+u16 ylyw_phase;       /* 步态相位 */
+u8  ylyw_yao[6];      /* 六爻值 [0-255] */
+u8  ylyw_state[6];    /* 六维状态 [0-255] */
+u8  ylyw_last_hex;    /* 上一帧卦象 */
+u16 ylyw_stable_cnt;  /* 稳定计数 */
+s16 ylyw_last_roll;   /* 上一帧Roll偏差（用于计算变化率） */
 
-/* 舵机初始位置 */
+/* 舵机中位 */
 const u8 code SERVO_MID[24] = {
     128,128,128,128,128,128,128,128,
     128,128,128,128,128,128,128,128,
@@ -120,58 +109,62 @@ const u8 code SERVO_MID[24] = {
 /* ============================================================
  * ADC → 六爻状态映射
  * ============================================================ */
-
-/**
- * 读取陀螺仪，映射为六维状态
- *
- * ADC通道: 0(P1.0)=Roll 1(P1.1)=Aux 2(P1.2)=Pitch
- * balance_value[3] = 初始标定值（站立时的平衡基准）
- * value_present[3] = 当前读数
- */
 void ylyw_read_sensors(void) {
     u8 i;
     s16 raw[3];
-    s16 dev[3];  // 偏差 = 当前 - 基准
+    s16 dev[3];
+    u16 pitch_dev;
+    u16 roll_dev;
+    u16 tilt;
+    u16 roll_rate;
 
-    // 读取3通道当前值
     get_present_value();
     for (i=0; i<3; i++) {
         raw[i] = value_present[i];
         dev[i] = (s16)raw[i] - (s16)balance_value[i];
     }
 
-    // 初爻: 姿态稳定 (Pitch和Roll偏差映射到[0,255])
-    u16 pitch_dev = (dev[2] > 0) ? dev[2] : -dev[2];
-    u16 roll_dev  = (dev[0] > 0) ? dev[0] : -dev[0];
-    u16 tilt = pitch_dev + roll_dev;
-    ylyw_state[0] = (tilt < 10)  ? 240 :
-                    (tilt < 20)  ? 200 :
-                    (tilt < 40)  ? 150 :
-                    (tilt < 80)  ? 100 :
-                    (tilt < 160) ?  50 : 20;
+    /* 初爻: 姿态稳定 */
+    pitch_dev = (dev[2] > 0) ? (u16)dev[2] : (u16)(-dev[2]);
+    roll_dev  = (dev[0] > 0) ? (u16)dev[0] : (u16)(-dev[0]);
+    tilt = pitch_dev + roll_dev;
 
-    // 二爻: 质心高度（无高度传感器，根据姿态推测）
-    ylyw_state[1] = (tilt < 20) ? 220 : (tilt < 60) ? 170 : 120;
+    if      (tilt < 10)  ylyw_state[0] = 240;
+    else if (tilt < 20)  ylyw_state[0] = 200;
+    else if (tilt < 40)  ylyw_state[0] = 150;
+    else if (tilt < 80)  ylyw_state[0] = 100;
+    else if (tilt < 160) ylyw_state[0] =  50;
+    else                 ylyw_state[0] =  20;
 
-    // 三爻: 力分布（无传感器，默认均匀）
+    /* 二爻: 质心高度 */
+    if      (tilt < 20) ylyw_state[1] = 220;
+    else if (tilt < 60) ylyw_state[1] = 170;
+    else                ylyw_state[1] = 120;
+
+    /* 三爻: 力分布 */
     ylyw_state[2] = 180;
 
-    // 四爻: ZMP裕度（倾斜越大裕度越小）
-    ylyw_state[3] = (tilt < 10)  ? 240 :
-                    (tilt < 30)  ? 180 :
-                    (tilt < 60)  ? 120 :
-                    (tilt < 120) ?  60 : 20;
+    /* 四爻: ZMP裕度 */
+    if      (tilt < 10)  ylyw_state[3] = 240;
+    else if (tilt < 30)  ylyw_state[3] = 180;
+    else if (tilt < 60)  ylyw_state[3] = 120;
+    else if (tilt < 120) ylyw_state[3] =  60;
+    else                 ylyw_state[3] =  20;
 
-    // 五爻: 扰动（用Roll变化率近似角速度）
-    static s16 last_roll = 0;
-    u16 roll_rate = (dev[0] > last_roll) ? (dev[0]-last_roll) : (last_roll-dev[0]);
-    last_roll = dev[0];
-    ylyw_state[4] = (roll_rate < 5)  ? 230 :
-                    (roll_rate < 10) ? 180 :
-                    (roll_rate < 20) ? 120 :
-                    (roll_rate < 40) ?  60 : 20;
+    /* 五爻: 扰动（Roll变化率） */
+    if (dev[0] > ylyw_last_roll)
+        roll_rate = (u16)(dev[0] - ylyw_last_roll);
+    else
+        roll_rate = (u16)(ylyw_last_roll - dev[0]);
+    ylyw_last_roll = dev[0];
 
-    // 上爻: 地形（无视觉，默认平坦）
+    if      (roll_rate < 5)  ylyw_state[4] = 230;
+    else if (roll_rate < 10) ylyw_state[4] = 180;
+    else if (roll_rate < 20) ylyw_state[4] = 120;
+    else if (roll_rate < 40) ylyw_state[4] =  60;
+    else                     ylyw_state[4] =  20;
+
+    /* 上爻: 地形 */
     ylyw_state[5] = 210;
 }
 
@@ -179,17 +172,26 @@ void ylyw_read_sensors(void) {
  * 卦象匹配（整数余弦相似度）
  * ============================================================ */
 u8 ylyw_match(const u8 yao[6]) {
-    u8 i, j, best = 0;
-    u32 max_sim = 0;
-    u32 yao_n2 = 0;
+    u8 i, j, best;
+    u32 max_sim;
+    u32 yao_n2;
+    u32 dot;
+    u32 tn2;
+    u32 sim;
+
+    best = 0;
+    max_sim = 0;
+    yao_n2 = 0;
     for (i=0; i<6; i++) yao_n2 += (u16)yao[i] * yao[i];
+
     for (i=0; i<64; i++) {
-        u32 dot=0, tn2=0;
+        dot = 0;
+        tn2 = 0;
         for (j=0; j<6; j++) {
             dot += (u16)yao[j] * HEXAGRAM[i][j];
             tn2 += (u16)HEXAGRAM[i][j] * HEXAGRAM[i][j];
         }
-        u32 sim = (dot/10)*(dot/10) / ((yao_n2/10)*(tn2/10) + 1);
+        sim = (dot/10)*(dot/10) / ((yao_n2/10)*(tn2/10) + 1);
         if (sim > max_sim) { max_sim = sim; best = i; }
     }
     return best + 1;
@@ -210,7 +212,14 @@ void ylyw_infer(const u8 state[6]) {
  * 步态→24舵机角度
  * ============================================================ */
 void ylyw_servo_angles(u8 angles[24]) {
-    u8 i, spd, freq, force;
+    u8 i;
+    u8 spd, freq, force;
+    u8 ph;
+    s16 sv, cv;
+    u8 ah, ak;
+    s16 lh, lk;
+    u8 bal;
+
     spd  = GAIT_PARAM[ylyw_gait][0];
     freq = GAIT_PARAM[ylyw_gait][2];
     force= GAIT_PARAM[ylyw_gait][3];
@@ -220,27 +229,35 @@ void ylyw_servo_angles(u8 angles[24]) {
     if (spd < 2) return;
 
     ylyw_phase += freq;
-    u8 ph = ylyw_phase >> 8;
-    s16 sv = (ph & 0x80) ? (s16)(256 - (ph&0x7F)*2 - 1) : (s16)((ph&0x7F)*2);
-    s16 cv = (ph & 0x80) ? (s16)(-(ph&0x7F)*2) : (s16)(256 - (ph&0x7F)*2 - 1);
+    ph = ylyw_phase >> 8;
 
-    u8 ah = (u8)((u16)spd * force / 100 * 3 / 5);
-    u8 ak = (u8)((u16)spd * force / 100 * 2 / 5);
+    /* 三角波近似正弦 */
+    if (ph & 0x80) {
+        sv = (s16)(256 - (ph & 0x7F)*2 - 1);
+        cv = (s16)(-(ph & 0x7F)*2);
+    } else {
+        sv = (s16)((ph & 0x7F)*2);
+        cv = (s16)(256 - (ph & 0x7F)*2 - 1);
+    }
 
-    // 左腿
-    s16 lh = ((s16)ah * sv) / 256;
-    s16 lk = ((s16)ak * (sv>0 ? sv:0)) / 256;
+    ah = (u8)((u16)spd * force / 100 * 3 / 5);
+    ak = (u8)((u16)spd * force / 100 * 2 / 5);
+
+    /* 左腿 */
+    lh = ((s16)ah * sv) / 256;
+    lk = (sv > 0) ? ((s16)ak * sv) / 256 : 0;
     angles[3] = (u8)(SERVO_MID[3] + lh);
     angles[5] = (u8)(SERVO_MID[5] + lh);
     angles[4] = (u8)(SERVO_MID[4] - lk);
 
-    // 右腿（反相）
+    /* 右腿（反相） */
     angles[0] = (u8)(SERVO_MID[0] - lh);
     angles[2] = (u8)(SERVO_MID[2] - lh);
-    angles[1] = (u8)(SERVO_MID[1] - ((s16)ak * (cv>0?cv:0))/256);
+    lk = (cv > 0) ? ((s16)ak * cv) / 256 : 0;
+    angles[1] = (u8)(SERVO_MID[1] - lk);
 
-    // 侧向平衡
-    u8 bal = spd / 3;
+    /* 侧向平衡 */
+    bal = spd / 3;
     angles[8]  = SERVO_MID[8]  + bal * 2;
     angles[9]  = SERVO_MID[9]  - bal * 2;
     angles[10] = SERVO_MID[10] - bal * 2;
@@ -253,23 +270,22 @@ void ylyw_servo_angles(u8 angles[24]) {
 void ylyw_balance_check(void) {
     u8 i;
     s16 dev[3];
+    u16 tilt;
 
     get_present_value();
     for (i=0; i<3; i++) dev[i] = (s16)value_present[i] - (s16)balance_value[i];
 
-    // 卦象切换检测
     if (ylyw_hex != ylyw_last_hex) {
-        // 卦象变了 → 可能是扰动/失衡
-        u16 tilt = ((dev[2]>0)?dev[2]:-dev[2]) + ((dev[0]>0)?dev[0]:-dev[0]);
+        tilt = 0;
+        if (dev[2] > 0) tilt += (u16)dev[2]; else tilt += (u16)(-dev[2]);
+        if (dev[0] > 0) tilt += (u16)dev[0]; else tilt += (u16)(-dev[0]);
 
         if (tilt > 60) {
-            // 倾斜大 → 强制恢复卦
-            ylyw_hex = 24;  // 地雷复→恢复
-            ylyw_gait = 7;  // recovery
+            ylyw_hex = 24;
+            ylyw_gait = 7;
         } else if (tilt > 30) {
-            // 倾斜中 → 谨慎卦
-            ylyw_hex = 15;  // 地山谦→站稳
-            ylyw_gait = 0;  // stand
+            ylyw_hex = 15;
+            ylyw_gait = 0;
         }
     }
 }
@@ -278,18 +294,16 @@ void ylyw_balance_check(void) {
  * 初始化
  * ============================================================ */
 void ylyw_init(void) {
-    u8 i;
     ylyw_phase = 0;
-    ylyw_hex = 52;      // 艮→stand
+    ylyw_hex = 52;
     ylyw_last_hex = 52;
     ylyw_gait = 0;
     ylyw_stable_cnt = 0;
+    ylyw_last_roll = 0;
 
-    // 标定陀螺仪基准（站立姿态）
     get_balance_value();
     delay500ms(1);
 
-    // 读取初始状态做首次推理
     ylyw_read_sensors();
     ylyw_infer(ylyw_state);
 }
@@ -298,21 +312,14 @@ void ylyw_init(void) {
  * 单步: 传感器→推理→舵机→PWM (每20ms)
  * ============================================================ */
 void ylyw_step(void) {
-    u8 angles[24], i;
+    u8 angles[24];
+    u8 i;
 
-    // 1. 读陀螺仪
     ylyw_read_sensors();
-
-    // 2. YLYW推理
     ylyw_infer(ylyw_state);
-
-    // 3. 平衡检查（卦象级修正）
     ylyw_balance_check();
-
-    // 4. 生成舵机角度
     ylyw_servo_angles(angles);
 
-    // 5. 写入position[] + 输出PWM
     for (i=0; i<24; i++) position[i] = angles[i];
     PWM_24();
 }
@@ -322,25 +329,34 @@ void ylyw_step(void) {
  * ============================================================ */
 void ylyw_main(void) {
     ylyw_step();
-    low_level_500u(40);   // 20ms延时
+    low_level_500u(40);
 }
 
 /* ============================================================
- * 步态选择：通过PS2手柄或串口切换演示步态
- * 0=站立 1=慢走 2=行走 3=小跑 4=奔跑
+ * 步态选择：手动注入期望步态（PS2/串口控制用）
  * ============================================================ */
 void ylyw_set_demo_gait(u8 gait_id) {
-    // 注入期望步态对应的虚拟状态
-    const u8 code DEMO_STATES[5][6] = {
-        {230,210,195,230, 13,210}, // 站立
-        {184,186,175,166, 51,205}, // 慢走
-        {166,179,166,153, 77,200}, // 行走
-        {140,190,185,128,133,195}, // 小跑
-        {120,192,200,108,158,200}, // 奔跑
-    };
     u8 i;
-    if (gait_id < 5) {
-        for (i=0; i<6; i++) ylyw_state[i] = DEMO_STATES[gait_id][i];
+    if (gait_id == 0) {
+        ylyw_state[0] = 230; ylyw_state[1] = 210;
+        ylyw_state[2] = 195; ylyw_state[3] = 230;
+        ylyw_state[4] =  13; ylyw_state[5] = 210;
+    } else if (gait_id == 1) {
+        ylyw_state[0] = 184; ylyw_state[1] = 186;
+        ylyw_state[2] = 175; ylyw_state[3] = 166;
+        ylyw_state[4] =  51; ylyw_state[5] = 205;
+    } else if (gait_id == 2) {
+        ylyw_state[0] = 166; ylyw_state[1] = 179;
+        ylyw_state[2] = 166; ylyw_state[3] = 153;
+        ylyw_state[4] =  77; ylyw_state[5] = 200;
+    } else if (gait_id == 3) {
+        ylyw_state[0] = 140; ylyw_state[1] = 190;
+        ylyw_state[2] = 185; ylyw_state[3] = 128;
+        ylyw_state[4] = 133; ylyw_state[5] = 195;
+    } else if (gait_id == 4) {
+        ylyw_state[0] = 120; ylyw_state[1] = 192;
+        ylyw_state[2] = 200; ylyw_state[3] = 108;
+        ylyw_state[4] = 158; ylyw_state[5] = 200;
     }
 }
 
