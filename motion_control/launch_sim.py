@@ -3,7 +3,7 @@
 YLYW 双足运动控制仿真 — PyBullet Humanoid版
 使用关节电机控制实现真实行走
 """
-import sys, os, time, glob, numpy as np
+import sys, os, time, glob, math, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from ylyw_locomotion import YLYWLocomotionController
@@ -40,15 +40,17 @@ def run_gui(duration=30):
         return
     
     p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
-    p.resetDebugVisualizerCamera(2.5, 20, -15, [0, 0, 0.8])
+    # 正面视角
+    p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=0, cameraPitch=-5, cameraTargetPosition=[0, 0, 0.7])
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
     p.setGravity(0, 0, -9.81)
     p.setTimeStep(1/500.)
     p.loadURDF("plane.urdf")
     
-    # 加载人形机器人（固定底座防止摔倒，专注展示步态）
-    robot_id = p.loadURDF("humanoid/humanoid.urdf", [0, 0, 0.95], useFixedBase=True)
-    # 取消腿部关节的固定约束，允许运动
+    # 加载人形机器人（绕X轴旋转90度使URDF的Y轴对准世界Z轴）
+    # humanoid.urdf 内部用Y轴为"上"，需要旋转使其站立
+    rot_stand = p.getQuaternionFromEuler([math.pi/2, 0, 0])
+    robot_id = p.loadURDF("humanoid/humanoid.urdf", [0, 0, 0.85], rot_stand, useFixedBase=True)
     print(f"Robot ID: {robot_id}, Joints: {p.getNumJoints(robot_id)}")
     
     # 关节映射
@@ -156,9 +158,10 @@ def run_gui(duration=30):
                         # 踝关节：保持水平
                         p.setJointMotorControl2(robot_id, j['ankle'], p.POSITION_CONTROL, targetPosition=-0.1 * hip_amp * np.sin(p_leg), force=max_force * 0.5)
             
-            # GUI叠加文字
-            info = f"{display_gait['hexagram_name']} | {display_gait['gait_name']} | {display_gait['speed']:.2f}m/s"
-            p.addUserDebugText(info, [0, 0, 2.0], textColorRGB=[1, 1, 0], textSize=1.5, lifeTime=0.15)
+            # GUI叠加文字（降低频率避免draw failed）
+            if step % 250 == 0:
+                info = f"{display_gait['hexagram_name']} | {display_gait['gait_name']} | {display_gait['speed']:.2f}m/s"
+                p.addUserDebugText(info, [0, 0, 2.0], textColorRGB=[1, 1, 0], textSize=1.5, lifeTime=1.0)
             
             p.stepSimulation()
             
