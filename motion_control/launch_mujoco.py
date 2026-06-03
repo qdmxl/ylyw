@@ -215,22 +215,23 @@ def run_gui(duration=90):
                         data.ctrl[act_ids[f'{side}k_m']] = knee
                         data.ctrl[act_ids[f'{side}a_m']] = -0.08 * hip
             
-            # 躯干沿X轴移动（速度=步态速度）
+            # 躯干和标记速度控制（直接用qvel，不用actuator）
             slide_speed = 0
             if current_gait:
                 slide_speed = current_gait['speed']
-            data.ctrl[act_ids['sx_m']] = slide_speed * 0.5
             
-            # 跑步机标记向后滑动 + 循环复位
+            # 躯干沿X滑动
+            data.qvel[model.joint('slide_x').dofadr[0]] = slide_speed * 2
+            
+            # 标记向后滑动 + 循环复位
             for i in range(1, 11):
-                data.ctrl[act_ids[f'm{i}_m']] = -slide_speed * 4
-                # 复位到右侧
-                jid = model.joint(f'm{i}').id
-                if data.qpos[jid] < -12:
-                    data.qpos[jid] += 20
+                jid = model.joint(f'm{i}').dofadr[0]
+                data.qvel[jid] = -slide_speed * 8
+                if data.qpos[model.joint(f'm{i}').qposadr[0]] < -12:
+                    data.qpos[model.joint(f'm{i}').qposadr[0]] += 20
             
             mujoco.mj_step(model, data)
-            time.sleep(0.02)  # 控制视觉速度
+            time.sleep(0.01)  # 控制视觉速度（2x）
             
             if step - last_log >= 200:
                 g = display_gait
