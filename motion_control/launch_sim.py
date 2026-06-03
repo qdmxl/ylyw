@@ -27,39 +27,64 @@ def connect_gui():
 
 
 def build_kinematic_robot():
-    """运动学机器人：腿在X-Z平面摆动（侧视图可见）"""
+    """仿灵犀X2外形机器人（基础形状搭建）"""
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
     p.setGravity(0, 0, 0)
     p.loadURDF("plane.urdf")
     
     bodies = {}
-    # 躯干
-    tv = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.08, 0.12, 0.22], rgbaColor=[0.2, 0.4, 0.9, 1])
-    bodies['torso'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=tv, basePosition=[0, 0, 0.82])
-    # 头
-    hv = p.createVisualShape(p.GEOM_SPHERE, radius=0.10, rgbaColor=[1, 0.85, 0.7, 1])
-    bodies['head'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=hv, basePosition=[0, 0, 1.08])
+    # 颜色方案：银灰色躯干 + 深灰关节
+    C_TORSO = [0.75, 0.78, 0.82, 1]   # 银灰
+    C_HEAD  = [0.85, 0.88, 0.90, 1]   # 浅灰
+    C_ARM   = [0.55, 0.58, 0.62, 1]   # 深灰
+    C_LEG   = [0.50, 0.53, 0.57, 1]   # 腿深灰
+    C_JOINT = [0.35, 0.38, 0.42, 1]   # 关节深色
     
-    # 腿沿X轴排列（前腿/后腿），绕Y轴摆动
-    for side, x_sign in [('l', 0.08), ('r', -0.08)]:
-        tv2 = p.createVisualShape(p.GEOM_CYLINDER, radius=0.04, length=0.28, rgbaColor=[0.2, 0.8, 0.3, 1])
+    # 头部（球体）
+    hv = p.createVisualShape(p.GEOM_SPHERE, radius=0.08, rgbaColor=C_HEAD)
+    bodies['head'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=hv, basePosition=[0, 0, 1.28])
+    
+    # 躯干（圆角盒体）
+    tv = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.13, 0.10, 0.25], rgbaColor=C_TORSO)
+    bodies['torso'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=tv, basePosition=[0, 0, 0.90])
+    
+    # 上肢（左右臂）
+    for side, y_sign in [('l', 0.12), ('r', -0.12)]:
+        # 上臂
+        ua = p.createVisualShape(p.GEOM_CYLINDER, radius=0.035, length=0.25, rgbaColor=C_ARM)
+        bodies[f'upper_arm_{side}'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=ua,
+                                                         basePosition=[0, y_sign, 1.02])
+        # 前臂
+        fa = p.createVisualShape(p.GEOM_CYLINDER, radius=0.03, length=0.22, rgbaColor=C_ARM)
+        bodies[f'forearm_{side}'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=fa,
+                                                       basePosition=[0, y_sign, 0.78])
+    
+    # 下肢（双腿，摆动用）
+    for side, x_sign in [('l', 0.07), ('r', -0.07)]:
+        # 大腿
+        tv2 = p.createVisualShape(p.GEOM_CYLINDER, radius=0.045, length=0.30, rgbaColor=C_LEG)
         bodies[f'thigh_{side}'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=tv2,
-                                                     basePosition=[x_sign, 0, 0.52])
-        
-        sv = p.createVisualShape(p.GEOM_CYLINDER, radius=0.035, length=0.26, rgbaColor=[0.2, 0.8, 0.3, 1])
+                                                     basePosition=[x_sign, 0, 0.58])
+        # 小腿
+        sv = p.createVisualShape(p.GEOM_CYLINDER, radius=0.04, length=0.28, rgbaColor=C_LEG)
         bodies[f'shin_{side}'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=sv,
-                                                    basePosition=[x_sign, 0, 0.22])
+                                                    basePosition=[x_sign, 0, 0.28])
+        # 脚（扁平盒体）
+        fv = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.06, 0.04, 0.025], rgbaColor=C_JOINT)
+        bodies[f'foot_{side}'] = p.createMultiBody(baseMass=0, baseVisualShapeIndex=fv,
+                                                    basePosition=[x_sign, 0, 0.04])
     
     return bodies
 
 
 def animate_leg_side(bodies, side, x_sign, hip_angle, knee_angle, base_x=0):
-    """运动学：绕Y轴旋转，base_x为机器人当前X位置"""
-    L_thigh = 0.28
-    L_shin = 0.26
+    """运动学：绕Y轴摆动 + 脚部跟随"""
+    L_thigh = 0.30
+    L_shin = 0.28
+    L_foot = 0.04
     
     hip_x = base_x + x_sign
-    hip_pos = np.array([hip_x, 0, 0.52])
+    hip_pos = np.array([hip_x, 0, 0.58])
     knee_pos = hip_pos + np.array([L_thigh * math.sin(hip_angle), 0, -L_thigh * math.cos(hip_angle)])
     thigh_orn = p.getQuaternionFromEuler([0, hip_angle, 0])
     p.resetBasePositionAndOrientation(bodies[f'thigh_{side}'], hip_pos, thigh_orn)
@@ -68,6 +93,10 @@ def animate_leg_side(bodies, side, x_sign, hip_angle, knee_angle, base_x=0):
     shin_pos = knee_pos + np.array([L_shin * math.sin(total), 0, -L_shin * math.cos(total)])
     shin_orn = p.getQuaternionFromEuler([0, total, 0])
     p.resetBasePositionAndOrientation(bodies[f'shin_{side}'], shin_pos, shin_orn)
+    
+    # 脚部跟随小腿末端
+    foot_pos = shin_pos + np.array([L_shin * 0.5 * math.sin(total), 0, -0.14 * math.cos(total)])
+    p.resetBasePositionAndOrientation(bodies[f'foot_{side}'], foot_pos, [0, 0, 0, 1])
 
 
 def run_gui(duration=30):
@@ -76,8 +105,8 @@ def run_gui(duration=30):
         print("❌ GUI失败"); return
 
     p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
-    # 侧面视角：从侧面看机器人左右行走
-    p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=90, cameraPitch=-8,
+    # 45度斜侧视角：兼顾机器人形态和左右运动
+    p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=45, cameraPitch=-18,
                                   cameraTargetPosition=[0, 0, 0.80])
     
     bodies = build_kinematic_robot()
@@ -103,7 +132,7 @@ def run_gui(duration=30):
     demo_idx = 0
 
     print(f"{'='*55}")
-    print(f"YLYW 运动控制仿真 | 侧视图 | Ctrl+C 停止")
+    print(f"YLYW 运动控制仿真 | 仿灵犀X2 | 45°视角 | Ctrl+C 停止")
     print(f"{'='*55}")
     print(f"{'时间':>5} {'场景':<8} {'卦象':<10} {'步态':<10} {'速':>4}")
     print("-" * 48)
@@ -127,19 +156,19 @@ def run_gui(duration=30):
                 # 机器人沿X轴移动（速度=步态速度）
                 robot_x += spd * dt
                 # 更新躯干和头部位置
-                p.resetBasePositionAndOrientation(bodies['torso'], [robot_x, 0, 0.82], [0,0,0,1])
-                p.resetBasePositionAndOrientation(bodies['head'], [robot_x, 0, 1.08], [0,0,0,1])
+                p.resetBasePositionAndOrientation(bodies['torso'], [robot_x, 0, 0.90], [0,0,0,1])
+                p.resetBasePositionAndOrientation(bodies['head'], [robot_x, 0, 1.28], [0,0,0,1])
                 # 摄像头跟随
-                p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=90, cameraPitch=-8,
+                p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=45, cameraPitch=-18,
                                               cameraTargetPosition=[robot_x, 0, 0.80])
 
                 if spd < 0.03:
-                    for side, x_sign in [('l', 0.08), ('r', -0.08)]:
+                    for side, x_sign in [('l', 0.07), ('r', -0.07)]:
                         animate_leg_side(bodies, side, x_sign, 0, 0, robot_x)
                 else:
                     amp_h = 0.55 * spd
                     amp_k = 0.45 * spd
-                    for side, x_sign, off in [('l', 0.08, 0), ('r', -0.08, math.pi)]:
+                    for side, x_sign, off in [('l', 0.07, 0), ('r', -0.07, math.pi)]:
                         p_leg = phase + off
                         hip_angle = amp_h * math.sin(p_leg)
                         knee_angle = amp_k * max(0, math.sin(p_leg))
@@ -151,7 +180,7 @@ def run_gui(duration=30):
             if step % 60 == 0:
                 p.addUserDebugText(
                     f"{display_gait['hexagram_name']} | {display_gait['gait_name']} | {display_gait['speed']:.2f}m/s",
-                    [robot_x, 0, 1.5], [1, 1, 0], 1.2, lifeTime=0.6)
+                    [robot_x, 0, 1.60], [1, 1, 0], 1.2, lifeTime=0.6)
 
             if step - last_log >= 120:
                 g = display_gait
