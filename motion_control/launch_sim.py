@@ -1,217 +1,218 @@
 #!/usr/bin/env python3
 """
-YLYW 双足运动控制仿真 — PyBullet Humanoid版
-使用关节电机控制实现真实行走
+YLYW 双足运动控制仿真 — 基础形状版
+球体+盒体搭建，保证渲染可见
 """
 import sys, os, time, glob, math, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
 from ylyw_locomotion import YLYWLocomotionController
-import pybullet as p
-import pybullet_data
+import pybullet as p, pybullet_data
 
 
 def auto_detect_display():
     for pat in ['/run/user/*/mutter-Xwaylandauth.*', '/run/user/*/.mutter-Xwaylandauth.*']:
         for f in glob.glob(pat):
-            os.environ.setdefault('XAUTHORITY', f)
-            break
+            os.environ.setdefault('XAUTHORITY', f); break
     os.environ.setdefault('DISPLAY', ':0')
 
 
 def connect_gui():
     auto_detect_display()
-    configs = [("OpenGL2", "--opengl2"), ("默认", "")]
-    for desc, opts in configs:
+    for desc, opts in [("OpenGL2", "--opengl2"), ("默认", "")]:
         try:
             cid = p.connect(p.GUI, options=opts) if opts else p.connect(p.GUI)
-            print(f"✅ GUI: {desc}")
-            return cid
-        except Exception as e:
-            print(f"  {desc}: {e}")
+            print(f"✅ GUI: {desc}"); return cid
+        except: pass
     return None
 
 
-def run_gui(duration=30):
-    """GUI仿真 - 使用PyBullet人形机器人 + 关节电机控制"""
-    client = connect_gui()
-    if client is None:
-        print("\n❌ GUI连接失败。使用 python3 launch_sim.py --no-gui")
-        return
-    
-    p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
-    # 正面视角
-    p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=0, cameraPitch=-5, cameraTargetPosition=[0, 0, 0.7])
+def build_box_robot():
+    """球体+盒体搭建可见机器人"""
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
     p.setGravity(0, 0, -9.81)
     p.setTimeStep(1/500.)
     p.loadURDF("plane.urdf")
-    
-    # 加载人形机器人（绕X轴旋转90度使URDF的Y轴对准世界Z轴）
-    # humanoid.urdf 内部用Y轴为"上"，需要旋转使其站立
-    rot_stand = p.getQuaternionFromEuler([math.pi/2, 0, 0])
-    robot_id = p.loadURDF("humanoid/humanoid.urdf", [0, 0, 0.85], rot_stand, useFixedBase=True)
-    print(f"Robot ID: {robot_id}, Joints: {p.getNumJoints(robot_id)}")
-    
-    # 关节映射
-    JOINT_NAMES = {}
-    for i in range(p.getNumJoints(robot_id)):
-        info = p.getJointInfo(robot_id, i)
-        JOINT_NAMES[info[1].decode()] = i
-    
-    # 腿部关节
-    LEG_JOINTS = {
-        'left':  {'hip': JOINT_NAMES['left_hip'],  'knee': JOINT_NAMES['left_knee'],  'ankle': JOINT_NAMES['left_ankle']},
-        'right': {'hip': JOINT_NAMES['right_hip'], 'knee': JOINT_NAMES['right_knee'], 'ankle': JOINT_NAMES['right_ankle']},
-    }
-    
-    # 禁用默认电机，改Position控制
-    for leg in LEG_JOINTS.values():
-        for jid in leg.values():
-            p.setJointMotorControl2(robot_id, jid, p.VELOCITY_CONTROL, force=0)
-    
+
+    # 头部 - 球体
+    hs = p.createCollisionShape(p.GEOM_SPHERE, radius=0.12)
+    hv = p.createVisualShape(p.GEOM_SPHERE, radius=0.12, rgbaColor=[1, 0.85, 0.7, 1])
+    head = p.createMultiBody(baseMass=0.5, baseCollisionShapeIndex=hs,
+                             baseVisualShapeIndex=hv, basePosition=[0, 0, 1.25])
+
+    # 躯干 - 蓝色盒
+    ts = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.12, 0.08, 0.20])
+    tv = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.12, 0.08, 0.20], rgbaColor=[0.2, 0.4, 0.9, 1])
+    torso = p.createMultiBody(baseMass=1.0, baseCollisionShapeIndex=ts,
+                              baseVisualShapeIndex=tv, basePosition=[0, 0, 0.80])
+
+    # 头-躯干固定
+    p.createConstraint(torso, -1, head, -1, p.JOINT_FIXED, [0, 0, 0], [0, 0, 0.20], [0, 0, 0.40])
+
+    joints = {}
+    for side, y_sign in [('l', 0.08), ('r', -0.08)]:
+        # 大腿 - 绿色圆柱
+        us = p.createCollisionShape(p.GEOM_CYLINDER, radius=0.04, height=0.30)
+        uv = p.createVisualShape(p.GEOM_CYLINDER, radius=0.04, length=0.30, rgbaColor=[0.2, 0.8, 0.3, 1])
+        thigh = p.createMultiBody(baseMass=0.0, baseCollisionShapeIndex=us,
+                                  baseVisualShapeIndex=uv, basePosition=[0, y_sign, 0.55])
+
+        # 髋关节 - 铰链
+        jid = p.createConstraint(torso, -1, thigh, -1, 4, [1, 0, 0],
+                                 [0, y_sign, -0.18], [0, 0, 0])
+        p.changeConstraint(jid, maxForce=200)
+        joints[('hip', side)] = jid
+        joints[('hip_body', side)] = thigh
+
+        # 小腿 - 绿色圆柱
+        ls = p.createCollisionShape(p.GEOM_CYLINDER, radius=0.035, height=0.28)
+        lv = p.createVisualShape(p.GEOM_CYLINDER, radius=0.035, length=0.28, rgbaColor=[0.2, 0.8, 0.3, 1])
+        shin = p.createMultiBody(baseMass=0.0, baseCollisionShapeIndex=ls,
+                                 baseVisualShapeIndex=lv, basePosition=[0, y_sign, 0.25])
+
+        jid2 = p.createConstraint(thigh, -1, shin, -1, 4, [1, 0, 0],
+                                  [0, 0, -0.15], [0, 0, 0.14])
+        p.changeConstraint(jid2, maxForce=150)
+        joints[('knee', side)] = jid2
+        joints[('knee_body', side)] = shin
+
+        # 脚 - 红色盒
+        fs = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.05, 0.12, 0.03])
+        fv = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.05, 0.12, 0.03], rgbaColor=[0.9, 0.2, 0.2, 1])
+        foot = p.createMultiBody(baseMass=0.0, baseCollisionShapeIndex=fs,
+                                 baseVisualShapeIndex=fv, basePosition=[0, y_sign, 0.07])
+
+        jid3 = p.createConstraint(shin, -1, foot, -1, 4, [1, 0, 0],
+                                  [0, 0, -0.14], [0, 0, 0.03])
+        p.changeConstraint(jid3, maxForce=100)
+        joints[('ankle', side)] = jid3
+
+    return torso, joints
+
+
+def run_gui(duration=30):
+    client = connect_gui()
+    if client is None:
+        print("❌ GUI失败"); return
+
+    torso_id, joints = build_box_robot()
     controller = YLYWLocomotionController()
-    
-    # 步态参数
-    phase = 0.0
-    sim_time = 0.0
-    dt = 1/500.
-    step = 0
-    current_gait = None
-    last_log = -999
-    
-    # 快速演示序列（每3秒一个场景）
-    demo_sequence = [
-        (0,   "初始站立",   [0.90,0.82,0.75,0.88,0.05,0.82]),
-        (3,   "开始慢走",   [0.72,0.72,0.68,0.65,0.20,0.80]),
-        (6,   "加速行走",   [0.65,0.70,0.65,0.60,0.30,0.78]),
-        (9,   "快速小跑",   [0.55,0.72,0.72,0.50,0.52,0.76]),
-        (12,  "全力奔跑",   [0.48,0.75,0.78,0.42,0.62,0.78]),
-        (15,  "突然推搡",   [0.18,0.30,0.25,0.14,0.82,0.55]),
-        (18,  "踉跄恢复",   [0.55,0.42,0.48,0.38,0.50,0.60]),
-        (21,  "爬坡前进",   [0.48,0.42,0.52,0.32,0.45,0.18]),
-        (24,  "回到平路",   [0.70,0.72,0.68,0.65,0.22,0.78]),
-        (27,  "减速站立",   [0.88,0.78,0.72,0.85,0.10,0.80]),
-    ]
-    
-    demo_idx = 0
+
+    # 正面视角
+    p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
+    p.resetDebugVisualizerCamera(cameraDistance=1.5, cameraYaw=0, cameraPitch=-5,
+                                  cameraTargetPosition=[0, 0, 0.85])
+
+    phase = 0.0; sim_time = 0.0; dt = 1/500.; step = 0
+    current_gait = None; last_log = -999
     display_gait = {"hexagram_name": "艮为山", "gait_name": "静止站立", "speed": 0.0}
-    
-    print(f"\n{'='*60}")
-    print(f"YLYW 运动控制仿真 | Humanoid | {len(LEG_JOINTS)*3} 腿部关节")
+
+    # 每3秒切换场景
+    demo_seq = [
+        (0,  "初始站立", [0.90,0.82,0.75,0.88,0.05,0.82]),
+        (3,  "开始慢走", [0.72,0.72,0.68,0.65,0.20,0.80]),
+        (6,  "加速行走", [0.65,0.70,0.65,0.60,0.30,0.78]),
+        (9,  "快速小跑", [0.55,0.72,0.72,0.50,0.52,0.76]),
+        (12, "全力奔跑", [0.48,0.75,0.78,0.42,0.62,0.78]),
+        (15, "突然推搡", [0.18,0.30,0.25,0.14,0.82,0.55]),
+        (18, "踉跄恢复", [0.55,0.42,0.48,0.38,0.50,0.60]),
+        (21, "爬坡前进", [0.48,0.42,0.52,0.32,0.45,0.18]),
+        (24, "回到平路", [0.70,0.72,0.68,0.65,0.22,0.78]),
+        (27, "减速站立", [0.88,0.78,0.72,0.85,0.10,0.80]),
+    ]
+    demo_idx = 0
+
+    print(f"{'='*55}")
+    print(f"YLYW 运动控制仿真 | 基础形状机器人 | {len(joints)//2}关节")
     print(f"运行 {duration}s | Ctrl+C 停止")
-    print(f"{'='*60}")
-    print(f"{'时间':>5} {'场景':<8} {'卦象':<10} {'步态':<8} {'速':>4}")
-    print("-" * 45)
-    
+    print(f"{'='*55}")
+    print(f"{'时间':>5} {'场景':<8} {'卦象':<10} {'步态':<8} {'速':>4} {'六爻'}")
+    print("-" * 55)
+
     try:
         while sim_time < duration:
-            # 演示序列状态注入
-            while demo_idx + 1 < len(demo_sequence) and sim_time >= demo_sequence[demo_idx + 1][0]:
+            while demo_idx+1 < len(demo_seq) and sim_time >= demo_seq[demo_idx+1][0]:
                 demo_idx += 1
-            
-            demo_name, demo_state = demo_sequence[demo_idx][1], demo_sequence[demo_idx][2]
-            
-            # YLYW推理 (~4Hz)
+            name, dstate = demo_seq[demo_idx][1], demo_seq[demo_idx][2]
+
             if step % 125 == 0:
-                current_gait = controller.infer(np.array(demo_state), verbose=False)
-                if current_gait:
-                    display_gait = current_gait
-            
-            # 关节运动控制
+                current_gait = controller.infer(np.array(dstate), verbose=False)
+                if current_gait: display_gait = current_gait
+
             if current_gait:
-                speed = current_gait['speed']
+                spd = current_gait['speed']
                 freq = current_gait['freq']
-                force_coef = current_gait['force_coefficient']
-                
-                phase += freq * dt * 2 * np.pi
-                phase %= 2 * np.pi
-                
-                max_force = 500 * force_coef  # 力矩缩放
-                
-                if speed < 0.05:
-                    # 站立：保持关节在零位
-                    for leg in LEG_JOINTS.values():
-                        p.setJointMotorControl2(robot_id, leg['hip'], p.POSITION_CONTROL, targetPosition=0, force=max_force)
-                        p.setJointMotorControl2(robot_id, leg['knee'], p.POSITION_CONTROL, targetPosition=0, force=max_force)
-                        p.setJointMotorControl2(robot_id, leg['ankle'], p.POSITION_CONTROL, targetPosition=0, force=max_force)
+                fc = current_gait['force_coefficient']
+                phase += freq * dt * 2 * math.pi; phase %= 2 * math.pi
+                force = 200 * fc
+
+                if spd < 0.05:
+                    for side in ['l', 'r']:
+                        try:
+                            p.changeConstraint(joints[('hip', side)], jointChildPivot=[0,0,0], maxForce=force)
+                            p.changeConstraint(joints[('knee', side)], jointChildPivot=[0,0,0], maxForce=force)
+                        except: pass
                 else:
-                    # 行走：正弦步态
-                    hip_amp = 0.5 * speed * 1.2
-                    knee_amp = 0.6 * speed * 0.8
-                    
-                    for side, offset in [('left', 0), ('right', np.pi)]:
-                        j = LEG_JOINTS[side]
-                        p_leg = phase + offset
-                        
-                        # 髋关节：前后摆动
-                        hip_pos = hip_amp * np.sin(p_leg)
-                        p.setJointMotorControl2(robot_id, j['hip'], p.POSITION_CONTROL, targetPosition=hip_pos, force=max_force)
-                        
-                        # 膝关节：站立相伸直(0)，摆动相弯曲
-                        if np.sin(p_leg) > 0:
-                            knee_pos = knee_amp * np.sin(p_leg)
-                        else:
-                            knee_pos = 0
-                        p.setJointMotorControl2(robot_id, j['knee'], p.POSITION_CONTROL, targetPosition=knee_pos, force=max_force * 0.7)
-                        
-                        # 踝关节：保持水平
-                        p.setJointMotorControl2(robot_id, j['ankle'], p.POSITION_CONTROL, targetPosition=-0.1 * hip_amp * np.sin(p_leg), force=max_force * 0.5)
-            
-            # GUI叠加文字（降低频率避免draw failed）
+                    amp_h = 0.5 * spd
+                    amp_k = 0.4 * spd
+                    for side, off in [('l', 0), ('r', math.pi)]:
+                        p_leg = phase + off
+                        hp = amp_h * math.sin(p_leg)
+                        kp = amp_k * math.sin(p_leg) if math.sin(p_leg) > 0 else 0
+                        try:
+                            p.changeConstraint(joints[('hip', side)],
+                                             jointChildPivot=[0, 0.15*math.sin(hp), 0.15*math.cos(hp)],
+                                             maxForce=force)
+                            p.changeConstraint(joints[('knee', side)],
+                                             jointChildPivot=[0, 0.12*math.sin(kp), 0.12*math.cos(kp)],
+                                             maxForce=force*0.7)
+                        except: pass
+
             if step % 250 == 0:
-                info = f"{display_gait['hexagram_name']} | {display_gait['gait_name']} | {display_gait['speed']:.2f}m/s"
-                p.addUserDebugText(info, [0, 0, 2.0], textColorRGB=[1, 1, 0], textSize=1.5, lifeTime=1.0)
-            
+                p.addUserDebugText(
+                    f"{display_gait['hexagram_name']} | {display_gait['gait_name']} | {display_gait['speed']:.2f}m/s",
+                    [0, 0, 1.6], [1, 1, 0], 1.2, lifeTime=1.0)
+
             p.stepSimulation()
-            
-            if step % 8 == 0:
-                time.sleep(0.016)
-            
+            if step % 8 == 0: time.sleep(0.016)
+
             if step - last_log >= 500:
-                print(f"{sim_time:>4.1f}s {demo_name:<8} {display_gait['hexagram_name']:<10} "
-                      f"{display_gait['gait_name']:<8} {display_gait['speed']:>3.2f}")
+                g = display_gait
+                print(f"{sim_time:>4.1f}s {name:<8} {g['hexagram_name']:<10} "
+                      f"{g['gait_name']:<8} {g['speed']:>3.2f} {g.get('yin_yang','------')}")
                 last_log = step
-            
-            step += 1
-            sim_time += dt
-    
+
+            step += 1; sim_time += dt
+
     except KeyboardInterrupt:
-        print("\n⏹ 用户中断")
-    
+        print("\n⏹ 中断")
+
     p.disconnect(client)
-    stats = controller.get_stats()
-    print(f"\n统计: {stats.get('total_steps',0)}次推理, {stats.get('unique_hexagrams',0)}卦")
+    print(f"统计: {controller.get_stats().get('total_steps',0)}次推理")
 
 
 def run_no_gui():
     controller = YLYWLocomotionController()
-    demo = [
-        (0, "初始站立", [0.90,0.82,0.75,0.88,0.05,0.82]),
-        (3, "开始慢走", [0.72,0.72,0.68,0.65,0.20,0.80]),
-        (8, "加速行走", [0.65,0.70,0.65,0.60,0.30,0.78]),
-        (14,"快速小跑", [0.55,0.72,0.72,0.50,0.52,0.76]),
-        (20,"全力奔跑", [0.48,0.75,0.78,0.42,0.62,0.78]),
-        (26,"突然推搡", [0.18,0.30,0.25,0.14,0.82,0.55]),
-        (32,"踉跄恢复", [0.55,0.42,0.48,0.38,0.50,0.60]),
-        (38,"爬坡前进", [0.48,0.42,0.52,0.32,0.45,0.18]),
-        (44,"回到平路", [0.70,0.72,0.68,0.65,0.22,0.78]),
-        (50,"减速站立", [0.88,0.78,0.72,0.85,0.10,0.80]),
-    ]
-    print(f"{'时间':>4} {'场景':<8} {'卦象':<10} {'步态':<10} {'速':>4} {'六爻'}")
-    print("-" * 65)
-    for t, name, state in demo:
+    for t, name, state in [
+        (0,"初始站立",[0.90,0.82,0.75,0.88,0.05,0.82]),
+        (3,"开始慢走",[0.72,0.72,0.68,0.65,0.20,0.80]),
+        (8,"加速行走",[0.65,0.70,0.65,0.60,0.30,0.78]),
+        (14,"快速小跑",[0.55,0.72,0.72,0.50,0.52,0.76]),
+        (20,"全力奔跑",[0.48,0.75,0.78,0.42,0.62,0.78]),
+        (26,"突然推搡",[0.18,0.30,0.25,0.14,0.82,0.55]),
+        (32,"踉跄恢复",[0.55,0.42,0.48,0.38,0.50,0.60]),
+        (38,"爬坡前进",[0.48,0.42,0.52,0.32,0.45,0.18]),
+        (44,"回到平路",[0.70,0.72,0.68,0.65,0.22,0.78]),
+        (50,"减速站立",[0.88,0.78,0.72,0.85,0.10,0.80]),
+    ]:
         gp = controller.infer(state, verbose=False)
-        print(f"{t:>3}s  {name:<8} {gp['hexagram_name']:<10} {gp['gait_name']:<10} {gp['speed']:>4.2f} {gp['yin_yang']}")
-    print("-" * 65)
+        print(f"{t:>3}s {name:<8} {gp['hexagram_name']:<10} {gp['gait_name']:<10} {gp['speed']:>4.2f} {gp['yin_yang']}")
 
 
 if __name__ == '__main__':
     if '--no-gui' in sys.argv:
         run_no_gui()
     else:
-        dur = 60
-        for i, arg in enumerate(sys.argv):
-            if arg == '--duration' and i+1 < len(sys.argv):
-                dur = float(sys.argv[i+1])
+        dur = 30
+        for i, a in enumerate(sys.argv):
+            if a == '--duration' and i+1 < len(sys.argv): dur = float(sys.argv[i+1])
         run_gui(duration=dur)
