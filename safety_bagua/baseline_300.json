@@ -1,0 +1,90 @@
+{
+  "config": {
+    "objects": 304,
+    "types": [
+      "sphere",
+      "cube",
+      "cylinder",
+      "bowl",
+      "bottle",
+      "plate",
+      "rock",
+      "vase"
+    ],
+    "per_type": 38
+  },
+  "summary": {
+    "level_dist": {
+      "SAFE": 118,
+      "CAUTION": 1,
+      "WARNING": 185,
+      "DANGER": 0,
+      "CRITICAL": 0
+    },
+    "avg_violations": 0.5953947368421053,
+    "force_mod": {
+      "mean": 0.8736348684210528,
+      "std": 0.09562826310900895,
+      "min": 0.76,
+      "max": 1.1
+    }
+  },
+  "per_type": {
+    "sphere": {
+      "SAFE": 24,
+      "CAUTION": 1,
+      "WARNING": 13,
+      "DANGER": 0,
+      "CRITICAL": 0
+    },
+    "cube": {
+      "SAFE": 25,
+      "CAUTION": 0,
+      "WARNING": 13,
+      "DANGER": 0,
+      "CRITICAL": 0
+    },
+    "cylinder": {
+      "SAFE": 35,
+      "CAUTION": 0,
+      "WARNING": 3,
+      "DANGER": 0,
+      "CRITICAL": 0
+    },
+    "bowl": {
+      "SAFE": 0,
+      "CAUTION": 0,
+      "WARNING": 38,
+      "DANGER": 0,
+      "CRITICAL": 0
+    },
+    "bottle": {
+      "SAFE": 0,
+      "CAUTION": 0,
+      "WARNING": 38,
+      "DANGER": 0,
+      "CRITICAL": 0
+    },
+    "plate": {
+      "SAFE": 0,
+      "CAUTION": 0,
+      "WARNING": 38,
+      "DANGER": 0,
+      "CRITICAL": 0
+    },
+    "rock": {
+      "SAFE": 34,
+      "CAUTION": 0,
+      "WARNING": 4,
+      "DANGER": 0,
+      "CRITICAL": 0
+    },
+    "vase": {
+      "SAFE": 0,
+      "CAUTION": 0,
+      "WARNING": 38,
+      "DANGER": 0,
+      "CRITICAL": 0
+    }
+  }
+}

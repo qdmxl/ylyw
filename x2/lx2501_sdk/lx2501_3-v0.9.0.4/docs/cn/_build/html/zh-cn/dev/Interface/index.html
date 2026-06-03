@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5 接口说明 &mdash; AimDK_X2 0.9.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tippy.css?v=c6278a58" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=1107372c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/all.min.css?v=4b521257" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=6982868a"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script defer="defer" src="../_static/js/@popperjs/core@2?v=a8c9358f"></script>
+      <script defer="defer" src="../_static/js/tippy.js@6?v=37ef8ba7"></script>
+      <script defer="defer" src="../_static/tippy/Interface/index.4ddb9da3-bed9-49e5-8e70-c04471ee5e7f.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="5.1 控制模块" href="control_mod/index.html" />
+    <link rel="prev" title="4.6 代码编写" href="../quick_start/code_sample.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            AimDK_X2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about_agibot_X2/index.html">1 <i class='fa-brands fa-bilibili'></i> 关于 AgiBot X2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/part_name.html">1.1 产品简介</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/part_name.html#x2-ultra">1.1.1 旗舰版（X2 Ultra）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/robot_specifications.html">1.2 机器人具体参数</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/robot_specifications.html#x2">1.2.1 X2 系列参数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html">1.3 计算单元</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html#id2">1.3.1 标配计算单元</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html#id3">1.3.2 开发计算单元具体参数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/user_debug_interface.html">1.4 用户调试接口（旗舰版）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/SDK_interface.html">1.5 二次开发接口（旗舰版）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html">1.6 灵犀X2 传感器说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id1">1.6.1 传感器能力及视场角示意图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id2">1.6.2 传感器具体参数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id3">激光雷达</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#rgbd">RGBD摄像头</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#rgb">前视双目RGB摄像头</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id4">前视交互RGB摄像头</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id5">后视RGB摄像头</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id6">触摸传感器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#imu">独立惯性传感器（IMU）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html">1.7 关节活动范围说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id2">1.7.1 手臂可保证活动空间</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id3">1.7.2 腿部可保证活动空间</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id4">1.7.3 头部可保证活动空间</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id5">1.7.4 腰部活动空间</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/coordinate_system.html">1.8 坐标系</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../operation_guide/index.html">2 <i class='fa-regular fa-map'></i> 操作指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/start_up_guide.html">2.1 开机指南</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#sdk">2.1.1 吊起开机（需移位机）(SDK推荐使用)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#id2">2.1.2 平躺站起开机（无需移位机）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#id3">2.1.3 坐下站起开机（无需移位机）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/robot_connection.html">2.2 机器人手机APP连接（Agibot Go APP）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/robot_connection.html#id1">2.2.1 下载地址</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#ios">iOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#android">Android</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#id2">操作步骤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/remote_controller.html">2.3 遥控手柄连接</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/remote_controller.html#id2">2.3.1 操作步骤</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/shutdown.html">2.4 关机指南</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/shutdown.html#id2">2.4.1 辅助躺下机器人（无需移位机）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-1">Step 1: 进入站姿预备模式（位控站立）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-2">Step 2: 平躺机器人</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-3">Step 3: 进入零力矩模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-5">Step 5：将机器人按图示指引装箱</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/shutdown.html#id3">2.4.2 坐下关机（无需移位机）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id4">Step 1：遥控机器人坐下</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id5">Step 2：进入零力矩模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id6">Step 3：关机</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id7">Step 4: 将机器人按图示指引装箱</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../get_sdk/index.html">3 <i class='fa fa-cloud-arrow-down'></i> 获取SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quick_start/index.html">4 <i class='fa fa-rocket'></i> 快速开始</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start/prerequisites.html">4.1 阅读用户使用指南，熟悉相关术语及安全注意事项</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start/prerequisites.html#id2">4.2 完成基础系统配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start/prerequisites.html#id3">4.3 网络连接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start/prerequisites.html#aimdk-build">4.4 环境安装和配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start/run_example.html">4.5 运行一个代码示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/run_example.html#id1">4.5.1 获取机器人的当前状态</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/run_example.html#id2">4.5.2 让机器人挥手</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quick_start/code_sample.html">4.6 代码编写</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#id2">4.6.1 项目概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#sdk">4.6.2 在现有SDK工作空间中添加示例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id3">了解现有结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#python">添加新的Python示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#id4">4.6.3 编写控制代码</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id5">创建机器人控制类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id6">添加主程序入口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id7">注册到构建系统</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#id8">4.6.4 构建与运行</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id9">构建项目</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id10">运行项目</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#id11">4.6.5 代码解析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id12">机器人控制类</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#id13">4.6.6 扩展与优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id14">添加更多动作和交互</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id15">添加参数配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id16">添加错误处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../quick_start/code_sample.html#id17">添加更多交互功能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#id18">4.6.7 遇到问题时排查解决</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#id19">4.6.8 下一步学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quick_start/code_sample.html#id20">4.6.9 小结</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5 <i class='fa fa-plug'></i> 接口说明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="control_mod/index.html">5.1 控制模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="control_mod/modeswitch.html">5.1.1 运动模式切换</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/modeswitch.html#id2">核心功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/modeswitch.html#id3">查询运动模式服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/modeswitch.html#id4">设置运动模式服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/modeswitch.html#id5">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/modeswitch.html#id6">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="control_mod/locomotion.html">5.1.2 走跑控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/locomotion.html#id2">控制功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/locomotion.html#id3">走跑控制话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/locomotion.html#id4">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/locomotion.html#id5">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="control_mod/MC_control.html">5.1.3 MC控制信号设置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/MC_control.html#id1">核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/MC_control.html#id3">输入源配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/MC_control.html#id5">仲裁流程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/MC_control.html#id7">输入源管理服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/MC_control.html#id8">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/MC_control.html#id9">注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="control_mod/preset_motion.html">5.1.4 预设动作控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/preset_motion.html#id2">预设动作控制服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/preset_motion.html#id3">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/preset_motion.html#id4">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="control_mod/endeffector.html">5.1.5 末端执行器控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/endeffector.html#id2">手部控制特点</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/endeffector.html#id3">手部控制话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/endeffector.html#id4">手部状态信息话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/endeffector.html#id5">查询手部类型服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/endeffector.html#id6">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/endeffector.html#id7">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="control_mod/joint_control.html">5.1.6 关节控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/joint_control.html#id2">核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/joint_control.html#id5">关节控制话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/joint_control.html#id6">关节状态查询服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/joint_control.html#id7">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="control_mod/joint_control.html#id8">安全注意事项</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="interactor/index.html">5.2 交互模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="interactor/voice.html">5.2.1 语音控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactor/voice.html#id2">核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/voice.html#id6">音量控制服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/voice.html#id7">语音合成服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/voice.html#id8">音频文件播放服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/voice.html#mic-receiver-vad">MIC音频流采集话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/voice.html#id9">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/voice.html#id10">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interactor/screen.html">5.2.2 屏幕控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactor/screen.html#id2">核心功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/screen.html#id3">表情播放状态查询话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/screen.html#id4">表情播放服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/screen.html#id5">视频播放服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/screen.html#id6">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/screen.html#id7">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="interactor/lights.html">5.2.3 灯带控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="interactor/lights.html#id2">核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/lights.html#id3">灯带控制服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="interactor/lights.html#id4">编程示例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="FASM/index.html">5.3 故障与系统管理模块 (待发布)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="FASM/fault.html">5.3.1 故障处理 （待上线）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FASM/sudo.html">5.3.2 权限管理 （待上线）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="hal/index.html">5.4 硬件抽象模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="hal/sensor.html">5.4.1 传感器接口</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#id2">核心功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#id6">标准传感器消息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#imu">IMU话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#id7">头部触摸状态话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#rgb">后视RGB相机话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#id8">双目相机话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#interface-rgbd-camera">深度相机话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#interface-lidar">Lidar话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#id9">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/sensor.html#id10">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="hal/pmu.html">5.4.2 电源管理单元 (PMU)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="hal/pmu.html#id1">核心功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/pmu.html#id5">电源管理话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="hal/pmu.html#id6">安全注意事项</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="perception/index.html">5.5 感知模块（待开放）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="perception/vision.html">5.5.1 视觉(待发布)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="perception/SLAM.html">5.5.2 SLAM (待发布)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../example/index.html">6 <i class='fa fa-code'></i> 示例代码</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../example/Python.html">6.1 Python接口使用示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-get-mc-action">6.1.1 获取机器人模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-set-mc-action">6.1.2 设置机器人模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-preset-motion">6.1.3 设置机器人动作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-hand-control">6.1.4 夹爪控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-omnihand-control">6.1.5 灵巧手控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-set-mc-input-source">6.1.6 注册二开输入源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-get-mc-input-source">6.1.7 获取当前输入源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-locomotion">6.1.8 控制机器人走跑</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-motocontrol">6.1.9 关节电机控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-joint-control">机器人关节控制示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-keyboard">6.1.10 键盘控制机器人</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-take-photo">6.1.11 拍照</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-cameras">6.1.12 相机推流示例集</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-rgbd">深度相机数据订阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-stereo">双目相机数据订阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-head-rear">头部后置单目相机数据订阅</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-head-touch-sensor">6.1.13 头部触摸传感器数据订阅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-lidar-data">6.1.14 激光雷达数据订阅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-video">6.1.15 播放视频</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-media">6.1.16 媒体文件播放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-tts">6.1.17 TTS (文字转语音)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-mic-receiver">6.1.18 麦克风数据接收</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-emoji">6.1.19 表情控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-lights">6.1.20 LED灯带控制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../example/Cpp.html">6.2 C++接口使用示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-get-mc-action">6.2.1 获取机器人模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-set-mc-action">6.2.2 设置机器人模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-preset-motion">6.2.3 设置机器人动作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-hand-control">6.2.4 夹爪控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-omnihand-control">6.2.5 灵巧手控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-set-mc-input-source">6.2.6 注册二开输入源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-get-mc-input-source">6.2.7 获取当前输入源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-locomotion">6.2.8 机器人走跑控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-motocontrol">6.2.9 关节电机控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-joint-control">机器人关节控制示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-keyboard">6.2.10 键盘控制机器人</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-take-photo">6.2.11 拍照</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-cameras">6.2.12 相机推流示例集</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-rgbd">深度相机数据订阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-stereo">双目相机数据订阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-head-rear">头部后置单目相机数据订阅</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-head-touch-sensor">6.2.13 头部触摸传感器数据订阅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-lidar-data">6.2.14 激光雷达数据订阅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-video">6.2.15 播放视频</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-media">6.2.16 媒体文件播放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-tts">6.2.17 TTS (文字转语音)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-mic-receiver">6.2.18 麦克风数据接收</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-emoji">6.2.19 表情控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-lights">6.2.20 LED灯带控制</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/index.html">7 <i class='fa-regular fa-circle-question'></i> FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/temp_works.html">8 <i class='fa fa-gears'></i> 特殊过渡方案声明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/temp_works.html#agent-only-voice">8.1 关闭 X2 自带的交互能力，开发您自己的语音系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../faq/temp_works.html#id2">8.1.1 临时关闭内置交互系统操作步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../faq/temp_works.html#id3">8.1.2 恢复内置交互系统操作步骤</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/temp_works.html#v0-7-xmcaction">8.2 机器人运动状态精简，v0.7.x及之前的部分McAction状态码不再支持</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../end_notes.html">9 <i class='fa fa-triangle-exclamation'></i> 二次开发边界与声明</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html"><i class='fa fa-scroll'></i> 版本更新记录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-9-0">Changelog v0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id2">新开放功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id3">现有功能调整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id4">迭代优化掉的功能</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-2">Changelog v0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id5">新开放功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id6">现有功能调整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id7">迭代优化掉的功能</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-1">Changelog v0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id8">新开放功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id9">现有功能调整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id10">迭代优化掉的功能</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-0">Changelog v0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id11">新开放功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id12">现有功能调整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id13">迭代优化掉的功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id14">其他更新</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../feedback.html"><i class='fa-regular fa-envelope'></i> AimDK使用问题反馈</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AimDK_X2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5 </span><i class='fa fa-plug'></i> 接口说明</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">5 </span><i class='fa fa-plug'></i> 接口说明<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p><strong>智元机器人X2 AimDK接口文档 - 基于ROS2标准的人形机器人开发接口</strong></p>
+<p>智元机器人X2 AimDK 提供了一套完整的ROS2接口，用于控制灵犀X2人形机器人。接口遵循ROS2标准，支持C++和Python两种编程语言，为开发者提供灵活、高效的机器人应用开发环境。</p>
+<p><strong>包结构</strong>
+aimdk_msgs 协议包按照模块分层，各模块内的 srv、msg 分层不完全一致，但最终都正确链接生成 aimdk_msgs 包对应接口的桩代码。</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>aimdk_msgs/interface/robot
+├──<span class="w"> </span>hal/<span class="w">                    </span><span class="c1"># 硬件抽象层</span>
+│<span class="w">   </span>├──<span class="w"> </span>msg/<span class="w">            </span><span class="c1"># 通用消息</span>
+│<span class="w">   </span>├──<span class="w"> </span>srv/<span class="w">           </span><span class="c1"># 控制相关服务</span>
+│<span class="w">   </span>└──<span class="w"> </span>audio/<span class="w">       </span><span class="c1"># 音频相关</span>
+├──<span class="w"> </span>mc/<span class="w">              </span><span class="c1"># 运控模块</span>
+│<span class="w">   </span>├──<span class="w"> </span>action/<span class="w">      </span><span class="c1"># 运动模式相关</span>
+│<span class="w">   </span>├──<span class="w"> </span>data/<span class="w">        </span><span class="c1"># 状态量</span>
+│<span class="w">   </span>└──<span class="w"> </span>motion/<span class="w">       </span><span class="c1"># 运动控制</span>
+└──<span class="w"> </span>...<span class="w">                </span><span class="c1"># 更多其他接口</span>
+</pre></div>
+</div>
+<p><strong>模块概览</strong></p>
+<p>🤖 <strong>控制模块</strong> - 提供机器人底层控制接口，包括运动控制、关节控制、末端执行器控制等核心功能</p>
+<ul class="simple">
+<li><p>MC控制信号设置与输入源管理</p></li>
+<li><p>关节控制与模式切换</p></li>
+<li><p>预设动作执行</p></li>
+<li><p>末端执行器控制（夹爪/灵巧手）</p></li>
+</ul>
+<p>🎯 <strong>感知模块（待开放）</strong> - 提供多模态感知能力，支持视觉、SLAM等感知功能</p>
+<ul class="simple">
+<li><p>视觉感知</p></li>
+<li><p>SLAM定位与建图</p></li>
+<li><p>多传感器融合</p></li>
+</ul>
+<p>💬 <strong>交互模块</strong> - 提供人机交互接口，支持语音、表情等交互方式</p>
+<ul class="simple">
+<li><p>语音识别与合成</p></li>
+<li><p>表情控制</p></li>
+<li><p>多媒体播放</p></li>
+</ul>
+<p>🔧 <strong>故障与系统管理（待发布）</strong> - 提供系统监控、故障诊断和权限管理功能</p>
+<ul class="simple">
+<li><p>故障检测与诊断</p></li>
+<li><p>系统权限管理</p></li>
+<li><p>系统状态监控</p></li>
+</ul>
+<p><strong>模块接口</strong></p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="control_mod/index.html">5.1 控制模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="control_mod/modeswitch.html">5.1.1 运动模式切换</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_mod/locomotion.html">5.1.2 走跑控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_mod/MC_control.html">5.1.3 MC控制信号设置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_mod/preset_motion.html">5.1.4 预设动作控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_mod/endeffector.html">5.1.5 末端执行器控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="control_mod/joint_control.html">5.1.6 关节控制</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="interactor/index.html">5.2 交互模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="interactor/voice.html">5.2.1 语音控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactor/screen.html">5.2.2 屏幕控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="interactor/lights.html">5.2.3 灯带控制</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FASM/index.html">5.3 故障与系统管理模块 (待发布)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="FASM/fault.html">5.3.1 故障处理 （待上线）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="FASM/sudo.html">5.3.2 权限管理 （待上线）</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="hal/index.html">5.4 硬件抽象模块</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="hal/sensor.html">5.4.1 传感器接口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hal/pmu.html">5.4.2 电源管理单元 (PMU)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="perception/index.html">5.5 感知模块（待开放）</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="perception/vision.html">5.5.1 视觉(待发布)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="perception/SLAM.html">5.5.2 SLAM (待发布)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="../quick_start/code_sample.html" class="btn btn-neutral float-left" title="4.6 代码编写" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="control_mod/index.html" class="btn btn-neutral float-right" title="5.1 控制模块" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025 智元创新（上海）科技股份有限公司。</p>
+  </div>
+
+  <div role="contentinfo" class="beian"><p>
+	<a href="https://beian.miit.gov.cn" target="_blank">沪ICP备2023019007号-2</a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502401815" target="_blank"><img with="16" height="16" src=../_static/beian-icon.png alt="beian"></img>沪公网安备31011502401815号</a></p></div>
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

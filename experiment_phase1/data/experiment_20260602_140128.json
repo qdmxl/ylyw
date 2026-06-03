@@ -1,0 +1,268 @@
+{
+  "experiment_id": "20260602_140128",
+  "timestamp": 1780380088.068545,
+  "config": {
+    "num_objects": 8,
+    "repeats": 1,
+    "simulation_mode": true,
+    "use_yao_relations": true
+  },
+  "results": [
+    {
+      "obj_id": 0,
+      "obj_type": "sphere",
+      "trial": 0,
+      "hexagram_name": "LU_GUA",
+      "hexagram_similarity": 0.9700819885322789,
+      "strategy_type": "conditional_grasp",
+      "force_preset": 0.5,
+      "modifier": 0.9,
+      "S_yao": 0.5067,
+      "yao_vector": [
+        0.12254951149225235,
+        0.5372037887573242,
+        0.24597923457622528,
+        0.7839177846908569,
+        0.8026536107063293,
+        0.925000011920929
+      ],
+      "trigram_membership": [
+        0.49645930528640747,
+        0.52631014585495,
+        0.7213116884231567,
+        0.5296806693077087,
+        0.6400679349899292,
+        0.5376178026199341,
+        0.601310133934021,
+        0.6126177906990051
+      ],
+      "inference_ms": 3.634731001511682,
+      "strategy_label": "neutral",
+      "strategy_reasonable": null
+    },
+    {
+      "obj_id": 1,
+      "obj_type": "sphere",
+      "trial": 0,
+      "hexagram_name": "SONG",
+      "hexagram_similarity": 0.9575694324024665,
+      "strategy_type": "non_conflict_grasp",
+      "force_preset": 0.28,
+      "modifier": 0.8,
+      "S_yao": 0.3917,
+      "yao_vector": [
+        0.09307456016540527,
+        0.6465076804161072,
+        0.17438668012619019,
+        0.7635318636894226,
+        0.3811178207397461,
+        0.3529413044452667
+      ],
+      "trigram_membership": [
+        0.47175630927085876,
+        0.5060825943946838,
+        0.6966305375099182,
+        0.5185977220535278,
+        0.616197407245636,
+        0.5060825943946838,
+        0.5810825824737549,
+        0.5810825824737549
+      ],
+      "inference_ms": 4.265507999662077,
+      "strategy_label": "neutral",
+      "strategy_reasonable": null
+    },
+    {
+      "obj_id": 2,
+      "obj_type": "sphere",
+      "trial": 0,
+      "hexagram_name": "SUI",
+      "hexagram_similarity": 0.9750390543654198,
+      "strategy_type": "following_grasp",
+      "force_preset": 0.45,
+      "modifier": 0.9,
+      "S_yao": 0.4567,
+      "yao_vector": [
+        0.08300070464611053,
+        0.5201675891876221,
+        0.5046952366828918,
+        0.7353134751319885,
+        0.2303004264831543,
+        0.7678661346435547
+      ],
+      "trigram_membership": [
+        0.529832124710083,
+        0.4441269338130951,
+        0.7895841002464294,
+        0.5312517881393433,
+        0.589013934135437,
+        0.5750505328178406,
+        0.5191269516944885,
+        0.5691269040107727
+      ],
+      "inference_ms": 3.6172049985907506,
+      "strategy_label": "neutral",
+      "strategy_reasonable": null
+    },
+    {
+      "obj_id": 3,
+      "obj_type": "sphere",
+      "trial": 0,
+      "hexagram_name": "GOU",
+      "hexagram_similarity": 0.9882132597004564,
+      "strategy_type": "adaptive_grasp",
+      "force_preset": 0.45,
+      "modifier": 0.9,
+      "S_yao": 0.4567,
+      "yao_vector": [
+        0.0676707997918129,
+        0.6454725861549377,
+        0.5717863440513611,
+        0.7150633335113525,
+        0.40538427233695984,
+        0.5490589141845703
+      ],
+      "trigram_membership": [
+        0.5395849347114563,
+        0.4047834575176239,
+        0.75269615650177,
+        0.5043802261352539,
+        0.5691515803337097,
+        0.5547834634780884,
+        0.47978344559669495,
+        0.5297834277153015
+      ],
+      "inference_ms": 3.7484589993255213,
+      "strategy_label": "neutral",
+      "strategy_reasonable": null
+    },
+    {
+      "obj_id": 4,
+      "obj_type": "sphere",
+      "trial": 0,
+      "hexagram_name": "XU",
+      "hexagram_similarity": 0.9827468601420596,
+      "strategy_type": "conditional_grasp",
+      "force_preset": 0.47,
+      "modifier": 0.85,
+      "S_yao": 0.3775,
+      "yao_vector": [
+        0.06758438795804977,
+        0.5082870125770569,
+        0.23140552639961243,
+        0.6960235834121704,
+        0.3684104382991791,
+        0.7585264444351196
+      ],
+      "trigram_membership": [
+        0.4410184323787689,
+        0.5313149094581604,
+        0.7749459743499756,
+        0.5430066585540771,
+        0.6174726486206055,
+        0.5344021320343018,
+        0.6083031296730042,
+        0.6094021201133728
+      ],
+      "inference_ms": 3.9540370016766246,
+      "strategy_label": "neutral",
+      "strategy_reasonable": null
+    },
+    {
+      "obj_id": 5,
+      "obj_type": "cube",
+      "trial": 0,
+      "hexagram_name": "DACHU",
+      "hexagram_similarity": 0.9464189245921958,
+      "strategy_type": "power_accumulating_grasp",
+      "force_preset": 0.68,
+      "modifier": 0.9,
+      "S_yao": 0.4058,
+      "yao_vector": [
+        0.7877110242843628,
+        0.5835450291633606,
+        0.21229153871536255,
+        0.7349711656570435,
+        0.20344430208206177,
+        0.34397369623184204
+      ],
+      "trigram_membership": [
+        0.7307388186454773,
+        0.6535260081291199,
+        0.45868295431137085,
+        0.8170695900917053,
+        0.6473183035850525,
+        0.4035260081291199,
+        0.6785260438919067,
+        0.5785260200500488
+      ],
+      "inference_ms": 3.5279730000183918,
+      "strategy_label": "neutral",
+      "strategy_reasonable": null
+    },
+    {
+      "obj_id": 6,
+      "obj_type": "cube",
+      "trial": 0,
+      "hexagram_name": "DAGUO",
+      "hexagram_similarity": 0.9852682319258697,
+      "strategy_type": "forceful_grasp",
+      "force_preset": 0.8,
+      "modifier": 1.0,
+      "S_yao": 0.4708,
+      "yao_vector": [
+        0.6862415075302124,
+        0.7993953227996826,
+        0.9528241157531738,
+        0.731949508190155,
+        0.42875322699546814,
+        0.8218334913253784
+      ],
+      "trigram_membership": [
+        0.8891950845718384,
+        0.5213301777839661,
+        0.3756987750530243,
+        0.7099931240081787,
+        0.5740321278572083,
+        0.4129968285560608,
+        0.5463301539421082,
+        0.4879968464374542
+      ],
+      "inference_ms": 3.530553000018699,
+      "strategy_label": "neutral",
+      "strategy_reasonable": null
+    },
+    {
+      "obj_id": 7,
+      "obj_type": "cube",
+      "trial": 0,
+      "hexagram_name": "GUAI",
+      "hexagram_similarity": 0.9847540598970729,
+      "strategy_type": "direct_grasp",
+      "force_preset": 0.48,
+      "modifier": 0.8,
+      "S_yao": 0.3917,
+      "yao_vector": [
+        0.705545961856842,
+        0.5035388469696045,
+        0.40188533067703247,
+        0.8088648915290833,
+        0.3425846993923187,
+        0.8383357524871826
+      ],
+      "trigram_membership": [
+        0.7427365183830261,
+        0.6469420194625854,
+        0.5152801871299744,
+        0.8709639310836792,
+        0.6123106479644775,
+        0.4678003191947937,
+        0.6623106598854065,
+        0.6219419836997986
+      ],
+      "inference_ms": 3.533114999299869,
+      "strategy_label": "neutral",
+      "strategy_reasonable": null
+    }
+  ]
+}

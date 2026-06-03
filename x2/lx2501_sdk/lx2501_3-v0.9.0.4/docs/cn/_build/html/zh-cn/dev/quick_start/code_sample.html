@@ -1,0 +1,845 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.6 代码编写 &mdash; AimDK_X2 0.9.0 文档</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tippy.css?v=c6278a58" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=1107372c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/all.min.css?v=4b521257" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=6982868a"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=beaddf03"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script defer="defer" src="../_static/js/@popperjs/core@2?v=a8c9358f"></script>
+      <script defer="defer" src="../_static/js/tippy.js@6?v=37ef8ba7"></script>
+      <script defer="defer" src="../_static/tippy/quick_start/code_sample.37bd4b83-2d94-4a2b-b266-263a94368fc7.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="5 接口说明" href="../Interface/index.html" />
+    <link rel="prev" title="4.5 运行一个代码示例" href="run_example.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            AimDK_X2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="搜索文档" aria-label="搜索文档" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="导航菜单">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about_agibot_X2/index.html">1 <i class='fa-brands fa-bilibili'></i> 关于 AgiBot X2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/part_name.html">1.1 产品简介</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/part_name.html#x2-ultra">1.1.1 旗舰版（X2 Ultra）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/robot_specifications.html">1.2 机器人具体参数</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/robot_specifications.html#x2">1.2.1 X2 系列参数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html">1.3 计算单元</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html#id2">1.3.1 标配计算单元</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html#id3">1.3.2 开发计算单元具体参数</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/user_debug_interface.html">1.4 用户调试接口（旗舰版）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/SDK_interface.html">1.5 二次开发接口（旗舰版）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html">1.6 灵犀X2 传感器说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id1">1.6.1 传感器能力及视场角示意图</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id2">1.6.2 传感器具体参数</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id3">激光雷达</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#rgbd">RGBD摄像头</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#rgb">前视双目RGB摄像头</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id4">前视交互RGB摄像头</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id5">后视RGB摄像头</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id6">触摸传感器</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#imu">独立惯性传感器（IMU）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html">1.7 关节活动范围说明</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id2">1.7.1 手臂可保证活动空间</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id3">1.7.2 腿部可保证活动空间</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id4">1.7.3 头部可保证活动空间</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id5">1.7.4 腰部活动空间</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/coordinate_system.html">1.8 坐标系</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../operation_guide/index.html">2 <i class='fa-regular fa-map'></i> 操作指南</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/start_up_guide.html">2.1 开机指南</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#sdk">2.1.1 吊起开机（需移位机）(SDK推荐使用)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#id2">2.1.2 平躺站起开机（无需移位机）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#id3">2.1.3 坐下站起开机（无需移位机）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/robot_connection.html">2.2 机器人手机APP连接（Agibot Go APP）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/robot_connection.html#id1">2.2.1 下载地址</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#ios">iOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#android">Android</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#id2">操作步骤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/remote_controller.html">2.3 遥控手柄连接</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/remote_controller.html#id2">2.3.1 操作步骤</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/shutdown.html">2.4 关机指南</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/shutdown.html#id2">2.4.1 辅助躺下机器人（无需移位机）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-1">Step 1: 进入站姿预备模式（位控站立）</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-2">Step 2: 平躺机器人</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-3">Step 3: 进入零力矩模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-5">Step 5：将机器人按图示指引装箱</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/shutdown.html#id3">2.4.2 坐下关机（无需移位机）</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id4">Step 1：遥控机器人坐下</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id5">Step 2：进入零力矩模式</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id6">Step 3：关机</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id7">Step 4: 将机器人按图示指引装箱</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../get_sdk/index.html">3 <i class='fa fa-cloud-arrow-down'></i> 获取SDK</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4 <i class='fa fa-rocket'></i> 快速开始</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html">4.1 阅读用户使用指南，熟悉相关术语及安全注意事项</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html#id2">4.2 完成基础系统配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html#id3">4.3 网络连接</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html#aimdk-build">4.4 环境安装和配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_example.html">4.5 运行一个代码示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_example.html#id1">4.5.1 获取机器人的当前状态</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_example.html#id2">4.5.2 让机器人挥手</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.6 代码编写</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.6.1 项目概述</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sdk">4.6.2 在现有SDK工作空间中添加示例</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">了解现有结构</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#python">添加新的Python示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.6.3 编写控制代码</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">创建机器人控制类</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">添加主程序入口</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">注册到构建系统</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">4.6.4 构建与运行</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">构建项目</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">运行项目</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">4.6.5 代码解析</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">机器人控制类</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">4.6.6 扩展与优化</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id14">添加更多动作和交互</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">添加参数配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">添加错误处理</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">添加更多交互功能</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">4.6.7 遇到问题时排查解决</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">4.6.8 下一步学习</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">4.6.9 小结</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Interface/index.html">5 <i class='fa fa-plug'></i> 接口说明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/control_mod/index.html">5.1 控制模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/modeswitch.html">5.1.1 运动模式切换</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id2">核心功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id3">查询运动模式服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id4">设置运动模式服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id5">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id6">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/locomotion.html">5.1.2 走跑控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/locomotion.html#id2">控制功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/locomotion.html#id3">走跑控制话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/locomotion.html#id4">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/locomotion.html#id5">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/MC_control.html">5.1.3 MC控制信号设置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id1">核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id3">输入源配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id5">仲裁流程</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id7">输入源管理服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id8">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id9">注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/preset_motion.html">5.1.4 预设动作控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/preset_motion.html#id2">预设动作控制服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/preset_motion.html#id3">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/preset_motion.html#id4">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/endeffector.html">5.1.5 末端执行器控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id2">手部控制特点</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id3">手部控制话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id4">手部状态信息话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id5">查询手部类型服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id6">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id7">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/joint_control.html">5.1.6 关节控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id2">核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id5">关节控制话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id6">关节状态查询服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id7">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id8">安全注意事项</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/interactor/index.html">5.2 交互模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/interactor/voice.html">5.2.1 语音控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id2">核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id6">音量控制服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id7">语音合成服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id8">音频文件播放服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#mic-receiver-vad">MIC音频流采集话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id9">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id10">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/interactor/screen.html">5.2.2 屏幕控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id2">核心功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id3">表情播放状态查询话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id4">表情播放服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id5">视频播放服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id6">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id7">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/interactor/lights.html">5.2.3 灯带控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/lights.html#id2">核心特性</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/lights.html#id3">灯带控制服务</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/lights.html#id4">编程示例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/FASM/index.html">5.3 故障与系统管理模块 (待发布)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/FASM/fault.html">5.3.1 故障处理 （待上线）</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/FASM/sudo.html">5.3.2 权限管理 （待上线）</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/hal/index.html">5.4 硬件抽象模块</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/hal/sensor.html">5.4.1 传感器接口</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id2">核心功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id6">标准传感器消息</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#imu">IMU话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id7">头部触摸状态话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#rgb">后视RGB相机话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id8">双目相机话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#interface-rgbd-camera">深度相机话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#interface-lidar">Lidar话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id9">编程示例</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id10">安全注意事项</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/hal/pmu.html">5.4.2 电源管理单元 (PMU)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/pmu.html#id1">核心功能</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/pmu.html#id5">电源管理话题</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/pmu.html#id6">安全注意事项</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/perception/index.html">5.5 感知模块（待开放）</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/perception/vision.html">5.5.1 视觉(待发布)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/perception/SLAM.html">5.5.2 SLAM (待发布)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../example/index.html">6 <i class='fa fa-code'></i> 示例代码</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../example/Python.html">6.1 Python接口使用示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-get-mc-action">6.1.1 获取机器人模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-set-mc-action">6.1.2 设置机器人模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-preset-motion">6.1.3 设置机器人动作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-hand-control">6.1.4 夹爪控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-omnihand-control">6.1.5 灵巧手控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-set-mc-input-source">6.1.6 注册二开输入源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-get-mc-input-source">6.1.7 获取当前输入源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-locomotion">6.1.8 控制机器人走跑</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-motocontrol">6.1.9 关节电机控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-joint-control">机器人关节控制示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-keyboard">6.1.10 键盘控制机器人</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-take-photo">6.1.11 拍照</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-cameras">6.1.12 相机推流示例集</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-rgbd">深度相机数据订阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-stereo">双目相机数据订阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-head-rear">头部后置单目相机数据订阅</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-head-touch-sensor">6.1.13 头部触摸传感器数据订阅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-lidar-data">6.1.14 激光雷达数据订阅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-video">6.1.15 播放视频</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-media">6.1.16 媒体文件播放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-tts">6.1.17 TTS (文字转语音)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-mic-receiver">6.1.18 麦克风数据接收</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-emoji">6.1.19 表情控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-lights">6.1.20 LED灯带控制</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../example/Cpp.html">6.2 C++接口使用示例</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-get-mc-action">6.2.1 获取机器人模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-set-mc-action">6.2.2 设置机器人模式</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-preset-motion">6.2.3 设置机器人动作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-hand-control">6.2.4 夹爪控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-omnihand-control">6.2.5 灵巧手控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-set-mc-input-source">6.2.6 注册二开输入源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-get-mc-input-source">6.2.7 获取当前输入源</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-locomotion">6.2.8 机器人走跑控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-motocontrol">6.2.9 关节电机控制</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-joint-control">机器人关节控制示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-keyboard">6.2.10 键盘控制机器人</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-take-photo">6.2.11 拍照</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-cameras">6.2.12 相机推流示例集</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-rgbd">深度相机数据订阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-stereo">双目相机数据订阅</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-head-rear">头部后置单目相机数据订阅</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-head-touch-sensor">6.2.13 头部触摸传感器数据订阅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-lidar-data">6.2.14 激光雷达数据订阅</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-video">6.2.15 播放视频</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-media">6.2.16 媒体文件播放</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-tts">6.2.17 TTS (文字转语音)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-mic-receiver">6.2.18 麦克风数据接收</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-emoji">6.2.19 表情控制</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-lights">6.2.20 LED灯带控制</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/index.html">7 <i class='fa-regular fa-circle-question'></i> FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/temp_works.html">8 <i class='fa fa-gears'></i> 特殊过渡方案声明</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/temp_works.html#agent-only-voice">8.1 关闭 X2 自带的交互能力，开发您自己的语音系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../faq/temp_works.html#id2">8.1.1 临时关闭内置交互系统操作步骤</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../faq/temp_works.html#id3">8.1.2 恢复内置交互系统操作步骤</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/temp_works.html#v0-7-xmcaction">8.2 机器人运动状态精简，v0.7.x及之前的部分McAction状态码不再支持</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../end_notes.html">9 <i class='fa fa-triangle-exclamation'></i> 二次开发边界与声明</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html"><i class='fa fa-scroll'></i> 版本更新记录</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-9-0">Changelog v0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id2">新开放功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id3">现有功能调整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id4">迭代优化掉的功能</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-2">Changelog v0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id5">新开放功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id6">现有功能调整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id7">迭代优化掉的功能</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-1">Changelog v0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id8">新开放功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id9">现有功能调整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id10">迭代优化掉的功能</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-0">Changelog v0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id11">新开放功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id12">现有功能调整</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id13">迭代优化掉的功能</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id14">其他更新</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../feedback.html"><i class='fa-regular fa-envelope'></i> AimDK使用问题反馈</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="移动版导航菜单" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AimDK_X2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="页面导航">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4 </span><i class='fa fa-rocket'></i> 快速开始</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.6 </span>代码编写</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">4.6 </span>代码编写<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p><strong>本节将带您开发一个简单的机器人控制程序，实现机器人X2的手部动作序列和语音播报功能。</strong></p>
+<section id="id2">
+<h2><span class="section-number">4.6.1 </span>项目概述<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>在本项目中，我们将开发一个Python程序，通过ROS 2接口控制机器人X2执行以下动作序列：</p>
+<ol class="arabic simple">
+<li><p>执行第一个动作（挥手）</p></li>
+<li><p>语音播报</p></li>
+<li><p>执行第二个动作（握手）</p></li>
+</ol>
+<p><strong>前提条件</strong>： 与上一节相同, 需要机器人处于稳定站立状态</p>
+<p>这个项目将帮助您理解如何通过SDK控制机器人的手部动作序列和交互功能，为后续开发更复杂的任务打下基础。</p>
+</section>
+<section id="sdk">
+<h2><span class="section-number">4.6.2 </span>在现有SDK工作空间中添加示例<a class="headerlink" href="#sdk" title="Link to this heading"></a></h2>
+<p>我们将在现有的SDK工作空间中添加一个新的示例程序，这样可以：</p>
+<ul class="simple">
+<li><p>复用现有的构建系统</p></li>
+<li><p>保持代码组织的一致性</p></li>
+<li><p>简化构建和运行流程</p></li>
+</ul>
+<section id="id3">
+<h3>了解现有结构<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>SDK工作空间结构如下：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>aimdk/
+├──<span class="w"> </span>src/
+│<span class="w">   </span>├──<span class="w"> </span>examples/<span class="w">          </span><span class="c1"># C++示例</span>
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>src/
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>hal/<span class="w">       </span><span class="c1"># 硬件抽象层示例</span>
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>mc/<span class="w">        </span><span class="c1"># 运动控制示例</span>
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>interaction/<span class="w"> </span><span class="c1"># 交互功能示例</span>
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>CMakeLists.txt
+│<span class="w">   </span>└──<span class="w"> </span>py_examples/<span class="w">       </span><span class="c1"># Python示例</span>
+│<span class="w">       </span>├──<span class="w"> </span>py_examples/
+│<span class="w">       </span>└──<span class="w"> </span>setup.py
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">小心</p>
+<p>机上二开数据存放的注意事项:</p>
+<ul class="simple">
+<li><p>目前固件升/降级会清理机器人系统内大部分位置的数据, 注意提前备份</p></li>
+<li><p>存放在<code class="docutils literal notranslate"><span class="pre">$HOME</span></code>(/agibot/data/home/agi)目录内的数据默认跨固件留存</p></li>
+<li><p>注意例外1: <code class="docutils literal notranslate"><span class="pre">$HOME/aimdk*</span></code>由系统自动管理，期望跨固件留存的数据避免放入</p></li>
+<li><p>谨慎使用一键恢复出厂设置类功能, 会强制清除用户数据(包括默认留存位置)</p></li>
+</ul>
+</div>
+</section>
+<section id="python">
+<h3>添加新的Python示例<a class="headerlink" href="#python" title="Link to this heading"></a></h3>
+<p>我们将在<code class="docutils literal notranslate"><span class="pre">py_examples</span></code>目录下添加一个新的示例程序：</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 进入SDK目录</span>
+<span class="c1"># 注意将以下路径替换为解压后实际路径</span>
+<span class="nb">cd</span><span class="w"> </span>/path/to/aimdk
+
+<span class="c1"># 在py_examples目录下创建新的示例文件</span>
+touch<span class="w"> </span>src/py_examples/py_examples/action_sequence_demo.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.6.3 </span>编写控制代码<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<div class="admonition caution">
+<p class="admonition-title">小心</p>
+<p>ROS的服务(service)机制在跨板通信时存在一些待优化问题, <strong>二次开发时请参考例程添加异常处理、快速重试等保护机制</strong></p>
+</div>
+<section id="id5">
+<h3>创建机器人控制类<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>在<code class="docutils literal notranslate"><span class="pre">src/py_examples/py_examples/action_sequence_demo.py</span></code>文件中编写以下代码：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">aimdk_msgs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">SetMcPresetMotion</span><span class="p">,</span> <span class="n">PlayTts</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">aimdk_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">RequestHeader</span><span class="p">,</span> <span class="n">McPresetMotion</span><span class="p">,</span> <span class="n">McControlArea</span><span class="p">,</span> <span class="n">CommonState</span><span class="p">,</span>
+    <span class="n">TtsPriorityLevel</span>
+<span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ActionSequenceDemo</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;action_sequence_demo&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># 创建服务客户端</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_preset_motion_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span>
+            <span class="n">SetMcPresetMotion</span><span class="p">,</span> <span class="s1">&#39;/aimdk_5Fmsgs/srv/SetMcPresetMotion&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play_tts_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span>
+            <span class="n">PlayTts</span><span class="p">,</span> <span class="s1">&#39;/aimdk_5Fmsgs/srv/PlayTts&#39;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Action Sequence Demo 已创建&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># 等待服务可用</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_preset_motion_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;等待预设动作服务...&#39;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">play_tts_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;等待TTS服务...&#39;</span><span class="p">)</span>
+    
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_preset_motion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">area_id</span><span class="p">,</span> <span class="n">motion_id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行预设动作&quot;&quot;&quot;</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">SetMcPresetMotion</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">RequestHeader</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+        
+        <span class="n">motion</span> <span class="o">=</span> <span class="n">McPresetMotion</span><span class="p">()</span>
+        <span class="n">motion</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">motion_id</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="n">McControlArea</span><span class="p">()</span>
+        <span class="n">area</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">area_id</span>
+        
+        <span class="n">request</span><span class="o">.</span><span class="n">motion</span> <span class="o">=</span> <span class="n">motion</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">area</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">interrupt</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;执行预设动作: 区域=</span><span class="si">{</span><span class="n">area_id</span><span class="si">}</span><span class="s1">, 动作=</span><span class="si">{</span><span class="n">motion_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_preset_motion_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;预设动作执行成功&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;预设动作执行失败&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;预设动作服务调用失败&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;控制机器人语音播报&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">play_tts_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;TTS服务不可用&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        
+        <span class="n">request</span> <span class="o">=</span> <span class="n">PlayTts</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+        
+        <span class="c1"># 设置TTS请求参数</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="s1">&#39;action_sequence_demo&#39;</span>  <span class="c1"># 调用方标识</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">trace_id</span> <span class="o">=</span> <span class="s1">&#39;sequence&#39;</span>            <span class="c1"># 请求ID</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">is_interrupted</span> <span class="o">=</span> <span class="kc">True</span>            <span class="c1"># 是否打断同等优先级播报</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">priority_weight</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">priority_level</span> <span class="o">=</span> <span class="n">TtsPriorityLevel</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">priority_level</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">6</span>         <span class="c1"># 优先级级别</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;语音播报: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">play_tts_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">tts_resp</span><span class="o">.</span><span class="n">is_success</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;语音播报成功&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;语音播报失败&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;TTS服务调用失败&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">wave_hand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;控制机器人挥手&quot;&quot;&quot;</span>
+        <span class="c1"># 使用预设动作：右手挥手 (区域=2, 动作=1002)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_preset_motion</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1002</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">shake_hand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;控制机器人握手&quot;&quot;&quot;</span>
+        <span class="c1"># 使用预设动作：右手握手 (区域=2, 动作=1003)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_preset_motion</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1003</span><span class="p">)</span>
+    
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_action_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;执行完整的动作序列流程&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;开始执行动作序列流程...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;前提条件：机器人已处于站立状态&#39;</span><span class="p">)</span>
+        
+        <span class="c1"># 1. 第一个动作：挥手</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">wave_hand</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;挥手失败&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>  <span class="c1"># 等待挥手完成</span>
+        
+        <span class="c1"># 2. 语音播报</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s1">&#39;你好！我是灵犀X2，现在开始演示手部动作序列！&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;语音播报失败&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># 等待语音播报</span>
+        
+        <span class="c1"># 3. 第二个动作：握手</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">shake_hand</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;握手失败&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># 等待握手完成</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;动作序列流程执行完成&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>添加主程序入口<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>在同一个文件中添加主程序入口：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">demo</span> <span class="o">=</span> <span class="n">ActionSequenceDemo</span><span class="p">()</span>
+    
+    <span class="c1"># 执行动作序列流程</span>
+    <span class="n">demo</span><span class="o">.</span><span class="n">perform_action_sequence</span><span class="p">()</span>
+    
+    <span class="c1"># 关闭ROS节点</span>
+    <span class="n">demo</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>注册到构建系统<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>为了让新示例能够通过<code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span></code>命令运行，需要在<code class="docutils literal notranslate"><span class="pre">setup.py</span></code>中添加入口点：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 在 src/py_examples/setup.py 的 entry_points 中添加：</span>
+<span class="s2">&quot;action_sequence_demo = py_examples.action_sequence_demo:main&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>完整的entry_points部分应该包含：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;console_scripts&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="c1"># ... 现有条目 ...</span>
+        <span class="s2">&quot;action_sequence_demo = py_examples.action_sequence_demo:main&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">4.6.4 </span>构建与运行<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<section id="id9">
+<h3>构建项目<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 进入SDK目录</span>
+<span class="c1"># 注意将以下路径替换为解压后实际路径</span>
+<span class="nb">cd</span><span class="w"> </span>/path/to/aimdk
+
+<span class="c1"># 设置环境变量</span>
+<span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+
+<span class="c1"># 构建项目</span>
+colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>py_examples
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>运行项目<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 设置环境变量</span>
+<span class="nb">source</span><span class="w"> </span>install/local_setup.bash
+
+<span class="c1"># 运行新的示例程序</span>
+ros2<span class="w"> </span>run<span class="w"> </span>py_examples<span class="w"> </span>action_sequence_demo
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">4.6.5 </span>代码解析<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<section id="id12">
+<h3>机器人控制类<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ActionSequenceDemo</span></code>类是机器人控制的核心，提供了以下功能：</p>
+<ul class="simple">
+<li><p><strong>初始化ROS节点和服务客户端</strong>：在构造函数中，创建ROS节点和必要的服务客户端。</p></li>
+<li><p><strong>执行预设动作</strong>：通过<code class="docutils literal notranslate"><span class="pre">perform_preset_motion</span></code>方法，我们可以执行预定义的动作。</p></li>
+<li><p><strong>语音播报</strong>：通过<code class="docutils literal notranslate"><span class="pre">speak</span></code>方法</p></li>
+<li><p><strong>控制机器人动作</strong>：提供了<code class="docutils literal notranslate"><span class="pre">wave_hand</span></code>和<code class="docutils literal notranslate"><span class="pre">shake_hand</span></code>等方法，用于控制机器人的手部动作。</p></li>
+<li><p><strong>动作序列执行</strong>：通过<code class="docutils literal notranslate"><span class="pre">perform_action_sequence</span></code>方法，按顺序执行挥手→说话→握手流程。</p></li>
+</ul>
+</section>
+</section>
+<section id="id13">
+<h2><span class="section-number">4.6.6 </span>扩展与优化<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<section id="id14">
+<h3>添加更多动作和交互<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p>您可以参考现有的代码，添加更多的机器人动作和交互功能，例如：</p>
+<ul class="simple">
+<li><p>飞吻 (预设动作ID: 1004)</p></li>
+<li><p>敬礼 (预设动作ID: 1013)</p></li>
+<li><p>比心 (预设动作ID: 1007)</p></li>
+<li><p>举手 (预设动作ID: 1001)</p></li>
+<li><p>更多语音内容</p></li>
+<li><p>表情控制</p></li>
+<li><p>等等</p></li>
+</ul>
+</section>
+<section id="id15">
+<h3>添加参数配置<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<p>您可以通过ROS 2的参数系统，使动作的参数可配置：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 在构造函数中添加参数声明</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s1">&#39;wave_count&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s1">&#39;wait_duration&#39;</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+
+<span class="c1"># 在方法中使用参数</span>
+<span class="n">wait_duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s1">&#39;wait_duration&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait_duration</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id16">
+<h3>添加错误处理<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<p>您可以参考例程序<a class="reference internal" href="../example/Python.html#py-get-mc-action"><span class="std std-ref">获取机器人模式</span></a>添加更多的错误处理逻辑，使程序更加健壮：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">GetMcAction</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">CommonRequest</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;📨 Sending request to get robot mode&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+                <span class="k">break</span>
+
+            <span class="c1"># retry as remote peer is NOT handled well by ROS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;trying ... [</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;❌ Service call failed or timed out.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;✅ Robot mode get successfully.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mode name: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">action_desc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mode status: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h3>添加更多交互功能<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<p>您可以集成更多交互功能：</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 添加表情服务客户端</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">aimdk_msgs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlayEmoji</span>
+
+<span class="c1"># 在动作序列中添加表情</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emoji_id</span><span class="p">):</span>
+    <span class="c1"># 实现表情控制功能</span>
+    <span class="k">pass</span>
+
+<span class="c1"># 添加更多语音内容</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">speak_multiple_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id18">
+<h2><span class="section-number">4.6.7 </span>遇到问题时排查解决<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
+<p>可以先速查<a class="reference internal" href="../faq/index.html#faq"><span class="std std-ref"> FAQ</span></a>部分, 未解决则考虑联系AgiBot X2技术支持。</p>
+</section>
+<section id="id19">
+<h2><span class="section-number">4.6.8 </span>下一步学习<a class="headerlink" href="#id19" title="Link to this heading"></a></h2>
+<p>完成本节内容后，您可以：</p>
+<ol class="arabic simple">
+<li><p><strong>学习更多示例</strong>：查看<code class="docutils literal notranslate"><span class="pre">src/py_examples/py_examples/</span></code> 或者 <code class="docutils literal notranslate"><span class="pre">src/examples/src/</span></code>目录下的其他示例程序</p></li>
+<li><p><strong>集成感知功能</strong>：学习如何获取和处理传感器数据</p></li>
+<li><p><strong>开发复杂任务</strong>：结合多个功能模块开发更复杂的机器人应用</p></li>
+</ol>
+</section>
+<section id="id20">
+<h2><span class="section-number">4.6.9 </span>小结<a class="headerlink" href="#id20" title="Link to this heading"></a></h2>
+<p>至此，您已经了解到了：</p>
+<ul class="simple">
+<li><p>✅ 在现有SDK工作空间中添加新的示例程序</p></li>
+<li><p>✅ 执行预设动作序列</p></li>
+<li><p>✅ 实现TTS语音播报功能</p></li>
+<li><p>✅ 构建和运行自定义示例程序</p></li>
+<li><p>✅ 控制机器人的手部动作序列：挥手→说话→握手</p></li>
+</ul>
+<p>恭喜您已经掌握了智元机器人X2 AimDK的基本开发技能，包括运动控制、语音交互和动作序列编排，可以开始开发自己的机器人应用了！</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="页脚">
+        <a href="run_example.html" class="btn btn-neutral float-left" title="4.5 运行一个代码示例" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../Interface/index.html" class="btn btn-neutral float-right" title="5 接口说明" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2025 智元创新（上海）科技股份有限公司。</p>
+  </div>
+
+  <div role="contentinfo" class="beian"><p>
+	<a href="https://beian.miit.gov.cn" target="_blank">沪ICP备2023019007号-2</a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502401815" target="_blank"><img with="16" height="16" src=../_static/beian-icon.png alt="beian"></img>沪公网安备31011502401815号</a></p></div>
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

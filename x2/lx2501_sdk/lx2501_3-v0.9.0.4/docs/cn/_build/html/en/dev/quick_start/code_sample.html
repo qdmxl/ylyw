@@ -1,0 +1,842 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4.6 Code Implementation &mdash; AimDK_X2 0.9.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/tippy.css?v=c6278a58" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/custom.css?v=1107372c" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/all.min.css?v=4b521257" />
+
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=ba9b7d67"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/design-tabs.js?v=f930bc37"></script>
+      <script defer="defer" src="../_static/js/@popperjs/core@2?v=a8c9358f"></script>
+      <script defer="defer" src="../_static/js/tippy.js@6?v=37ef8ba7"></script>
+      <script defer="defer" src="../_static/tippy/quick_start/code_sample.2167e872-0622-4df5-afad-9bf7fb760cad.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5 Interface Description" href="../Interface/index.html" />
+    <link rel="prev" title="4.5 Run an Example Program" href="run_example.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            AimDK_X2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../about_agibot_X2/index.html">1 <i class='fa-brands fa-bilibili'></i> About AgiBot X2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/part_name.html">1.1 Product Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/part_name.html#x2-ultra">1.1.1 X2 Ultra Edition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/robot_specifications.html">1.2 Robot Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/robot_specifications.html#x2">1.2.1 X2 Series Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html">1.3 On-board Computer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html#id2">1.3.1 Standard Computing Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/onboard_computer.html#id3">1.3.2 Development Computing Unit Specifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/user_debug_interface.html">1.4 User Debug Interfaces (Ultra Edition)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/SDK_interface.html">1.5 Secondary Development Interfaces (Ultra Edition)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html">1.6 AgiBot X2 Sensor Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id1">1.6.1 Sensor Capabilities &amp; FOV Diagram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id2">1.6.2 Sensor Specifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id3">LiDAR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#rgbd">RGB-D Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#rgb">Front Stereo RGB Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id4">Front Interaction RGB Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id5">Rear RGB Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#id6">Touch Sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../about_agibot_X2/sensor_fov.html#imu">Standalone Inertial Sensor (IMU)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html">1.7 Joint Motion Range Description (Warranted)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id2">1.7.1 Arm Motion Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id3">1.7.2 Leg Motion Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id4">1.7.3 Head Motion Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../about_agibot_X2/joint_name_and_limit.html#id5">1.7.4 Waist Motion Range</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../about_agibot_X2/coordinate_system.html">1.8 Coordinate System</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../operation_guide/index.html">2 <i class='fa-regular fa-map'></i> Operation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/start_up_guide.html">2.1 Startup Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#sdk">2.1.1 Startup While Suspended (Gantry Required) (Recommended for SDK use)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#id2">2.1.2 Startup from Supine Position (No Gantry Required)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/start_up_guide.html#id3">2.1.3 Startup from Sitting Position (No Gantry Required)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/robot_connection.html">2.2 Robot Mobile App Connection (Agibot Go APP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/robot_connection.html#id1">2.2.1 Download Links</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#ios">iOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#android">Android</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/robot_connection.html#id2">Operation Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/remote_controller.html">2.3 Remote Controller Connection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/remote_controller.html#id2">2.3.1 Operation Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../operation_guide/shutdown.html">2.4 Shutdown Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/shutdown.html#id2">2.4.1 Assist the Robot to Lie Down (No Gantry Required)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-1">Step 1: Enter Standing Preparation Mode (Position-Control Standing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-2">Step 2: Lay the Robot Down</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-3">Step 3: Enter Zero-Torque Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#step-5">Step 5: Pack the Robot as Illustrated</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../operation_guide/shutdown.html#id3">2.4.2 Shutdown from Sitting Posture (No Gantry Required)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id4">Step 1: Use the Controller to Make the Robot Sit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id5">Step 2: Enter Zero-Torque Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id6">Step 3: Power Off</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../operation_guide/shutdown.html#id7">Step 4: Pack the Robot as Shown</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../get_sdk/index.html">3 <i class='fa fa-cloud-arrow-down'></i> Get the SDK</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">4 <i class='fa fa-rocket'></i> Quick Start</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html">4.1 Read the user guide to familiarize yourself with relevant terminology and safety precautions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html#id2">4.2 Complete the basic system configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html#id3">4.3 Network connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prerequisites.html#aimdk-build">4.4 Environment installation and configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run_example.html">4.5 Run an Example Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="run_example.html#id1">4.5.1 Get the Robot’s Current State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run_example.html#id2">4.5.2 Make the Robot Wave</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">4.6 Code Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">4.6.1 Project Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sdk">4.6.2 Add the Example to the Existing SDK Workspace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Understand the Existing Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#python">Add a New Python Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">4.6.3 Write the Control Code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">Create the Robot Control Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">Add the Main Entry Point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">Register in the Build System</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">4.6.4 Build and Run</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id9">Build the Project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">Run the Project</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">4.6.5 Code Walkthrough</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">Robot Control Class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">4.6.6 Extensions and Optimization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id14">Add More Actions and Interactions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">Add Parameter Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id16">Add Error Handling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Add More Interaction Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">4.6.7 Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">4.6.8 Next Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id20">4.6.9 Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Interface/index.html">5 <i class='fa fa-plug'></i> Interface Description</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/control_mod/index.html">5.1 Control Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/modeswitch.html">5.1.1 Motion Mode Switching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id2">Core Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id3">Motion Mode Query Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id4">Motion Mode Set Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id5">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/modeswitch.html#id6">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/locomotion.html">5.1.2 Locomotion Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/locomotion.html#id2">Control Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/locomotion.html#id3">Locomotion Control Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/locomotion.html#id4">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/locomotion.html#id5">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/MC_control.html">5.1.3 MC Control Signal Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id1">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id3">Input Source Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id5">Arbitration Workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id7">Input Source Management Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id8">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/MC_control.html#id9">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/preset_motion.html">5.1.4 Preset Motion Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/preset_motion.html#id2">Preset Motion Control Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/preset_motion.html#id3">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/preset_motion.html#id4">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/endeffector.html">5.1.5 End Effector Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id2">Hand Control Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id3">Hand Control Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id4">Hand Status Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id5">Hand Type Query Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id6">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/endeffector.html#id7">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/control_mod/joint_control.html">5.1.6 Joint Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id2">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id5">Joint Control Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id6">Joint State Query Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id7">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/control_mod/joint_control.html#id8">Safety Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/interactor/index.html">5.2 Interaction Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/interactor/voice.html">5.2.1 Voice Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id2">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id6">Volume Control Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id7">Speech Synthesis Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id8">Audio File Playback Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#mic-receiver-vad">MIC Audio Stream Capture Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id9">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/voice.html#id10">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/interactor/screen.html">5.2.2 Screen Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id2">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id3">Emoji Playback Status Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id4">Emoji Playback Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id5">Video Playback Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id6">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/screen.html#id7">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/interactor/lights.html">5.2.3 LED Strip Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/lights.html#id2">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/lights.html#id3">LED Strip Control Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/interactor/lights.html#id4">Programming Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/FASM/index.html">5.3 Fault &amp; System Management Module (Coming Soon)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/FASM/fault.html">5.3.1 Fault Handling (Coming Soon)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/FASM/sudo.html">5.3.2 Permission Management (Coming Soon)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/hal/index.html">5.4 Hardware Abstraction Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/hal/sensor.html">5.4.1 Sensor Interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id2">Core Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id6">Standard Sensor Messages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#imu">IMU Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id7">Head Touch Status Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#rgb">Rear RGB Camera Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id8">Stereo Camera Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#interface-rgbd-camera">RGB-D Camera Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#interface-lidar">LiDAR Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id9">Code Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/sensor.html#id10">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/hal/pmu.html">5.4.2 Power Management Unit (PMU)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/pmu.html#id1">Core Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/pmu.html#id5">Power Management Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Interface/hal/pmu.html#id6">Safety Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Interface/perception/index.html">5.5 Perception Module (Coming Soon)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/perception/vision.html">5.5.1 Vision (Coming Soon)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Interface/perception/SLAM.html">5.5.2 SLAM (Coming Soon)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../example/index.html">6 <i class='fa fa-code'></i> Example Code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../example/Python.html">6.1 Python interface usage example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-get-mc-action">6.1.1 Get robot mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-set-mc-action">6.1.2 Set robot mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-preset-motion">6.1.3 Set robot action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-hand-control">6.1.4 Gripper control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-omnihand-control">6.1.5 Dexterous Hand Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-set-mc-input-source">6.1.6 Register custom input source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-get-mc-input-source">6.1.7 Get current input source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-locomotion">6.1.8 Control robot locomotion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-motocontrol">6.1.9 Joint motor control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-joint-control">Robot joint control example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-keyboard">6.1.10 Keyboard control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-take-photo">6.1.11 Take photo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-cameras">6.1.12 Camera stream examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-rgbd">Depth camera data subscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-stereo">Stereo camera data subscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Python.html#py-echo-camera-head-rear">Head rear monocular camera data subscription</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-head-touch-sensor">6.1.13 Head touch sensor data subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-echo-lidar-data">6.1.14 LiDAR data subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-video">6.1.15 Play video</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-media">6.1.16 Media file playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-tts">6.1.17 TTS (Text-to-Speech)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-mic-receiver">6.1.18 Microphone data reception</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-emoji">6.1.19 Emoji (expression) control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Python.html#py-play-lights">6.1.20 LED light strip control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../example/Cpp.html">6.2 C++ Interface Usage Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-get-mc-action">6.2.1 Get Robot Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-set-mc-action">6.2.2 Set Robot Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-preset-motion">6.2.3 Set Robot Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-hand-control">6.2.4 Gripper Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-omnihand-control">6.2.5 Dexterous Hand Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-set-mc-input-source">6.2.6 Register Secondary Development Input Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-get-mc-input-source">6.2.7 Get Current Input Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-locomotion">6.2.8 Robot Locomotion Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-motocontrol">6.2.9 Joint Motor Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-joint-control">Robot Joint Control Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-keyboard">6.2.10 Keyboard Control of the Robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-take-photo">6.2.11 Take Photo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-cameras">6.2.12 Camera Streaming Example Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-rgbd">Depth Camera Data Subscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-stereo">Stereo Camera Data Subscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../example/Cpp.html#cpp-echo-camera-head-rear">Rear Head Monocular Camera Data Subscription</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-head-touch-sensor">6.2.13 Head touch sensor data subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-echo-lidar-data">6.2.14 LiDAR Data Subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-video">6.2.15 Play Video</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-media">6.2.16 Media File Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-tts">6.2.17 TTS (Text-to-Speech)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-mic-receiver">6.2.18 Microphone Audio Reception</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-emoji">6.2.19 Emoji Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../example/Cpp.html#cpp-play-lights">6.2.20 LED Strip Control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/index.html">7 <i class='fa-regular fa-circle-question'></i> FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/temp_works.html">8 <i class='fa fa-gears'></i> Temporary Transitional Solutions Statement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../faq/temp_works.html#agent-only-voice">8.1 Disable the Built-in Interaction System and Use Your Own Voice System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../faq/temp_works.html#id2">8.1.1 Steps to Temporarily Disable the Built-in Interaction System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../faq/temp_works.html#id3">8.1.2 Steps to Restore the Built-in Interaction System</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../faq/temp_works.html#v0-7-xmcaction">8.2 Motion State Simplification: Some McAction state codes prior to v0.7.x are no longer supported</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../end_notes.html">9 <i class='fa fa-triangle-exclamation'></i> Boundaries &amp; Disclaimer for Secondary Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html"><i class='fa fa-scroll'></i> Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-9-0">Changelog v0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id2">Newly Released Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id3">Adjustments to Existing Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id4">Deprecated / Removed Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-2">Changelog v0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id5">Newly Released Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id6">Adjustments to Existing Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id7">Deprecated / Removed Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-1">Changelog v0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id8">Newly Released Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id9">Adjustments to Existing Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id10">Deprecated / Removed Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../changelog.html#changelog-v0-8-0">Changelog v0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id11">Newly Released Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id12">Adjustments to Existing Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id13">Deprecated / Removed Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../changelog.html#id14">Other Updates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../feedback.html"><i class='fa-regular fa-envelope'></i> AimDK Feedback</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AimDK_X2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">4 </span><i class='fa fa-rocket'></i> Quick Start</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">4.6 </span>Code Implementation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">4.6 </span>Code Implementation<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<p><strong>In this section, you will develop a simple robot control program that makes robot X2 perform a sequence of hand motions and speech playback.</strong></p>
+<section id="id2">
+<h2><span class="section-number">4.6.1 </span>Project Overview<a class="headerlink" href="#id2" title="Link to this heading"></a></h2>
+<p>In this project, we will develop a Python program that uses ROS 2 interfaces to control robot X2 to perform the following action sequence:</p>
+<ol class="arabic simple">
+<li><p>Execute the first action (wave)</p></li>
+<li><p>Speech playback</p></li>
+<li><p>Execute the second action (handshake)</p></li>
+</ol>
+<p><strong>Prerequisite</strong>: As in the previous section, the robot must be in the Stable Standing Mode.</p>
+<p>This project will help you understand how to use the SDK to control the robot’s hand motion sequence and interaction features, laying the groundwork for more complex tasks.</p>
+</section>
+<section id="sdk">
+<h2><span class="section-number">4.6.2 </span>Add the Example to the Existing SDK Workspace<a class="headerlink" href="#sdk" title="Link to this heading"></a></h2>
+<p>We will add a new example program to the existing SDK workspace, which allows you to:</p>
+<ul class="simple">
+<li><p>Reuse the existing build system</p></li>
+<li><p>Keep code organization consistent</p></li>
+<li><p>Simplify the build and run workflow</p></li>
+</ul>
+<section id="id3">
+<h3>Understand the Existing Structure<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>The SDK workspace has the following structure:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>aimdk/
+├──<span class="w"> </span>src/
+│<span class="w">   </span>├──<span class="w"> </span>examples/<span class="w">          </span><span class="c1"># C++ examples</span>
+│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>src/
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>hal/<span class="w">       </span><span class="c1"># Hardware Abstraction Layer examples</span>
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>├──<span class="w"> </span>mc/<span class="w">        </span><span class="c1"># Motion control examples</span>
+│<span class="w">   </span>│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>interaction/<span class="w"> </span><span class="c1"># Interaction feature examples</span>
+│<span class="w">   </span>│<span class="w">   </span>└──<span class="w"> </span>CMakeLists.txt
+│<span class="w">   </span>└──<span class="w"> </span>py_examples/<span class="w">       </span><span class="c1"># Python examples</span>
+│<span class="w">       </span>├──<span class="w"> </span>py_examples/
+│<span class="w">       </span>└──<span class="w"> </span>setup.py
+</pre></div>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Notes about non-volatile user data:</p>
+<ul class="simple">
+<li><p>The disks in the robot would be reformated during firmware upgrade/downgrade, please backup you data</p></li>
+<li><p>User data under <code class="docutils literal notranslate"><span class="pre">$HOME</span></code>(/agibot/data/home/agi) would suervive in general</p></li>
+<li><p>Exception 1: DO NOT save data into <code class="docutils literal notranslate"><span class="pre">$HOME/aimdk*</span></code>, which are preserved and maintained by the system</p></li>
+<li><p>BE CAREFUL of features like factory reset, which would force erase all user data (include <code class="docutils literal notranslate"><span class="pre">$HOME</span></code>)</p></li>
+</ul>
+</div>
+</section>
+<section id="python">
+<h3>Add a New Python Example<a class="headerlink" href="#python" title="Link to this heading"></a></h3>
+<p>We will add a new example program under the <code class="docutils literal notranslate"><span class="pre">py_examples</span></code> directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Go to the SDK directory</span>
+<span class="c1"># Replace the path below with your actual extracted path</span>
+<span class="nb">cd</span><span class="w"> </span>/path/to/aimdk
+
+<span class="c1"># Create a new example file under py_examples</span>
+touch<span class="w"> </span>src/py_examples/py_examples/action_sequence_demo.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.6.3 </span>Write the Control Code<a class="headerlink" href="#id4" title="Link to this heading"></a></h2>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>As standard ROS DO NOT handle cross-host service (request-response) well, <strong>please refer to SDK examples to use open interfaces in a robust way (with protection mechanisms e.g. exception safety and retransmission)</strong></p>
+</div>
+<section id="id5">
+<h3>Create the Robot Control Class<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<p>In <code class="docutils literal notranslate"><span class="pre">src/py_examples/py_examples/action_sequence_demo.py</span></code>, add the following code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">rclpy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rclpy.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">aimdk_msgs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">SetMcPresetMotion</span><span class="p">,</span> <span class="n">PlayTts</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">aimdk_msgs.msg</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">RequestHeader</span><span class="p">,</span> <span class="n">McPresetMotion</span><span class="p">,</span> <span class="n">McControlArea</span><span class="p">,</span> <span class="n">CommonState</span><span class="p">,</span>
+    <span class="n">TtsPriorityLevel</span>
+<span class="p">)</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">ActionSequenceDemo</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;action_sequence_demo&#39;</span><span class="p">)</span>
+    
+        <span class="c1"># Create service clients</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_preset_motion_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span>
+            <span class="n">SetMcPresetMotion</span><span class="p">,</span> <span class="s1">&#39;/aimdk_5Fmsgs/srv/SetMcPresetMotion&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play_tts_client</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_client</span><span class="p">(</span>
+            <span class="n">PlayTts</span><span class="p">,</span> <span class="s1">&#39;/aimdk_5Fmsgs/srv/PlayTts&#39;</span><span class="p">)</span>
+    
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Action Sequence Demo created&#39;</span><span class="p">)</span>
+    
+        <span class="c1"># Wait for services to become available</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_preset_motion_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for preset motion service...&#39;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">play_tts_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Waiting for TTS service...&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_preset_motion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">area_id</span><span class="p">,</span> <span class="n">motion_id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute a preset motion&quot;&quot;&quot;</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">SetMcPresetMotion</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">RequestHeader</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+    
+        <span class="n">motion</span> <span class="o">=</span> <span class="n">McPresetMotion</span><span class="p">()</span>
+        <span class="n">motion</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">motion_id</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="n">McControlArea</span><span class="p">()</span>
+        <span class="n">area</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">area_id</span>
+    
+        <span class="n">request</span><span class="o">.</span><span class="n">motion</span> <span class="o">=</span> <span class="n">motion</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">area</span> <span class="o">=</span> <span class="n">area</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">interrupt</span> <span class="o">=</span> <span class="kc">False</span>
+    
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Executing preset motion: area=</span><span class="si">{</span><span class="n">area_id</span><span class="si">}</span><span class="s1">, motion=</span><span class="si">{</span><span class="n">motion_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_preset_motion_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">)</span>
+    
+        <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Preset motion executed successfully&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Preset motion execution failed&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Failed to call preset motion service&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Trigger TTS speech output&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">play_tts_client</span><span class="o">.</span><span class="n">wait_for_service</span><span class="p">(</span><span class="n">timeout_sec</span><span class="o">=</span><span class="mf">5.0</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;TTS service unavailable&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+    
+        <span class="n">request</span> <span class="o">=</span> <span class="n">PlayTts</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+    
+        <span class="c1"># Configure TTS request</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">text</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="s1">&#39;action_sequence_demo&#39;</span>  <span class="c1"># Caller identifier</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">trace_id</span> <span class="o">=</span> <span class="s1">&#39;sequence&#39;</span>            <span class="c1"># Request ID</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">is_interrupted</span> <span class="o">=</span> <span class="kc">True</span>            <span class="c1"># Allow interrupting same-priority speech</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">priority_weight</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">priority_level</span> <span class="o">=</span> <span class="n">TtsPriorityLevel</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">tts_req</span><span class="o">.</span><span class="n">priority_level</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="mi">6</span>         <span class="c1"># Priority level</span>
+    
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;TTS speak: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">play_tts_client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">10.0</span><span class="p">)</span>
+    
+        <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">tts_resp</span><span class="o">.</span><span class="n">is_success</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Speech playback succeeded&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Speech playback failed&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Failed to call TTS service&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">wave_hand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Control robot to wave hand&quot;&quot;&quot;</span>
+        <span class="c1"># Use preset motion: right-hand wave (area=2, motion=1002)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_preset_motion</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1002</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">shake_hand</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Control robot to perform handshake&quot;&quot;&quot;</span>
+        <span class="c1"># Use preset motion: right-hand handshake (area=2, motion=1003)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">perform_preset_motion</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1003</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">perform_action_sequence</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute the complete action sequence&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Starting action sequence...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Prerequisite: robot must be standing&#39;</span><span class="p">)</span>
+    
+        <span class="c1"># 1. First action: Wave hand</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">wave_hand</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Wave hand failed&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    
+        <span class="c1"># 2. TTS speech</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="s1">&#39;Hello! I am AgiBot X2. Now demonstrating a hand action sequence!&#39;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;TTS failed&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    
+        <span class="c1"># 3. Second action: Handshake</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">shake_hand</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Handshake failed&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Action sequence completed&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</section>
+<section id="id6">
+<h3>Add the Main Entry Point<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<p>In the same file, add the main entry point:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">demo</span> <span class="o">=</span> <span class="n">ActionSequenceDemo</span><span class="p">()</span>
+
+    <span class="c1"># Execute the action sequence</span>
+    <span class="n">demo</span><span class="o">.</span><span class="n">perform_action_sequence</span><span class="p">()</span>
+
+    <span class="c1"># Shut down the ROS node</span>
+    <span class="n">demo</span><span class="o">.</span><span class="n">destroy_node</span><span class="p">()</span>
+    <span class="n">rclpy</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>Register in the Build System<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<p>To run the new example with the <code class="docutils literal notranslate"><span class="pre">ros2</span> <span class="pre">run</span></code> command, you need to add an entry point in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># In src/py_examples/setup.py, add this to entry_points:</span>
+<span class="s2">&quot;action_sequence_demo = py_examples.action_sequence_demo:main&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>The complete <code class="docutils literal notranslate"><span class="pre">entry_points</span></code> section should include:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+    <span class="s2">&quot;console_scripts&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="c1"># ... existing entries ...</span>
+        <span class="s2">&quot;action_sequence_demo = py_examples.action_sequence_demo:main&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id8">
+<h2><span class="section-number">4.6.4 </span>Build and Run<a class="headerlink" href="#id8" title="Link to this heading"></a></h2>
+<section id="id9">
+<h3>Build the Project<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Go to the SDK directory</span>
+<span class="c1"># Replace the path below with your actual extracted path</span>
+<span class="nb">cd</span><span class="w"> </span>/path/to/aimdk
+
+<span class="c1"># Set environment variables</span>
+<span class="nb">source</span><span class="w"> </span>/opt/ros/humble/setup.bash
+
+<span class="c1"># Build the project</span>
+colcon<span class="w"> </span>build<span class="w"> </span>--packages-select<span class="w"> </span>py_examples
+</pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>Run the Project<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set environment variables</span>
+<span class="nb">source</span><span class="w"> </span>install/local_setup.bash
+
+<span class="c1"># Run the new example program</span>
+ros2<span class="w"> </span>run<span class="w"> </span>py_examples<span class="w"> </span>action_sequence_demo
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id11">
+<h2><span class="section-number">4.6.5 </span>Code Walkthrough<a class="headerlink" href="#id11" title="Link to this heading"></a></h2>
+<section id="id12">
+<h3>Robot Control Class<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">ActionSequenceDemo</span></code> class is the core of robot control and provides the following capabilities:</p>
+<ul class="simple">
+<li><p><strong>Initialize ROS node and service clients</strong>: The constructor creates the ROS node and the required service clients.</p></li>
+<li><p><strong>Execute preset motions</strong>: The <code class="docutils literal notranslate"><span class="pre">perform_preset_motion</span></code> method is used to execute predefined motions.</p></li>
+<li><p><strong>Speech playback</strong>: The <code class="docutils literal notranslate"><span class="pre">speak</span></code> method triggers TTS-based speech playback.</p></li>
+<li><p><strong>Control robot actions</strong>: Methods such as <code class="docutils literal notranslate"><span class="pre">wave_hand</span></code> and <code class="docutils literal notranslate"><span class="pre">shake_hand</span></code> are provided to control the robot’s hand motions.</p></li>
+<li><p><strong>Execute the action sequence</strong>: The <code class="docutils literal notranslate"><span class="pre">perform_action_sequence</span></code> method runs the sequence wave → speak → handshake in order.</p></li>
+</ul>
+</section>
+</section>
+<section id="id13">
+<h2><span class="section-number">4.6.6 </span>Extensions and Optimization<a class="headerlink" href="#id13" title="Link to this heading"></a></h2>
+<section id="id14">
+<h3>Add More Actions and Interactions<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<p>You can extend the existing code to add more robot actions and interaction features, for example:</p>
+<ul class="simple">
+<li><p>Blow a kiss (preset motion ID: 1004)</p></li>
+<li><p>Salute (preset motion ID: 1013)</p></li>
+<li><p>Heart gesture (preset motion ID: 1007)</p></li>
+<li><p>Raise hand (preset motion ID: 1001)</p></li>
+<li><p>Additional speech content</p></li>
+<li><p>Expression control</p></li>
+<li><p>And so on</p></li>
+</ul>
+</section>
+<section id="id15">
+<h3>Add Parameter Configuration<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<p>You can use the ROS 2 parameter system to make action parameters configurable:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Declare parameters in the constructor</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s1">&#39;wave_count&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="bp">self</span><span class="o">.</span><span class="n">declare_parameter</span><span class="p">(</span><span class="s1">&#39;wait_duration&#39;</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+
+<span class="c1"># Use parameters in your methods</span>
+<span class="n">wait_duration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s1">&#39;wait_duration&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">wait_duration</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id16">
+<h3>Add Error Handling<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<p>You can refer to the example <a class="reference internal" href="../example/Python.html#py-get-mc-action"><span class="std std-ref">Get robot mode</span></a> to add more error-handling logic and make the program more robust:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>    <span class="k">def</span><span class="w"> </span><span class="nf">send_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="n">GetMcAction</span><span class="o">.</span><span class="n">Request</span><span class="p">()</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">request</span> <span class="o">=</span> <span class="n">CommonRequest</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;📨 Sending request to get robot mode&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+            <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">call_async</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="n">rclpy</span><span class="o">.</span><span class="n">spin_until_future_complete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">,</span> <span class="n">timeout_sec</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">future</span><span class="o">.</span><span class="n">done</span><span class="p">():</span>
+                <span class="k">break</span>
+
+            <span class="c1"># retry as remote peer is NOT handled well by ROS</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;trying ... [</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;❌ Service call failed or timed out.&#39;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;✅ Robot mode get successfully.&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mode name: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">action_desc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Mode status: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id17">
+<h3>Add More Interaction Features<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<p>You can integrate additional interaction features:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add an expression service client</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">aimdk_msgs.srv</span><span class="w"> </span><span class="kn">import</span> <span class="n">PlayEmoji</span>
+
+<span class="c1"># Add expressions in the action sequence</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">show_expression</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">emoji_id</span><span class="p">):</span>
+    <span class="c1"># Implement expression control here</span>
+    <span class="k">pass</span>
+
+<span class="c1"># Add multiple speech messages</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">speak_multiple_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">message</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">speak</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id18">
+<h2><span class="section-number">4.6.7 </span>Troubleshooting<a class="headerlink" href="#id18" title="Link to this heading"></a></h2>
+<p>First, check the <a class="reference internal" href="../faq/index.html#faq"><span class="std std-ref"> FAQ</span></a> section. If the issue is still not resolved, consider contacting AgiBot X2 technical support.</p>
+</section>
+<section id="id19">
+<h2><span class="section-number">4.6.8 </span>Next Steps<a class="headerlink" href="#id19" title="Link to this heading"></a></h2>
+<p>After completing this section, you can:</p>
+<ol class="arabic simple">
+<li><p><strong>Explore more examples</strong>: Review other example programs under <code class="docutils literal notranslate"><span class="pre">src/py_examples/py_examples/</span></code> or <code class="docutils literal notranslate"><span class="pre">src/examples/src/</span></code>.</p></li>
+<li><p><strong>Integrate perception features</strong>: Learn how to access and process sensor data.</p></li>
+<li><p><strong>Develop more complex tasks</strong>: Combine multiple functional modules to build more complex robot applications.</p></li>
+</ol>
+</section>
+<section id="id20">
+<h2><span class="section-number">4.6.9 </span>Summary<a class="headerlink" href="#id20" title="Link to this heading"></a></h2>
+<p>By now, you have learned how to:</p>
+<ul class="simple">
+<li><p>✅ Add a new example program to an existing SDK workspace</p></li>
+<li><p>✅ Execute a preset motion sequence</p></li>
+<li><p>✅ Implement TTS speech playback</p></li>
+<li><p>✅ Build and run a custom example program</p></li>
+<li><p>✅ Control a sequence of hand motions for the robot: wave → speak → handshake</p></li>
+</ul>
+<p>Congratulations! You have now mastered the basic development skills for the AgiBot X2 AimDK, including motion control, speech interaction, and action-sequence orchestration, and you are ready to start building your own robot applications!</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="run_example.html" class="btn btn-neutral float-left" title="4.5 Run an Example Program" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Interface/index.html" class="btn btn-neutral float-right" title="5 Interface Description" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025 Shanghai AgiBot Innovation Technology Co.,Ltd. All Rights Reserved.</p>
+  </div>
+
+  <div role="contentinfo" class="beian"><p>
+	<a href="https://beian.miit.gov.cn" target="_blank">沪ICP备2023019007号-2</a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502401815" target="_blank"><img with="16" height="16" src=../_static/beian-icon.png alt="beian"></img>沪公网安备31011502401815号</a></p></div>
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

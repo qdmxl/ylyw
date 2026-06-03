@@ -1,0 +1,63 @@
+div.wy-nav-content {
+  max-width: 1080px;
+}
+
+.rst-content div.wy-table-responsive table.docutils th > p,
+.rst-content div.wy-table-responsive table.docutils td > p {
+  line-height: 0.95rem;
+  font-size: 0.9rem;
+}
+
+div.wy-table-responsive td:first-child ~ * {
+  white-space: normal;
+}
+
+.highlight-target {
+  color: #e74c3c !important;
+  font-weight: bold;
+}
+
+.wy-nav-side .wy-menu-vertical > ul:first-child + ul {
+  padding-top: 1.0em;
+  margin-top: 1.0em;
+  border-top: 4px ridge #2980b9;
+}
+
+.rst-content figcaption > p {
+  text-align: center;
+}
+
+div.wy-menu-vertical > ul > li.toctree-l1 > a:hover::first-letter {
+  color: inherit;
+}
+div.wy-menu-vertical > ul > li.toctree-l1 > a::first-letter {
+  color: rgba(0,0,0,0);
+}
+div.wy-menu-vertical > ul > li.toctree-l1.current > a::first-letter {
+  color: inherit;
+}
+div.wy-menu-vertical > ul + ul > li.toctree-l1 > a::before {
+  content: "» ";
+  font-family: "FontAwesome";
+  color: rgba(0,0,0,0);
+}
+div.wy-menu-vertical > ul + ul > li.toctree-l1 > a:hover::before {
+  color: inherit;
+}
+footer > div[role="contentinfo"] > p {
+  font-size: 0.7rem;
+  line-height: 1.1rem;
+  margin-bottom: 0;
+}
+footer > div[role="contentinfo"].beian a {
+  color: inherit;
+  margin-right: 0.7rem;
+}
+footer > div[role="contentinfo"].beian a:visted {
+  color: inherit;
+}
+footer > div[role="contentinfo"].beian img {
+  user-select: none;
+  width: 16px;
+  margin: 0 0.2rem 0.2rem 0;
+}

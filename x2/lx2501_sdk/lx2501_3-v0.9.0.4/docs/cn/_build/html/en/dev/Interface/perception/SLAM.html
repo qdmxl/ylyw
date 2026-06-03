@@ -1,0 +1,461 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>5.5.2 SLAM (Coming Soon) &mdash; AimDK_X2 0.9.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/tippy.css?v=c6278a58" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=1107372c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/all.min.css?v=4b521257" />
+
+  
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=ba9b7d67"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script defer="defer" src="../../_static/js/@popperjs/core@2?v=a8c9358f"></script>
+      <script defer="defer" src="../../_static/js/tippy.js@6?v=37ef8ba7"></script>
+      <script defer="defer" src="../../_static/tippy/Interface/perception/SLAM.ed7a08f2-fb7b-4099-bce8-2cc2c600526e.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="6 Example Code" href="../../example/index.html" />
+    <link rel="prev" title="5.5.1 Vision (Coming Soon)" href="vision.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            AimDK_X2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about_agibot_X2/index.html">1 <i class='fa-brands fa-bilibili'></i> About AgiBot X2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../about_agibot_X2/part_name.html">1.1 Product Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/part_name.html#x2-ultra">1.1.1 X2 Ultra Edition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about_agibot_X2/robot_specifications.html">1.2 Robot Specifications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/robot_specifications.html#x2">1.2.1 X2 Series Parameter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about_agibot_X2/onboard_computer.html">1.3 On-board Computer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/onboard_computer.html#id2">1.3.1 Standard Computing Units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/onboard_computer.html#id3">1.3.2 Development Computing Unit Specifications</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about_agibot_X2/user_debug_interface.html">1.4 User Debug Interfaces (Ultra Edition)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about_agibot_X2/SDK_interface.html">1.5 Secondary Development Interfaces (Ultra Edition)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html">1.6 AgiBot X2 Sensor Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#id1">1.6.1 Sensor Capabilities &amp; FOV Diagram</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#id2">1.6.2 Sensor Specifications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#id3">LiDAR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#rgbd">RGB-D Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#rgb">Front Stereo RGB Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#id4">Front Interaction RGB Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#id5">Rear RGB Camera</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#id6">Touch Sensor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../about_agibot_X2/sensor_fov.html#imu">Standalone Inertial Sensor (IMU)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about_agibot_X2/joint_name_and_limit.html">1.7 Joint Motion Range Description (Warranted)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/joint_name_and_limit.html#id2">1.7.1 Arm Motion Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/joint_name_and_limit.html#id3">1.7.2 Leg Motion Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/joint_name_and_limit.html#id4">1.7.3 Head Motion Range</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../about_agibot_X2/joint_name_and_limit.html#id5">1.7.4 Waist Motion Range</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../about_agibot_X2/coordinate_system.html">1.8 Coordinate System</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../operation_guide/index.html">2 <i class='fa-regular fa-map'></i> Operation Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../operation_guide/start_up_guide.html">2.1 Startup Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../operation_guide/start_up_guide.html#sdk">2.1.1 Startup While Suspended (Gantry Required) (Recommended for SDK use)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../operation_guide/start_up_guide.html#id2">2.1.2 Startup from Supine Position (No Gantry Required)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../operation_guide/start_up_guide.html#id3">2.1.3 Startup from Sitting Position (No Gantry Required)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../operation_guide/robot_connection.html">2.2 Robot Mobile App Connection (Agibot Go APP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../operation_guide/robot_connection.html#id1">2.2.1 Download Links</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/robot_connection.html#ios">iOS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/robot_connection.html#android">Android</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/robot_connection.html#id2">Operation Steps</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../operation_guide/remote_controller.html">2.3 Remote Controller Connection</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../operation_guide/remote_controller.html#id2">2.3.1 Operation Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../operation_guide/shutdown.html">2.4 Shutdown Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../operation_guide/shutdown.html#id2">2.4.1 Assist the Robot to Lie Down (No Gantry Required)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/shutdown.html#step-1">Step 1: Enter Standing Preparation Mode (Position-Control Standing)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/shutdown.html#step-2">Step 2: Lay the Robot Down</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/shutdown.html#step-3">Step 3: Enter Zero-Torque Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/shutdown.html#step-5">Step 5: Pack the Robot as Illustrated</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../operation_guide/shutdown.html#id3">2.4.2 Shutdown from Sitting Posture (No Gantry Required)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/shutdown.html#id4">Step 1: Use the Controller to Make the Robot Sit</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/shutdown.html#id5">Step 2: Enter Zero-Torque Mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/shutdown.html#id6">Step 3: Power Off</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../operation_guide/shutdown.html#id7">Step 4: Pack the Robot as Shown</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../get_sdk/index.html">3 <i class='fa fa-cloud-arrow-down'></i> Get the SDK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../quick_start/index.html">4 <i class='fa fa-rocket'></i> Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start/prerequisites.html">4.1 Read the user guide to familiarize yourself with relevant terminology and safety precautions.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start/prerequisites.html#id2">4.2 Complete the basic system configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start/prerequisites.html#id3">4.3 Network connection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start/prerequisites.html#aimdk-build">4.4 Environment installation and configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start/run_example.html">4.5 Run an Example Program</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/run_example.html#id1">4.5.1 Get the Robot’s Current State</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/run_example.html#id2">4.5.2 Make the Robot Wave</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../quick_start/code_sample.html">4.6 Code Implementation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#id2">4.6.1 Project Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#sdk">4.6.2 Add the Example to the Existing SDK Workspace</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id3">Understand the Existing Structure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#python">Add a New Python Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#id4">4.6.3 Write the Control Code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id5">Create the Robot Control Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id6">Add the Main Entry Point</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id7">Register in the Build System</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#id8">4.6.4 Build and Run</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id9">Build the Project</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id10">Run the Project</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#id11">4.6.5 Code Walkthrough</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id12">Robot Control Class</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#id13">4.6.6 Extensions and Optimization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id14">Add More Actions and Interactions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id15">Add Parameter Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id16">Add Error Handling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../quick_start/code_sample.html#id17">Add More Interaction Features</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#id18">4.6.7 Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#id19">4.6.8 Next Steps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../quick_start/code_sample.html#id20">4.6.9 Summary</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">5 <i class='fa fa-plug'></i> Interface Description</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../control_mod/index.html">5.1 Control Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../control_mod/modeswitch.html">5.1.1 Motion Mode Switching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/modeswitch.html#id2">Core Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/modeswitch.html#id3">Motion Mode Query Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/modeswitch.html#id4">Motion Mode Set Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/modeswitch.html#id5">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/modeswitch.html#id6">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../control_mod/locomotion.html">5.1.2 Locomotion Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/locomotion.html#id2">Control Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/locomotion.html#id3">Locomotion Control Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/locomotion.html#id4">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/locomotion.html#id5">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../control_mod/MC_control.html">5.1.3 MC Control Signal Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/MC_control.html#id1">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/MC_control.html#id3">Input Source Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/MC_control.html#id5">Arbitration Workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/MC_control.html#id7">Input Source Management Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/MC_control.html#id8">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/MC_control.html#id9">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../control_mod/preset_motion.html">5.1.4 Preset Motion Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/preset_motion.html#id2">Preset Motion Control Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/preset_motion.html#id3">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/preset_motion.html#id4">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../control_mod/endeffector.html">5.1.5 End Effector Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/endeffector.html#id2">Hand Control Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/endeffector.html#id3">Hand Control Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/endeffector.html#id4">Hand Status Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/endeffector.html#id5">Hand Type Query Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/endeffector.html#id6">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/endeffector.html#id7">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../control_mod/joint_control.html">5.1.6 Joint Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/joint_control.html#id2">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/joint_control.html#id5">Joint Control Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/joint_control.html#id6">Joint State Query Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/joint_control.html#id7">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../control_mod/joint_control.html#id8">Safety Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../interactor/index.html">5.2 Interaction Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../interactor/voice.html">5.2.1 Voice Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/voice.html#id2">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/voice.html#id6">Volume Control Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/voice.html#id7">Speech Synthesis Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/voice.html#id8">Audio File Playback Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/voice.html#mic-receiver-vad">MIC Audio Stream Capture Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/voice.html#id9">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/voice.html#id10">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../interactor/screen.html">5.2.2 Screen Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/screen.html#id2">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/screen.html#id3">Emoji Playback Status Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/screen.html#id4">Emoji Playback Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/screen.html#id5">Video Playback Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/screen.html#id6">Programming Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/screen.html#id7">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../interactor/lights.html">5.2.3 LED Strip Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/lights.html#id2">Key Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/lights.html#id3">LED Strip Control Service</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../interactor/lights.html#id4">Programming Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../FASM/index.html">5.3 Fault &amp; System Management Module (Coming Soon)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../FASM/fault.html">5.3.1 Fault Handling (Coming Soon)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../FASM/sudo.html">5.3.2 Permission Management (Coming Soon)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../hal/index.html">5.4 Hardware Abstraction Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../hal/sensor.html">5.4.1 Sensor Interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#id2">Core Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#id6">Standard Sensor Messages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#imu">IMU Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#id7">Head Touch Status Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#rgb">Rear RGB Camera Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#id8">Stereo Camera Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#interface-rgbd-camera">RGB-D Camera Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#interface-lidar">LiDAR Topics</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#id9">Code Examples</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/sensor.html#id10">Safety Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../hal/pmu.html">5.4.2 Power Management Unit (PMU)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../hal/pmu.html#id1">Core Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/pmu.html#id5">Power Management Topic</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../hal/pmu.html#id6">Safety Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">5.5 Perception Module (Coming Soon)</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="vision.html">5.5.1 Vision (Coming Soon)</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">5.5.2 SLAM (Coming Soon)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../example/index.html">6 <i class='fa fa-code'></i> Example Code</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../example/Python.html">6.1 Python interface usage example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-get-mc-action">6.1.1 Get robot mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-set-mc-action">6.1.2 Set robot mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-preset-motion">6.1.3 Set robot action</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-hand-control">6.1.4 Gripper control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-omnihand-control">6.1.5 Dexterous Hand Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-set-mc-input-source">6.1.6 Register custom input source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-get-mc-input-source">6.1.7 Get current input source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-locomotion">6.1.8 Control robot locomotion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-motocontrol">6.1.9 Joint motor control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../example/Python.html#py-joint-control">Robot joint control example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-keyboard">6.1.10 Keyboard control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-take-photo">6.1.11 Take photo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-echo-cameras">6.1.12 Camera stream examples</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../example/Python.html#py-echo-camera-rgbd">Depth camera data subscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../example/Python.html#py-echo-camera-stereo">Stereo camera data subscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../example/Python.html#py-echo-camera-head-rear">Head rear monocular camera data subscription</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-echo-head-touch-sensor">6.1.13 Head touch sensor data subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-echo-lidar-data">6.1.14 LiDAR data subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-play-video">6.1.15 Play video</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-play-media">6.1.16 Media file playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-play-tts">6.1.17 TTS (Text-to-Speech)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-mic-receiver">6.1.18 Microphone data reception</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-play-emoji">6.1.19 Emoji (expression) control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Python.html#py-play-lights">6.1.20 LED light strip control</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../example/Cpp.html">6.2 C++ Interface Usage Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-get-mc-action">6.2.1 Get Robot Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-set-mc-action">6.2.2 Set Robot Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-preset-motion">6.2.3 Set Robot Motion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-hand-control">6.2.4 Gripper Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-omnihand-control">6.2.5 Dexterous Hand Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-set-mc-input-source">6.2.6 Register Secondary Development Input Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-get-mc-input-source">6.2.7 Get Current Input Source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-locomotion">6.2.8 Robot Locomotion Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-motocontrol">6.2.9 Joint Motor Control</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../example/Cpp.html#cpp-joint-control">Robot Joint Control Example</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-keyboard">6.2.10 Keyboard Control of the Robot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-take-photo">6.2.11 Take Photo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-echo-cameras">6.2.12 Camera Streaming Example Collection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../example/Cpp.html#cpp-echo-camera-rgbd">Depth Camera Data Subscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../example/Cpp.html#cpp-echo-camera-stereo">Stereo Camera Data Subscription</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../example/Cpp.html#cpp-echo-camera-head-rear">Rear Head Monocular Camera Data Subscription</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-echo-head-touch-sensor">6.2.13 Head touch sensor data subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-echo-lidar-data">6.2.14 LiDAR Data Subscription</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-play-video">6.2.15 Play Video</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-play-media">6.2.16 Media File Playback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-play-tts">6.2.17 TTS (Text-to-Speech)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-mic-receiver">6.2.18 Microphone Audio Reception</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-play-emoji">6.2.19 Emoji Control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../example/Cpp.html#cpp-play-lights">6.2.20 LED Strip Control</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq/index.html">7 <i class='fa-regular fa-circle-question'></i> FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq/temp_works.html">8 <i class='fa fa-gears'></i> Temporary Transitional Solutions Statement</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/temp_works.html#agent-only-voice">8.1 Disable the Built-in Interaction System and Use Your Own Voice System</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../faq/temp_works.html#id2">8.1.1 Steps to Temporarily Disable the Built-in Interaction System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../faq/temp_works.html#id3">8.1.2 Steps to Restore the Built-in Interaction System</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../faq/temp_works.html#v0-7-xmcaction">8.2 Motion State Simplification: Some McAction state codes prior to v0.7.x are no longer supported</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../end_notes.html">9 <i class='fa fa-triangle-exclamation'></i> Boundaries &amp; Disclaimer for Secondary Development</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog.html"><i class='fa fa-scroll'></i> Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#changelog-v0-9-0">Changelog v0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id2">Newly Released Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id3">Adjustments to Existing Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id4">Deprecated / Removed Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#changelog-v0-8-2">Changelog v0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id5">Newly Released Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id6">Adjustments to Existing Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id7">Deprecated / Removed Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#changelog-v0-8-1">Changelog v0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id8">Newly Released Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id9">Adjustments to Existing Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id10">Deprecated / Removed Features</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../changelog.html#changelog-v0-8-0">Changelog v0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id11">Newly Released Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id12">Adjustments to Existing Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id13">Deprecated / Removed Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../changelog.html#id14">Other Updates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../feedback.html"><i class='fa-regular fa-envelope'></i> AimDK Feedback</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">AimDK_X2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content style-external-links">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html"><span class="section-number">5 </span><i class='fa fa-plug'></i> Interface Description</a></li>
+          <li class="breadcrumb-item"><a href="index.html"><span class="section-number">5.5 </span>Perception Module (Coming Soon)</a></li>
+      <li class="breadcrumb-item active"><span class="section-number">5.5.2 </span>SLAM (Coming Soon)</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="slam">
+<h1><span class="section-number">5.5.2 </span>SLAM (Coming Soon)<a class="headerlink" href="#slam" title="Link to this heading"></a></h1>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="vision.html" class="btn btn-neutral float-left" title="5.5.1 Vision (Coming Soon)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../example/index.html" class="btn btn-neutral float-right" title="6 Example Code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025 Shanghai AgiBot Innovation Technology Co.,Ltd. All Rights Reserved.</p>
+  </div>
+
+  <div role="contentinfo" class="beian"><p>
+	<a href="https://beian.miit.gov.cn" target="_blank">沪ICP备2023019007号-2</a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=31011502401815" target="_blank"><img with="16" height="16" src=../../_static/beian-icon.png alt="beian"></img>沪公网安备31011502401815号</a></p></div>
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

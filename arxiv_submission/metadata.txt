@@ -36,7 +36,7 @@ abstract: >
   prior reasoning requiring only 1.7ms per object. The performance leap from 48.0% to 
   92.7% itself serves as a vivid validation of the interpretability of the Yi-Li model.
 
-comments: 17 tables, 4 figures, 1 appendix, 22 references. Preprint. In Chinese.
+comments: 17 tables, 4 figures, 1 appendix, 20 references. Preprint. In Chinese.
 classification: cs.AI (Artificial Intelligence), cs.RO (Robotics)
 keywords: Neuro-Symbolic Systems, I Ching, Prior Knowledge, Zero-Shot Learning, 
   Yao Relation Computation, Explainable AI, Robotic Grasping

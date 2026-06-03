@@ -1,0 +1,16 @@
+.tippy-box {
+  opacity: 0.8;
+}
+.tippy-box tr p {
+  margin: 0 0 0.5em;
+}
+.tippy-box .highlight .n {
+  color: #2A2A2A;
+}
+
+.tippy-box a.headerlink {
+  font-family: FontAwesome;
+  font-size: 14px;
+  line-height: 1;
+  display: none;
+}

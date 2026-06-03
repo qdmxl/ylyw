@@ -1,0 +1,51 @@
+from setuptools import find_packages, setup
+
+package_name = "py_examples"
+
+setup(
+    name=package_name,
+    version="0.0.0",
+    packages=find_packages(exclude=["test"]),
+    package_data={package_name: ['data/*']},
+    data_files=[
+        ("share/ament_index/resource_index/packages",
+         ["resource/" + package_name]),
+        ("share/" + package_name, ["package.xml"]),
+    ],
+    include_package_data=True,
+    install_requires=["setuptools"],
+    zip_safe=True,
+    maintainer="qyd",
+    maintainer_email="qiuyidong@zhiyuan-robot.com",
+    description="TODO: Package description",
+    license="TODO: License declaration",
+    # tests_require=["pytest"],
+    entry_points={
+        "console_scripts": [
+            "get_mc_action = py_examples.get_mc_action:main",
+            "set_mc_action = py_examples.set_mc_action:main",
+            "get_current_input_source = py_examples.get_current_input_source:main",
+            "motocontrol = py_examples.motocontrol:main",
+            "mc_locomotion_velocity = py_examples.mc_locomotion_velocity:main",
+            "keyboard = py_examples.keyboard:main",
+            "preset_motion_client = py_examples.preset_motion_client:main",
+            "hand_control = py_examples.hand_control:main",
+            "set_mc_input_source = py_examples.set_mc_input_source:main",
+            "echo_imu_data = py_examples.echo_imu_data:main",
+            "echo_hds_diagnostics = py_examples.echo_hds_diagnostics:main",
+            "echo_camera_rgbd = py_examples.echo_camera_rgbd:main",
+            "echo_camera_stereo = py_examples.echo_camera_stereo:main",
+            "echo_camera_head_rear = py_examples.echo_camera_head_rear:main",
+            "echo_lidar_data = py_examples.echo_lidar_data:main",
+            "take_photo = py_examples.take_photo:main",
+            "play_video = py_examples.play_video:main",
+            "play_tts = py_examples.play_tts:main",
+            "play_emoji = py_examples.play_emoji:main",
+            "play_lights = py_examples.play_lights:main",
+            "play_media = py_examples.play_media:main",
+            "omnihand_control = py_examples.omnihand_control:main",
+            "mic_receiver = py_examples.mic_receiver:main",
+            "echo_head_touch_sensor = py_examples.echo_head_touch_sensor:main",
+        ],
+    },
+)

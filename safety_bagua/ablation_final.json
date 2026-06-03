@@ -1,0 +1,50 @@
+{
+  "experiment": "safety_ablation_final",
+  "n_total": 309,
+  "results": {
+    "\u5b8c\u6574\u5b89\u5168\u516b\u5366": {
+      "level_counts": {
+        "SAFE": 118,
+        "CAUTION": 1,
+        "WARNING": 185,
+        "DANGER": 0,
+        "CRITICAL": 5
+      },
+      "force_mod_mean": 1.2349710570836614,
+      "fragile_mod_mean": 1.4508964502786474
+    },
+    "\u2212\u4e8c\u723b\u9ad8\u6743\u91cd": {
+      "level_counts": {
+        "SAFE": 118,
+        "CAUTION": 186,
+        "WARNING": 0,
+        "DANGER": 0,
+        "CRITICAL": 5
+      },
+      "force_mod_mean": 1.3918930562736898,
+      "fragile_mod_mean": 1.7229395347058936
+    },
+    "\u2212\u723b\u4f4d\u52a0\u6743": {
+      "level_counts": {
+        "SAFE": 118,
+        "CAUTION": 186,
+        "WARNING": 0,
+        "DANGER": 5,
+        "CRITICAL": 0
+      },
+      "force_mod_mean": 1.3918930562736898,
+      "fragile_mod_mean": 1.7229395347058936
+    },
+    "\u2212\u5b89\u5168\u516b\u5366": {
+      "level_counts": {
+        "SAFE": 309,
+        "CAUTION": 0,
+        "WARNING": 0,
+        "DANGER": 0,
+        "CRITICAL": 0
+      },
+      "force_mod_mean": 1.4447212226703663,
+      "fragile_mod_mean": 1.8136205628483086
+    }
+  }
+}

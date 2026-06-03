@@ -1,0 +1,348 @@
+{
+    "GLOBAL_OPTIONS": {
+        "verbose": false,
+        "site_url": "http://127.0.0.1:8000",
+        "debug": false,
+        "debug_target": null,
+        "author": "AgiBot - \u667a\u5143\u521b\u65b0\uff08\u4e0a\u6d77\uff09\u79d1\u6280\u80a1\u4efd\u6709\u9650\u516c\u53f8",
+        "author_logo": null,
+        "copyright": "2025 \u667a\u5143\u521b\u65b0\uff08\u4e0a\u6d77\uff09\u79d1\u6280\u80a1\u4efd\u6709\u9650\u516c\u53f8",
+        "disclaimer": null,
+        "cover": true,
+        "cover_title": "AimDK_X2",
+        "cover_subtitle": null,
+        "custom_template_path": "_templates",
+        "theme_handler_path": null,
+        "plugin_handler_path": null,
+        "custom_css_path": null,
+        "toc": true,
+        "toc_numbering": true,
+        "toc_title": "Table of Contents",
+        "toc_level": 4,
+        "cover_images": null,
+        "theme_name": "sphinx_rtd_theme",
+        "templates_path": [
+            "_templates"
+        ]
+    },
+    "LOCAL_OPTIONS": {
+        "Interface/FASM/fault": {
+            "wordcount": {
+                "words": 8,
+                "minutes": 0
+            }
+        },
+        "Interface/FASM/index": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "Interface/FASM/sudo": {
+            "wordcount": {
+                "words": 4,
+                "minutes": 0
+            }
+        },
+        "Interface/control_mod/MC_control": {
+            "wordcount": {
+                "words": 25,
+                "minutes": 0
+            }
+        },
+        "Interface/control_mod/endeffector": {
+            "wordcount": {
+                "words": 28,
+                "minutes": 0
+            }
+        },
+        "Interface/control_mod/index": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "Interface/control_mod/joint_control": {
+            "wordcount": {
+                "words": 12,
+                "minutes": 0
+            }
+        },
+        "Interface/control_mod/locomotion": {
+            "wordcount": {
+                "words": 7,
+                "minutes": 0
+            }
+        },
+        "Interface/control_mod/modeswitch": {
+            "wordcount": {
+                "words": 9,
+                "minutes": 0
+            }
+        },
+        "Interface/control_mod/preset_motion": {
+            "wordcount": {
+                "words": 9,
+                "minutes": 0
+            }
+        },
+        "Interface/hal/index": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "Interface/hal/pmu": {
+            "wordcount": {
+                "words": 10,
+                "minutes": 0
+            }
+        },
+        "Interface/hal/sensor": {
+            "wordcount": {
+                "words": 19,
+                "minutes": 0
+            }
+        },
+        "Interface/index": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "Interface/interactor/index": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "Interface/interactor/lights": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "Interface/interactor/screen": {
+            "wordcount": {
+                "words": 6,
+                "minutes": 0
+            }
+        },
+        "Interface/interactor/voice": {
+            "wordcount": {
+                "words": 7,
+                "minutes": 0
+            }
+        },
+        "Interface/perception/SLAM": {
+            "wordcount": {
+                "words": 3,
+                "minutes": 0
+            }
+        },
+        "Interface/perception/index": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "Interface/perception/vision": {
+            "wordcount": {
+                "words": 3,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/SDK_interface": {
+            "wordcount": {
+                "words": 7,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/coordinate_system": {
+            "wordcount": {
+                "words": 3,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/index": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/joint_name_and_limit": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/onboard_computer": {
+            "wordcount": {
+                "words": 1,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/part_name": {
+            "wordcount": {
+                "words": 14,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/robot_specifications": {
+            "wordcount": {
+                "words": 1,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/sensor_fov": {
+            "wordcount": {
+                "words": 3,
+                "minutes": 0
+            }
+        },
+        "about_agibot_X2/user_debug_interface": {
+            "wordcount": {
+                "words": 12,
+                "minutes": 0
+            }
+        },
+        "changelog": {
+            "wordcount": {
+                "words": 1,
+                "minutes": 0
+            }
+        },
+        "coding_notices": {
+            "wordcount": {
+                "words": 28,
+                "minutes": 0
+            }
+        },
+        "end_notes": {
+            "wordcount": {
+                "words": 21,
+                "minutes": 0
+            }
+        },
+        "example/Cpp": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "example/Python": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "example/index": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "faq/index": {
+            "wordcount": {
+                "words": 25,
+                "minutes": 0
+            }
+        },
+        "faq/temp_works": {
+            "wordcount": {
+                "words": 5,
+                "minutes": 0
+            }
+        },
+        "feedback": {
+            "wordcount": {
+                "words": 23,
+                "minutes": 0
+            }
+        },
+        "get_sdk/index": {
+            "wordcount": {
+                "words": 15,
+                "minutes": 0
+            }
+        },
+        "index": {
+            "wordcount": {
+                "words": 16,
+                "minutes": 0
+            }
+        },
+        "non_volatile_userdata": {
+            "wordcount": {
+                "words": 15,
+                "minutes": 0
+            }
+        },
+        "operation_guide/index": {
+            "wordcount": {
+                "words": 12,
+                "minutes": 0
+            }
+        },
+        "operation_guide/remote_controller": {
+            "wordcount": {
+                "words": 7,
+                "minutes": 0
+            }
+        },
+        "operation_guide/robot_connection": {
+            "wordcount": {
+                "words": 2,
+                "minutes": 0
+            }
+        },
+        "operation_guide/shutdown": {
+            "wordcount": {
+                "words": 21,
+                "minutes": 0
+            }
+        },
+        "operation_guide/start_up_guide": {
+            "wordcount": {
+                "words": 7,
+                "minutes": 0
+            }
+        },
+        "quick_start/code_sample": {
+            "wordcount": {
+                "words": 31,
+                "minutes": 0
+            }
+        },
+        "quick_start/index": {
+            "wordcount": {
+                "words": 15,
+                "minutes": 0
+            }
+        },
+        "quick_start/prerequisites": {
+            "wordcount": {
+                "words": 15,
+                "minutes": 0
+            }
+        },
+        "quick_start/run_example": {
+            "wordcount": {
+                "words": 9,
+                "minutes": 0
+            }
+        },
+        "warnings": {
+            "wordcount": {
+                "words": 19,
+                "minutes": 0
+            }
+        },
+        "genindex": {
+            "pdf-build": "False"
+        },
+        "search": {
+            "pdf-build": "False"
+        }
+    }
+}
