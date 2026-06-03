@@ -4,6 +4,14 @@ YLYW 运动控制仿真 — MuJoCo版
 精细人形机器人 + 物理渲染 + 10种步态演示
 """
 import sys, os, time, math, numpy as np
+
+# 强制软件渲染（VirtualBox无GPU）
+os.environ.setdefault('MUJOCO_GL_DEBUG', '0')
+os.environ.setdefault('LIBGL_ALWAYS_SOFTWARE', '1')       # 强制llvmpipe软件渲染
+os.environ.setdefault('GALLIUM_DRIVER', 'llvmpipe')        # 指定Gallium驱动
+os.environ.setdefault('EGL_PLATFORM', 'x11')               # 使用X11而非Wayland EGL
+os.environ.setdefault('MESA_GL_VERSION_OVERRIDE', '3.3')   # 降低OpenGL版本要求
+os.environ.setdefault('GLFW_IM_MODULE', 'ibus')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ylyw_locomotion import YLYWLocomotionController
 import mujoco, mujoco.viewer
@@ -205,6 +213,10 @@ def run_no_gui():
 
 
 if __name__ == '__main__':
+    # 重定向stderr以过滤MuJoCo常见无害警告
+    import warnings
+    warnings.filterwarnings('ignore')
+    
     if '--no-gui' in sys.argv:
         run_no_gui()
     else:
