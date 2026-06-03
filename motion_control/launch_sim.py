@@ -46,23 +46,25 @@ def connect_gui():
 
 
 def build_robot():
-    """构建简化双足机器人"""
+    """构建简化双足机器人（使用关键字参数确保正确初始化）"""
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
     p.setGravity(0, 0, -9.81)
-    p.setTimeStep(1/240.)
+    p.setTimeStep(1/500.)
     p.loadURDF("plane.urdf")
     
     # Torso (蓝色)
     ts = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.10, 0.07, 0.14])
     tv = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.10, 0.07, 0.14], rgbaColor=[0.2,0.4,0.8,1])
-    torso = p.createMultiBody(1.5, -1, ts, tv, [0,0,0.85], [0,0,0,1])
+    torso = p.createMultiBody(baseMass=1.5, baseCollisionShapeIndex=ts, 
+                              baseVisualShapeIndex=tv, basePosition=[0,0,0.90])
     
     joints = {}
     for side, y_sign in [('l', 0.055), ('r', -0.055)]:
         # 大腿 (绿色)
         ls = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.035,0.035,0.16])
         lv = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.035,0.035,0.16], rgbaColor=[0.2,0.7,0.3,1])
-        thigh = p.createMultiBody(0.8, -1, ls, lv, [0,y_sign,0.50], [0,0,0,1])
+        thigh = p.createMultiBody(baseMass=0.8, baseCollisionShapeIndex=ls,
+                                  baseVisualShapeIndex=lv, basePosition=[0,y_sign,0.55])
         # 髋关节（Hinge=4）
         jid = p.createConstraint(torso, -1, thigh, -1, 4, [1,0,0], [0,y_sign,-0.14], [0,0,0.16])
         p.changeConstraint(jid, maxForce=100)
@@ -71,7 +73,8 @@ def build_robot():
         # 小腿 (绿色)
         ls2 = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.03,0.03,0.15])
         lv2 = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.03,0.03,0.15], rgbaColor=[0.2,0.7,0.3,1])
-        shin = p.createMultiBody(0.5, -1, ls2, lv2, [0,y_sign,0.22], [0,0,0,1])
+        shin = p.createMultiBody(baseMass=0.5, baseCollisionShapeIndex=ls2,
+                                 baseVisualShapeIndex=lv2, basePosition=[0,y_sign,0.25])
         # 膝关节
         jid2 = p.createConstraint(thigh, -1, shin, -1, 4, [1,0,0], [0,0,-0.16], [0,0,0.15])
         p.changeConstraint(jid2, maxForce=80)
@@ -80,7 +83,8 @@ def build_robot():
         # 脚 (红色)
         fs = p.createCollisionShape(p.GEOM_BOX, halfExtents=[0.04,0.10,0.025])
         fv = p.createVisualShape(p.GEOM_BOX, halfExtents=[0.04,0.10,0.025], rgbaColor=[0.8,0.3,0.2,1])
-        foot = p.createMultiBody(0.3, -1, fs, fv, [0,y_sign,0.04], [0,0,0,1])
+        foot = p.createMultiBody(baseMass=0.3, baseCollisionShapeIndex=fs,
+                                 baseVisualShapeIndex=fv, basePosition=[0,y_sign,0.07])
         # 踝关节
         jid3 = p.createConstraint(shin, -1, foot, -1, 4, [1,0,0], [0,0,-0.15], [0,0,0.025])
         p.changeConstraint(jid3, maxForce=50)
@@ -90,18 +94,19 @@ def build_robot():
 
 
 def get_state(torso_id):
+    """获取机器人状态（6维归一化）"""
     pos, orn = p.getBasePositionAndOrientation(torso_id)
     _, ang_vel = p.getBaseVelocity(torso_id)
     euler = p.getEulerFromQuaternion(orn)
     posture = max(0.0, 1.0 - (abs(euler[0]) + abs(euler[1])) / 0.8)
-    com_h = np.clip((pos[2] - 0.3) / 0.6, 0, 1)
-    zmp = max(0.0, 1.0 - abs(pos[1]) / 0.08)
-    dist = np.clip(np.linalg.norm(ang_vel) / 4.0, 0, 1)
-    return np.array([posture, com_h, 0.6, zmp, dist, 0.85]), pos
+    com_h = np.clip(pos[2] / 0.50, 0.0, 1.0)
+    zmp = max(0.0, 1.0 - abs(pos[1]) / 0.12)
+    dist = np.clip(np.linalg.norm(ang_vel) / 3.0, 0.0, 1.0)
+    return np.array([posture, com_h, 0.65, zmp, dist, 0.85]), pos
 
 
-def run_gui(duration=30):
-    """GUI仿真"""
+def run_gui(duration=60):
+    """GUI仿真 - 放慢速度以便观察3D演示"""
     client = connect_gui()
     if client is None:
         print("\n❌ GUI连接失败。使用 python3 launch_sim.py --no-gui 查看推理演示")
@@ -115,27 +120,34 @@ def run_gui(duration=30):
     
     phase = 0.0
     sim_time = 0.0
-    dt = 1/240.
+    # 降低物理步长让仿真更稳定
+    dt = 1/500.  # 500Hz physics
+    p.setTimeStep(dt)
     step = 0
     current_gait = None
+    last_log = -999
+    
+    # 实时显示的初始状态
+    display_gait = {"hexagram_name": "艮为山", "gait_name": "静止站立", "speed": 0.0}
     
     print(f"\n{'='*60}")
     print(f"YLYW 运动控制仿真 | 机器人={torso_id} | 关节={len(joints)}")
-    print(f"Ctrl+C 停止")
+    print(f"运行 {duration}s | Ctrl+C 停止")
     print(f"{'='*60}")
     print(f"{'时间':>5} {'卦象':<10} {'步态':<8} {'速':>4} {'姿':>4} {'质':>4} {'Z':>4}")
     print("-" * 50)
-    
-    last_log = -999
     
     try:
         while sim_time < duration:
             state_vec, pos = get_state(torso_id)
             
-            # YLYW 推理 (~6Hz)
-            if step % 40 == 0:
+            # YLYW 推理 (~4Hz，减少计算量)
+            if step % 125 == 0:
                 current_gait = controller.infer(state_vec, verbose=False)
+                if current_gait:
+                    display_gait = current_gait
             
+            # 应用步态参数驱动髋关节
             if current_gait:
                 phase += current_gait['freq'] * dt * 2 * np.pi
                 phase %= 2 * np.pi
@@ -152,11 +164,20 @@ def run_gui(duration=30):
                         except:
                             pass
             
+            # 更新GUI文本覆盖
+            info = f"{display_gait['hexagram_name']} | {display_gait['gait_name']} | {display_gait['speed']:.2f}m/s"
+            p.addUserDebugText(info, [0, 0, 1.2], textColorRGB=[1,1,0], textSize=1.5, lifeTime=0.1)
+            
             p.stepSimulation()
             
-            if step - last_log >= 120 and current_gait:
-                print(f"{sim_time:>4.1f}s {current_gait['hexagram_name']:<10} "
-                      f"{current_gait['gait_name']:<8} {current_gait['speed']:>3.2f} "
+            # 放慢渲染速率，每秒渲染60帧
+            if step % 8 == 0:
+                time.sleep(0.016)  # ~60 FPS visual
+            
+            if step - last_log >= 500:
+                g = display_gait
+                print(f"{sim_time:>4.1f}s {g['hexagram_name']:<10} "
+                      f"{g['gait_name']:<8} {g['speed']:>3.2f} "
                       f"{state_vec[0]:>3.2f} {state_vec[1]:>3.2f} {state_vec[3]:>3.2f}")
                 last_log = step
             
