@@ -102,9 +102,41 @@ XML = '''
         </body>
       </body>
     </body>
+    
+    <!-- 跑步机标记：黄色小柱向后滑动制造地面移动效果 -->
+    <body pos="-10 0.5 0" name="mk1"><joint name="m1" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="-8 0.5 0" name="mk2"><joint name="m2" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="-6 0.5 0" name="mk3"><joint name="m3" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="-4 0.5 0" name="mk4"><joint name="m4" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="-2 0.5 0" name="mk5"><joint name="m5" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="0 0.5 0" name="mk6"><joint name="m6" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="2 0.5 0" name="mk7"><joint name="m7" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="4 0.5 0" name="mk8"><joint name="m8" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="6 0.5 0" name="mk9"><joint name="m9" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
+    <body pos="8 0.5 0" name="mk10"><joint name="m10" type="slide" axis="1 0 0"/>
+      <geom type="cylinder" size="0.015 0.12" rgba="0.9 0.85 0.2 0.7"/></body>
   </worldbody>
   <actuator>
     <motor name="sx_m" joint="slide_x" gear="0 0 0 1 0 0"/>
+    <motor name="m1_m" joint="m1" gear="1"/>
+    <motor name="m2_m" joint="m2" gear="1"/>
+    <motor name="m3_m" joint="m3" gear="1"/>
+    <motor name="m4_m" joint="m4" gear="1"/>
+    <motor name="m5_m" joint="m5" gear="1"/>
+    <motor name="m6_m" joint="m6" gear="1"/>
+    <motor name="m7_m" joint="m7" gear="1"/>
+    <motor name="m8_m" joint="m8" gear="1"/>
+    <motor name="m9_m" joint="m9" gear="1"/>
+    <motor name="m10_m" joint="m10" gear="1"/>
     <motor name="lh_m" joint="lh" gear="1"/>
     <motor name="lk_m" joint="lk" gear="1"/>
     <motor name="la_m" joint="la" gear="1"/>
@@ -187,7 +219,15 @@ def run_gui(duration=90):
             slide_speed = 0
             if current_gait:
                 slide_speed = current_gait['speed']
-            data.ctrl[act_ids['sx_m']] = slide_speed
+            data.ctrl[act_ids['sx_m']] = slide_speed * 0.5
+            
+            # 跑步机标记向后滑动 + 循环复位
+            for i in range(1, 11):
+                data.ctrl[act_ids[f'm{i}_m']] = -slide_speed * 4
+                # 复位到右侧
+                jid = model.joint(f'm{i}').id
+                if data.qpos[jid] < -12:
+                    data.qpos[jid] += 20
             
             mujoco.mj_step(model, data)
             time.sleep(0.02)  # 控制视觉速度
