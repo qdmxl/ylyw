@@ -185,9 +185,13 @@ def run_gui(duration=90):
         viewer.cam.distance = 2.5
         viewer.cam.azimuth = 50
         viewer.cam.elevation = -12
-        viewer.cam.lookat = [0, 0, 0.9]
+        
+        slide_qpos_addr = model.joint('slide_x').qposadr[0]  # 躯干X位置地址
         
         while viewer.is_running() and sim_time < duration:
+            # 摄像头跟随机器人X位置
+            robot_x = data.qpos[slide_qpos_addr]
+            viewer.cam.lookat = [robot_x, 0, 0.9]
             while demo_idx+1 < len(demo_seq) and sim_time >= demo_seq[demo_idx+1][0]:
                 demo_idx += 1
             demo_name, dstate = demo_seq[demo_idx][1], demo_seq[demo_idx][2]
