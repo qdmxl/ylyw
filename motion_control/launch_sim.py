@@ -53,13 +53,13 @@ def build_kinematic_robot():
     return bodies
 
 
-def animate_leg_side(bodies, side, x_sign, hip_angle, knee_angle):
-    """运动学：绕Y轴旋转（侧面可见的行走）"""
+def animate_leg_side(bodies, side, x_sign, hip_angle, knee_angle, base_x=0):
+    """运动学：绕Y轴旋转，base_x为机器人当前X位置"""
     L_thigh = 0.28
     L_shin = 0.26
     
-    hip_pos = np.array([x_sign, 0, 0.52])
-    # 大腿远端 = hip + L_thigh * [sin(θ), 0, -cos(θ)]
+    hip_x = base_x + x_sign
+    hip_pos = np.array([hip_x, 0, 0.52])
     knee_pos = hip_pos + np.array([L_thigh * math.sin(hip_angle), 0, -L_thigh * math.cos(hip_angle)])
     thigh_orn = p.getQuaternionFromEuler([0, hip_angle, 0])
     p.resetBasePositionAndOrientation(bodies[f'thigh_{side}'], hip_pos, thigh_orn)
@@ -76,8 +76,8 @@ def run_gui(duration=30):
         print("❌ GUI失败"); return
 
     p.configureDebugVisualizer(p.COV_ENABLE_GUI, 0)
-    # 侧面视角：看从左到右行走
-    p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=0, cameraPitch=-8,
+    # 侧面视角：从侧面看机器人左右行走
+    p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=90, cameraPitch=-8,
                                   cameraTargetPosition=[0, 0, 0.80])
     
     bodies = build_kinematic_robot()
@@ -85,6 +85,7 @@ def run_gui(duration=30):
     
     phase = 0.0; sim_time = 0.0; dt = 1/120.; step = 0
     current_gait = None; last_log = -999
+    robot_x = 0.0  # 机器人在X轴上的位置
     display_gait = {"hexagram_name": "艮为山", "gait_name": "静止站立", "speed": 0.0}
 
     demo_seq = [
@@ -122,10 +123,19 @@ def run_gui(duration=30):
                 freq = current_gait['freq']
                 phase += freq * dt * 2 * math.pi
                 phase %= 2 * math.pi
+                
+                # 机器人沿X轴移动（速度=步态速度）
+                robot_x += spd * dt
+                # 更新躯干和头部位置
+                p.resetBasePositionAndOrientation(bodies['torso'], [robot_x, 0, 0.82], [0,0,0,1])
+                p.resetBasePositionAndOrientation(bodies['head'], [robot_x, 0, 1.08], [0,0,0,1])
+                # 摄像头跟随
+                p.resetDebugVisualizerCamera(cameraDistance=2.0, cameraYaw=90, cameraPitch=-8,
+                                              cameraTargetPosition=[robot_x, 0, 0.80])
 
                 if spd < 0.03:
                     for side, x_sign in [('l', 0.08), ('r', -0.08)]:
-                        animate_leg_side(bodies, side, x_sign, 0, 0)
+                        animate_leg_side(bodies, side, x_sign, 0, 0, robot_x)
                 else:
                     amp_h = 0.55 * spd
                     amp_k = 0.45 * spd
@@ -133,7 +143,7 @@ def run_gui(duration=30):
                         p_leg = phase + off
                         hip_angle = amp_h * math.sin(p_leg)
                         knee_angle = amp_k * max(0, math.sin(p_leg))
-                        animate_leg_side(bodies, side, x_sign, hip_angle, knee_angle)
+                        animate_leg_side(bodies, side, x_sign, hip_angle, knee_angle, robot_x)
 
             p.stepSimulation()
             time.sleep(dt)
@@ -141,7 +151,7 @@ def run_gui(duration=30):
             if step % 60 == 0:
                 p.addUserDebugText(
                     f"{display_gait['hexagram_name']} | {display_gait['gait_name']} | {display_gait['speed']:.2f}m/s",
-                    [0, 0, 1.5], [1, 1, 0], 1.2, lifeTime=0.6)
+                    [robot_x, 0, 1.5], [1, 1, 0], 1.2, lifeTime=0.6)
 
             if step - last_log >= 120:
                 g = display_gait
