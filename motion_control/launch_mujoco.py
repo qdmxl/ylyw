@@ -5,13 +5,15 @@ YLYW 运动控制仿真 — MuJoCo版
 """
 import sys, os, time, math, numpy as np
 
-# 强制软件渲染（VirtualBox无GPU）
+# 强制软件渲染 + 窗口装饰修复
 os.environ.setdefault('MUJOCO_GL_DEBUG', '0')
-os.environ.setdefault('LIBGL_ALWAYS_SOFTWARE', '1')       # 强制llvmpipe软件渲染
-os.environ.setdefault('GALLIUM_DRIVER', 'llvmpipe')        # 指定Gallium驱动
-os.environ.setdefault('EGL_PLATFORM', 'x11')               # 使用X11而非Wayland EGL
-os.environ.setdefault('MESA_GL_VERSION_OVERRIDE', '3.3')   # 降低OpenGL版本要求
+os.environ.setdefault('LIBGL_ALWAYS_SOFTWARE', '1')
+os.environ.setdefault('GALLIUM_DRIVER', 'llvmpipe')
+os.environ.setdefault('EGL_PLATFORM', 'x11')
+os.environ.setdefault('MESA_GL_VERSION_OVERRIDE', '3.3')
 os.environ.setdefault('GLFW_IM_MODULE', 'ibus')
+os.environ.setdefault('GDK_BACKEND', 'x11')              # 强制GTK用X11
+os.environ.setdefault('XDG_SESSION_TYPE', 'x11')       # 避免Wayland窗口装饰问题
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ylyw_locomotion import YLYWLocomotionController
 import mujoco, mujoco.viewer
@@ -37,7 +39,7 @@ XML = '''
     <geom name="floor" type="plane" size="10 10 0.1" material="grid"/>
     
     <body name="torso" pos="0 0 0.95">
-      <joint type="free"/>
+      <joint name="slide_x" type="slide" axis="1 0 0"/>  <!-- 躯干沿X轴滑动 -->
       <!-- 躯干 -->
       <geom type="box" size="0.13 0.10 0.22" material="torso"/>
       <geom type="box" size="0.15 0.12 0.06" pos="0 0 0.18" material="torso"/>
@@ -102,6 +104,7 @@ XML = '''
     </body>
   </worldbody>
   <actuator>
+    <motor name="sx_m" joint="slide_x" gear="0 0 0 1 0 0"/>
     <motor name="lh_m" joint="lh" gear="1"/>
     <motor name="lk_m" joint="lk" gear="1"/>
     <motor name="la_m" joint="la" gear="1"/>
@@ -113,7 +116,7 @@ XML = '''
 '''
 
 
-def run_gui(duration=55):
+def run_gui(duration=90):
     controller = YLYWLocomotionController()
     model = mujoco.MjModel.from_xml_string(XML)
     data = mujoco.MjData(model)
@@ -128,20 +131,20 @@ def run_gui(duration=55):
     
     demo_seq = [
         (0,  "初始站立", [0.90,0.82,0.75,0.88,0.05,0.82]),
-        (5,  "开始慢走", [0.72,0.72,0.68,0.65,0.20,0.80]),
-        (10, "加速行走", [0.65,0.70,0.65,0.60,0.30,0.78]),
-        (16, "快速小跑", [0.55,0.72,0.72,0.50,0.52,0.76]),
-        (22, "全力奔跑", [0.48,0.75,0.78,0.42,0.62,0.78]),
-        (28, "突然推搡", [0.18,0.30,0.25,0.14,0.82,0.55]),
-        (33, "放松恢复", [0.55,0.42,0.48,0.38,0.50,0.60]),
-        (38, "爬坡前进", [0.48,0.42,0.52,0.32,0.45,0.18]),
-        (43, "回到平路", [0.70,0.72,0.68,0.65,0.22,0.78]),
-        (48, "减速站立", [0.88,0.78,0.72,0.85,0.10,0.80]),
+        (10, "开始慢走", [0.72,0.72,0.68,0.65,0.20,0.80]),
+        (20, "加速行走", [0.65,0.70,0.65,0.60,0.30,0.78]),
+        (30, "快速小跑", [0.55,0.72,0.72,0.50,0.52,0.76]),
+        (40, "全力奔跑", [0.48,0.75,0.78,0.42,0.62,0.78]),
+        (50, "突然推搡", [0.18,0.30,0.25,0.14,0.82,0.55]),
+        (58, "放松恢复", [0.55,0.42,0.48,0.38,0.50,0.60]),
+        (66, "爬坡前进", [0.48,0.42,0.52,0.32,0.45,0.18]),
+        (74, "回到平路", [0.70,0.72,0.68,0.65,0.22,0.78]),
+        (82, "减速站立", [0.88,0.78,0.72,0.85,0.10,0.80]),
     ]
     demo_idx = 0; demo_name = demo_seq[0][1]
     
     print(f"{'='*55}")
-    print(f"YLYW 运动控制 | MuJoCo渲染 | 10种步态")
+    print(f"YLYW 运动控制 | MuJoCo渲染 | 10种步态 | 约2分钟")
     print(f"{'='*55}")
     print(f"{'时间':>5} {'场景':<8} {'卦象':<10} {'步态':<10} {'速':>4}")
     print("-" * 48)
@@ -180,7 +183,14 @@ def run_gui(duration=55):
                         data.ctrl[act_ids[f'{side}k_m']] = knee
                         data.ctrl[act_ids[f'{side}a_m']] = -0.08 * hip
             
+            # 躯干沿X轴移动（速度=步态速度）
+            slide_speed = 0
+            if current_gait:
+                slide_speed = current_gait['speed']
+            data.ctrl[act_ids['sx_m']] = slide_speed
+            
             mujoco.mj_step(model, data)
+            time.sleep(0.02)  # 控制视觉速度
             
             if step - last_log >= 200:
                 g = display_gait
