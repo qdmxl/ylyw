@@ -1,0 +1,14 @@
+"main.obj",
+"delay.obj",
+"tuxinghua.obj",
+"adc.obj",
+"BUZZ.obj",
+"basal.obj",
+"walking.obj",
+"jiewu.obj",
+"ticao.obj",
+"qianshou.obj",
+"qiaoxiyang.obj",
+"HT1621.obj" 
+TO "SHProject" 
+RAMSIZE(256) 

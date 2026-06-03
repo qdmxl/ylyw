@@ -1,0 +1,729 @@
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 1   
+
+
+C51 COMPILER V8.05a, COMPILATION OF MODULE TUXINGHUA
+OBJECT MODULE PLACED IN tuxinghua.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE tuxinghua.c LARGE BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          //图形化子程序
+   2          #include <stdio.h>
+   3          #include <string.h>
+   4          #include"CH376INC.h"
+   5          #include "REG15W4Kxx.h"
+   6          #include "delay.h"
+   7          
+   8          #include "main.h"
+   9          #include "basal.h"
+  10          #include "walking.h"
+  11          #include "qianshou.h"
+  12          #include "jiewu.h"
+  13          #include "ticao.h"
+  14          #include "qiaoxiyang.h"
+  15          //#include "adc.h"                              //加速度传感器头文件
+  16          
+  17          #include "SdCard.h"       //加入SD卡相关操作函数
+  18          #include "BUZZ.h"
+  19          
+  20          int jichu[24];
+  21          
+  22          extern unsigned int in;
+  23          extern unsigned int out;
+  24          extern u8 xdata RX1_Buffer[400];             //接收缓冲
+  25          extern void UART1_PrintByte(u8 value); //串口1输出单个字节数据
+  26          extern void UART1_PrintArrayBytes(u8 *str, u16 len);
+  27          
+  28          //#############################################################################
+  29          // 函数名称：uchar ReadRam()
+  30          // 函数说明：从存储区读数子程序
+  31          // 入口参数：无
+  32          // 出口参数：无
+  33          //#############################################################################
+  34          uchar ReadRam(void)
+  35          {
+  36   1              uchar i;
+  37   1        while(out == in);
+  38   1         
+  39   1              i = RX1_Buffer[out];
+  40   1              ++out;
+  41   1              if(out == capacity)
+  42   1                      out = 0;
+  43   1      
+  44   1              /*if(in != out)
+  45   1              {
+  46   1                      if(in > out)
+  47   1                      {
+  48   1                              if((400-in+out) < 50)
+  49   1                              {
+  50   1                                      BUSY=1;
+  51   1                                      ES=0;
+  52   1                              }
+  53   1                              else
+  54   1                              {
+  55   1                                      BUSY=0;
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 2   
+
+  56   1                                      ES=1;
+  57   1                              }
+  58   1                      }
+  59   1                      else
+  60   1                      {
+  61   1                              if((out-in) < 50)  
+  62   1                              {
+  63   1                                      BUSY=1;
+  64   1                                      ES=0;
+  65   1                              }
+  66   1                              else 
+  67   1                              {
+  68   1                                      BUSY=0;
+  69   1                                      ES=1;
+  70   1                              }
+  71   1                      }       
+  72   1              } */
+  73   1      
+  74   1        return i;
+  75   1      }
+  76          //#############################################################################
+  77          // 函数名称：void duoji(uchar num,uchar pos)
+  78          // 函数说明：单个舵机控制程序
+  79          // 入口参数：无
+  80          // 出口参数：无
+  81          //#############################################################################
+  82          void duoji(uchar num,uchar pos)
+  83          {  
+  84   1          position_change[num]=pos-position[num];
+  85   1                      p_to_p(35,0);
+  86   1      }
+  87          //#############################################################################
+  88          // 函数名称：void main1(void)
+  89          // 函数说明：图形化编程模式
+  90          // 入口参数：无
+  91          // 出口参数：无
+  92          //#############################################################################
+  93          void main1(void)
+  94          {
+  95   1              uint   keycode = 0;        //按钮码缓冲变量
+  96   1              uchar    SrcName[12];      //原文件名缓冲区     
+  97   1              uint32 ByteCount;      //预存文件的大小
+  98   1      //      uchar  shuliang = 0;   //对存储按钮量的计数     
+  99   1              uchar  i,j;
+ 100   1              bit OutFlag = 0;      //退出编辑动作模式
+ 101   1              
+ 102   1        while(1)
+ 103   1              { 
+ 104   2                      /*if(shuliang == 25)  //======== 检测25钮的存储
+ 105   2                { 
+ 106   2                              fm50ms(5); //蜂鸣器发声提示
+ 107   2                              shuliang = 0;
+ 108   2                              UART1_PrintByte(251); //25按钮存储完毕，返回251
+ 109   2                } */
+ 110   2                      if(ReadRam() == 253) //======= 前置码:253
+ 111   2                      {
+ 112   3                              i = ReadRam();
+ 113   3                              switch(i)
+ 114   3                              {
+ 115   4                                      case 1:                                                             //引导码1:每次存储32字节(舵机相关数据)
+ 116   4                                                      keycode = ReadRam();    //按键码:从 0 到 65535   高位8在先
+ 117   4                                          keycode = keycode << 8;
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 3   
+
+ 118   4                                          keycode = keycode | ReadRam();  //             低8位在后
+ 119   4                                                      for(i=0;i<32;i++)
+ 120   4                                                      {
+ 121   5                                                              SdcardBuff[i] = ReadRam();                                                                                                                                                                                                                              
+ 122   5                                                      }
+ 123   4                                                      sprintf(SrcName, "/SHR1/%d", keycode);
+ 124   4                                                      if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+ 125   4                                                              ByteCount = CH376ReadVar32(VAR_FILE_SIZE);
+ 126   4                                                      else ByteCount = 0;
+ 127   4                                                      if(ByteCount >= 32)
+ 128   4                                                      {                                                               
+ 129   5                                                              i = WriteSdcardFileBuffBytes(SrcName, ByteCount);       
+ 130   5                                                      }
+ 131   4                                                      else i = WriteSdcardFileBuffBytes(SrcName, 0);
+ 132   4                                                      //fm100ms(1);
+ 133   4                                                      //UART1_PrintByte(251); //每存储完一个按键，回应一个251
+ 134   4                                              break;
+ 135   4                                      case 2:         //第二个引导码，2代表单个舵机运动
+ 136   4                                                      i = ReadRam();
+ 137   4                                                      j = ReadRam();
+ 138   4                                                      duoji(i,j);
+ 139   4                                              break;                                          
+ 140   4                                      case 3:         //引导码3: 代表将初始位置存储
+ 141   4                                               for(i=0;i<32;i++)                                                 
+ 142   4                                               { 
+ 143   5                                                        if(i < 24)
+ 144   5                                                                      SdcardBuff[i] = ReadRam();
+ 145   5                                                              else SdcardBuff[i] = 125;                                                 
+ 146   5                 }
+ 147   4                                               strcpy(SrcName, "/SHR0/0");  // 存储的源文件名 
+ 148   4                                               if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+ 149   4                                                              i = WriteSdcardFileBuffBytes(SrcName, 0);       
+ 150   4                                               fm200ms(1); //蜂鸣器提示
+ 151   4                                               UART1_PrintByte(251);                                          
+ 152   4                                              break;                                          
+ 153   4                                      case 4:  //引导码4:上位机需要上传所有位置
+ 154   4                                                /*keycode = ReadRam();        //按键码:从 0 到 24 
+ 155   4                                          if(keycode < 200) //单个按键上传
+ 156   4                                                      {
+ 157   4                                                              sprintf(SrcName, "/SHR1/%d", keycode);
+ 158   4                                                              if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+ 159   4                                                                      ByteCount = CH376ReadVar32(VAR_FILE_SIZE);
+ 160   4                                                              else ByteCount = 0;                             
+ 161   4                                                              UART1_PrintByte(253);
+ 162   4                                                              UART1_PrintByte(253);
+ 163   4                                                              UART1_PrintByte(253);
+ 164   4                                                              UART1_PrintByte(253);
+ 165   4                                                              UART1_PrintByte(1);
+ 166   4                                                              UART1_PrintByte(keycode);
+ 167   4                                                              if(ByteCount >= 32)
+ 168   4                                                              {
+ 169   4                                                                      i = ReadSdcardFileAllBytes(SrcName);
+ 170   4                                                              }
+ 171   4                                                              delay10ms(2); 
+ 172   4                                                              fm100ms(1); //蜂鸣器提示
+ 173   4                                                }
+ 174   4                  else */ 
+ 175   4                  //{
+ 176   4                                                      /*      for(keycode=0; keycode<25;keycode++)
+ 177   4                                                              { 
+ 178   4                                                                      sprintf(SrcName, "/SHR1/%d", keycode);
+ 179   4                                                                      if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 4   
+
+ 180   4                                                                              ByteCount = CH376ReadVar32(VAR_FILE_SIZE);
+ 181   4                                                                      else ByteCount = 0;
+ 182   4                                                                      UART1_PrintByte(253);
+ 183   4                                                                      UART1_PrintByte(253);
+ 184   4                                                                      UART1_PrintByte(253);
+ 185   4                                                                      UART1_PrintByte(253);
+ 186   4                                                                      UART1_PrintByte(1);
+ 187   4                                                                      UART1_PrintByte(keycode);
+ 188   4                                                                      if(ByteCount >= 32)
+ 189   4                                                                      {
+ 190   4                                                                              i = ReadSdcardFileAllBytes(SrcName);
+ 191   4                                                                      }
+ 192   4                                                                      delay10ms(2);
+ 193   4                                                                      fm100ms(1); //蜂鸣器提示
+ 194   4                                                              }               */                                      
+ 195   4                  //} 
+ 196   4                                                      keycode = ReadRam();//键码
+ 197   4                                                      keycode = keycode << 8;
+ 198   4                                                      keycode = keycode | ReadRam();                                          
+ 199   4                                                      sprintf(SrcName, "/SHR1/%d", keycode);
+ 200   4                                                      if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+ 201   4                                                              ByteCount = CH376ReadVar32(VAR_FILE_SIZE);
+ 202   4                                                      else ByteCount = 0;
+ 203   4                                                      UART1_PrintByte(253);
+ 204   4                                                      UART1_PrintByte(253);
+ 205   4                                                      UART1_PrintByte(253);
+ 206   4                                                      UART1_PrintByte(253);
+ 207   4                                                      UART1_PrintByte(1);
+ 208   4                                                      UART1_PrintByte(keycode>>8); //回传键码也是：高8位在先  低8位在后
+ 209   4                                                      UART1_PrintByte(keycode);
+ 210   4                                                      if(ByteCount >= 32)
+ 211   4                                                      {
+ 212   5                                                              i = ReadSdcardFileAllBytes(SrcName);
+ 213   5                                                      }
+ 214   4                                                      delay10ms(2);
+ 215   4                                                      fm100ms(1); //蜂鸣器提示                                                
+ 216   4                                                      UART1_PrintByte(251);
+ 217   4                                                      delay500ms(2);
+ 218   4                                                      UART1_PrintByte(251);
+ 219   4                                                      delay500ms(2);
+ 220   4                                                      UART1_PrintByte(251);
+ 221   4                                                      delay500ms(2);
+ 222   4                                                      UART1_PrintByte(251);                                           
+ 223   4                                              break;
+ 224   4                                      case 253:                 //引导码253: 代表即将结束                     
+ 225   4                                                      /*if(ReadRam() == 254)  //如果下一个数是254，则连续写入4个254至E2PROM，表示结束
+ 226   4                                                      {
+ 227   4                                                              if(shuliang == 0)   //首次要要下载时，创建文件 耗费时间大概7s
+ 228   4                                                              {
+ 229   4                                                                      //UART1_PrintByte(252); //回传与上位机握手 两次252才结束
+ 230   4                                                                      /*for(j=0;j<25;j++)
+ 231   4                                                                      {
+ 232   4                                                                              keycode = j;
+ 233   4                                                                              sprintf(SrcName, "/SHR1/%d", keycode);
+ 234   4                                                                              CreateSdcardFile(SrcName);
+ 235   4                                                                      } */
+ 236   4                                                                      //UART1_PrintByte(252);
+ 237   4                                                              /*}
+ 238   4                                                              //fm100ms(1); //蜂鸣器发声提示
+ 239   4                                                              shuliang++; 
+ 240   4                                               } */
+ 241   4                                                                      
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 5   
+
+ 242   4                                               if(ReadRam() == 254) //第二个引导码，254代表即将结束
+ 243   4                                               {
+ 244   5                                                               keycode = ReadRam();//键码
+ 245   5                                                         keycode = keycode << 8;
+ 246   5                                                         keycode = keycode | ReadRam();
+ 247   5                                                               fm100ms(1);//蜂鸣器发声提示 存储结束
+ 248   5                                                   UART1_PrintByte(252); //回传与上位机握手 两次252才结束
+ 249   5                                                               sprintf(SrcName, "/SHR1/%d", keycode);
+ 250   5                                                               CreateSdcardFile(SrcName);
+ 251   5                                                      
+ 252   5                                                              sprintf(SrcName, "/SHR0/%d", 2);
+ 253   5                                                              if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+ 254   5                                                                      ByteCount = CH376ReadVar32(VAR_FILE_SIZE);
+ 255   5                                                              else ByteCount = 0;     
+ 256   5                                                      
+ 257   5                                                   UART1_PrintByte(252); //回传与上位机握手 两次252才结束
+ 258   5                                              }
+ 259   4                                       break; 
+ 260   4                               case 5:  //引导码5: 清除所有动作
+ 261   4                                              for(keycode=0;keycode<65535;keycode++)
+ 262   4                                              {
+ 263   5                                                      sprintf(SrcName, "/SHR1/%d", keycode);
+ 264   5                                                      CreateSdcardFile(SrcName);
+ 265   5                                                      fm100ms(1);//蜂鸣器提示
+ 266   5                                              }       
+ 267   4                                              sprintf(SrcName, "/SHR1/%d", keycode);
+ 268   4                                              CreateSdcardFile(SrcName);
+ 269   4                                              //fm100ms(1);//蜂鸣器提示                                       
+ 270   4                                              fm100ms(4); //蜂鸣器提示        
+ 271   4                                              UART1_PrintByte(251);                            
+ 272   4                                       break;
+ 273   4                               //case 6: //引导码6: 经典动作操作
+ 274   4                               //      break; 
+ 275   4                               case 7:  //引导码7: 联机
+ 276   4                                              UART1_PrintByte(253);
+ 277   4                                       break;
+ 278   4                               case 8:   //引导码8: 传绝对值
+ 279   4                                              for(i=0;i<24;i++)
+ 280   4                                              {
+ 281   5                                                      position_change[i] = ReadRam() - position[i];
+ 282   5                }
+ 283   4                                              i = ReadRam();  
+ 284   4                                              p_to_p(40,i);   //参数：(55)延时、速度变化值     
+ 285   4                                       break;
+ 286   4                                      case 9:  //引导码9: 
+ 287   4                                                      SdcardBuff[0] = ReadRam();     // part   第几台
+ 288   4                                                      SdcardBuff[1] = ReadRam();     // total  总台数         
+ 289   4                                          SdcardBuff[10] = volume;
+ 290   4                                          strcpy(SrcName, "/SHR0/1");  // 存储的源文件名
+ 291   4                                                      if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+ 292   4                                                              i = WriteSdcardFileBuffBytes(SrcName, 0);
+ 293   4                                                      UART1_PrintByte(251);
+ 294   4                                                      fm100ms(2); //蜂鸣器提示
+ 295   4                                              break;
+ 296   4                                      case 11:  //回传有数据的键码
+ 297   4                                              /*for(keycode=0;keycode<40;keycode++)
+ 298   4                                              {
+ 299   4                                                      sprintf(SrcName, "/SHR1/%d", keycode);                                                          
+ 300   4                                                      if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+ 301   4                                                      {
+ 302   4                                                              ByteCount = CH376ReadVar32(VAR_FILE_SIZE);
+ 303   4                                                              if(ByteCount >= 32)
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 6   
+
+ 304   4                                                              {
+ 305   4                                                                      UART1_PrintByte(keycode>>8); //先发H8
+ 306   4                                                                      UART1_PrintByte(keycode);    //后发L8
+ 307   4                                                              }                                                       
+ 308   4                                                              //sprintf(TarName, "N%d:%d\r\n", keyNumber, ByteCount); 
+ 309   4                                                              //UART1_PrintString(TarName);                                                   
+ 310   4                                                      }
+ 311   4                                                      fm100ms(1);
+ 312   4                                                      //i = CH376SendCmdDatWaitInt(CMD1H_FILE_CLOSE, TRUE);
+ 313   4                                              }
+ 314   4                                              sprintf(SrcName, "/SHR1/%d", keycode);                                                          
+ 315   4                                              if(CH376FileOpenDir(SrcName, 0xFF) == USB_INT_SUCCESS)
+ 316   4                                              {
+ 317   4                                                      ByteCount = CH376ReadVar32(VAR_FILE_SIZE);
+ 318   4                                                      if(ByteCount >= 32)
+ 319   4                                                      {
+ 320   4                                                              UART1_PrintByte(0xFF);    //先发H8
+ 321   4                                                              UART1_PrintByte(0xFF);    //后发L8
+ 322   4                                                      }
+ 323   4                                                      //sprintf(TarName, "N%d:%d\r\n", keyNumber, ByteCount); 
+ 324   4                                                      //UART1_PrintString(TarName);                                                   
+ 325   4                                              }       
+ 326   4                                              //i = CH376SendCmdDatWaitInt(CMD1H_FILE_CLOSE, TRUE);
+ 327   4                                              fm100ms(1); //蜂鸣器提示                                                
+ 328   4                                              UART1_PrintByte(251);
+ 329   4                                              fm100ms(1);
+ 330   4                                              UART1_PrintByte(251);
+ 331   4                                              fm100ms(1);
+ 332   4                                              UART1_PrintByte(251);
+ 333   4                                              fm100ms(1);
+ 334   4                                              UART1_PrintByte(251);                   */              
+ 335   4                                              break;
+ 336   4                                      case 10:  //置退出编辑动作模式标志
+ 337   4                                              OutFlag = 1;                              
+ 338   4                                              break;                                  
+ 339   4                              }                       
+ 340   3                      }
+ 341   2                      if(OutFlag == 1) //退出编辑动作模式
+ 342   2                      {
+ 343   3                              //fm300ms(2);
+ 344   3                              break;
+ 345   3                      }
+ 346   2              }
+ 347   1      
+ 348   1      }
+ 349          //#############################################################################
+ 350          // 函数名称：void cyc(uchar time)
+ 351          // 函数说明：图形化循环子程序
+ 352          // 入口参数：循环次数（0-100）
+ 353          // 出口参数：无
+ 354          //#############################################################################
+ 355          void cyc(PUINT32 Locate1, PUINT32 Locate2, uchar time)
+ 356          {
+ 357   1              UINT16  ThisLen;
+ 358   1              UINT32  ByteCount;
+ 359   1              uchar   i, j, k, m;     
+ 360   1              int temp;
+ 361   1              
+ 362   1              while(time > 0) //----------->循环次数操作
+ 363   1              {
+ 364   2                      ByteCount = *Locate1;//---->循环起点赋值
+ 365   2                      do
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 7   
+
+ 366   2                      {
+ 367   3                         //sprintf(srcName, "/SHR1/%d", key); //取对应按键存储的动作数据组
+ 368   3                         //i = CH376FileOpenDir(srcName, 0xFF);       
+ 369   3                              
+ 370   3                                      //取出一帧动作数据      
+ 371   3              i = CH376ByteLocate(ByteCount);                 
+ 372   3                                      //if(CH376ByteLocate(ByteCount) != USB_INT_SUCCESS);  //以字节为单位移动当前文件指针到上次复制结束位置
+ 373   3                                      //      goto out;
+ 374   3                                i = CH376ByteRead(SdcardBuff, sizeof(SdcardBuff), &ThisLen);
+ 375   3                                      //if(CH376ByteRead(SdcardBuff, sizeof(SdcardBuff), &ThisLen) != USB_INT_SUCCESS)
+ 376   3                                      //      goto out;
+ 377   3                              
+ 378   3                                      //取出动作数据处理  
+ 379   3                                      for(m=1;m<4;m++)                                                //判断24个舵机值的正负 SdcardBuff[1、2、3]
+ 380   3                                      {
+ 381   4                                              k = 0x80;
+ 382   4                                              for(i=0,j=0;i<8;i++)
+ 383   4                                              {
+ 384   5                                                      if(m == 1) 
+ 385   5                                                      {
+ 386   6                                                              j = i;
+ 387   6                                                              position_change[j] = SdcardBuff[i+4];   
+ 388   6                                                      }
+ 389   5                                                      else 
+ 390   5                                                      {
+ 391   6                                                              if(m == 2) 
+ 392   6                                                              {
+ 393   7                                                                      j = i+8;
+ 394   7                                                                      position_change[j] = SdcardBuff[i+12];
+ 395   7                                                              }                                               
+ 396   6                                                              else 
+ 397   6                                                              {
+ 398   7                                                                      j = i+16;
+ 399   7                                                                      position_change[j] = SdcardBuff[i+20];
+ 400   7                                                              }
+ 401   6                                                      }                                       
+ 402   5                                                      if((SdcardBuff[m] & k) == k) //1-->逆时针转   变化量为负
+ 403   5                                                      {       
+ 404   6                                                              position_change[j] = 0 - position_change[j];
+ 405   6                                                      }
+ 406   5                                                      temp = position_change[j];
+ 407   5                                                      position_change[j] = position_change[j] - jichu[j];
+ 408   5                                                      jichu[j] = temp;
+ 409   5                                                      //else                      //0-->顺时针转   变化量为正
+ 410   5                                                      k = k>>1;
+ 411   5                                              }
+ 412   4                               }
+ 413   3      
+ 414   3                               switch(SdcardBuff[30]) //取语音的第一个数据
+ 415   3                               { 
+ 416   4                                              case 251:
+ 417   4                                                      if(SdcardBuff[31] == 251) //连续2个251  表示停止播放音乐
+ 418   4                                                                      MP3_Stop();
+ 419   4                                                      break;
+ 420   4                                              case 252:
+ 421   4                                                      if(SdcardBuff[31] == 252)       //连续2个101（0x65）表示音乐继续
+ 422   4                                                              {;}
+ 423   4                                                      break;
+ 424   4                                              default:                                                        //否则就为音乐曲目
+ 425   4                                                      MP3_SetPlay(SdcardBuff[30], SdcardBuff[31]); //指定文件夹号与歌曲号  播放               
+ 426   4                                              break;
+ 427   4                              }                     
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 8   
+
+ 428   3      
+ 429   3                              switch(SdcardBuff[28])                   //SdcardBuff[28]速度值>=200，则表示经典动作
+ 430   3                              {    
+ 431   4                                      case 200:daoli();pch();break;//dt();
+ 432   4                                      case 201:turn_left(1);break;
+ 433   4                                      case 202:walk(2);break;
+ 434   4                                      case 203:turn_right(1);break;
+ 435   4                                      case 204:l_pyi(1);break;
+ 436   4                                      case 205:fwc(4);break;
+ 437   4                                      case 206:r_pyi(1);break;
+ 438   4                                      case 207:goal_l(1);break;
+ 439   4                                      case 208:yangwoqizuo(3);break;
+ 440   4                                      case 209:goal_r(1);break;
+ 441   4                                      case 210:jingli_l();break;
+ 442   4                                      case 211:jingli_r();break;
+ 443   4                                      case 212:qiaoxiyang();break;
+ 444   4                                      case 213:jiewu();break;
+ 445   4                                      case 214:qianshou();break;
+ 446   4                                      case 215:ticao();break;
+ 447   4                                      case 216:qgf();break;
+ 448   4                                      case 217:hgf();break;
+ 449   4                                      case 218:qianpaxia();qianpq();break;
+ 450   4                                      case 219:hp();hpq();break;      
+ 451   4                                      case 220:taijiaozi();break;
+ 452   4                                      case 221:houtui(2);break;
+ 453   4                                      case 222:;break;
+ 454   4                                      case 223:;break;
+ 455   4                                      case 224:;break;
+ 456   4                                      case 225:;break;
+ 457   4                                      case 226:;break;
+ 458   4                                      case 227:break;
+ 459   4                                      case 228:break;
+ 460   4                                      default:        
+ 461   4                                              p_to_p(SdcardBuff[28],SdcardBuff[28]);                          
+ 462   4                                              break;                   
+ 463   4                              }
+ 464   3                      
+ 465   3                              for(i=0; i<SdcardBuff[29]; i++)                                  //提取延时时间  
+ 466   3                              { 
+ 467   4                                      delay10ms(10);
+ 468   4                              }                                                                                 
+ 469   3                       
+ 470   3      //                      delay10us(5);
+ 471   3                              
+ 472   3                              //搞经典动作后处理
+ 473   3                              if(SdcardBuff[28] >= 200)
+ 474   3                              {
+ 475   4                                      for(i=0; i<24; i++)
+ 476   4                                      {
+ 477   5                                              jichu[i] = position[i] - position_initial[i];
+ 478   5                                      }                       
+ 479   4                              }
+ 480   3                      
+ 481   3                              ByteCount += ThisLen; //移动读取文件的指针                      
+ 482   3                              
+ 483   3                      //UART1_PrintArrayBytes(SdcardBuff, ThisLen); //串口1输出显示+++++++++++++++++++
+ 484   3                      //fm300ms(1);
+ 485   3                      //delay1s(2);
+ 486   3                              
+ 487   3                      }while(ByteCount <= *Locate2);                  
+ 488   2                      time--;
+ 489   2              }
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 9   
+
+ 490   1      //out:return;  
+ 491   1      }
+ 492          //#############################################################################
+ 493          // 函数名称：void location(uchar lo)
+ 494          // 函数说明：运行模式中解析E2PROM子程序
+ 495          // 入口参数：表示第lo个按键，去E2PROM执行相应的程序
+ 496          // 出口参数：无
+ 497          //#############################################################################   
+ 498          void location(u16       ThisLen) //传入按键号uint
+ 499          {
+ 500   1              u8  i;
+ 501   1              u8  SrcName[12];         //原文件名缓冲区       
+ 502   1              u32     FileSize, LoopLocate1, LoopLocate2, ByteCount;
+ 503   1              //int jichu[24];
+ 504   1              int temp;
+ 505   1              
+ 506   1              sprintf(SrcName, "/SHR1/%d", ThisLen); //取对应按键存储的动作数据组
+ 507   1              if(CH376FileOpenDir(SrcName, 0xFF) != USB_INT_SUCCESS)     //SD卡无动作文件     ，播放无动作语音
+ 508   1                {     
+ 509   2                  MP3_SetPlay(0x00, 113);      
+ 510   2                      return;
+ 511   2                }
+ 512   1      //      UART1_PrintByte(2);
+ 513   1              FileSize = CH376ReadVar32(VAR_FILE_SIZE);        //读取当前文件长度,判断是否有动作数据
+ 514   1              if(FileSize < 32)                                                                //此按键无动作，播放无动作语音
+ 515   1              {       
+ 516   2                      MP3_SetPlay(0x00, 113);             
+ 517   2                      return;
+ 518   2              }
+ 519   1                         //有动作，播放开始表演音乐
+ 520   1                      MP3_SetPlay(0x00, 111); 
+ 521   1                      delay10ms(130);
+ 522   1      
+ 523   1      //      UART1_PrintByte(3);
+ 524   1              
+ 525   1              ByteCount = 0;
+ 526   1              /*for(i=0;i<24;i++)
+ 527   1                      jichu[i] = 0;*/
+ 528   1              i = 0; //用于记录循环起点标志
+ 529   1        do
+ 530   1        {
+ 531   2                        //sprintf(SrcName, "/SHR1/%d", key); //取对应按键存储的动作数据组
+ 532   2                        //SrcName[0] = CH376FileOpenDir(SrcName, 0xFF);
+ 533   2                      
+ 534   2                              //取出一帧动作数据              
+ 535   2                        SrcName[0] = CH376ByteLocate(ByteCount);
+ 536   2                              //if(CH376ByteLocate(ByteCount) != USB_INT_SUCCESS); //以字节为单位移动当前文件指针到上次复制结束位置
+ 537   2                              //      goto out;
+ 538   2                        SrcName[0] = CH376ByteRead(SdcardBuff, sizeof(SdcardBuff), &ThisLen);
+ 539   2                              //if(CH376ByteRead(SdcardBuff, sizeof(SdcardBuff), &ThisLen) != USB_INT_SUCCESS)
+ 540   2                              //      goto out;
+ 541   2                        
+ 542   2                              //对取出的动作数据处理  
+ 543   2                              for(SrcName[0]=1; SrcName[0]<4; SrcName[0]++)    //判断24个舵机值的正负 SdcardBuff[1、2、3]
+ 544   2                              {
+ 545   3                                      SrcName[1] = 0x80;
+ 546   3                                      for(SrcName[2]=0,SrcName[3]=0; SrcName[2]<8; SrcName[2]++)
+ 547   3                                      {
+ 548   4                                              if(SrcName[0] == 1) 
+ 549   4                                              {
+ 550   5                                                      SrcName[3] = SrcName[2];
+ 551   5                                                      position_change[SrcName[3]] = SdcardBuff[SrcName[2]+4]; 
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 10  
+
+ 552   5                                              }
+ 553   4                                              else 
+ 554   4                                              {
+ 555   5                                                      if(SrcName[0] == 2) 
+ 556   5                                                      {
+ 557   6                                                              SrcName[3] = SrcName[2]+8;
+ 558   6                                                              position_change[SrcName[3]] = SdcardBuff[SrcName[2]+12];
+ 559   6                                                      }                                               
+ 560   5                                                      else 
+ 561   5                                                      {
+ 562   6                                                              SrcName[3] = SrcName[2]+16;
+ 563   6                                                              position_change[SrcName[3]] = SdcardBuff[SrcName[2]+20];
+ 564   6                                                      }
+ 565   5                                              }                                       
+ 566   4                                              if((SdcardBuff[SrcName[0]] & SrcName[1]) == SrcName[1]) //1-->逆时针转   变化量为负
+ 567   4                                              {       
+ 568   5                                                      position_change[SrcName[3]] = 0 - position_change[SrcName[3]];                          
+ 569   5                                              }
+ 570   4                                              temp = position_change[SrcName[3]];
+ 571   4                                              position_change[SrcName[3]] = position_change[SrcName[3]] - jichu[SrcName[3]];
+ 572   4                                              jichu[SrcName[3]] = temp; //记录上一次相对初始位置的变化量值
+ 573   4                                              //else                      //0-->顺时针转   变化量为正
+ 574   4                                              SrcName[1] = SrcName[1]>>1;
+ 575   4                                      }
+ 576   3                       }
+ 577   2                       
+ 578   2                       switch(SdcardBuff[30]) //取语音的第一个数据
+ 579   2                       { 
+ 580   3                                              case 251:
+ 581   3                                                      if(SdcardBuff[31] == 251) //连续2个251  表示停止播放音乐
+ 582   3                                                                      MP3_Stop();
+ 583   3                                                      break;
+ 584   3                                              case 252:
+ 585   3                                                      if(SdcardBuff[31] == 252)       //连续2个101（0x65）表示音乐继续
+ 586   3                                                              {;}
+ 587   3                                                      break;
+ 588   3                                              default:                                                        //否则就为音乐曲目
+ 589   3                                                      MP3_SetPlay(SdcardBuff[30], SdcardBuff[31]); //指定文件夹号与歌曲号  播放               
+ 590   3                                              break;
+ 591   3                      }                     
+ 592   2      
+ 593   2                      switch(SdcardBuff[28])                   //SdcardBuff[28]速度值>=200，则表示经典动作
+ 594   2                      {    
+ 595   3                              case 200:daoli();pch();break;//dt();
+ 596   3                              case 201:turn_left(1);break;
+ 597   3                              case 202:walk(2);break;
+ 598   3                              case 203:turn_right(1);break;
+ 599   3                              case 204:l_pyi(1);break;
+ 600   3                              case 205:fwc(4);break;
+ 601   3                              case 206:r_pyi(1);break;
+ 602   3                              case 207:goal_l(1);break;
+ 603   3                              case 208:yangwoqizuo(3);break;
+ 604   3                              case 209:goal_r(1);break;
+ 605   3                              case 210:jingli_l();break;
+ 606   3                              case 211:jingli_r();break;
+ 607   3                              case 212:qiaoxiyang();break;
+ 608   3                              case 213:jiewu();break;
+ 609   3                              case 214:qianshou();break;
+ 610   3                              case 215:ticao();break;
+ 611   3                              case 216:qgf();break;
+ 612   3                              case 217:hgf();break;
+ 613   3                              case 218:qianpaxia();qianpq();break;
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 11  
+
+ 614   3                              case 219:hp();hpq();break;      
+ 615   3                              case 220:taijiaozi();break;
+ 616   3                              case 221:houtui(2);break;
+ 617   3                              case 222:;break;
+ 618   3                              case 223:;break;
+ 619   3                              case 224:;break;
+ 620   3                              case 225:;break;
+ 621   3                              case 226:;break;
+ 622   3                              case 227:break;
+ 623   3                              case 228:break;
+ 624   3                              default:           
+ 625   3                                      p_to_p(SdcardBuff[28],SdcardBuff[28]);                          
+ 626   3                                      break;                   
+ 627   3                      }
+ 628   2              
+ 629   2                      for(SrcName[0]=0; SrcName[0]<SdcardBuff[29]; SrcName[0]++)                                       //提取延时时间  
+ 630   2                      { 
+ 631   3                              delay10ms(10);
+ 632   3                      }                                                                                 
+ 633   2         
+ 634   2      //              delay10us(5);
+ 635   2      
+ 636   2                      if(SdcardBuff[0] > 128)
+ 637   2                      {
+ 638   3                              if(i == 0)  
+ 639   3                              {
+ 640   4                                      LoopLocate1 = ByteCount;          //记下循环起点
+ 641   4                                      i = 1;
+ 642   4                              }
+ 643   3                      }
+ 644   2                      else
+ 645   2                      {
+ 646   3                              if((SdcardBuff[0] > 0) && (SdcardBuff[0] < 128))
+ 647   3                              {
+ 648   4                                      if(i == 1)
+ 649   4                                      {
+ 650   5                                              LoopLocate2 = ByteCount;  //记下循环结束点
+ 651   5                                              cyc(&LoopLocate1, &LoopLocate2, (SdcardBuff[0]-1));//执行循环部分
+ 652   5                                              i = 0;
+ 653   5                                      }
+ 654   4                              }
+ 655   3                      }
+ 656   2                      
+ 657   2                      //搞经典动作后处理
+ 658   2                      if(SdcardBuff[28] >= 200)
+ 659   2                      {
+ 660   3                              for(SrcName[0]=0; SrcName[0]<24; SrcName[0]++)
+ 661   3                              {
+ 662   4                                      jichu[SrcName[0]] = position[SrcName[0]] - position_initial[SrcName[0]];
+ 663   4                              }                       
+ 664   3          }
+ 665   2                      
+ 666   2                      ByteCount += ThisLen; //移动读取文件的指针              
+ 667   2                      
+ 668   2                      //UART1_PrintArrayBytes(SdcardBuff, ThisLen); //串口1输出显示+++++++++++++++++++
+ 669   2                      //fm300ms(1);
+ 670   2                      //delay1s(2);
+ 671   2                      
+ 672   2        }while(ByteCount < FileSize);
+ 673   1              
+ 674   1              //s = CH376FileClose( TRUE );  //关闭文件,对于字节读写建议自动更新文件长度
+ 675   1              SrcName[0] = CH376SendCmdDatWaitInt(CMD1H_FILE_CLOSE, TRUE);
+C51 COMPILER V8.05a   TUXINGHUA                                                            09/09/2017 11:44:38 PAGE 12  
+
+ 676   1       
+ 677   1      //out:delay10us(10);
+ 678   1      }
+ 679          
+ 680          
+ 681          
+ 682          
+ 683          
+ 684          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   3359    ----
+   CONSTANT SIZE    =     34    ----
+   XDATA SIZE       =     48      71
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

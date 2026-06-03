@@ -1,0 +1,301 @@
+C51 COMPILER V8.05a   HT1621                                                               09/09/2017 11:44:40 PAGE 1   
+
+
+C51 COMPILER V8.05a, COMPILATION OF MODULE HT1621
+OBJECT MODULE PLACED IN HT1621.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE HT1621.c LARGE BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          
+   2          /*------------------------------------------------------------------*/
+   3          /* --- STC MCU International Limited -------------------------------*/
+   4          /* --- STC 1T Series MCU RC Demo -----------------------------------*/
+   5          
+   6          /*******************    功能说明        **********************************
+   7          红外接收程序。适用于市场上用量最大的HT6121/6122及其兼容IC的编码。
+   8          
+   9          对于用户码与User_code定义不同的遥控器，程序会将用户码一起从串口输出。
+  10          
+  11          使用模拟串口发送监控显示编码，显示内容为ASCII码和中文。
+  12          
+  13          本接收程序基于状态机的方式，占用CPU的时间非常少。
+  14          ****************************************************************/
+  15          
+  16          #include "REG15W4Kxx.h"
+  17          
+  18          /*************  用户系统配置    **************/
+  19          #define MAIN_Fosc               11059200L        //定义主时钟, 模拟串口和红外接收会自动适应。5~36MHZ
+  20          
+  21          #define D_TIMER0                125                        //选择定时器时间, us, 红外接收要求在60us~250us之间
+  22          
+  23          #define User_code               0x807F           //定义红外接收用户码
+  24          
+  25          
+  26          /*************  以下宏定义用户请勿修改  **************/
+  27          #define uchar   unsigned char
+  28          #define uint    unsigned int
+  29          
+  30          #define freq_base                         (MAIN_Fosc / 1200)
+  31          #define Timer0_Reload           (65536 - (D_TIMER0 * freq_base / 10000))
+  32          
+  33          sbit    P_IR_RX = P3^2;         //定义红外接收输入端口
+  34          
+  35          bit             P_IR_RX_temp;           //Last sample
+  36          bit             B_IR_Sync;                      //已收到同步标志
+  37          uchar   IR_SampleCnt;           //采样计数
+  38          uchar   IR_BitCnt;                      //编码位数
+  39          uchar   IR_UserH;                         //用户码(地址)高字节
+  40          uchar   IR_UserL;                         //用户码(地址)低字节
+  41          uchar   IR_data;                          //数据原码
+  42          uchar   IR_DataShit;            //数据反码
+  43          
+  44          bit             B_IrUserErr;            //User code error flag
+  45          bit             B_IR_Press;                     //Key press flag,include repeat key.
+  46          uchar   IR_code;                          //IR code     红外键码
+  47          uchar   SampleTime;
+  48          
+  49          /********************* 主函数 *************************/
+  50          /*void main(void)
+  51          {
+  52                  InitTimer();            //初始化Timer
+  53          
+  54                  while(1)
+  55                  {
+C51 COMPILER V8.05a   HT1621                                                               09/09/2017 11:44:40 PAGE 2   
+
+  56                          if(B_IR_Press)          //有IR键按下
+  57                          {
+  58                                  PrintString("红外码: 0x");                      //提示红外键码
+  59                                  Tx1Send(HEX2ASCII(IR_code >> 4));       //键码高半字节
+  60                                  Tx1Send(HEX2ASCII(IR_code));            //键码低半字节
+  61                                  if(B_IrUserErr)                                         //用户码错误，则发送用户码
+  62                                  {
+  63                                          Tx1Send(' ');                                   //发空格
+  64                                          Tx1Send(' ');                                   //发空格
+  65                                          PrintString("用户码: 0x");              //提示用户码
+  66                                          Tx1Send(HEX2ASCII(IR_UserH >> 4));      //用户码高字节的高半字节
+  67                                          Tx1Send(HEX2ASCII(IR_UserH));           //用户码高字节的低半字节
+  68                                          Tx1Send(HEX2ASCII(IR_UserL >> 4));      //用户码低字节的高半字节
+  69                                          Tx1Send(HEX2ASCII(IR_UserL));           //用户码低字节的低半字节
+  70                                  }
+  71                                  Tx1Send(0x0d);          //发回车
+  72                                  Tx1Send(0x0a);          //发回车
+  73                                  B_IR_Press = 0;         //清除IR键按下标志
+  74                          }
+  75                  }
+  76          }
+  77          */
+  78          
+  79          /********************* 十六进制转ASCII函数 *************************/
+  80          /*uchar HEX2ASCII(uchar dat)
+  81          {
+  82                  dat &= 0x0f;
+  83                  if(dat <= 9)    return (dat + '0');     //数字0~9
+  84                  return (dat - 10 + 'A');                        //字母A~F
+  85          } */
+  86          
+  87          //*******************************************************************
+  88          //*********************** IR Remote Module **************************
+  89          
+  90          //*********************** IR Remote Module **************************
+  91          //this programme is used for Receive IR Remote (HT6121).
+  92          
+  93          //data format: Synchro,AddressH,AddressL,data,/data, (total 32 bit).
+  94          
+  95          //send a frame(85ms), pause 23ms, send synchro of another frame, pause 94ms
+  96          
+  97          //data rate: 108ms/Frame
+  98          
+  99          
+ 100          //Synchro:low=9ms,high=4.5/2.25ms,low=0.5626ms
+ 101          //Bit0:high=0.5626ms,low=0.5626ms
+ 102          //Bit1:high=1.6879ms,low=0.5626ms
+ 103          //frame space = 23 ms or 96 ms
+ 104          
+ 105          /******************** 红外采样时间宏定义, 用户不要随意修改      *******************/
+ 106          
+ 107          #if ((D_TIMER0 <= 250) && (D_TIMER0 >= 60))
+ 108                  #define D_IR_sample                     D_TIMER0                //定义采样时间，在60us~250us之间
+ 109          #endif
+ 110          
+ 111          #define D_IR_SYNC_MAX           (15000/D_IR_sample)     //SYNC max time
+ 112          #define D_IR_SYNC_MIN           (9700 /D_IR_sample)     //SYNC min time
+ 113          #define D_IR_SYNC_DIVIDE        (12375/D_IR_sample)     //decide data 0 or 1
+ 114          #define D_IR_DATA_MAX           (3000 /D_IR_sample)     //data max time
+ 115          #define D_IR_DATA_MIN           (600  /D_IR_sample)     //data min time
+ 116          #define D_IR_DATA_DIVIDE        (1687 /D_IR_sample)     //decide data 0 or 1
+ 117          #define D_IR_BIT_NUMBER         32                                      //bit number
+C51 COMPILER V8.05a   HT1621                                                               09/09/2017 11:44:40 PAGE 3   
+
+ 118          
+ 119          //*******************************************************************************************
+ 120          //**************************** IR RECEIVE MODULE ********************************************
+ 121          /*
+ 122          void IR_RX_HT6121(void)
+ 123          {
+ 124                  uchar   SampleTime;
+ 125          
+ 126                  IR_SampleCnt++;                                                     //Sample + 1
+ 127          
+ 128                  F0 = P_IR_RX_temp;                                                //Save Last sample status
+ 129                  P_IR_RX_temp = P_IR_RX;                                 //Read current status
+ 130                  if(F0 && !P_IR_RX_temp)                                 //Last sample is high，and current sample is low, so is fall edge
+ 131                  {
+ 132                          SampleTime = IR_SampleCnt;        //get the sample time
+ 133                          IR_SampleCnt = 0;                                           //Clear the sample counter
+ 134          
+ 135                                   if(SampleTime > D_IR_SYNC_MAX)         B_IR_Sync = 0;  //large the Maxim SYNC time, then error
+ 136                          else if(SampleTime >= D_IR_SYNC_MIN)                                    //SYNC
+ 137                          {
+ 138                                  if(SampleTime >= D_IR_SYNC_DIVIDE)
+ 139                                  {
+ 140                                          B_IR_Sync = 1;                                  //has received SYNC
+ 141                                          IR_BitCnt = D_IR_BIT_NUMBER;    //Load bit number
+ 142                                  }
+ 143                          }
+ 144                          else if(B_IR_Sync)                                              //has received SYNC
+ 145                          {
+ 146                                  if(SampleTime > D_IR_DATA_MAX)          B_IR_Sync=0;    //data samlpe time to large
+ 147                                  else
+ 148                                  {
+ 149                                          IR_DataShit >>= 1;                                      //data shift right 1 bit
+ 150                                          if(SampleTime >= D_IR_DATA_DIVIDE)      IR_DataShit |= 0x80;    //devide data 0 or 1
+ 151                                          if(--IR_BitCnt == 0)                            //bit number is over?
+ 152                                          {
+ 153                                                  B_IR_Sync = 0;                                  //Clear SYNC
+ 154                                                  if(~IR_DataShit == IR_data)             //判断数据正反码
+ 155                                                  {
+ 156                                                          if((IR_UserH == (User_code / 256)) &&
+ 157                                                                  IR_UserL == (User_code % 256))
+ 158                                                                          B_IrUserErr = 0;        //User code is righe
+ 159                                                          else    B_IrUserErr = 1;        //user code is wrong
+ 160                                                                  
+ 161                                                          IR_code      = IR_data;
+ 162                                                          B_IR_Press   = 1;                       //数据有效
+ 163                                                          TR1 = 0; /////////
+ 164                      //EX0  = 1;/////////                                        
+ 165                                                  }
+ 166                                          }
+ 167                                          else if((IR_BitCnt & 7)== 0)            //one byte receive
+ 168                                          {
+ 169                                                  IR_UserL = IR_UserH;                    //Save the User code high byte
+ 170                                                  IR_UserH = IR_data;                             //Save the User code low byte
+ 171                                                  IR_data  = IR_DataShit;                 //Save the IR data byte
+ 172                                          }
+ 173                                  }
+ 174                          }
+ 175                  }
+ 176          }
+ 177          */
+ 178          
+ 179          /**************** Timer初始化函数 ******************************/
+C51 COMPILER V8.05a   HT1621                                                               09/09/2017 11:44:40 PAGE 4   
+
+ 180          void Inf_Init(void)
+ 181          {
+ 182   1              P32 = 1;
+ 183   1              TMOD &= 0x0F;           //for STC15Fxxx系列     Timer0 as 16bit reload timer.
+ 184   1              TH1 = Timer0_Reload / 256;
+ 185   1              TL1 = Timer0_Reload % 256;
+ 186   1              TF1 = 0;
+ 187   1              ET1 = 1;
+ 188   1              TR1 = 0;
+ 189   1      
+ 190   1              IT0  = 1;  //INT0的处罚方式为下降沿触发
+ 191   1              EX0  = 0;
+ 192   1              
+ 193   1              //EA  = 1;
+ 194   1      }
+ 195          
+ 196          //====================================================
+ 197          void INT0_Interrupt(void) interrupt 0
+ 198          {
+ 199   1              EX0  = 0;
+ 200   1              TH1 = Timer0_Reload / 256;
+ 201   1              TL1 = Timer0_Reload % 256;      
+ 202   1              IR_SampleCnt = 0;
+ 203   1              P_IR_RX_temp = 0;
+ 204   1              TR1 = 1;
+ 205   1      }
+ 206          
+ 207          //====================================================
+ 208          void Timer1_Interrupt (void) interrupt 3
+ 209          {
+ 210   1      //      IR_RX_HT6121(); 
+ 211   1      
+ 212   1              IR_SampleCnt++;                                                     //Sample + 1
+ 213   1      
+ 214   1              F0 = P_IR_RX_temp;                                                //Save Last sample status
+ 215   1              P_IR_RX_temp = P_IR_RX;                                 //Read current status
+ 216   1              if(F0 && !P_IR_RX_temp)                                 //Last sample is high，and current sample is low, so is fall edge
+ 217   1              {
+ 218   2                      SampleTime = IR_SampleCnt;        //get the sample time
+ 219   2                      IR_SampleCnt = 0;                                           //Clear the sample counter
+ 220   2      
+ 221   2                               if(SampleTime > D_IR_SYNC_MAX)         B_IR_Sync = 0;  //large the Maxim SYNC time, then error
+ 222   2                      else if(SampleTime >= D_IR_SYNC_MIN)                                    //SYNC
+ 223   2                      {
+ 224   3                              if(SampleTime >= D_IR_SYNC_DIVIDE)
+ 225   3                              {
+ 226   4                                      B_IR_Sync = 1;                                  //has received SYNC
+ 227   4                                      IR_BitCnt = D_IR_BIT_NUMBER;    //Load bit number
+ 228   4                              }
+ 229   3                      }
+ 230   2                      else if(B_IR_Sync)                                              //has received SYNC
+ 231   2                      {
+ 232   3                              if(SampleTime > D_IR_DATA_MAX)          B_IR_Sync=0;    //data samlpe time to large
+ 233   3                              else
+ 234   3                              {
+ 235   4                                      IR_DataShit >>= 1;                                      //data shift right 1 bit
+ 236   4                                      if(SampleTime >= D_IR_DATA_DIVIDE)      IR_DataShit |= 0x80;    //devide data 0 or 1
+ 237   4                                      if(--IR_BitCnt == 0)                            //bit number is over?
+ 238   4                                      {
+ 239   5                                              B_IR_Sync = 0;                                  //Clear SYNC
+ 240   5                                              if(~IR_DataShit == IR_data)             //判断数据正反码
+ 241   5                                              {
+C51 COMPILER V8.05a   HT1621                                                               09/09/2017 11:44:40 PAGE 5   
+
+ 242   6                                                      if((IR_UserH == (User_code / 256)) &&
+ 243   6                                                              IR_UserL == (User_code % 256))
+ 244   6                                                                      B_IrUserErr = 0;        //User code is righe
+ 245   6                                                      else    B_IrUserErr = 1;        //user code is wrong
+ 246   6                                                              
+ 247   6                                                      IR_code      = IR_data;
+ 248   6                                                      B_IR_Press   = 1;                       //数据有效
+ 249   6                                                      TR1 = 0; /////////
+ 250   6                  //EX0  = 1;/////////                                        
+ 251   6                                              }
+ 252   5                                      }
+ 253   4                                      else if((IR_BitCnt & 7)== 0)            //one byte receive
+ 254   4                                      {
+ 255   5                                              IR_UserL = IR_UserH;                    //Save the User code high byte
+ 256   5                                              IR_UserH = IR_data;                             //Save the User code low byte
+ 257   5                                              IR_data  = IR_DataShit;                 //Save the IR data byte
+ 258   5                                      }
+ 259   4                              }
+ 260   3                      }
+ 261   2              }       
+ 262   1      }
+ 263          
+ 264          
+ 265          
+ 266          
+ 267          
+ 268          
+ 269          
+ 270          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    266    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =      8    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      4    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

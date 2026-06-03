@@ -1,0 +1,255 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+E:\2016 Designer Project\»úÆ÷ÈËÖ÷¿ØÆ÷-New\SHProject\ProjectTarget.uvproj
+Project File Date:  06/24/2016
+
+<h2>Output:</h2>
+Rebuild target 'ProjectTarget'
+compiling main.c...
+compiling delay.c...
+compiling tuxinghua.c...
+compiling adc.c...
+compiling BUZZ.c...
+compiling basal.c...
+basal.c(256): warning C280: 'a2': unreferenced local variable
+basal.c(256): warning C280: 'a3': unreferenced local variable
+basal.c(256): warning C280: 'a4': unreferenced local variable
+basal.c(256): warning C280: 'a5': unreferenced local variable
+basal.c(256): warning C280: 'a6': unreferenced local variable
+basal.c(256): warning C280: 'a7': unreferenced local variable
+basal.c(256): warning C280: 'a8': unreferenced local variable
+basal.c(256): warning C280: 'a9': unreferenced local variable
+basal.c(256): warning C280: 'a10': unreferenced local variable
+basal.c(256): warning C280: 'a11': unreferenced local variable
+basal.c(256): warning C280: 'a12': unreferenced local variable
+basal.c(256): warning C280: 'a13': unreferenced local variable
+basal.c(256): warning C280: 'a14': unreferenced local variable
+basal.c(256): warning C280: 'a15': unreferenced local variable
+basal.c(256): warning C280: 'a16': unreferenced local variable
+basal.c(256): warning C280: 'a17': unreferenced local variable
+basal.c(256): warning C280: 'a18': unreferenced local variable
+basal.c(256): warning C280: 'a19': unreferenced local variable
+basal.c(256): warning C280: 'a20': unreferenced local variable
+basal.c(256): warning C280: 'a21': unreferenced local variable
+basal.c(256): warning C280: 'a22': unreferenced local variable
+basal.c(327): warning C209: '_relative': too few actual parameters
+basal.c(334): warning C209: '_relative': too few actual parameters
+basal.c(339): warning C209: '_relative': too few actual parameters
+basal.c(403): warning C209: '_relative': too few actual parameters
+basal.c(406): warning C209: '_relative': too few actual parameters
+basal.c(409): warning C209: '_relative': too few actual parameters
+basal.c(412): warning C209: '_relative': too few actual parameters
+basal.c(415): warning C209: '_relative': too few actual parameters
+basal.c(396): warning C280: 'step': unreferenced local variable
+basal.c(431): warning C209: '_relative': too few actual parameters
+basal.c(434): warning C209: '_relative': too few actual parameters
+basal.c(437): warning C209: '_relative': too few actual parameters
+basal.c(440): warning C209: '_relative': too few actual parameters
+basal.c(443): warning C209: '_relative': too few actual parameters
+basal.c(424): warning C280: 'step': unreferenced local variable
+basal.c(460): warning C209: '_relative': too few actual parameters
+basal.c(463): warning C209: '_relative': too few actual parameters
+basal.c(466): warning C209: '_relative': too few actual parameters
+basal.c(469): warning C209: '_relative': too few actual parameters
+basal.c(472): warning C209: '_relative': too few actual parameters
+basal.c(475): warning C209: '_relative': too few actual parameters
+basal.c(453): warning C280: 'step': unreferenced local variable
+basal.c(493): warning C209: '_relative': too few actual parameters
+basal.c(496): warning C209: '_relative': too few actual parameters
+basal.c(499): warning C209: '_relative': too few actual parameters
+basal.c(502): warning C209: '_relative': too few actual parameters
+basal.c(505): warning C209: '_relative': too few actual parameters
+basal.c(508): warning C209: '_relative': too few actual parameters
+basal.c(485): warning C280: 'step': unreferenced local variable
+basal.c(1005): warning C280: 'i': unreferenced local variable
+basal.c(1005): warning C280: 'j': unreferenced local variable
+basal.c(2037): warning C209: '_relative': too few actual parameters
+basal.c(2048): warning C209: '_relative': too few actual parameters
+basal.c(2051): warning C209: '_relative': too few actual parameters
+basal.c(2054): warning C209: '_relative': too few actual parameters
+basal.c(2069): warning C209: '_relative': too few actual parameters
+basal.c(2072): warning C209: '_relative': too few actual parameters
+basal.c(2075): warning C209: '_relative': too few actual parameters
+compiling walking.c...
+walking.c(116): warning C280: 'setp': unreferenced local variable
+walking.c(278): warning C280: 'setp': unreferenced local variable
+walking.c(454): warning C209: '_relative': too few actual parameters
+walking.c(457): warning C209: '_relative': too few actual parameters
+walking.c(460): warning C209: '_relative': too few actual parameters
+walking.c(479): warning C209: '_relative': too few actual parameters
+walking.c(482): warning C209: '_relative': too few actual parameters
+walking.c(485): warning C209: '_relative': too few actual parameters
+walking.c(488): warning C209: '_relative': too few actual parameters
+walking.c(507): warning C209: '_relative': too few actual parameters
+walking.c(510): warning C209: '_relative': too few actual parameters
+walking.c(513): warning C209: '_relative': too few actual parameters
+walking.c(516): warning C209: '_relative': too few actual parameters
+walking.c(534): warning C209: '_relative': too few actual parameters
+walking.c(537): warning C209: '_relative': too few actual parameters
+walking.c(541): warning C209: '_relative': too few actual parameters
+walking.c(545): warning C209: '_relative': too few actual parameters
+walking.c(552): warning C209: '_relative': too few actual parameters
+compiling jiewu.c...
+compiling ticao.c...
+compiling qianshou.c...
+compiling qiaoxiyang.c...
+compiling HT1621.c...
+linking...
+*** WARNING L13: RECURSIVE CALL TO SEGMENT
+    SEGMENT: ?PR?PWM_24?MAIN
+    CALLER:  ?PR?ADC_ADJUST?ADC
+*** WARNING L13: RECURSIVE CALL TO SEGMENT
+    SEGMENT: ?PR?_P_TO_P?BASAL
+    CALLER:  ?PR?HPQ?BASAL
+*** WARNING L13: RECURSIVE CALL TO SEGMENT
+    SEGMENT: ?PR?_P_TO_P?BASAL
+    CALLER:  ?PR?QIANPQ?BASAL
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_UART1_PRINTSTRING?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CH376ENDDIRINFO?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CH376GETDISKSTATUS?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FM300MS?BUZZ
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FM50MS?BUZZ
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FM1MS?BUZZ
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INITIAL_POSITION_SLOW?BASAL
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FUWEI?BASAL
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?QIMA?WALKING
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TABU1?WALKING
+Program Size: data=20.7 xdata=832 code=58052
+creating hex file from "ProjectTarget"...
+"ProjectTarget" - 0 Error(s), 90 Warning(s).
+Rebuild target 'ProjectTarget'
+compiling main.c...
+compiling delay.c...
+compiling tuxinghua.c...
+compiling adc.c...
+compiling BUZZ.c...
+compiling basal.c...
+basal.c(256): warning C280: 'a2': unreferenced local variable
+basal.c(256): warning C280: 'a3': unreferenced local variable
+basal.c(256): warning C280: 'a4': unreferenced local variable
+basal.c(256): warning C280: 'a5': unreferenced local variable
+basal.c(256): warning C280: 'a6': unreferenced local variable
+basal.c(256): warning C280: 'a7': unreferenced local variable
+basal.c(256): warning C280: 'a8': unreferenced local variable
+basal.c(256): warning C280: 'a9': unreferenced local variable
+basal.c(256): warning C280: 'a10': unreferenced local variable
+basal.c(256): warning C280: 'a11': unreferenced local variable
+basal.c(256): warning C280: 'a12': unreferenced local variable
+basal.c(256): warning C280: 'a13': unreferenced local variable
+basal.c(256): warning C280: 'a14': unreferenced local variable
+basal.c(256): warning C280: 'a15': unreferenced local variable
+basal.c(256): warning C280: 'a16': unreferenced local variable
+basal.c(256): warning C280: 'a17': unreferenced local variable
+basal.c(256): warning C280: 'a18': unreferenced local variable
+basal.c(256): warning C280: 'a19': unreferenced local variable
+basal.c(256): warning C280: 'a20': unreferenced local variable
+basal.c(256): warning C280: 'a21': unreferenced local variable
+basal.c(256): warning C280: 'a22': unreferenced local variable
+basal.c(327): warning C209: '_relative': too few actual parameters
+basal.c(334): warning C209: '_relative': too few actual parameters
+basal.c(339): warning C209: '_relative': too few actual parameters
+basal.c(403): warning C209: '_relative': too few actual parameters
+basal.c(406): warning C209: '_relative': too few actual parameters
+basal.c(409): warning C209: '_relative': too few actual parameters
+basal.c(412): warning C209: '_relative': too few actual parameters
+basal.c(415): warning C209: '_relative': too few actual parameters
+basal.c(396): warning C280: 'step': unreferenced local variable
+basal.c(431): warning C209: '_relative': too few actual parameters
+basal.c(434): warning C209: '_relative': too few actual parameters
+basal.c(437): warning C209: '_relative': too few actual parameters
+basal.c(440): warning C209: '_relative': too few actual parameters
+basal.c(443): warning C209: '_relative': too few actual parameters
+basal.c(424): warning C280: 'step': unreferenced local variable
+basal.c(460): warning C209: '_relative': too few actual parameters
+basal.c(463): warning C209: '_relative': too few actual parameters
+basal.c(466): warning C209: '_relative': too few actual parameters
+basal.c(469): warning C209: '_relative': too few actual parameters
+basal.c(472): warning C209: '_relative': too few actual parameters
+basal.c(475): warning C209: '_relative': too few actual parameters
+basal.c(453): warning C280: 'step': unreferenced local variable
+basal.c(493): warning C209: '_relative': too few actual parameters
+basal.c(496): warning C209: '_relative': too few actual parameters
+basal.c(499): warning C209: '_relative': too few actual parameters
+basal.c(502): warning C209: '_relative': too few actual parameters
+basal.c(505): warning C209: '_relative': too few actual parameters
+basal.c(508): warning C209: '_relative': too few actual parameters
+basal.c(485): warning C280: 'step': unreferenced local variable
+basal.c(1005): warning C280: 'i': unreferenced local variable
+basal.c(1005): warning C280: 'j': unreferenced local variable
+basal.c(2037): warning C209: '_relative': too few actual parameters
+basal.c(2048): warning C209: '_relative': too few actual parameters
+basal.c(2051): warning C209: '_relative': too few actual parameters
+basal.c(2054): warning C209: '_relative': too few actual parameters
+basal.c(2069): warning C209: '_relative': too few actual parameters
+basal.c(2072): warning C209: '_relative': too few actual parameters
+basal.c(2075): warning C209: '_relative': too few actual parameters
+compiling walking.c...
+walking.c(116): warning C280: 'setp': unreferenced local variable
+walking.c(278): warning C280: 'setp': unreferenced local variable
+walking.c(454): warning C209: '_relative': too few actual parameters
+walking.c(457): warning C209: '_relative': too few actual parameters
+walking.c(460): warning C209: '_relative': too few actual parameters
+walking.c(479): warning C209: '_relative': too few actual parameters
+walking.c(482): warning C209: '_relative': too few actual parameters
+walking.c(485): warning C209: '_relative': too few actual parameters
+walking.c(488): warning C209: '_relative': too few actual parameters
+walking.c(507): warning C209: '_relative': too few actual parameters
+walking.c(510): warning C209: '_relative': too few actual parameters
+walking.c(513): warning C209: '_relative': too few actual parameters
+walking.c(516): warning C209: '_relative': too few actual parameters
+walking.c(534): warning C209: '_relative': too few actual parameters
+walking.c(537): warning C209: '_relative': too few actual parameters
+walking.c(541): warning C209: '_relative': too few actual parameters
+walking.c(545): warning C209: '_relative': too few actual parameters
+walking.c(552): warning C209: '_relative': too few actual parameters
+compiling jiewu.c...
+compiling ticao.c...
+compiling qianshou.c...
+compiling qiaoxiyang.c...
+compiling HT1621.c...
+linking...
+*** WARNING L13: RECURSIVE CALL TO SEGMENT
+    SEGMENT: ?PR?PWM_24?MAIN
+    CALLER:  ?PR?ADC_ADJUST?ADC
+*** WARNING L13: RECURSIVE CALL TO SEGMENT
+    SEGMENT: ?PR?_P_TO_P?BASAL
+    CALLER:  ?PR?HPQ?BASAL
+*** WARNING L13: RECURSIVE CALL TO SEGMENT
+    SEGMENT: ?PR?_P_TO_P?BASAL
+    CALLER:  ?PR?QIANPQ?BASAL
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_UART1_PRINTSTRING?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CH376ENDDIRINFO?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?CH376GETDISKSTATUS?MAIN
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FM300MS?BUZZ
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FM50MS?BUZZ
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_FM1MS?BUZZ
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?INITIAL_POSITION_SLOW?BASAL
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?FUWEI?BASAL
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?QIMA?WALKING
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?TABU1?WALKING
+Program Size: data=20.7 xdata=832 code=58052
+creating hex file from "ProjectTarget"...
+"ProjectTarget" - 0 Error(s), 90 Warning(s).
