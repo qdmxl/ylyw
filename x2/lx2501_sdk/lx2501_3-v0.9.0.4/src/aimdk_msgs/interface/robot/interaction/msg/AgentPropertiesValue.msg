@@ -1,2 +1,0 @@
-AgentPropertyIdType key
-string value
