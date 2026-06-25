@@ -1,0 +1,128 @@
+{
+  "config": {
+    "model": "YLYW Zero-Shot",
+    "split": "valid_unseen",
+    "max_steps": 50,
+    "agent_type": "YLYW_3layer_PriorInference"
+  },
+  "metrics": {
+    "total_tasks": 10,
+    "won": 10,
+    "lost": 0,
+    "success_rate": 1.0,
+    "type_accuracy": 1.0,
+    "avg_steps": 12.2,
+    "total_steps": 122
+  },
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "total": 10,
+      "won": 10,
+      "rate": 1.0,
+      "avg_steps": 12.2
+    }
+  },
+  "results": [
+    {
+      "game_idx": 0,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Hold the clock and turn on the lamp.",
+      "steps": 13,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 1,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "turn on a lamp while holding a baseball bat",
+      "steps": 6,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 2,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Look at a basketball in the lamp light.",
+      "steps": 5,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 3,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Look at a book by the light of a lamp.",
+      "steps": 12,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 4,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "turn on a lamp while holding a bowl",
+      "steps": 13,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 5,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "To turn on a lamp to see inside a box.  ",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 6,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "examine a CD with a lamp",
+      "steps": 12,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 7,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Pick up the cell phone and look at it by the light of the lamp",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 8,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Carry a credit card while turning on a lamp",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 9,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Examine a key chain by the light of a floor lamp.",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    }
+  ],
+  "elapsed_seconds": 3.6039986610412598
+}

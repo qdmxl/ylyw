@@ -19,6 +19,10 @@ class MotionYaoEncoder:
     """
     
     def __init__(self):
+        # 阴阳判定阈值（可在线调参）
+        # 每个爻值 >= threshold 即判为阳爻
+        self.thresholds = np.array([0.50, 0.50, 0.50, 0.50, 0.50, 0.50])
+        
         # 编码权重（可用于微调）
         self.weights = {
             'yao1': {'posture': 1.0},
@@ -68,15 +72,16 @@ class MotionYaoEncoder:
         yao = np.array([y1, y2, y3, y4, y5, y6])
         yao = np.clip(yao, 0.0, 1.0)
         
-        yin_yang = ['—' if v >= 0.5 else '--' for v in yao]
+        yin_yang = ['—' if v >= self.thresholds[i] else '--' for i, v in enumerate(yao)]
         
+        t = self.thresholds
         descriptions = [
-            f"初爻(姿态): {'阳—稳定' if y1 >= 0.5 else '阴--不稳'} ({y1:.2f})",
-            f"二爻(质心): {'阳—正常' if y2 >= 0.5 else '阴--偏低'} ({y2:.2f})",
-            f"三爻(力分布): {'阳—均匀' if y3 >= 0.5 else '阴--不均'} ({y3:.2f})",
-            f"四爻(ZMP): {'阳—安全' if y4 >= 0.5 else '阴--危险'} ({y4:.2f})",
-            f"五爻(扰动): {'阳—平稳' if y5 >= 0.5 else '阴—扰动'} ({y5:.2f})",
-            f"上爻(地形): {'阳—平坦' if y6 >= 0.5 else '阴—崎岖'} ({y6:.2f})",
+            f"初爻(姿态): {'阳—稳定' if y1 >= t[0] else '阴--不稳'} ({y1:.2f})",
+            f"二爻(质心): {'阳—正常' if y2 >= t[1] else '阴--偏低'} ({y2:.2f})",
+            f"三爻(力分布): {'阳—均匀' if y3 >= t[2] else '阴--不均'} ({y3:.2f})",
+            f"四爻(ZMP): {'阳—安全' if y4 >= t[3] else '阴--危险'} ({y4:.2f})",
+            f"五爻(扰动): {'阳—平稳' if y5 >= t[4] else '阴—扰动'} ({y5:.2f})",
+            f"上爻(地形): {'阳—平坦' if y6 >= t[5] else '阴—崎岖'} ({y6:.2f})",
         ]
         
         return yao, yin_yang, descriptions

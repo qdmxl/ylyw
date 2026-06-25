@@ -265,7 +265,7 @@ def fig_architecture():
     # L1
     bh = 180
     box(cx-bw//2, y, bw, bh, 'L1')
-    draw.text((cx, y+25), 'L1  八卦基元 (Trigram Base)', fill='#1565C0', font=F_HEAD, anchor='mm')
+    draw.text((cx, y+25), 'L1  八卦基元（模糊隶属度）', fill='#1565C0', font=F_HEAD, anchor='mm')
     trigrams = ['乾☰健','坤☷顺','震☳动','艮☶止','离☲明','坎☵险','兑☱悦','巽☴入']
     for i, t in enumerate(trigrams):
         draw.text((260+i*210, y+75), t, fill='#333', font=F_SMALL, anchor='mm')
@@ -276,7 +276,7 @@ def fig_architecture():
     # L2
     bh = 180
     box(cx-bw//2, y, bw, bh, 'L2')
-    draw.text((cx, y+25), 'L2  六爻编码 (Yao Encoder)', fill='#E65100', font=F_HEAD, anchor='mm')
+    draw.text((cx, y+25), 'L2  六爻编码（语义降维）', fill='#E65100', font=F_HEAD, anchor='mm')
     yao = ['初爻:稳定性','二爻:可达性','三爻:力需求','四爻:脆弱性','五爻:优先级','上爻:环境约束']
     for i, t in enumerate(yao):
         draw.text((210+i*270, y+75), t, fill='#333', font=F_SMALL, anchor='mm')
@@ -287,7 +287,7 @@ def fig_architecture():
     # L3
     bh = 160
     box(cx-bw//2, y, bw, bh, 'L3')
-    draw.text((cx, y+25), 'L3  六十四卦匹配 (Hexagram Matching)', fill='#6A1B9A', font=F_HEAD, anchor='mm')
+    draw.text((cx, y+25), 'L3  六十四卦匹配（策略决策）', fill='#6A1B9A', font=F_HEAD, anchor='mm')
     draw.text((cx, y+70), '64个卦象模板 × 余弦相似度匹配  →  Top-K 卦象序列', fill='#333', font=F_SMALL, anchor='mm')
     draw.text((cx, y+105), 'Top-1: 水天需 ☵☰  →  conditional_grasp  (卦象决定策略类型)', fill='#555', font=F_SMALL, anchor='mm')
     draw.text((cx, y+135), '备选: 雷地豫(0.981)  震为雷(0.981)  — 变卦候选', fill='#999', font=F_TINY, anchor='mm')
@@ -296,21 +296,21 @@ def fig_architecture():
     # L3+
     bh = 220
     box(cx-bw//2, y, bw, bh, 'L3plus')
-    draw.text((cx, y+25), 'L3+  爻位关系运算 (Yao Relations)', fill='#C62828', font=F_HEAD, anchor='mm')
+    draw.text((cx, y+25), 'L3+  爻位关系运算（参数精修）', fill='#C62828', font=F_HEAD, anchor='mm')
     rels = ['当位: 2/6', '得中: 二阳+五阳', '乘(逆): 1处', '亲比: 3/5对', '呼应: 2/3对']
     for i, t in enumerate(rels):
         draw.rounded_rectangle([250+i*310-100, y+55, 250+i*310+100, y+100], radius=8, fill='white', outline='#EF9A9A', width=2)
         draw.text((250+i*310, y+78), t, fill='#C62828', font=F_SMALL, anchor='mm')
     draw.text((cx, y+130), '综合爻位质量 = 0.40×当位 + 0.20×得中 + 0.15×乘承 + 0.10×亲比 + 0.15×呼应  =  0.51', fill='#555', font=F_SMALL, anchor='mm')
-    draw.text((cx, y+165), '→  策略修正系数 ×0.90    →    谨慎级别: cautious', fill='#C62828', font=F_SMALL, anchor='mm')
+    draw.text((cx, y+165), '→  策略修正系数 ×0.90    →    谨慎级别: 谨慎', fill='#C62828', font=F_SMALL, anchor='mm')
     draw.text((cx, y+198), '爻位关系决定执行参数（力修正、谨慎级别）——"怎么做"', fill='#888', font=F_TINY, anchor='mm')
     y += bh; arrow(cx, y, cx, y+30); y += 30
     
     # 决策
     bh = 150
     box(cx-bw//2, y, bw, bh, 'decision')
-    draw.text((cx, y+25), '决策层 (Action Output)', fill='#00838F', font=F_HEAD, anchor='mm')
-    decs = [('策略类型','conditional_grasp'),('力预设','0.50 (×0.90修正)'),('接近角/速度','0° / medium'),('可解释推理链','卦→爻→辞 全追溯')]
+    draw.text((cx, y+25), '决策输出层', fill='#00838F', font=F_HEAD, anchor='mm')
+    decs = [('策略类型','条件式抓取'),('力预设','0.50（×0.90修正）'),('接近角/速度','0° / 中速'),('可解释推理链','卦→爻→辞 全链路可追溯')]
     for i, (l, v) in enumerate(decs):
         draw.text((260+i*370, y+70), l, fill='#00838F', font=F_SMALL, anchor='mm')
         draw.text((260+i*370, y+105), v, fill='#333', font=F_SMALL, anchor='mm')
@@ -320,7 +320,7 @@ def fig_architecture():
     # 物理约束（虚线框）
     bh = 130
     box(cx-bw//2, y, bw, bh, 'physics_c')
-    draw.text((cx, y+28), '物理约束层 (Physics Constraint — 未来工作)', fill='#757575', font=F_HEAD, anchor='mm')
+    draw.text((cx, y+28), '物理约束层（未来工作）', fill='#757575', font=F_HEAD, anchor='mm')
     draw.text((cx, y+70), 'τ = M(θ)θ̈_des + C(θ,θ̇)θ̇ + G(θ)   →   100%物理合规力矩', fill='#888', font=F_SMALL, anchor='mm')
     draw.text((cx, y+100), '零穿透 / 零滑脱 / 零过载保证', fill='#999', font=F_TINY, anchor='mm')
     

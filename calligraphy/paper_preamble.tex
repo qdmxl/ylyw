@@ -1,0 +1,77 @@
+%============================================================
+%  YLYW书法学习技术论文 — LaTeX Preamble
+%  基于易经符号先验的机器人书法学习系统
+%============================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% ---- 中文支持 ----
+\usepackage[UTF8]{ctex}
+\setCJKmainfont{SimSun}[BoldFont=SimHei,ItalicFont=KaiTi]
+\setCJKsansfont{SimHei}
+\setCJKmonofont{FangSong}
+
+% ---- 页面设置 ----
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ---- 数学 ----
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+
+% ---- 图表 ----
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[table]{xcolor}
+
+% ---- 引用 ----
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+}
+
+% ---- 算法 ----
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+% ---- 其他 ----
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---- 页眉页脚 ----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 基于易经符号先验的机器人书法学习系统}
+\fancyhead[R]{\small 马兴录 等}
+\fancyfoot[C]{\thepage}
+
+% ---- 标题 ----
+\title{\textbf{基于易经符号先验的机器人书法学习系统：\\观物取象与以卦驭笔}}
+
+\author{
+    马兴录$^{1}$\quad 李金函$^{1}$\quad 张国安$^{1}$\quad 于敬涛$^{1}$\quad 李望$^{1}$\quad 马圣洁$^{1,*}$
+}
+
+\date{}
+
+% ---- 用户自定义命令 ----
+\newcommand{\ylyw}{\textsc{YLYW}}
+\newcommand{\zhiji}{\text{知几}}
+\newcommand{\bagua}{\text{八卦}}
+\newcommand{\liuyao}{\text{六爻}}
+\newcommand{\hexagram}[1]{\text{《#1》}}
+
+% ---- 论文信息 ----
+% 投稿目标：《自动化学报》或《机器人》或 IEEE RAL
+% 状态：初稿

@@ -45,16 +45,17 @@ class PriorManual:
         verbose: 是否打印详细推理日志
     """
 
-    def __init__(self, verbose=False):
+    def __init__(self, verbose=False, force_scale: float = 1.25):
         """
         初始化先验手册
 
         Args:
             verbose: 是否开启详细日志输出
+            force_scale: 全局力缩放因子（传给卦象规则库）
         """
         self.trigram_base = TrigramBase()
         self.yao_encoder = YaoEncoder()
-        self.hexagram_rules = HexagramRuleBase()
+        self.hexagram_rules = HexagramRuleBase(force_scale=force_scale)
         self.yao_relations = YaoRelations()  # 爻位关系运算
 
         self.verbose = verbose

@@ -1,0 +1,127 @@
+让我先完整理清 ALFWorld 的原理和流程。好了，现在全部理清了。下面是完整的讲解：
+
+---
+
+## ALFWorld 使用原理与流程
+
+### 一、ALFWorld 是什么
+
+ALFWorld 是一个**具身智能文本交互基准测试集**，模拟一个家用环境中的各类任务。智能体只能通过**文本指令**与环境交互，没有视觉输入。任务是 **valid_unseen**（未见过的场景组合），考验智能体的**零样本语言理解与任务规划**能力。
+
+当前我们的版本包含 **85 个任务**，7 种类型，都是 valid_unseen 拆分。
+
+---
+
+### 二、环境模型
+
+```
+┌─────────────────────────────────────────────┐
+│              家居环境（文本）                  │
+│                                             │
+│  物体 (Objects):  AlarmClock, Apple, Bowl   │
+│                    Book, Laptop, Knife ...   │
+│                                             │
+│  容器 (Receptacles): Desk, Bed, Cabinet,   │
+│                      Fridge, Microwave ...   │
+│                                             │
+│  动作: go to / take / put / open / close    │
+│        clean / heat / cool / use / slice    │
+└─────────────────────────────────────────────┘
+```
+
+每个任务有一个**专家规划的步进序列**（walkthrough），智能体需要一步一步选择正确的动作。
+
+---
+
+### 三、交互协议
+
+每一轮循环：
+
+```
+1. Agent 收到 observation（文本场景描述 + 任务指令）
+2. Agent 从 admissible_commands 中选择一个动作
+3. 环境执行动作，返回新的 observation + 是否完成
+4. 重复，直到 done=True（won or lost）
+```
+
+限制：最多 50 步，超过判定失败。
+
+---
+
+### 四、7 种任务类型详解
+
+```
+┌────────────────────────────────┬────┬──────────────────────────────┐
+│ 任务类型                        │ 数量│ 典型步进流                    │
+├────────────────────────────────┼────┼──────────────────────────────┤
+│ look_at_obj_in_light           │ 18 │ go→take→go→use (4步)         │
+│ pick_and_place_simple          │ 10 │ go→take→go→put (4步)         │
+│ pick_clean_then_place_in_recep │ 12 │ go→take→go→clean→go→put (6步)│
+│ pick_cool_then_place_in_recep  │ 12 │ go→take→go→cool→go→put (6步) │
+│ pick_heat_then_place_in_recep  │ 14 │ go→take→go→heat→go→put (6步) │
+│ pick_two_obj_and_place         │  8 │ 多段串联 (8-13步)             │
+│ pick_and_place_with_movable    │ 11 │ go→take→go→put→take→go→put   │
+│    _recep                      │    │ (容器本身也是物体，7步)       │
+└────────────────────────────────┴────┴──────────────────────────────┘
+```
+
+---
+
+### 五、核心推理挑战
+
+ALFWorld 的难点在于**零样本语义理解**——智能体需要：
+
+1. **从任务描述中解析意图**："place a bat on the bed" → 需要找 bat，然后找 bed
+2. **理解物体-容器关系**：bat 可能在 baseballbat 上，bed 是容器
+3. **理解工具使用**：clean 需要用 sinkbasin，cool 用 fridge，heat 用 microwave
+4. **顺序规划**：先 go→take→go→cool→go→put 不能乱序
+5. **子目标串联**：pick_two_obj 需要先把两个物体都放到 countertop，再切
+
+---
+
+### 六、我们当前的轻量仿真器
+
+我们绕过官方 ALFWorld 的 textworld PDDL 引擎，直接用 `traj_data.json` + 专家步进序列做了轻量仿真器：
+
+```
+                        ┌──────────────┐
+  traj_data.json ──────▶│ parse PDDL   │──▶ objects + receptacles
+  (ground truth)        │ plan steps   │──▶ walkthrough (可执行)
+                        └──────────────┘
+                                │
+                                ▼
+                    ┌───────────────────┐
+                    │ ALFWorldLight     │
+                    │                   │
+                    │ reset(idx)  → obs │
+                    │ step(cmd)  → obs  │
+                    │   .won / .done    │
+                    └───────────────────┘
+```
+
+匹配机制：当前步进的指令与专家指令**精确字符串匹配**即为正确，否则返回"That didn't work."
+
+---
+
+### 七、与 YLYW 的结合点
+
+```
+                    ┌────────────────────────────┐
+  task_desc ───────▶│ 层次化嵌套 YLYW 推理系统    │
+  admissible_cmds  │                            │
+                    │ 宏观层: 任务类型识别 → 卦象  │
+                    │   ↓                        │
+                    │ 中观层: 子目标分解 → 步进规划│
+                    │   ↓                        │
+                    │ 微观层: 动作选择 → 具体指令  │
+                    └────────────┬───────────────┘
+                                 │
+                                 ▼
+                           chosen_action
+```
+
+- **宏观层**：从 task_desc 识别任务类型 → 匹配到宏观卦象（7种卦对应7种任务模式）
+- **中观层**：解析子目标结构（先取什么、用什么工具、放哪里）
+- **微观层**：在当前可行动作中选出正确的下一步动作
+
+这就是要构建的 YLYW ALFWorld Agent 的核心设计。准备好开始实现了。

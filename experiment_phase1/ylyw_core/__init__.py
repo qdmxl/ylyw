@@ -11,10 +11,12 @@ from .prior_manual import PriorManual
 from .trigram_base import TrigramBase, Trigram
 from .yao_encoder import YaoEncoder, YaoPosition
 from .hexagram_rules import HexagramRuleBase, Hexagram
+from .yao_relations import YaoRelations, YaoRelationReport, analyze_yao_relations
 
 __all__ = [
     "PriorManual",
     "TrigramBase", "Trigram",
     "YaoEncoder", "YaoPosition",
     "HexagramRuleBase", "Hexagram",
+    "YaoRelations", "YaoRelationReport", "analyze_yao_relations",
 ]

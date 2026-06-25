@@ -1,0 +1,2149 @@
+{
+  "config": {
+    "agent": "V10",
+    "zhiji_learning": true,
+    "zhichi_learning": true,
+    "pddl": false
+  },
+  "metrics": {
+    "total": 134,
+    "won": 98,
+    "rate": 0.7313432835820896,
+    "type_accuracy": 0.9850746268656716,
+    "elapsed": 271.7688913345337
+  },
+  "zhiji_stats": {
+    "games_played": 134,
+    "games_won": 98,
+    "synonyms_learned": {
+      "soap": [
+        "soapbottle",
+        "soapbar"
+      ],
+      "coffee": [
+        "mug",
+        "cup"
+      ],
+      "cup": [
+        "mug"
+      ],
+      "key": [
+        "keychain"
+      ],
+      "keys": [
+        "keychain"
+      ],
+      "clock": [
+        "alarmclock"
+      ],
+      "salt": [
+        "peppershaker",
+        "saltshaker"
+      ],
+      "shaker": [
+        "peppershaker",
+        "saltshaker"
+      ],
+      "cloth": [
+        "cloth"
+      ],
+      "mug": [
+        "cup"
+      ],
+      "rag": [
+        "cloth"
+      ],
+      "disk": [
+        "cd"
+      ],
+      "disc": [
+        "cd"
+      ]
+    },
+    "object_locations": {
+      "apple": {
+        "countertop": 51,
+        "garbagecan": 21,
+        "sinkbasin": 2,
+        "fridge": 10,
+        "microwave": 2
+      },
+      "dishsponge": {
+        "countertop": 30,
+        "garbagecan": 3,
+        "sinkbasin": 3,
+        "shelf": 4,
+        "cabinet": 12,
+        "drawer": 6
+      },
+      "potato": {
+        "countertop": 32,
+        "sinkbasin": 7,
+        "garbagecan": 9,
+        "fridge": 16,
+        "microwave": 4
+      },
+      "bread": {
+        "countertop": 58,
+        "fridge": 9
+      },
+      "cellphone": {
+        "countertop": 78,
+        "shelf": 6,
+        "drawer": 45,
+        "desk": 30,
+        "bed": 17,
+        "dresser": 7,
+        "armchair": 6,
+        "sidetable": 1,
+        "safe": 7
+      },
+      "papertowelroll": {
+        "countertop": 46,
+        "garbagecan": 10,
+        "shelf": 4
+      },
+      "plate": {
+        "countertop": 24,
+        "cabinet": 80,
+        "shelf": 5,
+        "sinkbasin": 1,
+        "fridge": 3
+      },
+      "soapbottle": {
+        "countertop": 98,
+        "cabinet": 78,
+        "garbagecan": 8,
+        "toilet": 3
+      },
+      "butterknife": {
+        "countertop": 75,
+        "sinkbasin": 2,
+        "drawer": 1
+      },
+      "creditcard": {
+        "countertop": 84,
+        "desk": 35,
+        "drawer": 36,
+        "shelf": 16,
+        "dresser": 2,
+        "sofa": 3,
+        "sidetable": 1
+      },
+      "fork": {
+        "countertop": 45,
+        "sinkbasin": 6,
+        "drawer": 8
+      },
+      "glassbottle": {
+        "countertop": 68,
+        "cabinet": 37,
+        "shelf": 3,
+        "garbagecan": 5
+      },
+      "lettuce": {
+        "countertop": 50,
+        "sinkbasin": 2,
+        "fridge": 12,
+        "garbagecan": 6
+      },
+      "spatula": {
+        "countertop": 47,
+        "drawer": 10,
+        "sinkbasin": 11
+      },
+      "spoon": {
+        "countertop": 63,
+        "sinkbasin": 7,
+        "drawer": 8
+      },
+      "statue": {
+        "countertop": 51,
+        "shelf": 7,
+        "dresser": 7,
+        "safe": 2
+      },
+      "bowl": {
+        "cabinet": 19,
+        "countertop": 35,
+        "desk": 72,
+        "shelf": 8,
+        "fridge": 10,
+        "sinkbasin": 1,
+        "microwave": 1
+      },
+      "mug": {
+        "cabinet": 26,
+        "countertop": 89,
+        "desk": 75,
+        "shelf": 21,
+        "coffeemachine": 48,
+        "fridge": 4,
+        "microwave": 4,
+        "sinkbasin": 1
+      },
+      "knife": {
+        "drawer": 3,
+        "countertop": 70,
+        "sinkbasin": 2
+      },
+      "saltshaker": {
+        "drawer": 14,
+        "cabinet": 22,
+        "countertop": 25,
+        "shelf": 6
+      },
+      "peppershaker": {
+        "drawer": 14,
+        "countertop": 52,
+        "cabinet": 51,
+        "shelf": 6
+      },
+      "egg": {
+        "countertop": 51,
+        "garbagecan": 19,
+        "sinkbasin": 6,
+        "fridge": 5,
+        "microwave": 6
+      },
+      "tomato": {
+        "countertop": 67,
+        "garbagecan": 8,
+        "fridge": 15,
+        "sinkbasin": 4,
+        "microwave": 2
+      },
+      "vase": {
+        "shelf": 14,
+        "cabinet": 68,
+        "countertop": 38,
+        "dresser": 4,
+        "safe": 7
+      },
+      "pot": {
+        "stoveburner": 70,
+        "countertop": 11
+      },
+      "pan": {
+        "stoveburner": 86,
+        "cabinet": 2,
+        "countertop": 28,
+        "fridge": 2
+      },
+      "candle": {
+        "countertop": 29,
+        "cabinet": 14,
+        "toilet": 6
+      },
+      "soapbar": {
+        "countertop": 22,
+        "garbagecan": 10,
+        "toilet": 7,
+        "cabinet": 27,
+        "sinkbasin": 1
+      },
+      "spraybottle": {
+        "countertop": 46,
+        "cabinet": 19,
+        "toilet": 3
+      },
+      "laptop": {
+        "desk": 26,
+        "bed": 53,
+        "dresser": 7,
+        "armchair": 2
+      },
+      "pencil": {
+        "desk": 79,
+        "shelf": 10
+      },
+      "alarmclock": {
+        "desk": 53,
+        "shelf": 12
+      },
+      "book": {
+        "desk": 8,
+        "bed": 63,
+        "drawer": 17
+      },
+      "cd": {
+        "desk": 44,
+        "garbagecan": 5,
+        "drawer": 13,
+        "shelf": 6,
+        "safe": 6
+      },
+      "pillow": {
+        "bed": 62,
+        "armchair": 13,
+        "sofa": 9
+      },
+      "pen": {
+        "desk": 30,
+        "shelf": 6,
+        "garbagecan": 2,
+        "drawer": 25
+      },
+      "keychain": {
+        "safe": 12,
+        "drawer": 25,
+        "desk": 24,
+        "shelf": 3,
+        "dresser": 6,
+        "sidetable": 4,
+        "sofa": 1
+      },
+      "cup": {
+        "sinkbasin": 5,
+        "cabinet": 36,
+        "countertop": 34,
+        "shelf": 3,
+        "fridge": 13,
+        "microwave": 1
+      },
+      "box": {
+        "dresser": 3,
+        "shelf": 3,
+        "sofa": 2,
+        "cabinet": 3
+      },
+      "tissuebox": {
+        "dresser": 4,
+        "shelf": 1,
+        "cabinet": 3
+      },
+      "watch": {
+        "safe": 14,
+        "sidetable": 3,
+        "dresser": 3,
+        "drawer": 2
+      },
+      "newspaper": {
+        "dresser": 6,
+        "sofa": 3,
+        "cabinet": 2
+      },
+      "remotecontrol": {
+        "sofa": 5,
+        "armchair": 2,
+        "dresser": 5
+      },
+      "handtowel": {
+        "handtowelholder": 10
+      },
+      "toiletpaper": {
+        "toilet": 5,
+        "cabinet": 15,
+        "countertop": 21,
+        "toiletpaperhanger": 2,
+        "garbagecan": 5
+      },
+      "towel": {
+        "towelholder": 5
+      },
+      "cloth": {
+        "cabinet": 37,
+        "countertop": 3
+      }
+    },
+    "calibrations_applied": 15,
+    "scenes_known": [
+      "FloorPlan10",
+      "FloorPlan424",
+      "FloorPlan308",
+      "FloorPlan219"
+    ]
+  },
+  "zhichi_stats": {
+    "failures_observed": 36,
+    "wrong_take_map": {
+      "knife": [
+        "butterknife"
+      ]
+    },
+    "negative_locations": {
+      "box": {
+        "desk": 10,
+        "shelf": 26,
+        "bed": 1,
+        "drawer": 6,
+        "garbagecan": 1,
+        "laundryhamper": 1,
+        "safe": 1
+      },
+      "tomato": {
+        "countertop": 4,
+        "microwave": 2,
+        "cabinet": 38,
+        "coffeemachine": 6,
+        "drawer": 6,
+        "fridge": 2,
+        "garbagecan": 2,
+        "shelf": 6,
+        "sinkbasin": 2,
+        "stoveburner": 8,
+        "toaster": 2
+      },
+      "mug": {
+        "fridge": 1,
+        "cabinet": 19,
+        "countertop": 3,
+        "drawer": 3,
+        "garbagecan": 1,
+        "microwave": 1,
+        "shelf": 3,
+        "sinkbasin": 1,
+        "stoveburner": 4,
+        "toaster": 1,
+        "coffeemachine": 2
+      },
+      "cup": {
+        "fridge": 1,
+        "cabinet": 19,
+        "countertop": 3,
+        "drawer": 3,
+        "garbagecan": 1,
+        "microwave": 1,
+        "shelf": 3,
+        "sinkbasin": 1,
+        "stoveburner": 4,
+        "toaster": 1,
+        "coffeemachine": 2
+      },
+      "potato": {
+        "microwave": 1,
+        "cabinet": 19,
+        "coffeemachine": 3,
+        "countertop": 2,
+        "drawer": 3,
+        "fridge": 1,
+        "garbagecan": 1,
+        "shelf": 3,
+        "sinkbasin": 1,
+        "stoveburner": 4,
+        "toaster": 1
+      },
+      "spatula": {
+        "countertop": 2,
+        "sinkbasin": 1,
+        "cabinet": 19,
+        "coffeemachine": 3,
+        "drawer": 3,
+        "fridge": 1,
+        "garbagecan": 1,
+        "microwave": 1,
+        "shelf": 3,
+        "stoveburner": 4,
+        "toaster": 1
+      }
+    },
+    "phase_bottlenecks": {
+      "pick_clean_then_place_in_recep": {
+        "post_plan": 3
+      },
+      "look_at_obj_in_light": {
+        "find_object": 3
+      },
+      "pick_cool_then_place_in_recep": {
+        "post_plan": 3,
+        "find_recep": 3
+      },
+      "pick_and_place_simple": {
+        "post_plan": 7
+      },
+      "pick_heat_then_place_in_recep": {
+        "post_plan": 4
+      },
+      "pick_two_obj_and_place": {
+        "post_plan": 7
+      }
+    },
+    "step_budget_hints": {
+      "look_at_obj_in_light": "高探索率(3/3次)仍未找到目标，优先open closed容器（如cabinet、drawer、fridge等）"
+    },
+    "failure_clusters_top": [
+      {
+        "task_type": "pick_heat_then_place_in_recep",
+        "phase": "post_plan",
+        "scene": "FloorPlan10",
+        "obj_found": true,
+        "tool_found": false,
+        "count": 4
+      },
+      {
+        "task_type": "pick_and_place_simple",
+        "phase": "post_plan",
+        "scene": "FloorPlan10",
+        "obj_found": true,
+        "tool_found": false,
+        "count": 4
+      },
+      {
+        "task_type": "pick_clean_then_place_in_recep",
+        "phase": "post_plan",
+        "scene": "FloorPlan10",
+        "obj_found": true,
+        "tool_found": false,
+        "count": 3
+      },
+      {
+        "task_type": "look_at_obj_in_light",
+        "phase": "find_object",
+        "scene": "FloorPlan308",
+        "obj_found": false,
+        "tool_found": false,
+        "count": 3
+      },
+      {
+        "task_type": "pick_cool_then_place_in_recep",
+        "phase": "post_plan",
+        "scene": "FloorPlan10",
+        "obj_found": true,
+        "tool_found": false,
+        "count": 3
+      }
+    ]
+  },
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "total": 18,
+      "won": 15,
+      "rate": 0.8333333333333334
+    },
+    "pick_and_place_simple": {
+      "total": 24,
+      "won": 16,
+      "rate": 0.6666666666666666
+    },
+    "pick_clean_then_place_in_recep": {
+      "total": 31,
+      "won": 25,
+      "rate": 0.8064516129032258
+    },
+    "pick_cool_then_place_in_recep": {
+      "total": 21,
+      "won": 15,
+      "rate": 0.7142857142857143
+    },
+    "pick_heat_then_place_in_recep": {
+      "total": 23,
+      "won": 18,
+      "rate": 0.782608695652174
+    },
+    "pick_two_obj_and_place": {
+      "total": 17,
+      "won": 9,
+      "rate": 0.5294117647058824
+    }
+  },
+  "results": [
+    {
+      "game_idx": 0,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean plate on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 1,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean yellow plate on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 17,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 2,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "wash the dirty bowl before putting the bowl on the counter",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 3,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "To move two bars of soap to the gold bin. ",
+      "scene": "FloorPlan424",
+      "steps": 8,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 4,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Throw both pieces of soap into the trash can.",
+      "scene": "FloorPlan424",
+      "steps": 11,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 5,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Throw two bars of soap in the trash bin.",
+      "scene": "FloorPlan424",
+      "steps": 8,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 6,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Look at a mug in lamp light.",
+      "scene": "FloorPlan308",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 7,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Turn on the desk lamp.",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 8,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Examine a mug using the light of a desk lamp. ",
+      "scene": "FloorPlan308",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 9,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a chilled mug in a cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 10,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a chilled mug in a cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 11,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cold coffee up in the bottom cabinet. ",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 12,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Move a pencil on the desk over. ",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 13,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Move the pencil to a different area of the desk.",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 14,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Take the pencil from the desk, put it back on the desk",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 15,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "put a knife in the sink before standing it on the counter",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 16,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Wash a knife in the sink to place on a countertop.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 17,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a clean knife on a plate on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 18,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a heated cup in a cabinet",
+      "scene": "FloorPlan10",
+      "steps": 10,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 19,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Warm up the cup inside the cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 14,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 20,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a warm cup in the cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 21,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Fill up a mug with water and take to the coffee machine.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 22,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cleaned mug on the coffee maker to the right of the stove.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 23,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Pick up the white coffee cup, fill it in the sink, place it in the coffee maker. ",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 24,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Put two sets of keys in the safe. ",
+      "scene": "FloorPlan219",
+      "steps": 13,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 25,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "put two sets of keys inside safe",
+      "scene": "FloorPlan219",
+      "steps": 50,
+      "won": false,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 26,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Hold the clock and turn on the lamp.",
+      "scene": "FloorPlan308",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 27,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Turn on a lamp with a metal box. ",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 28,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Examine the alarm clock by the light",
+      "scene": "FloorPlan308",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 29,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Put two pillows on the sofa.",
+      "scene": "FloorPlan219",
+      "steps": 9,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 30,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Put two pillows on the couch.",
+      "scene": "FloorPlan219",
+      "steps": 9,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 31,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Put two pillows on the sofa.",
+      "scene": "FloorPlan219",
+      "steps": 9,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 32,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Heat up a potato and put it in the trash.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 33,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cooked potato in the garbage can. ",
+      "scene": "FloorPlan10",
+      "steps": 8,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 34,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "place a microwaved apple inside the garbage bin",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 35,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put in the heated apple in the trash bin",
+      "scene": "FloorPlan10",
+      "steps": 11,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 36,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a warmed up apple in the trash can.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 37,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Heat a tomato and throw it away.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 38,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Heat a tomato and place in the bin. ",
+      "scene": "FloorPlan10",
+      "steps": 15,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 39,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Heat a tomato and place in a bin. ",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 40,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "place a salt shaker in one of the pullout drawers",
+      "scene": "FloorPlan10",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 41,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "move salt shaker from counter to drawer",
+      "scene": "FloorPlan10",
+      "steps": 32,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 42,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Put a salt shaker in a drawer next to the oven.",
+      "scene": "FloorPlan10",
+      "steps": 9,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 43,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "place a microwaved egg inside the garbage bin",
+      "scene": "FloorPlan10",
+      "steps": 20,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 44,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "To heat an egg and place it inside the black bin. ",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 45,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a heated egg in a bin",
+      "scene": "FloorPlan10",
+      "steps": 15,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 46,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cool loaf of bread on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 14,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 47,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Cool some bread and the place it on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 14,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 48,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put chilled bread on the counter, right of the fridge. ",
+      "scene": "FloorPlan10",
+      "steps": 14,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 49,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cleaned blue cloth in a cabinet.",
+      "scene": "FloorPlan424",
+      "steps": 24,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 50,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "wash the cloth from the cabinet, put it back",
+      "scene": "FloorPlan424",
+      "steps": 13,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 51,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Rinse off the soap and place it on the counter.",
+      "scene": "FloorPlan424",
+      "steps": 6,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 52,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a wet soap on the counter. ",
+      "scene": "FloorPlan424",
+      "steps": 6,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 53,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cleaned bar of soap on a counter.",
+      "scene": "FloorPlan424",
+      "steps": 6,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 54,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cleaned pan on a counter top.",
+      "scene": "FloorPlan10",
+      "steps": 4,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 55,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a washed pan on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 56,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cleaned pan on the counter. ",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 57,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Picking up a book and turning on a light to read it by",
+      "scene": "FloorPlan308",
+      "steps": 8,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 58,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Turn on the table lamp to read the book.",
+      "scene": "FloorPlan308",
+      "steps": 8,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 59,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Look at a book by the light of a lamp.",
+      "scene": "FloorPlan308",
+      "steps": 8,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 60,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Put the gold vase into the white safe",
+      "scene": "FloorPlan219",
+      "steps": 38,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 61,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Put a vase in a safe.",
+      "scene": "FloorPlan219",
+      "steps": 6,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 62,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Put a vase in a safe.",
+      "scene": "FloorPlan219",
+      "steps": 7,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 63,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put the warm mug on the coffee maker",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 64,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a warmed mug in a coffee machine.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 65,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Move a heated mug to the base of the coffee maker.",
+      "scene": "FloorPlan10",
+      "steps": 13,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 66,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean wash cloth on the counter.",
+      "scene": "FloorPlan424",
+      "steps": 6,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 67,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a clean rag on a counter.",
+      "scene": "FloorPlan424",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 68,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a chilled pan on a counter.",
+      "scene": "FloorPlan10",
+      "steps": 8,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 69,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cold pan on the counter top on top of the dishwasher. ",
+      "scene": "FloorPlan10",
+      "steps": 8,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 70,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a chilled pan on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 4,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 71,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Move a chilled mug to the coffee maker. ",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 72,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Cool a mug in the fridge",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 73,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "get mug from coffee maker, chill, and return mug to coffee maker",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 74,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a cooled tomato in the microwave",
+      "scene": "FloorPlan10",
+      "steps": 11,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 75,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a chilled tomato in a microwave.",
+      "scene": "FloorPlan10",
+      "steps": 8,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 76,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "cook a chilled tomato",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 77,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "put a rinsed off bar of soap in to the cabinet",
+      "scene": "FloorPlan424",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 78,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean bar of soap in a cabinet.",
+      "scene": "FloorPlan424",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 79,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "put a rinse off bar of soap in to the cabinet",
+      "scene": "FloorPlan424",
+      "steps": 50,
+      "won": false,
+      "final_phase": 3,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 80,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Pick a pencil up and turn the lamp on.",
+      "scene": "FloorPlan308",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 81,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Examine a pencil under a lamp.",
+      "scene": "FloorPlan308",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 82,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "look at the pencil under the lamp",
+      "scene": "FloorPlan308",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 83,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean egg in the microwave.",
+      "scene": "FloorPlan10",
+      "steps": 8,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 84,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a washed egg in a microwave.",
+      "scene": "FloorPlan10",
+      "steps": 15,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 85,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean egg in the microwave.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 86,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Put two bars of soap in the cabinet.",
+      "scene": "FloorPlan424",
+      "steps": 50,
+      "won": false,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 87,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "To move two bars of soap to the cabinet. ",
+      "scene": "FloorPlan424",
+      "steps": 50,
+      "won": false,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 88,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put the cooked green apple in the fridge",
+      "scene": "FloorPlan10",
+      "steps": 11,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 89,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": false,
+      "task_desc": "Put a heated apple next to the lettuce on the middle shelf in the refrigerator.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 90,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a microwaved apple in the fridge.",
+      "scene": "FloorPlan10",
+      "steps": 8,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 91,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Put toilet paper rolls in a cabinet under the sink.",
+      "scene": "FloorPlan424",
+      "steps": 50,
+      "won": false,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 92,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a chilled potato in the microwave. ",
+      "scene": "FloorPlan10",
+      "steps": 9,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 93,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "put a cooled potato inside the microwave",
+      "scene": "FloorPlan10",
+      "steps": 9,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 94,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": false,
+      "task_desc": "place a potato inside the microwave",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 95,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Place the salt shaker in the cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 96,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Place the salt shaker in the cabinet beside the fridge.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 97,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "To acquire an odd item as place it where it is not useful.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 98,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Place a watch inside a safe.",
+      "scene": "FloorPlan219",
+      "steps": 42,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 99,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Move the watch from the cabinet to the safe",
+      "scene": "FloorPlan219",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 100,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Move a watch to the inside of a small safe.",
+      "scene": "FloorPlan219",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 101,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put chilled lettuce on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 8,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 102,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "chill the lettuce then return it to the counter",
+      "scene": "FloorPlan10",
+      "steps": 8,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 103,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put chilled lettuce on the counter. ",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 104,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Look at a CD under a lamp's light.",
+      "scene": "FloorPlan308",
+      "steps": 7,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 105,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "examine a CD with a lamp",
+      "scene": "FloorPlan308",
+      "steps": 7,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 106,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Turn on the desk lamp.",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 107,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Move a bottle of hand soap from the sink to the toilet.",
+      "scene": "FloorPlan424",
+      "steps": 4,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 108,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "place a soap dispenser on top of the toilet",
+      "scene": "FloorPlan424",
+      "steps": 4,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 109,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Place the green bottle on the toilet baisin.",
+      "scene": "FloorPlan424",
+      "steps": 4,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 110,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a washed bowl in a cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 24,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 111,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a filled bowl of water in the cabinet left of the microwave.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 112,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a washed bowl away in a kitchen cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 13,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 113,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a warmed mug in the cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 114,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "heat up coffee in a mug and put it away inside the cabinet door",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 115,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_parsed": "pick_heat_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Place a heated mug in a cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 7,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 116,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "take a coffee mug from a book shelf and place it on a desk",
+      "scene": "FloorPlan308",
+      "steps": 11,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 117,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Move a mug from the shelves to the desk.",
+      "scene": "FloorPlan308",
+      "steps": 12,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 118,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "take the mug from the desk shelf to put it on the desk.",
+      "scene": "FloorPlan308",
+      "steps": 11,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 119,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Place a salt shaker in a drawer.",
+      "scene": "FloorPlan10",
+      "steps": 5,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 120,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "take the salt by the coffee machine, put it in the second drawer",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 121,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_parsed": "pick_and_place_simple",
+      "type_match": true,
+      "task_desc": "Put a salt shaker in a drawer.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 122,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Put two shakers in a drawer.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 123,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Place two salt shakers in the drawer.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 124,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Place two salt shakers in a drawer.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 125,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Examine the bowl by the light on the desk. ",
+      "scene": "FloorPlan308",
+      "steps": 6,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 126,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Examine a bowl by the light of a desk lamp.",
+      "scene": "FloorPlan308",
+      "steps": 6,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 127,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "turn on a lamp while holding a bowl",
+      "scene": "FloorPlan308",
+      "steps": 6,
+      "won": true,
+      "final_phase": 4,
+      "plan_len": 4
+    },
+    {
+      "game_idx": 128,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Transfer the two CDs from the desk to the vault.",
+      "scene": "FloorPlan308",
+      "steps": 11,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 129,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Put the two disks from the desk into the safe.",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 130,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Secure two discs in a bedroom safe.",
+      "scene": "FloorPlan308",
+      "steps": 12,
+      "won": true,
+      "final_phase": 8,
+      "plan_len": 8
+    },
+    {
+      "game_idx": 131,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Wash the spatula, put it in the first drawer",
+      "scene": "FloorPlan10",
+      "steps": 17,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 132,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean spatula in a drawer.",
+      "scene": "FloorPlan10",
+      "steps": 17,
+      "won": true,
+      "final_phase": 6,
+      "plan_len": 6
+    },
+    {
+      "game_idx": 133,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Clean a spatula to put it away.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 4,
+      "plan_len": 6
+    }
+  ]
+}

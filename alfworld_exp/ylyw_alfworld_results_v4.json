@@ -1,0 +1,914 @@
+{
+  "config": {
+    "model": "YLYW Zero-Shot",
+    "split": "valid_unseen",
+    "max_steps": 50,
+    "agent_type": "YLYW_3layer_PriorInference"
+  },
+  "metrics": {
+    "total_tasks": 85,
+    "won": 85,
+    "lost": 0,
+    "success_rate": 1.0,
+    "type_accuracy": 0.5529411764705883,
+    "avg_steps": 17.611764705882354,
+    "total_steps": 1497
+  },
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "total": 18,
+      "won": 18,
+      "rate": 1.0,
+      "avg_steps": 13.166666666666666
+    },
+    "pick_and_place_simple": {
+      "total": 10,
+      "won": 10,
+      "rate": 1.0,
+      "avg_steps": 13.2
+    },
+    "pick_and_place_with_movable_recep": {
+      "total": 11,
+      "won": 11,
+      "rate": 1.0,
+      "avg_steps": 9.545454545454545
+    },
+    "pick_clean_then_place_in_recep": {
+      "total": 12,
+      "won": 12,
+      "rate": 1.0,
+      "avg_steps": 18.083333333333332
+    },
+    "pick_cool_then_place_in_recep": {
+      "total": 12,
+      "won": 12,
+      "rate": 1.0,
+      "avg_steps": 22.166666666666668
+    },
+    "pick_heat_then_place_in_recep": {
+      "total": 14,
+      "won": 14,
+      "rate": 1.0,
+      "avg_steps": 22.642857142857142
+    },
+    "pick_two_obj_and_place": {
+      "total": 8,
+      "won": 8,
+      "rate": 1.0,
+      "avg_steps": 27.875
+    }
+  },
+  "results": [
+    {
+      "game_idx": 0,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Hold the clock and turn on the lamp.",
+      "steps": 13,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 1,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "turn on a lamp while holding a baseball bat",
+      "steps": 6,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 2,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Look at a basketball in the lamp light.",
+      "steps": 5,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 3,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Look at a book by the light of a lamp.",
+      "steps": 12,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 4,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "turn on a lamp while holding a bowl",
+      "steps": 13,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 5,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "To turn on a lamp to see inside a box.  ",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 6,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "examine a CD with a lamp",
+      "steps": 12,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 7,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Pick up the cell phone and look at it by the light of the lamp",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 8,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Carry a credit card while turning on a lamp",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 9,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Examine a key chain by the light of a floor lamp.",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 10,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Examine a computer in the lamp light. ",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 11,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Look at a mug in lamp light.",
+      "steps": 12,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 12,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Examine a newspaper by the light of a floor lamp.",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 13,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Examine a pencil under a lamp.",
+      "steps": 12,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 14,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Hold a remote and turn on the lamp.",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 15,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Examine a statue trophy next to the light of a tall lamp.",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 16,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Examine the tissue box under the light of the floor lamp",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 17,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Examine a vase under a tall lamp",
+      "steps": 15,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 18,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "place a bat on the bed",
+      "steps": 5,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 19,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "Move a mug from the shelves to the desk.",
+      "steps": 14,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 20,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "Take the pencil from the desk, put it back on the desk",
+      "steps": 14,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 21,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "Put a salt shaker in a drawer.",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 22,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "Put a plunger in the cabinet beneath the sink",
+      "steps": 4,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 23,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": false,
+      "task_desc": "Place the salt shaker in the cabinet beside the fridge.",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 24,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "Put a salt shaker in a drawer next to the oven.",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 25,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "Move a bottle of hand soap from the sink to the toilet.",
+      "steps": 13,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 26,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "Put a vase in a safe.",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 27,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "Move a watch to the inside of a small safe.",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 28,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": false,
+      "task_desc": "put a cup and knife on a counter top",
+      "steps": 7,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 29,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": true,
+      "task_desc": "Take a cup from the microwave, place it in the sink and put the knife inside the",
+      "steps": 6,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 30,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": true,
+      "task_desc": "Put a pan with a knife in it in the sink.",
+      "steps": 11,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 31,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": true,
+      "task_desc": "Move a bowl and egg to the counter.",
+      "steps": 7,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 32,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": true,
+      "task_desc": "place a cup with a fork in it on top of the kitchen counter",
+      "steps": 7,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 33,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": true,
+      "task_desc": "Put a green glass containing a fork into the sink.",
+      "steps": 11,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 34,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": false,
+      "task_desc": "Put a vase and plate from a cabinet into the sink",
+      "steps": 8,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 35,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": true,
+      "task_desc": "Place a box with a set of keys on a chair.",
+      "steps": 19,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 36,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": true,
+      "task_desc": "Move  the glass bowl containing a pencil from the desk near the window to the bo",
+      "steps": 11,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 37,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Put a spoon in a mug on a counter.",
+      "steps": 7,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 38,
+      "task_type_real": "pick_and_place_with_movable_recep",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": false,
+      "task_desc": "Put a spoon and pan into the sink at once.",
+      "steps": 11,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 39,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Put a washed bowl away in a kitchen cabinet.",
+      "steps": 18,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 40,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Put a cleaned blue cloth in a cabinet.",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 41,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": false,
+      "task_desc": "Place a washed towel in the middle of two sinks",
+      "steps": 12,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 42,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Put a clean egg in the microwave.",
+      "steps": 18,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 43,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "put a knife in the sink before standing it on the counter",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 44,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_clean_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "To wash a slice of lettuce and place it in the trash can.",
+      "steps": 34,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 45,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": false,
+      "task_desc": "Fill up a mug with water and take to the coffee machine.",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 46,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Put a cleaned pan on the counter. ",
+      "steps": 18,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 47,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_clean_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "wash the dirty bowl before putting the bowl on the counter",
+      "steps": 18,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 48,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "put a rinsed off bar of soap in to the cabinet",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 49,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_clean_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Rinse off the soap and place it on the counter.",
+      "steps": 14,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 50,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_clean_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Wash the spatula, put it in the first drawer",
+      "steps": 18,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 51,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Cool some bread and the place it on the counter.",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 52,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Put a cold slice of bread in the microwave.",
+      "steps": 44,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 53,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Pick up the egg, put it in the refrigerator and then put it in the sink. ",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 54,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "chill the lettuce then return it to the counter",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 55,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Place chilled lettuce into a sink",
+      "steps": 11,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 56,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Put a chilled slice of lettuce in the trash can.",
+      "steps": 32,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 57,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Put a cold coffee up in the bottom cabinet. ",
+      "steps": 18,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 58,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "Move a chilled mug to the coffee maker. ",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 59,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Place a chilled pan on a counter.",
+      "steps": 29,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 60,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "place a potato inside the microwave",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 61,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Put a cooled tomato in the microwave",
+      "steps": 29,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 62,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Put a chilled slice of tomato on the counter. ",
+      "steps": 21,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 63,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": false,
+      "task_desc": "Put the cooked green apple in the fridge",
+      "steps": 31,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 64,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "place a microwaved apple inside the garbage bin",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 65,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_heat_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Get an apple from the sink and heat it up in the microwave",
+      "steps": 18,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 66,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": false,
+      "task_desc": "Put a microwaved chunk of apple on the counter.",
+      "steps": 10,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 67,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": false,
+      "task_desc": "Place a slice of cooked apple into the trash.",
+      "steps": 26,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 68,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_heat_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "slice and cook a piece of bread , put it on the counter top",
+      "steps": 33,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 69,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "Warm up the cup inside the cabinet.",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 70,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_heat_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Place a heated egg in a bin",
+      "steps": 22,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 71,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_heat_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Place a heated mug in a cabinet.",
+      "steps": 18,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 72,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_heat_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Place a warmed mug in a coffee machine.",
+      "steps": 16,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 73,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_heat_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Heat up a potato and put it in the trash.",
+      "steps": 22,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 74,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": false,
+      "task_desc": "To heat a potato slice and place it in the fridge.",
+      "steps": 21,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 75,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_heat_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Heat a tomato and place in a bin. ",
+      "steps": 35,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 76,
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_type_inferred": "pick_heat_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Cook a slice of tomato",
+      "steps": 32,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 77,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": false,
+      "task_desc": "Put two apples on a counter the cut them into pieces.",
+      "steps": 48,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 78,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "Secure two discs in a bedroom safe.",
+      "steps": 25,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 79,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "put two sets of keys inside safe",
+      "steps": 30,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 80,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "Put two shakers in a drawer.",
+      "steps": 30,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 81,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "Put two pillows on the sofa.",
+      "steps": 31,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 82,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "Put two bars of soap in the cabinet.",
+      "steps": 25,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 83,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "Throw two bars of soap in the trash bin.",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 84,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_and_place_with_movable_recep",
+      "type_correct": false,
+      "task_desc": "Put the toilet paper rolls inside the sink cabinet",
+      "steps": 17,
+      "won": true,
+      "walkthrough_len": 0
+    }
+  ],
+  "elapsed_seconds": 49.71414566040039
+}

@@ -105,7 +105,14 @@ class HexagramRuleBase:
         爻位关系（乘承比应） → 力/角/速参数
     """
 
-    def __init__(self):
+    def __init__(self, force_scale: float = 1.25):
+        """
+        初始化六十四卦规则库
+        Args:
+            force_scale: 全局力缩放因子 (>1.0 增大所有力预设, <1.0 减小)
+                         默认 1.25 补偿易经隐含的过分谨慎倾向
+        """
+        self.force_scale = force_scale
         self.rules = self._build_rule_base()
 
         # 默认规则（当匹配不到具体卦时兜底）
@@ -411,7 +418,7 @@ class HexagramRuleBase:
             'description': '和悦相待，朋友讲习，以柔克刚',
             'grasp_strategy': {
                 'type': 'soft_grasp',
-                'force': 0.30,
+                'force': 0.40,
                 'approach_angle': 0,
                 'speed': 'slow',
                 'cautions': ['以最小力抓取', '保持柔性接触', '避免夹痕']
@@ -701,7 +708,7 @@ class HexagramRuleBase:
             'description': '明出地上，晋。君子以自昭明德，循序渐进',
             'grasp_strategy': {
                 'type': 'progressive_grasp',
-                'force': 0.40,
+                'force': 0.50,
                 'approach_angle': 0,
                 'speed': 'slow',
                 'cautions': ['逐步接近目标', '分段增加力', '每阶段检查状态']
@@ -1040,10 +1047,10 @@ class HexagramRuleBase:
             'description': '进也，女归吉也，进得位往有功也',
             'grasp_strategy': {
                 'type': 'progressive_grasp',
-                'force': 0.40,
+                'force': 0.55,
                 'approach_angle': 0,
                 'speed': 'slow',
-                'cautions': ['以极慢速度渐进', '每步检查状态']
+                'cautions': ['以极慢速度渐进', '每步检查状态', '最终力充足但不过大']
             },
             'suitable_for': ['需极慢渐进的操作', '精密装配'],
             'avoid': ['快速场景']
@@ -1160,6 +1167,35 @@ class HexagramRuleBase:
             'suitable_for': ['稍高风险物体', '需额外小心的场景'],
             'avoid': ['常规任务']
         }
+
+        # 应用全局力缩放
+        if self.force_scale != 1.0:
+            for r in rules.values():
+                orig = r['grasp_strategy']['force']
+                r['grasp_strategy']['force'] = round(min(1.0, orig * self.force_scale), 2)
+
+        # 策略角度优化: 根据抓取类型调整接近角度, 利用几何锁止提升低摩擦物体抓取力
+        # power/stable: 0° 正面 (靠力, 不需要角度)
+        # precision/cautious/soft/adaptive/compliant: 15-25° 利用结构锁止
+        # top_down: 0° (本就是最优)
+        _angle_by_type = {
+            'power_grasp': 0, 'stable_grasp': 0, 'standard_grasp': 5,
+            'robust_power_grasp': 0, 'balanced_grasp': 5, 'top_down_grasp': 0,
+            'precision_grasp': 20, 'cautious_grasp': 25, 'soft_grasp': 20,
+            'adaptive_grasp': 15, 'adaptive_irregular_grasp': 20,
+            'compliant_grasp': 15, 'following_grasp': 10,
+            'dynamic_grasp': 10, 'endurance_grasp': 5,
+            'non_conflict_grasp': 15, 'predictive_grasp': 10,
+            'progressive_grasp': 20, 'iterative_grasp': 15,
+            'corrective_grasp': 10, 'interlocking_grasp': 20,
+            'coordinated_grasp': 10, 'reduced_force_grasp': 25,
+            'conditional_grasp': 10, 'difficult_grasp': 20,
+            'low_visibility_grasp': 10, 'adhesion_grasp': 5,
+        }
+        for r in rules.values():
+            stype = r['grasp_strategy']['type']
+            if stype in _angle_by_type:
+                r['grasp_strategy']['approach_angle'] = _angle_by_type[stype]
 
         return rules
 

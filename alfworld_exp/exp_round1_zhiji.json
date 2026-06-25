@@ -1,0 +1,535 @@
+{
+  "version": 1,
+  "type": "zhiji",
+  "games_played": 134,
+  "games_won": 98,
+  "calibrations_applied": 15,
+  "synonym_map": {
+    "soap": [
+      "soapbottle",
+      "soapbar"
+    ],
+    "coffee": [
+      "mug",
+      "cup"
+    ],
+    "cup": [
+      "mug"
+    ],
+    "key": [
+      "keychain"
+    ],
+    "keys": [
+      "keychain"
+    ],
+    "clock": [
+      "alarmclock"
+    ],
+    "salt": [
+      "peppershaker",
+      "saltshaker"
+    ],
+    "shaker": [
+      "peppershaker",
+      "saltshaker"
+    ],
+    "cloth": [
+      "cloth"
+    ],
+    "mug": [
+      "cup"
+    ],
+    "rag": [
+      "cloth"
+    ],
+    "disk": [
+      "cd"
+    ],
+    "disc": [
+      "cd"
+    ]
+  },
+  "known_entities": [
+    "plate",
+    "watch",
+    "keychain",
+    "box",
+    "spatula",
+    "laptop",
+    "cd",
+    "candle",
+    "remotecontrol",
+    "bread",
+    "cup",
+    "newspaper",
+    "fork",
+    "egg",
+    "towel",
+    "pot",
+    "peppershaker",
+    "spraybottle",
+    "pillow",
+    "glassbottle",
+    "dishsponge",
+    "butterknife",
+    "spoon",
+    "statue",
+    "cloth",
+    "toiletpaper",
+    "pan",
+    "soapbottle",
+    "tissuebox",
+    "knife",
+    "cellphone",
+    "mug",
+    "vase",
+    "creditcard",
+    "soapbar",
+    "handtowel",
+    "book",
+    "tomato",
+    "potato",
+    "pencil",
+    "pen",
+    "lettuce",
+    "alarmclock",
+    "bowl",
+    "papertowelroll",
+    "apple",
+    "saltshaker"
+  ],
+  "object_location_counts": {
+    "apple": {
+      "countertop": 51,
+      "garbagecan": 21,
+      "sinkbasin": 2,
+      "fridge": 10,
+      "microwave": 2
+    },
+    "dishsponge": {
+      "countertop": 30,
+      "garbagecan": 3,
+      "sinkbasin": 3,
+      "shelf": 4,
+      "cabinet": 12,
+      "drawer": 6
+    },
+    "potato": {
+      "countertop": 32,
+      "sinkbasin": 7,
+      "garbagecan": 9,
+      "fridge": 16,
+      "microwave": 4
+    },
+    "bread": {
+      "countertop": 58,
+      "fridge": 9
+    },
+    "cellphone": {
+      "countertop": 78,
+      "shelf": 6,
+      "drawer": 45,
+      "desk": 30,
+      "bed": 17,
+      "dresser": 7,
+      "armchair": 6,
+      "sidetable": 1,
+      "safe": 7
+    },
+    "papertowelroll": {
+      "countertop": 46,
+      "garbagecan": 10,
+      "shelf": 4
+    },
+    "plate": {
+      "countertop": 24,
+      "cabinet": 80,
+      "shelf": 5,
+      "sinkbasin": 1,
+      "fridge": 3
+    },
+    "soapbottle": {
+      "countertop": 98,
+      "cabinet": 78,
+      "garbagecan": 8,
+      "toilet": 3
+    },
+    "butterknife": {
+      "countertop": 75,
+      "sinkbasin": 2,
+      "drawer": 1
+    },
+    "creditcard": {
+      "countertop": 84,
+      "desk": 35,
+      "drawer": 36,
+      "shelf": 16,
+      "dresser": 2,
+      "sofa": 3,
+      "sidetable": 1
+    },
+    "fork": {
+      "countertop": 45,
+      "sinkbasin": 6,
+      "drawer": 8
+    },
+    "glassbottle": {
+      "countertop": 68,
+      "cabinet": 37,
+      "shelf": 3,
+      "garbagecan": 5
+    },
+    "lettuce": {
+      "countertop": 50,
+      "sinkbasin": 2,
+      "fridge": 12,
+      "garbagecan": 6
+    },
+    "spatula": {
+      "countertop": 47,
+      "drawer": 10,
+      "sinkbasin": 11
+    },
+    "spoon": {
+      "countertop": 63,
+      "sinkbasin": 7,
+      "drawer": 8
+    },
+    "statue": {
+      "countertop": 51,
+      "shelf": 7,
+      "dresser": 7,
+      "safe": 2
+    },
+    "bowl": {
+      "cabinet": 19,
+      "countertop": 35,
+      "desk": 72,
+      "shelf": 8,
+      "fridge": 10,
+      "sinkbasin": 1,
+      "microwave": 1
+    },
+    "mug": {
+      "cabinet": 26,
+      "countertop": 89,
+      "desk": 75,
+      "shelf": 21,
+      "coffeemachine": 48,
+      "fridge": 4,
+      "microwave": 4,
+      "sinkbasin": 1
+    },
+    "knife": {
+      "drawer": 3,
+      "countertop": 70,
+      "sinkbasin": 2
+    },
+    "saltshaker": {
+      "drawer": 14,
+      "cabinet": 22,
+      "countertop": 25,
+      "shelf": 6
+    },
+    "peppershaker": {
+      "drawer": 14,
+      "countertop": 52,
+      "cabinet": 51,
+      "shelf": 6
+    },
+    "egg": {
+      "countertop": 51,
+      "garbagecan": 19,
+      "sinkbasin": 6,
+      "fridge": 5,
+      "microwave": 6
+    },
+    "tomato": {
+      "countertop": 67,
+      "garbagecan": 8,
+      "fridge": 15,
+      "sinkbasin": 4,
+      "microwave": 2
+    },
+    "vase": {
+      "shelf": 14,
+      "cabinet": 68,
+      "countertop": 38,
+      "dresser": 4,
+      "safe": 7
+    },
+    "pot": {
+      "stoveburner": 70,
+      "countertop": 11
+    },
+    "pan": {
+      "stoveburner": 86,
+      "cabinet": 2,
+      "countertop": 28,
+      "fridge": 2
+    },
+    "candle": {
+      "countertop": 29,
+      "cabinet": 14,
+      "toilet": 6
+    },
+    "soapbar": {
+      "countertop": 22,
+      "garbagecan": 10,
+      "toilet": 7,
+      "cabinet": 27,
+      "sinkbasin": 1
+    },
+    "spraybottle": {
+      "countertop": 46,
+      "cabinet": 19,
+      "toilet": 3
+    },
+    "laptop": {
+      "desk": 26,
+      "bed": 53,
+      "dresser": 7,
+      "armchair": 2
+    },
+    "pencil": {
+      "desk": 79,
+      "shelf": 10
+    },
+    "alarmclock": {
+      "desk": 53,
+      "shelf": 12
+    },
+    "book": {
+      "desk": 8,
+      "bed": 63,
+      "drawer": 17
+    },
+    "cd": {
+      "desk": 44,
+      "garbagecan": 5,
+      "drawer": 13,
+      "shelf": 6,
+      "safe": 6
+    },
+    "pillow": {
+      "bed": 62,
+      "armchair": 13,
+      "sofa": 9
+    },
+    "pen": {
+      "desk": 30,
+      "shelf": 6,
+      "garbagecan": 2,
+      "drawer": 25
+    },
+    "keychain": {
+      "safe": 12,
+      "drawer": 25,
+      "desk": 24,
+      "shelf": 3,
+      "dresser": 6,
+      "sidetable": 4,
+      "sofa": 1
+    },
+    "cup": {
+      "sinkbasin": 5,
+      "cabinet": 36,
+      "countertop": 34,
+      "shelf": 3,
+      "fridge": 13,
+      "microwave": 1
+    },
+    "box": {
+      "dresser": 3,
+      "shelf": 3,
+      "sofa": 2,
+      "cabinet": 3
+    },
+    "tissuebox": {
+      "dresser": 4,
+      "shelf": 1,
+      "cabinet": 3
+    },
+    "watch": {
+      "safe": 14,
+      "sidetable": 3,
+      "dresser": 3,
+      "drawer": 2
+    },
+    "newspaper": {
+      "dresser": 6,
+      "sofa": 3,
+      "cabinet": 2
+    },
+    "remotecontrol": {
+      "sofa": 5,
+      "armchair": 2,
+      "dresser": 5
+    },
+    "handtowel": {
+      "handtowelholder": 10
+    },
+    "toiletpaper": {
+      "toilet": 5,
+      "cabinet": 15,
+      "countertop": 21,
+      "toiletpaperhanger": 2,
+      "garbagecan": 5
+    },
+    "towel": {
+      "towelholder": 5
+    },
+    "cloth": {
+      "cabinet": 37,
+      "countertop": 3
+    }
+  },
+  "scene_object_map": {
+    "FloorPlan10": {
+      "apple": "countertop 1",
+      "dishsponge": "countertop 2",
+      "potato": "countertop 2",
+      "bread": "countertop 2",
+      "cellphone": "countertop 3",
+      "papertowelroll": "countertop 2",
+      "plate": "cabinet 3",
+      "soapbottle": "countertop 3",
+      "butterknife": "countertop 2",
+      "creditcard": "countertop 1",
+      "fork": "countertop 2",
+      "glassbottle": "countertop 2",
+      "lettuce": "countertop 2",
+      "spatula": "countertop 2",
+      "spoon": "countertop 2",
+      "statue": "countertop 2",
+      "bowl": "countertop 1",
+      "mug": "countertop 1",
+      "knife": "countertop 3",
+      "saltshaker": "drawer 3",
+      "peppershaker": "countertop 1",
+      "egg": "countertop 1",
+      "tomato": "countertop 2",
+      "vase": "countertop 3",
+      "pot": "stoveburner 3",
+      "pan": "stoveburner 4",
+      "cup": "countertop 1"
+    },
+    "FloorPlan424": {
+      "candle": "countertop 1",
+      "soapbar": "toilet 1",
+      "spraybottle": "toilet 1",
+      "soapbottle": "toilet 1",
+      "handtowel": "handtowelholder 2",
+      "toiletpaper": "countertop 1",
+      "towel": "towelholder 1",
+      "cloth": "cabinet 1"
+    },
+    "FloorPlan308": {
+      "creditcard": "desk 2",
+      "laptop": "desk 1",
+      "pencil": "desk 2",
+      "alarmclock": "shelf 1",
+      "book": "drawer 2",
+      "bowl": "desk 2",
+      "cd": "safe 1",
+      "mug": "desk 2",
+      "pillow": "bed 1",
+      "pen": "desk 1",
+      "cellphone": "safe 1",
+      "keychain": "drawer 2"
+    },
+    "FloorPlan219": {
+      "box": "dresser 1",
+      "creditcard": "shelf 8",
+      "keychain": "dresser 1",
+      "laptop": "dresser 1",
+      "statue": "dresser 1",
+      "tissuebox": "dresser 1",
+      "watch": "safe 1",
+      "cellphone": "safe 1",
+      "newspaper": "dresser 1",
+      "vase": "dresser 1",
+      "remotecontrol": "dresser 1",
+      "pillow": "armchair 1"
+    }
+  },
+  "scene_openable": {
+    "FloorPlan10": [
+      "fridge",
+      "drawer",
+      "cabinet",
+      "microwave"
+    ],
+    "FloorPlan308": [
+      "drawer",
+      "safe"
+    ],
+    "FloorPlan219": [
+      "drawer",
+      "cabinet",
+      "safe"
+    ],
+    "FloorPlan424": [
+      "cabinet"
+    ]
+  },
+  "scene_empty_locations": {
+    "FloorPlan10": [
+      "cabinet 4",
+      "cabinet 5",
+      "stoveburner 2",
+      "microwave 1",
+      "countertop 1",
+      "cabinet 3",
+      "countertop 2",
+      "cabinet 2",
+      "shelf 3",
+      "stoveburner 1",
+      "shelf 2",
+      "coffeemachine 1",
+      "stoveburner 4",
+      "cabinet 6",
+      "stoveburner 3",
+      "cabinet 1",
+      "sinkbasin 1",
+      "toaster 1",
+      "shelf 1",
+      "garbagecan 1"
+    ],
+    "FloorPlan424": [
+      "cabinet 4",
+      "toiletpaperhanger 1",
+      "garbagecan 1",
+      "sinkbasin 2",
+      "sinkbasin 1",
+      "handtowelholder 1"
+    ],
+    "FloorPlan308": [
+      "shelf 5",
+      "laundryhamper 1",
+      "drawer 4",
+      "shelf 2",
+      "shelf 6",
+      "drawer 5",
+      "shelf 1",
+      "drawer 1",
+      "garbagecan 1"
+    ],
+    "FloorPlan219": [
+      "cabinet 4",
+      "shelf 5",
+      "shelf 8",
+      "shelf 3",
+      "shelf 2",
+      "shelf 4",
+      "shelf 7",
+      "shelf 12",
+      "shelf 6",
+      "sofa 1",
+      "shelf 11",
+      "shelf 1",
+      "drawer 1",
+      "garbagecan 1"
+    ]
+  }
+}

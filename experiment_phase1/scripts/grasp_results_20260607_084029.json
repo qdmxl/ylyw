@@ -1,0 +1,47 @@
+[
+  {
+    "timestamp": "2026-06-07T08:40:29.047371",
+    "obj_key": "tennis_ball",
+    "obj_name": "网球",
+    "obj_type": "sphere",
+    "hexagram": "火山旅",
+    "strategy": "conditional_grasp",
+    "force_preset": 0.5,
+    "modifier": 0.9,
+    "effective_force": 0.45,
+    "S_yao": 0.5067,
+    "inference_ms": 3.56,
+    "similarity": 0.9682554065782489,
+    "executed": false
+  },
+  {
+    "timestamp": "2026-06-07T08:40:29.051143",
+    "obj_key": "ceramic_bowl",
+    "obj_name": "陶瓷碗",
+    "obj_type": "bowl",
+    "hexagram": "地火明夷",
+    "strategy": "low_visibility_grasp",
+    "force_preset": 0.45,
+    "modifier": 1.0,
+    "effective_force": 0.45,
+    "S_yao": 0.6375,
+    "inference_ms": 3.7,
+    "similarity": 0.9970716735132311,
+    "executed": false
+  },
+  {
+    "timestamp": "2026-06-07T08:40:29.054552",
+    "obj_key": "glass_vase",
+    "obj_name": "玻璃花瓶",
+    "obj_type": "vase",
+    "hexagram": "风山渐",
+    "strategy": "progressive_grasp",
+    "force_preset": 0.4,
+    "modifier": 1.0,
+    "effective_force": 0.4,
+    "S_yao": 0.5233,
+    "inference_ms": 3.38,
+    "similarity": 0.9786890765791502,
+    "executed": false
+  }
+]

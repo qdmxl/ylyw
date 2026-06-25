@@ -2,22 +2,61 @@
 __pycache__/
 *.pyc
 *.pyo
-venv/
 *.egg-info/
 
-# Simulation artifacts
+# Virtual environments (huge)
+venv/
+alfworld_env/
+alfworld_venv/
+*.tar
+
+# Binary / compiled
+*.so
+*.o
+*.a
+*.exe
+*.dll
+
+# Large datasets
+vision/STL10/
+vision/*.bin
+*.mp4
+*.gif
+*.zip
+
+# Simulation / model meshes (binary, large)
+motion_control/unitree_models/
 *.urdf
 *.obj
+*.stl
+*.dae
+
+# Document outputs (large, generated)
+*.docx
+*.pdf
+monograph/易理研物*.docx
+calligraphy/output/
+calligraphy/input/
+
+# SDK / vendor (huge, not our code)
+x2/
+chinaxiv/
 
 # Temp files
 *.tmp
 *.swp
 *~
 
-# Large binary files (keep small reports)
-*.mp4
-*.gif
-
 # OS files
 .DS_Store
 Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Experiment output (keep small JSON reports, not image outputs)
+motion_control/mvp_screenshots/
+experiment_phase1/output/
+experiment_phase1/mujoco_eval/output/

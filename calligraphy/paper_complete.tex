@@ -1,0 +1,527 @@
+%============================================================
+%  YLYW书法学习技术论文 — LaTeX Preamble
+%  基于易经符号先验的机器人书法学习系统
+%============================================================
+
+\documentclass[12pt,a4paper]{article}
+
+% ---- 中文支持 ----
+\usepackage[UTF8]{ctex}
+\setCJKmainfont{SimSun}[BoldFont=SimHei,ItalicFont=KaiTi]
+\setCJKsansfont{SimHei}
+\setCJKmonofont{FangSong}
+
+% ---- 页面设置 ----
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% ---- 数学 ----
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{bm}
+
+% ---- 图表 ----
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[table]{xcolor}
+
+% ---- 引用 ----
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+}
+
+% ---- 算法 ----
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+
+% ---- 其他 ----
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+% ---- 页眉页脚 ----
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small 基于易经符号先验的机器人书法学习系统}
+\fancyhead[R]{\small 马兴录 等}
+\fancyfoot[C]{\thepage}
+
+% ---- 标题 ----
+\title{\textbf{基于易经符号先验的机器人书法学习系统：\\观物取象与以卦驭笔}}
+
+\author{
+    马兴录$^{1}$\quad 李金函$^{1}$\quad 张国安$^{1}$\quad 于敬涛$^{1}$\quad 李望$^{1}$\quad 马圣洁$^{1,*}$
+}
+
+\date{}
+
+% ---- 用户自定义命令 ----
+\newcommand{\ylyw}{\textsc{YLYW}}
+\newcommand{\zhiji}{\text{知几}}
+\newcommand{\bagua}{\text{八卦}}
+\newcommand{\liuyao}{\text{六爻}}
+\newcommand{\hexagram}[1]{\text{《#1》}}
+
+% ---- 论文信息 ----
+% 投稿目标：《自动化学报》或《机器人》或 IEEE RAL
+% 状态：初稿
+%============================================================
+%  YLYW书法学习技术论文 — 正文 (Content)
+%  基于易经符号先验的机器人书法学习系统
+%============================================================
+
+% 此文件与 paper_preamble.tex + paper_references.tex 组合为完整论文
+% 编译: cat paper_preamble.tex paper_content.tex paper_references.tex > paper.tex && xelatex paper.tex
+
+%============================================================
+\begin{document}
+\maketitle
+
+%============================================================
+\begin{abstract}
+机器人精细操作是具身智能的关键挑战。当前的深度强化学习方法依赖数十万至数百万次试错交互才能习得基本技能，且决策过程不可解释、物理约束缺乏显式保证。本文提出基于YLYW（易理研物）三层符号先验架构的机器人书法学习系统，实现从字帖图像到机械臂书写轨迹的零样本生成与少样本优化。系统将八卦基元映射为八种基本笔法原型（乾→中锋、坤→侧锋、震→提按等），六爻编码建模笔画方向、粗细、曲率、规整性和重心位置，六十四卦匹配输出结构化的书写策略。在此基础上，提出\textbf{知几学习闭环}——通过比较字帖卦象与书写结果卦象的爻位级差异，精确定位偏差来源并进行定向参数修正。MuJoCo仿真实验表明：在「大」字的零样本基线测试中，系统仅凭先验知识即可产生合理的书写策略（卦象距离0.324）；经过8轮知几迭代，卦象距离降至0.087（改善73.2\%），评级从"中"提升至"优"，且第6轮卦象从错误的"坎"自发回归到正确的"离"。爻位收敛分析显示初爻（方向）偏差从+0.267降至+0.014（改善94.8\%），验证了爻位级可解释学习的有效性。同一架构可直接迁移至狭小空间焊接场景，仅需替换领域语义映射，展现了YLYW作为跨域精细操作通用框架的潜力。
+
+\textbf{关键词：} 易经符号先验；机器人书法；知几学习；零样本学习；可解释具身智能；六爻编码
+\end{abstract}
+
+%============================================================
+\section{引言}
+
+\subsection{机器人精细操作的挑战}
+
+机器人精细操作（Fine Manipulation）——如书法书写、精密焊接、微创手术——是具身智能最具挑战性的领域之一。与抓取和推动等粗粒度操作不同，精细操作要求亚毫米级的轨迹精度、毫秒级的力控制以及结构化的任务理解。当前主流方法可分为两条技术路线。
+
+\textbf{端到端学习}的代表性工作如QT-Opt~\cite{kalashnikov2018qt}和RT-2~\cite{brohan2023rt2}，通过海量示范数据学习从视觉到动作的直接映射。然而，精细操作的示范数据极难采集——书法的"笔法"、焊接的"熔深控制"无法通过遥操作准确还原。更根本的是，这些方法将物理世界的因果结构埋藏在深度网络的权重矩阵中，丧失了可解释性和可审计性。
+
+\textbf{示教编程}仍是工业焊接机器人的主流方案，但存在两大痛点：新工件需要重新示教（周期以天计），狭小空间内的避碰轨迹需要反复调试。一种能"看懂工件结构、自主规划操作顺序"的机器人系统，是工业界的迫切需求。
+
+\subsection{书法作为精细操作的理想实验场}
+
+书法为精细操作研究提供了一个独特且理想的实验场景。首先，书法是二维平面的轨迹任务（加上笔尖压力控制作为第三维），变量可控且易于量化评估。其次，书法有明确的"字帖"作为目标图像，天然形成"目标→执行→对比→修正"的闭环。再次，书法的笔法系统（永字八法：侧、勒、弩、趯、策、掠、啄、磔）已提供了结构化的操作原语分类。最后，书法的文化价值赋予了研究独特的叙事维度。
+
+更具深意的是，汉字与《易经》共享"观物取象"的认知源头——"象-数-理"三位一体的结构同构使YLYW模型的八卦基元在书法域具有天然的亲和性~\cite{ma2024shufa}。
+
+\subsection{书法与焊接的结构同构性}
+
+本文还揭示了一个值得关注的结构同构：\textbf{书法书写与狭小空间焊接在任务结构上几乎完全对应}。汉字由笔画组成，焊缝由焊道组成；书法的"横竖撇捺"对应焊接的"打底焊、填充焊、盖面焊"；书法的笔顺规则（从上到下、从左到右、先横后竖）对应焊接的层序规则（从内到外、从下到上）；书法的"提按顿挫"对应焊接的"电流-速度-摆幅"参数调节。这意味着一次架构设计可以实现两个场景的验证——书法作为低成本、低风险的先行验证场，焊接作为高价值的工业泛化场景。
+
+\subsection{本文贡献}
+
+本文的主要贡献包括：（1）将YLYW三层符号先验架构从抓取域系统性地映射到书法域，建立了八卦-笔法、六爻-笔画特征、六十四卦-书写策略的完整对应；（2）提出知几学习闭环，在MuJoCo仿真环境中验证了从"观帖"到"临摹"到"自省"到"精进"的完整学习链路；（3）通过爻位级收敛分析，首次揭示了可解释学习中的"爻位分化"现象——部分爻位可通过参数修正改善，部分爻位需要轨迹重规划；（4）论证了书法与狭小空间焊接的结构同构性，提出了YLYW作为跨域精细操作通用框架的路线图。
+
+%============================================================
+\section{方法}
+
+\subsection{YLYW三层架构的书法域映射}
+
+YLYW的核心架构由三层组成：L1八卦基元（模糊隶属度计算）、L2六爻编码（物理状态→符号编码）、L3六十四卦规则库（符号→策略映射）。在书法域，这三层的语义发生了系统性的迁移，但计算结构完全保留。
+
+\subsubsection{L1: 八卦基元——从物理到视觉到笔法}
+
+在原始的物理抓取域，八卦映射为8种物体物理原型（乾=刚性强力、坤=柔性包容等）。在视觉书法域，八卦映射为8种视觉原型（乾=高边缘+高规整的正方结构、坤=圆转流畅的曲线型、震=高对比的方向性笔画等）。更重要的是，在书写执行域，八卦映射为8种基本笔法（如表\ref{tab:trigram_brush}所示），每种笔法包含特定的压力基准、速度范围和笔尖姿态。
+
+\begin{table}[htbp]
+\centering
+\caption{八卦→笔法映射}
+\label{tab:trigram_brush}
+\begin{tabular}{cclll}
+\toprule
+卦名 & 符号 & 物理原型 & 笔法 & 特征 \\
+\midrule
+乾 & ☰ & 刚健 & 中锋 & 力均笔正 \\
+坤 & ☷ & 柔顺 & 侧锋 & 铺毫舒展 \\
+震 & ☳ & 动态 & 提按 & 轻重交替 \\
+艮 & ☶ & 静止 & 顿笔 & 驻留蓄力 \\
+离 & ☲ & 附丽 & 露锋 & 出锋见尖 \\
+坎 & ☵ & 险陷 & 藏锋 & 回锋内敛 \\
+兑 & ☱ & 悦 & 轻灵 & 短小跳跃 \\
+巽 & ☴ & 入 & 绵密 & 细长柔韧 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{L2: 六爻编码——笔画结构特征}
+
+六爻在书法域的语义映射如表\ref{tab:yao_mapping}所示。与物理域使用公式计算的六爻编码不同，书法视觉域通过12维图像特征提取器（含笔画方向性、粗细对比、曲率复杂度、间架规整度、重心位置等特征）直接产生$[0,1]$范围的爻值。这种方式使视觉YLYW与原始物理域YLYW共享相同的三层推理架构。
+
+\begin{table}[htbp]
+\centering
+\caption{六爻语义映射}
+\label{tab:yao_mapping}
+\begin{tabular}{ccll}
+\toprule
+爻位 & 名称 & 书法域语义 & 说明 \\
+\midrule
+初爻 & 基础 & 笔画方向主导度 & 笔画方向是否集中 \\
+二爻 & 展现 & 粗细对比度 & 笔画宽度变化幅度 \\
+三爻 & 变化 & 曲直复杂度 & 笔画曲线的丰富程度 \\
+四爻 & 稳固 & 间架规整度 & 结构布局的规则性 \\
+五爻 & 中心 & 重心横向位置 & 字心是否居中 \\
+上爻 & 完成 & 重心纵向位置 & 重心是否偏上/下 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsubsection{L3: 六十四卦匹配——书写策略}
+
+六十四卦在书法域从"抓取策略"映射为"全局书写策略"，决定主导笔法和书写风格倾向。此外，通过上下卦的组合（上卦=结构类型、下卦=风格倾向），系统可以从64种模式中精确选择最适配的书写方案。
+
+\subsection{视觉YLYW：读帖与结构卦象生成}
+
+视觉YLYW实现了从字帖图像到结构卦象的完整分析链路。首先，通过Zhang-Suen细化算法提取笔画骨架，检测端点和分叉点来分割笔画段。然后，对每个笔画段提取12维结构特征（含基础特征、方向特征和结构特征三组）。最后，将6维主要特征编码为六爻向量，与八卦原型计算隶属度，匹配到最接近的六十四卦。
+
+\subsection{书写YLYW：以卦驭笔的轨迹生成}
+
+书写YLYW将结构卦象转换为可执行的机械臂书写轨迹。系统维护了一个包含"永、大、人、中、心、山"等基础汉字的参考模板，定义每个笔画的起终点和基本形态。卦象驱动的书写策略根据以下参数生成具体的轨迹：
+
+\begin{itemize}[nosep]
+\item \textbf{笔法选择}：根据卦象隶属度选择主导笔法
+\item \textbf{几何修正}：笔画角度修正（初爻）、宽度因子（二爻）、曲率因子（三爻）、抖动幅度（四爻）
+\item \textbf{重心偏移}：根据字帖重心调整整体位置（五爻、上爻）
+\item \textbf{压力曲线}：起笔轻→行笔重→收笔轻的三段式压力剖面
+\end{itemize}
+
+\subsection{知几学习闭环：自省与精进}
+
+知几学习是本文最核心的方法论创新。与深度强化学习的事后奖励驱动不同，知几学习以"事先洞察变化的征兆"为哲学内核。在书法场景中，其闭环流程为：
+
+\begin{enumerate}[nosep]
+\item \textbf{观帖}：视觉YLYW分析字帖，生成目标卦象 $H_{\text{target}}$
+\item \textbf{临摹}：书写YLYW根据目标卦象生成首次书写计划
+\item \textbf{自省}：视觉YLYW分析书写结果，生成实际卦象 $H_{\text{actual}}$，计算爻位差异 $\Delta\mathbf{y} = \mathbf{y}_{\text{actual}} - \mathbf{y}_{\text{target}}$
+\item \textbf{精进}：根据爻位差异定向修正参数，重新书写
+\end{enumerate}
+
+参数修正公式为：
+\begin{equation}
+\mathbf{p}_{t+1} = \mathbf{p}_t + \eta \cdot \mathbf{D} \cdot \Delta\mathbf{y}_t
+\end{equation}
+其中 $\mathbf{p}$ 为可调参数向量（约443维），$\eta=0.5$ 为学习率，$\mathbf{D}$ 为爻位-参数映射矩阵。这一简洁的更新规则使系统能够在5--8次迭代内实现显著改善，而非深度强化学习的数千至百万次试错。
+
+\subsection{卦象驱动的笔画自主分解与排序}
+
+为实现对任意新字的自主学习（无需预定义模板），系统包含了一个笔画自主分解模块。从字帖图像出发：二值化→Zhang-Suen细化→骨架修剪→端点/分叉点检测→笔画追踪分割→合并共线段→笔画类型分类（横/竖/撇/捺/点/钩/弧）。
+
+笔画书写顺序由卦象驱动的排序算法决定，核心规则为：
+\begin{enumerate}[nosep]
+\item \textbf{空间约束}：从顶部到底部（$y$坐标升序）、从左到右（$x$坐标升序）
+\item \textbf{卦象优先级}：乾(横)→艮(竖)→震(撇)→坤(捺)→兑(点)→坎(钩)→巽(折)→离(弧)
+\item \textbf{爻位关系}：乘承比应→先承后乘、先比后应、当位优先
+\end{enumerate}
+
+\subsection{安全八卦：纸面保护与书写约束}
+
+仿照YLYW的双八卦架构，书法系统同样包含安全八卦层。在书法场景中，安全八卦建模纸面损坏风险（笔尖压力过大导致纸张破损）和墨量约束。当压力超过阈值时触发变卦机制，自动降力或提笔。这一设计同样可迁移至焊接场景的安全八卦——建模碰撞避免和热影响区控制。
+
+%============================================================
+\section{实验}
+
+\subsection{实验设置}
+
+实验在MuJoCo物理引擎中进行~\cite{todorov2012mujoco}。仿真环境包含一个300×300 mm的虚拟纸面、一个由三个滑块关节控制的毛笔末端执行器（$x$位置、$y$位置、$z$压力），以及一个正上方的虚拟相机用于渲染256×256像素的书写结果图像。笔触渲染采用基于高斯核的墨色混合模型，笔触半径和墨色浓度与压力值正相关。所有实验在一台配备Ubuntu 26.04的VirtualBox虚拟机上完成，使用EGL离屏渲染后端。
+
+\subsection{零样本基线}
+
+「大」字的零样本基线测试结果如表\ref{tab:baseline}所示。系统仅凭卦象先验（视觉YLYW将字帖分析为"离"卦，即疏朗通透的结构），生成了第一次书写计划。书写结果与字帖的卦象距离为0.324，对应评级为"中"——即"基本合理但存在显著偏差"。
+
+\begin{table}[htbp]
+\centering
+\caption{「大」字零样本基线}
+\label{tab:baseline}
+\begin{tabular}{ccccc}
+\toprule
+迭代 & 卦象距离 & 评级 & 目标卦象 & 实际卦象 \\
+\midrule
+1 & 0.324 & 中 & 离 & 坎 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+零样本基线已具备合理的结构（三笔：横→撇→捺），但存在以下偏差：初爻（笔画方向）偏差+0.267，表明笔画方向过于统一僵硬；二爻（粗细对比）偏差+0.158，表明笔画宽度变化不足。这与端到端学习的"随机初始"形成鲜明对比——YLYW的第1次书写已是"先验驱动"的合理尝试，而非盲目探索。
+
+\subsection{学习曲线与爻位收敛}
+
+表\ref{tab:learning_curve}给出了「大」字8轮知几迭代的完整数据。图\ref{fig:learning}（左）展示了卦象距离的单调下降趋势，图\ref{fig:learning}（右）展示了每轮改善量的波动情况。
+
+\begin{table}[htbp]
+\centering
+\caption{「大」字8轮迭代学习数据}
+\label{tab:learning_curve}
+\begin{tabular}{cccccc}
+\toprule
+迭代 & 卦象距离 & 评级 & 目标卦 & 实际卦 & 最大偏差爻 \\
+\midrule
+1 & 0.324 & 中 & 离 & 坎 & 初爻(+0.267) \\
+2 & 0.300 & 中 & 离 & 坎 & 初爻(+0.233) \\
+3 & 0.307 & 中 & 离 & 坎 & 二爻(+0.231) \\
+4 & 0.199 & 良 & 离 & 坎 & 二爻(+0.133) \\
+5 & 0.159 & 良 & 离 & 坎 & 二爻(+0.107) \\
+6 & 0.134 & 良 & \textbf{离} & \textbf{离} & 二爻(+0.103) \\
+7 & 0.124 & 良 & \textbf{离} & \textbf{离} & 二爻(+0.103) \\
+8 & \textbf{0.087} & \textbf{优} & \textbf{离} & \textbf{离} & 二爻(+0.064) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{总改善率：73.2\%}（从0.324降至0.087），评级从"中"提升至"优"。最引人注目的是第6轮发生了卦象回归——书写结果的主导卦象从错误的"坎"（对应藏锋内敛的笔法）自发回归到正确的"离"（疏朗通透），且此后保持稳定。这一现象在深度网络中仅在权重空间隐式发生，而在YLYW中是完全可观测、可解释的符号变迁。
+
+表\ref{tab:yao_convergence}展示了6个爻位的具体收敛情况。初爻（笔画方向）改善最为显著——偏差从+0.267降至+0.014（改善94.8\%），表明系统成功学习了笔画的角度调整。二爻和三爻也有明显改善（分别改善59.5\%和38.4\%）。
+
+\begin{table}[htbp]
+\centering
+\caption{爻位收敛数据}
+\label{tab:yao_convergence}
+\begin{tabular}{cccccc}
+\toprule
+爻位 & 初始偏差 & 最终偏差 & 改善量 & 改善率 & 趋势 \\
+\midrule
+初爻(方向) & +0.267 & +0.014 & 0.253 & 94.8\% & \checkmark \\
+二爻(粗细) & +0.158 & +0.064 & 0.094 & 59.5\% & \checkmark \\
+三爻(曲直) & +0.073 & +0.045 & 0.028 & 38.4\% & \checkmark \\
+四爻(规整) & 0.000 & 0.000 & 0.000 & -- & -- \\
+五爻(重心x) & +0.056 & +0.031 & 0.025 & 44.6\% & \checkmark \\
+上爻(重心y) & +0.012 & +0.018 & -0.006 & -50.0\% & 微退 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{卦象回归现象}
+
+第6轮出现的卦象回归是本次实验最核心的定性发现。前5轮书写结果均被视觉YLYW判定为"坎"卦（主导卦象与实际书写结果匹配），但从第6轮开始回归到目标"离"卦。从数据角度看，这是因为在前5轮迭代中，初爻（方向）偏差从+0.267逐步降至+0.054，二爻（粗细）偏差从+0.158波动至+0.103——当笔画方向和粗细接近字帖时，视觉YLYW的卦象分类器自然地将书写结果重新归类为"离"。这一可观测的符号层面变迁，是YLYW可解释性优势的生动体现。
+
+\subsection{消融实验}
+
+为验证知几修正机制的有效性，我们进行了消融实验：在相同条件下执行5轮书写但不应用参数修正。结果显示卦象距离在$0.335\pm0.005$范围内随机波动，无下降趋势。这证明YLYW的学习改善来自于爻位定向修正，而非随机扰动或环境噪声。
+
+%============================================================
+\section{讨论}
+
+\subsection{爻位分化现象}
+
+实验揭示了爻位在可修正性上的系统性分化。初爻（方向）、二爻（粗细）、三爻（曲直）和五爻（重心）可以通过调整轨迹生成参数进行有效修正——这些爻位对应的"风格参数"（笔法选择、角度修正、压力曲线）在轨迹生成器中已有直接的调节接口。
+
+然而，四爻（间架规整度）在当前架构中无法通过参数修正来改善。这是因为间架结构取决于笔画的绝对位置关系（例如，"大"字的横与撇捺的位置关系），而当前轨迹生成基于预定义模板，无法重新规划笔画的空间布局。这一发现指明了系统下一步的升级方向——从模板轨迹生成升级到卦象驱动的自由轨迹规划。
+
+上爻（重心纵向）的微弱退化（-0.006）源于视觉特征提取中的重心估计精度有限。改善视觉特征提取器或将重心估计替换为基于轮廓矩的精确方法，可以解决这一问题。
+
+\subsection{与深度强化学习的对比}
+
+表\ref{tab:comparison}从五个维度对比了YLYW知几学习与深度强化学习。YLYW的核心优势在于\textbf{先验驱动的零样本合理性}（而非随机初始）、\textbf{极小样本需求}（8次 vs 数千/百万次）、\textbf{完全可解释的学习过程}（爻位级诊断 vs 黑箱loss）、以及\textbf{结构内建的安全约束}。
+
+\begin{table}[htbp]
+\centering
+\caption{YLYW知几学习 vs 深度强化学习}
+\label{tab:comparison}
+\begin{tabular}{p{2.5cm}p{4.5cm}p{4.5cm}}
+\toprule
+维度 & YLYW知几学习 & 深度强化学习(DRL) \\
+\midrule
+初始性能 & 先验驱动，零样本合理 & 随机策略，无意义 \\
+样本效率 & 5--8次定向修正 & 数千--百万次试错 \\
+可解释性 & 爻位级可追溯 & 黑箱，仅输出标量loss \\
+学习迁移 & 参数空间直接迁移 & 需重新训练 \\
+安全性 & 安全八卦内建约束 & 依赖试错中"学到" \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{从书法到焊接的迁移路径}
+
+本文的核心论点之一是：书法和焊接共享同一套任务分解和执行的底层结构。具体而言，YLYW的三层架构在焊接域的迁移仅需替换领域语义映射（表\ref{tab:welding_mapping}），而推理逻辑完全保持不变。
+
+\begin{table}[htbp]
+\centering
+\caption{书法→焊接：领域语义迁移}
+\label{tab:welding_mapping}
+\small
+\begin{tabular}{p{3cm}p{4cm}p{4cm}}
+\toprule
+YLYW组件 & 书法域 & 焊接域 \\
+\midrule
+L1 八卦基元 & 笔法类型(中锋/侧锋等) & 焊接工艺(深熔/盖面/脉冲等) \\
+L2 六爻编码 & 笔画结构特征 & 焊缝结构特征 \\
+L3 六十四卦 & 书写策略 & 焊接顺序策略 \\
+安全八卦 & 纸面压力保护 & 碰撞避免+热影响控制 \\
+知几学习 & 看字对比修正 & 焊缝质量检测修正 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+焊缝图像→焊道骨架提取→焊道分段→卦象驱动焊接排序→焊枪轨迹生成的完整链路，与书法系统的处理链路结构完全相同。唯一的差异在于视觉特征提取器的具体算子和六爻编码公式的领域系数——这些可以通过少量焊接样本进行快速校准。
+
+%============================================================
+\section{结论}
+
+本文在YLYW三层符号先验架构的基础上，系统性地构建了一个机器人书法学习系统，并在MuJoCo仿真环境中完成了完整的实验验证。系统实现了从字帖图像到机械臂书写轨迹的零样本生成（仅凭先验知识），以及通过知几学习闭环实现少样本定向优化（8轮迭代改善73.2\%）。
+
+在方法论层面，本文的核心贡献是\textbf{论证了符号先验知识在机器人精细操作中的独特价值}。与"越多数据越好"的主流叙事不同，YLYW的实证结果表明：一套结构良好的、可解释的先验知识体系（八卦、六爻、六十四卦），可以在零样本条件下产生合理的行为，并且该行为可以通过精确诊断和定向修正实现快速改善——而无需海量训练数据。
+
+在技术层面，爻位分化现象的发现为系统升级提供了清晰路径：下一阶段的重点在于将笔画轨迹生成从模板升级为卦象驱动的自由规划，特别是解耦四爻（间架结构）的生成能力。同时，将系统从MuJoCo仿真迁移到真实机械臂（如UR系列），是验证实际可行性的关键步骤。
+
+从更宏观的视角看，本研究暗示了一种值得关注的AGI路径：不是堆算力和数据，而是将人类文明中已经积累的、经过数千年验证的知识体系（如《易经》符号系统）形式化为可计算的先验结构。这种"道器合一"的路径——以哲学智慧提供架构层面的强归纳偏置，以工程实现完成具体的形式化和验证——为具身智能提供了当前主流方法之外的一种可能。
+
+在后续工作中，我们将进行实物机械臂的书法验证和焊接场景的跨域迁移实验，并在更丰富的汉字集合上评估笔画自主分解模块的泛化性能。
+
+%============================================================
+\section*{致谢}
+本研究得到青岛科技大学信息科学技术学院的支持。
+
+% 参考文献 (从 paper_references.tex 引入)
+
+\end{document}
+%============================================================
+%  YLYW书法学习技术论文 — 参考文献
+%============================================================
+
+\begin{thebibliography}{99}
+
+% === YLYW先验系列 ===
+\bibitem{ma2024ylyw}
+马兴录, 张国安, 李金函, 等.
+YLYW：一种基于《易经》先验符号知识的联邦式神经符号具身决策框架[R].
+青岛科技大学信息科学技术学院, 技术报告, 2025.
+
+\bibitem{ma2024zhiji}
+马兴录, 李金函, 张国安, 等.
+知几学习：从"事后奖惩"到"事先征兆"的具身学习范式革新[R].
+青岛科技大学信息科学技术学院, 技术报告, 2025.
+
+\bibitem{ma2024shufa}
+马兴录, 李金函, 等.
+YLYW汉语言文字处理新范式：观物取象与乘承比应[R].
+青岛科技大学信息科学技术学院, 技术报告, 2025.
+
+% === 易经相关 ===
+\bibitem{yijing}
+周文王, 孔子, 等.
+周易[M].
+公元前11世纪--前5世纪.
+
+\bibitem{xici}
+孔子, 等.
+系辞传[M]//周易.
+公元前5世纪.
+
+\bibitem{weihongsen}
+魏宏森.
+系统论的基本规律[J].
+自然辩证法研究, 1995.
+
+% === 具身智能 ===
+\bibitem{driess2023palm}
+Driess D, Xia F, Sajjadi M S M, et al.
+PaLM-E: An embodied multimodal language model[C].
+International Conference on Machine Learning, 2023.
+
+\bibitem{brohan2023rt2}
+Brohan A, Brown N, Carbajal J, et al.
+RT-2: Vision-language-action models transfer web knowledge to robotic control[C].
+Conference on Robot Learning, 2023.
+
+\bibitem{openvla2024}
+Kim M J, Pertsch K, Karamcheti S, et al.
+OpenVLA: An open-source vision-language-action model[J].
+arXiv preprint arXiv:2406.09246, 2024.
+
+\bibitem{octo2023}
+Team Octo, Ghosh D, Walke H, et al.
+Octo: An open-source generalist robot policy[C].
+Robotics: Science and Systems, 2024.
+
+\bibitem{black2024pi0}
+Black K, Brown N, Driess D, et al.
+$\pi_0$: A vision-language-action flow model for general robot control[J].
+arXiv preprint arXiv:2410.24164, 2024.
+
+% === 机器人书法 ===
+\bibitem{yao2004calligraphy}
+Yao F, Shao G, Yi J.
+Extracting the trajectory of writing brush in Chinese character calligraphy[J].
+Engineering Applications of Artificial Intelligence, 2004.
+
+\bibitem{matsui2014calligraphy}
+Matsui A, Katsura S.
+Calligraphy-stroke learning support system using projector and motion sensor[J].
+IEEE International Conference on Mechatronics, 2014.
+
+\bibitem{wu2023calligraphy}
+Wu R, Zhou C, Chao F, et al.
+A developmental evolutionary learning framework for robotic Chinese calligraphy[J].
+IEEE Transactions on Cognitive and Developmental Systems, 2023.
+
+\bibitem{chao2023calligraphy}
+Chao F, Lin G, Zheng L, et al.
+A learning framework for robotic calligraphy with style transfer[J].
+Complex \& Intelligent Systems, 2023.
+
+% === 机器人焊接 ===
+\bibitem{chen2023welding}
+Chen S B, Lv N.
+Research evolution on intelligentized technologies for arc welding process[J].
+Journal of Manufacturing Processes, 2014.
+
+\bibitem{xu2022welding}
+Xu Y, Lv N, Fang G, et al.
+Welding seam tracking in robotic gas metal arc welding[J].
+Journal of Manufacturing Processes, 2022.
+
+\bibitem{wang2023welding}
+Wang X, Zhou Q, Chen B, et al.
+Deep learning-based welding seam recognition and tracking[J].
+Robotics and Computer-Integrated Manufacturing, 2023.
+
+% === 神经符号系统 ===
+\bibitem{garcez2022ns}
+Garcez A, Lamb L C.
+Neurosymbolic AI: The 3rd wave[J].
+Artificial Intelligence Review, 2023.
+
+\bibitem{yu2023ns}
+Yu D, Yang B, Liu D, et al.
+A survey of neurosymbolic visual reasoning[J].
+arXiv preprint arXiv:2305.07625, 2023.
+
+% === 深度学习与强化学习 ===
+\bibitem{levine2018rl}
+Levine S, Pastor P, Krizhevsky A, et al.
+Learning hand-eye coordination for robotic grasping with deep learning and large-scale data collection[J].
+International Journal of Robotics Research, 2018.
+
+\bibitem{kalashnikov2018qt}
+Kalashnikov D, Irpan A, Pastor P, et al.
+QT-Opt: Scalable deep reinforcement learning for vision-based robotic manipulation[C].
+Conference on Robot Learning, 2018.
+
+% === 对比方法 ===
+\bibitem{fuzzy2020}
+Zadeh L A.
+Fuzzy logic[J].
+Computer, 1988.
+
+\bibitem{wang2025vla}
+Wang Y, et al.
+VLA模型在具身智能中的语义泛化与执行泛化瓶颈综述[J].
+中国科学：信息科学, 2025.
+
+% === 仿真环境 ===
+\bibitem{todorov2012mujoco}
+Todorov E, Erez T, Tassa Y.
+MuJoCo: A physics engine for model-based control[C].
+IEEE/RSJ International Conference on Intelligent Robots and Systems, 2012.
+
+\bibitem{coumans2021pybullet}
+Coumans E, Bai Y.
+PyBullet, a Python module for physics simulation for games, robotics and machine learning[J].
+http://pybullet.org, 2016--2021.
+
+\end{thebibliography}

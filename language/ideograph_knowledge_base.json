@@ -1,0 +1,1559 @@
+{
+  "明": {
+    "components": [
+      "日",
+      "月"
+    ],
+    "relation": "比",
+    "explanation": "日月并立, 光明同辉. 日(阳)+月(阴)=对立统一生光明",
+    "bagua_map": "离(火/光明)",
+    "meaning": "光明、显著、清楚"
+  },
+  "休": {
+    "components": [
+      "人(亻)",
+      "木"
+    ],
+    "relation": "乘",
+    "explanation": "人在木旁, 人靠树休息. 人主动倚靠, 树被动承载",
+    "bagua_map": "艮(山/止息)",
+    "meaning": "休息、停止、美好"
+  },
+  "林": {
+    "components": [
+      "木",
+      "木"
+    ],
+    "relation": "比",
+    "explanation": "二木并立, 树木丛生. 同质并列, 相辅相成",
+    "bagua_map": "震(木/生长)",
+    "meaning": "树林、众多、茂盛"
+  },
+  "森": {
+    "components": [
+      "木",
+      "林"
+    ],
+    "relation": "乘",
+    "explanation": "木在林中之上, 三木成森. 叠加强化: 比中嵌套乘",
+    "bagua_map": "震(木/繁茂)",
+    "meaning": "森林、繁密、众多"
+  },
+  "炎": {
+    "components": [
+      "火",
+      "火"
+    ],
+    "relation": "比",
+    "explanation": "二火并立, 火光上升. 同质叠加, 愈演愈烈",
+    "bagua_map": "离(火/炎热)",
+    "meaning": "炎热、火光、炎症"
+  },
+  "晶": {
+    "components": [
+      "日",
+      "日",
+      "日"
+    ],
+    "relation": "比",
+    "explanation": "三日重叠, 光芒璀璨. 多体并列, 叠加增强",
+    "bagua_map": "离(光明/璀璨)",
+    "meaning": "光亮、晶体、晶莹"
+  },
+  "旦": {
+    "components": [
+      "日",
+      "一"
+    ],
+    "relation": "承",
+    "explanation": "日在一(地平线)上, 旭日东升. 下承上: 地承日升",
+    "bagua_map": "震(日出/开始)",
+    "meaning": "早晨、开始、天亮"
+  },
+  "泉": {
+    "components": [
+      "白",
+      "水"
+    ],
+    "relation": "承",
+    "explanation": "水从白石间流出, 源头泉水. 白石承托水流",
+    "bagua_map": "坎(水/源泉)",
+    "meaning": "泉水、源泉、钱币(古义)"
+  },
+  "岳": {
+    "components": [
+      "丘",
+      "山"
+    ],
+    "relation": "乘",
+    "explanation": "丘在山上, 高大的山. 丘叠加山上→高峻",
+    "bagua_map": "艮(山/高峻)",
+    "meaning": "高大的山、岳父"
+  },
+  "尘": {
+    "components": [
+      "小",
+      "土"
+    ],
+    "relation": "乘",
+    "explanation": "小在土上, 细微的土. 小者在上=微尘",
+    "bagua_map": "坤(土/微细)",
+    "meaning": "灰尘、尘世"
+  },
+  "雷": {
+    "components": [
+      "雨",
+      "田"
+    ],
+    "relation": "乘",
+    "explanation": "雨在田上, 雷雨交加. 天降雨于田",
+    "bagua_map": "震(雷/震动)",
+    "meaning": "雷电、爆炸"
+  },
+  "雪": {
+    "components": [
+      "雨",
+      "彐"
+    ],
+    "relation": "乘",
+    "explanation": "雨(天降)在扫帚形上, 可扫之雨=雪花. 天降可除之",
+    "bagua_map": "坎(水/寒冷)",
+    "meaning": "雪花、白色"
+  },
+  "信": {
+    "components": [
+      "人(亻)",
+      "言"
+    ],
+    "relation": "乘",
+    "explanation": "人在言旁, 人言合一. 人说的话=信用承诺",
+    "bagua_map": "兑(言说/诚信)",
+    "meaning": "诚信、相信、信息"
+  },
+  "仁": {
+    "components": [
+      "人(亻)",
+      "二"
+    ],
+    "relation": "比",
+    "explanation": "人与二并列, 二人相处之道. 人与人之间的法则=仁爱",
+    "bagua_map": "乾(天/至善)",
+    "meaning": "仁爱、仁慈、果仁"
+  },
+  "武": {
+    "components": [
+      "止",
+      "戈"
+    ],
+    "relation": "比",
+    "explanation": "止戈并立, 停止干戈. 以战止战=真正的武力",
+    "bagua_map": "乾(刚健/武力)",
+    "meaning": "武力、军事、勇猛"
+  },
+  "安": {
+    "components": [
+      "宀(房)",
+      "女"
+    ],
+    "relation": "应",
+    "explanation": "房内有女, 安居之家. 内外协调: 屋顶(外)护女(内)=安定",
+    "bagua_map": "坤(柔顺/安宁)",
+    "meaning": "安全、安定、安心"
+  },
+  "家": {
+    "components": [
+      "宀(房)",
+      "豕"
+    ],
+    "relation": "应",
+    "explanation": "房下有猪, 定居之家. 屋顶(外)护家畜(内)=家园",
+    "bagua_map": "坤(承载/家园)",
+    "meaning": "家庭、家园、专家"
+  },
+  "好": {
+    "components": [
+      "女",
+      "子"
+    ],
+    "relation": "比",
+    "explanation": "女子并立, 母子相亲. 女与子和谐=美好",
+    "bagua_map": "兑(和谐/喜悦)",
+    "meaning": "美好、良好、喜好"
+  },
+  "孝": {
+    "components": [
+      "老(耂)",
+      "子"
+    ],
+    "relation": "乘",
+    "explanation": "老在上, 子在下. 子承老=孝道. 上下尊卑",
+    "bagua_map": "坤(柔顺/孝顺)",
+    "meaning": "孝顺、孝道"
+  },
+  "见": {
+    "components": [
+      "目",
+      "儿(人)"
+    ],
+    "relation": "乘",
+    "explanation": "目在人上, 人用目看. 目主导=看见",
+    "bagua_map": "离(目/观看)",
+    "meaning": "看见、见识、见解"
+  },
+  "看": {
+    "components": [
+      "手(手)",
+      "目"
+    ],
+    "relation": "乘",
+    "explanation": "手在目上, 手搭凉棚远望. 手辅助目=观看",
+    "bagua_map": "离(目/远望)",
+    "meaning": "观看、看待、看望"
+  },
+  "囚": {
+    "components": [
+      "口(围栏)",
+      "人"
+    ],
+    "relation": "应",
+    "explanation": "围栏内有人, 人被囚禁. 内外关系: 外困内",
+    "bagua_map": "坎(陷/囚禁)",
+    "meaning": "囚禁、囚犯"
+  },
+  "困": {
+    "components": [
+      "口(围栏)",
+      "木"
+    ],
+    "relation": "应",
+    "explanation": "围栏内有木, 树木被困. 外困内: 困境",
+    "bagua_map": "坎(陷/困境)",
+    "meaning": "困难、困倦、围困"
+  },
+  "从": {
+    "components": [
+      "人",
+      "人"
+    ],
+    "relation": "乘",
+    "explanation": "一人跟随另一人, 前后相从. 前主导后跟随",
+    "bagua_map": "坤(顺从/跟随)",
+    "meaning": "跟随、从事、从来"
+  },
+  "比": {
+    "components": [
+      "匕",
+      "匕"
+    ],
+    "relation": "比",
+    "explanation": "二匕并列, 并列比较. 同形并列=比较",
+    "bagua_map": "兑(比较/相对)",
+    "meaning": "比较、比赛、比喻"
+  },
+  "北": {
+    "components": [
+      "人",
+      "匕"
+    ],
+    "relation": "比",
+    "explanation": "二人背对背, 相背而行. 方向相反=北方(古人以背对南方)",
+    "bagua_map": "坎(北/寒冷)",
+    "meaning": "北方、败北(背对而逃)"
+  },
+  "步": {
+    "components": [
+      "止",
+      "少(止的反写)"
+    ],
+    "relation": "比",
+    "explanation": "左右两脚一前一后, 步行之态. 两步交替=行走",
+    "bagua_map": "震(动/行走)",
+    "meaning": "步行、步骤、步伐"
+  },
+  "涉": {
+    "components": [
+      "水(氵)",
+      "步"
+    ],
+    "relation": "乘",
+    "explanation": "水在步旁, 步行过水. 步涉水=趟水过河",
+    "bagua_map": "坎(水/涉水)",
+    "meaning": "涉水、涉及、干涉"
+  },
+  "取": {
+    "components": [
+      "耳",
+      "又(手)"
+    ],
+    "relation": "乘",
+    "explanation": "手取耳朵, 割取战利品. 手主动割取=获取",
+    "bagua_map": "乾(获取/占有)",
+    "meaning": "获取、采取、取得"
+  },
+  "及": {
+    "components": [
+      "人",
+      "又(手)"
+    ],
+    "relation": "乘",
+    "explanation": "手从后触及前面的人, 追赶赶上. 手追赶人=达到",
+    "bagua_map": "震(追赶/达到)",
+    "meaning": "达到、及时、以及"
+  },
+  "为": {
+    "components": [
+      "爪(手)",
+      "象"
+    ],
+    "relation": "乘",
+    "explanation": "手牵大象劳作, 役象做事. 手主导=作为",
+    "bagua_map": "乾(作为/行动)",
+    "meaning": "作为、行为、成为"
+  },
+  "饮": {
+    "components": [
+      "食(饣)",
+      "欠"
+    ],
+    "relation": "乘",
+    "explanation": "食旁有欠(张口), 张口饮食. 口主导进食",
+    "bagua_map": "坎(饮/吞咽)",
+    "meaning": "饮食、饮料、饮恨"
+  },
+  "鸣": {
+    "components": [
+      "口",
+      "鸟"
+    ],
+    "relation": "乘",
+    "explanation": "口在鸟旁, 鸟张口叫. 口主导发声=鸣叫",
+    "bagua_map": "震(声/鸣叫)",
+    "meaning": "鸣叫、鸣响、共鸣"
+  },
+  "美": {
+    "components": [
+      "羊",
+      "大"
+    ],
+    "relation": "乘",
+    "explanation": "大羊为美, 肥大之羊最美味. 大在羊上=美好",
+    "bagua_map": "兑(悦/美好)",
+    "meaning": "美丽、美好、赞美"
+  },
+  "善": {
+    "components": [
+      "羊",
+      "言(口+二言)"
+    ],
+    "relation": "比",
+    "explanation": "羊与嘉言并立, 美言如羊之温顺=善良",
+    "bagua_map": "乾(至善/完善)",
+    "meaning": "善良、善于、完善"
+  },
+  "初": {
+    "components": [
+      "衣(衤)",
+      "刀"
+    ],
+    "relation": "承",
+    "explanation": "刀裁衣之始, 裁衣为制衣第一步. 刀奠基衣=初始",
+    "bagua_map": "震(开始/初生)",
+    "meaning": "初始、开始、起初"
+  },
+  "利": {
+    "components": [
+      "禾",
+      "刀(刂)"
+    ],
+    "relation": "比",
+    "explanation": "刀割禾苗, 收获之利. 刀与禾的协作=利益",
+    "bagua_map": "乾(利益/锋利)",
+    "meaning": "利益、锋利、利用"
+  },
+  "解": {
+    "components": [
+      "角",
+      "刀",
+      "牛"
+    ],
+    "relation": "乘",
+    "explanation": "刀分解牛角, 解剖分解. 刀主导分解=解开",
+    "bagua_map": "震(分解/解析)",
+    "meaning": "解开、理解、解放"
+  },
+  "意": {
+    "components": [
+      "音",
+      "心"
+    ],
+    "relation": "承",
+    "explanation": "心承音(心声), 心中之声=意思. 心承载音=心意",
+    "bagua_map": "离(心意/思虑)",
+    "meaning": "意思、心意、在意"
+  },
+  "思": {
+    "components": [
+      "田(囟门)",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "脑(田)在心之上, 脑与心协同. 脑主导=思考",
+    "bagua_map": "离(思虑/智慧)",
+    "meaning": "思考、思念、思想"
+  },
+  "忘": {
+    "components": [
+      "亡",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "亡在心上, 心中失去=忘记. 消亡主导心的缺失",
+    "bagua_map": "艮(止/遗忘)",
+    "meaning": "忘记、遗忘"
+  },
+  "志": {
+    "components": [
+      "士",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "士者有心, 士人之心=志向. 士主导心的方向",
+    "bagua_map": "乾(志向/意志)",
+    "meaning": "志向、意志、标志"
+  },
+  "忍": {
+    "components": [
+      "刃",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "刀刃在心之上, 心如刀割而忍之. 刃逼迫心=忍耐",
+    "bagua_map": "坤(柔顺/忍耐)",
+    "meaning": "忍耐、忍受、残忍"
+  },
+  "忠": {
+    "components": [
+      "中",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "中心合一, 心放在正中. 内心端正如箭中靶心=忠诚",
+    "bagua_map": "离(心/忠诚)",
+    "meaning": "忠诚、尽心"
+  },
+  "恕": {
+    "components": [
+      "如",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "如心比心, 推己及人. 将心比心=宽恕",
+    "bagua_map": "离(心/宽恕)",
+    "meaning": "宽恕、原谅"
+  },
+  "恭": {
+    "components": [
+      "共",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "共心待人, 心中恭敬. 以恭敬之心待人=恭敬",
+    "bagua_map": "坤(柔顺/恭敬)",
+    "meaning": "恭敬、谦恭"
+  },
+  "爱": {
+    "components": [
+      "爫",
+      "心",
+      "夂"
+    ],
+    "relation": "乘",
+    "explanation": "手捧心而行, 用心去行动. 心里有行动=爱",
+    "bagua_map": "离(心/爱)",
+    "meaning": "爱惜、爱护"
+  },
+  "弟": {
+    "components": [
+      "弓",
+      "丨"
+    ],
+    "relation": "承",
+    "explanation": "弓弦顺次而下, 兄弟有序. 次第=兄弟之序",
+    "bagua_map": "坤(顺从/次序)",
+    "meaning": "弟弟、孝悌"
+  },
+  "德": {
+    "components": [
+      "彳",
+      "惪"
+    ],
+    "relation": "乘",
+    "explanation": "行(彳)加直心(惪), 正直地行走. 正直之心见于行动=德行",
+    "bagua_map": "乾(刚健/德行)",
+    "meaning": "道德、品德"
+  },
+  "道": {
+    "components": [
+      "辶",
+      "首"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)加首(头), 头脑引领行走. 有方向的路=道",
+    "bagua_map": "乾(天道/道路)",
+    "meaning": "道路、道理、道家"
+  },
+  "礼": {
+    "components": [
+      "礻",
+      "乚"
+    ],
+    "relation": "乘",
+    "explanation": "示(祭祀)+行礼之形, 敬神祭祖之仪=礼",
+    "bagua_map": "离(光明/礼仪)",
+    "meaning": "礼仪、礼貌"
+  },
+  "义": {
+    "components": [
+      "羊",
+      "我"
+    ],
+    "relation": "乘",
+    "explanation": "羊在头上, 我之威仪. 以羊祭祀显示威严=正义威仪",
+    "bagua_map": "乾(刚健/正义)",
+    "meaning": "正义、意义"
+  },
+  "贤": {
+    "components": [
+      "臤",
+      "贝"
+    ],
+    "relation": "乘",
+    "explanation": "臣(官吏)+贝(财富), 有才有财之臣=贤能",
+    "bagua_map": "乾(才能/贤能)",
+    "meaning": "贤能、贤德"
+  },
+  "言": {
+    "components": [
+      "言"
+    ],
+    "relation": "比",
+    "explanation": "口舌发声, 言之成理. 独体象形",
+    "bagua_map": "兑(言说)",
+    "meaning": "言语、说话"
+  },
+  "说": {
+    "components": [
+      "讠",
+      "兑"
+    ],
+    "relation": "比",
+    "explanation": "言与兑并列, 以言使人悦服. 言说使人喜悦=说服",
+    "bagua_map": "兑(言说/喜悦)",
+    "meaning": "说话、说服、喜悦"
+  },
+  "语": {
+    "components": [
+      "讠",
+      "吾"
+    ],
+    "relation": "乘",
+    "explanation": "言为吾说, 我的话. 言自我出=话语",
+    "bagua_map": "兑(言说)",
+    "meaning": "语言、告诉"
+  },
+  "谓": {
+    "components": [
+      "讠",
+      "胃"
+    ],
+    "relation": "乘",
+    "explanation": "言如胃之承载, 言语承载意义. 言有所指=称谓",
+    "bagua_map": "兑(言说)",
+    "meaning": "称谓、告诉"
+  },
+  "问": {
+    "components": [
+      "门",
+      "口"
+    ],
+    "relation": "应",
+    "explanation": "门内有口, 在门口发问. 内外呼应:门外(门)向门内(口)发问",
+    "bagua_map": "兑(问讯)",
+    "meaning": "询问、问题"
+  },
+  "闻": {
+    "components": [
+      "门",
+      "耳"
+    ],
+    "relation": "应",
+    "explanation": "门内有耳, 在门内倾听. 门内之耳=听闻",
+    "bagua_map": "兑(听闻)",
+    "meaning": "听闻、见闻"
+  },
+  "知": {
+    "components": [
+      "矢",
+      "口"
+    ],
+    "relation": "比",
+    "explanation": "箭(矢)+口, 箭中靶心般精准地说出. 知道=精准如矢",
+    "bagua_map": "离(智慧/知道)",
+    "meaning": "知道、知识"
+  },
+  "观": {
+    "components": [
+      "又",
+      "见"
+    ],
+    "relation": "乘",
+    "explanation": "手(又)+见, 用手遮光而看. 细致地看=观察",
+    "bagua_map": "离(观看/观察)",
+    "meaning": "观察、观看"
+  },
+  "政": {
+    "components": [
+      "正",
+      "攵"
+    ],
+    "relation": "乘",
+    "explanation": "正+攵(手执鞭), 以正道执鞭. 以正治国=政治",
+    "bagua_map": "乾(刚健/政治)",
+    "meaning": "政治、治理"
+  },
+  "教": {
+    "components": [
+      "孝",
+      "攵"
+    ],
+    "relation": "乘",
+    "explanation": "孝+攵(手执鞭), 以鞭教子孝顺. 上施下效=教育",
+    "bagua_map": "震(教化/教育)",
+    "meaning": "教育、教导"
+  },
+  "国": {
+    "components": [
+      "囗",
+      "玉"
+    ],
+    "relation": "应",
+    "explanation": "围墙(囗)内有玉, 国之重器. 外护内宝=国家",
+    "bagua_map": "艮(山/国家)",
+    "meaning": "国家、邦国"
+  },
+  "邦": {
+    "components": [
+      "丰",
+      "阝"
+    ],
+    "relation": "承",
+    "explanation": "丰饶之地有城邑. 邑承载富饶=邦国",
+    "bagua_map": "坤(承载/邦国)",
+    "meaning": "邦国、国家"
+  },
+  "来": {
+    "components": [
+      "木",
+      "来"
+    ],
+    "relation": "乘",
+    "explanation": "木上有人来之形, 麦穗下垂. 从彼到此=来",
+    "bagua_map": "震(动作/来)",
+    "meaning": "来到、未来"
+  },
+  "往": {
+    "components": [
+      "彳",
+      "主"
+    ],
+    "relation": "乘",
+    "explanation": "行(彳)+主, 主动前往. 从此到彼=往",
+    "bagua_map": "震(行动/前往)",
+    "meaning": "前往、以往"
+  },
+  "过": {
+    "components": [
+      "辶",
+      "寸"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+寸(手), 走过手之所指. 经过超越=过去",
+    "bagua_map": "震(经过/过失)",
+    "meaning": "经过、过失、过去"
+  },
+  "正": {
+    "components": [
+      "一",
+      "止"
+    ],
+    "relation": "乘",
+    "explanation": "一为靶心,止为足. 止步于靶心=正中不偏",
+    "bagua_map": "乾(正中/正确)",
+    "meaning": "正确、端正"
+  },
+  "威": {
+    "components": [
+      "戌",
+      "女"
+    ],
+    "relation": "乘",
+    "explanation": "戌(斧钺)+女, 斧钺在女子头上. 以武力威慑=威严",
+    "bagua_map": "乾(威严/刚健)",
+    "meaning": "威严、威力"
+  },
+  "是": {
+    "components": [
+      "日",
+      "正"
+    ],
+    "relation": "乘",
+    "explanation": "日在正上, 日正当中. 正确不偏=是",
+    "bagua_map": "离(光明/正确)",
+    "meaning": "正确、是的"
+  },
+  "易": {
+    "components": [
+      "日",
+      "勿"
+    ],
+    "relation": "比",
+    "explanation": "日+勿(旗飘之形), 日光变化如旗飘. 变化不定=变易",
+    "bagua_map": "震(变易/变化)",
+    "meaning": "变化、容易、易经"
+  },
+  "习": {
+    "components": [
+      "羽",
+      "白"
+    ],
+    "relation": "乘",
+    "explanation": "羽在白上, 雏鸟反复练飞. 反复练习=学习",
+    "bagua_map": "震(练习/学习)",
+    "meaning": "学习、练习"
+  },
+  "温": {
+    "components": [
+      "氵",
+      "昷"
+    ],
+    "relation": "乘",
+    "explanation": "水(氵)+昷(日+皿), 在水中温和加热. 温和不冷不热",
+    "bagua_map": "坎(温水/温和)",
+    "meaning": "温和、温习、温暖"
+  },
+  "新": {
+    "components": [
+      "亲",
+      "斤"
+    ],
+    "relation": "乘",
+    "explanation": "亲+斤(斧), 用斧取薪木. 薪木新伐=更新",
+    "bagua_map": "震(新生/崭新)",
+    "meaning": "崭新、更新"
+  },
+  "故": {
+    "components": [
+      "古",
+      "攵"
+    ],
+    "relation": "承",
+    "explanation": "古字加攵(手执), 手执旧事. 古旧之事=故事",
+    "bagua_map": "艮(旧/故旧)",
+    "meaning": "故事、故意、所以"
+  },
+  "三": {
+    "components": [
+      "一",
+      "二"
+    ],
+    "relation": "比",
+    "explanation": "三横并列, 天地人之数. 三才并立=三",
+    "bagua_map": "乾(三才/多数)",
+    "meaning": "三、众多"
+  },
+  "乘": {
+    "components": [
+      "禾",
+      "北"
+    ],
+    "relation": "乘",
+    "explanation": "禾在两人之上, 坐乘禾上. 坐乘车上=乘坐",
+    "bagua_map": "震(乘/上升)",
+    "meaning": "乘坐、乘法"
+  },
+  "哀": {
+    "components": [
+      "衣",
+      "口"
+    ],
+    "relation": "乘",
+    "explanation": "衣覆口上, 以衣掩口而哭. 悲哀掩面=哀伤",
+    "bagua_map": "坎(悲哀/陷落)",
+    "meaning": "悲哀、哀伤"
+  },
+  "乐": {
+    "components": [
+      "木",
+      "乐"
+    ],
+    "relation": "乘",
+    "explanation": "木上架弦, 丝竹之乐. 音乐使人欢乐",
+    "bagua_map": "兑(悦/欢乐)",
+    "meaning": "音乐、快乐"
+  },
+  "患": {
+    "components": [
+      "串",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "心中串起事端, 忧心如串. 心中忧虑=忧患",
+    "bagua_map": "离(忧虑/灾患)",
+    "meaning": "忧患、灾患"
+  },
+  "怒": {
+    "components": [
+      "奴",
+      "心"
+    ],
+    "relation": "乘",
+    "explanation": "心被奴役, 心受奴役之状. 心被制服=愤怒",
+    "bagua_map": "离(怒/激烈)",
+    "meaning": "愤怒、发怒"
+  },
+  "学": {
+    "components": [
+      "臼",
+      "爻",
+      "子"
+    ],
+    "relation": "乘",
+    "explanation": "臼+爻+子, 孩子在屋中用双手(臼)学易(爻). 启蒙之学",
+    "bagua_map": "震(学习/启蒙)",
+    "meaning": "学习、学问"
+  },
+  "时": {
+    "components": [
+      "日",
+      "寸"
+    ],
+    "relation": "乘",
+    "explanation": "日+寸(手), 日光以手丈量. 日影测时间",
+    "bagua_map": "离(日/时间)",
+    "meaning": "时间、时机"
+  },
+  "行": {
+    "components": [
+      "彳",
+      "亍"
+    ],
+    "relation": "比",
+    "explanation": "彳(左步)+亍(右步), 左右步交替. 步行=行动",
+    "bagua_map": "震(行动/行走)",
+    "meaning": "行走、行为、运行"
+  },
+  "进": {
+    "components": [
+      "辶",
+      "井"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+井(有序), 有序前进. 向前移动=前进",
+    "bagua_map": "震(前进/进取)",
+    "meaning": "前进、进入"
+  },
+  "退": {
+    "components": [
+      "辶",
+      "艮"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+艮(停止), 止步而行=后退",
+    "bagua_map": "艮(止/后退)",
+    "meaning": "后退、退让"
+  },
+  "追": {
+    "components": [
+      "辶",
+      "𠂤"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+师(军队), 追踪军队. 跟随其后=追",
+    "bagua_map": "震(追赶)",
+    "meaning": "追赶、追念"
+  },
+  "逐": {
+    "components": [
+      "辶",
+      "豕"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+猪(豕), 追赶野猪. 追逐=追",
+    "bagua_map": "震(追逐)",
+    "meaning": "追逐、驱逐"
+  },
+  "达": {
+    "components": [
+      "辶",
+      "大"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+大, 大道通行. 通达无阻=达到",
+    "bagua_map": "乾(通达)",
+    "meaning": "达到、通达"
+  },
+  "通": {
+    "components": [
+      "辶",
+      "甬"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+甬(通道), 通过通道. 贯通无阻=通",
+    "bagua_map": "乾(通达/通畅)",
+    "meaning": "通畅、通晓"
+  },
+  "远": {
+    "components": [
+      "辶",
+      "元"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+元(远), 行走长远. 距离大=远",
+    "bagua_map": "震(远行)",
+    "meaning": "远方、遥远"
+  },
+  "近": {
+    "components": [
+      "辶",
+      "斤"
+    ],
+    "relation": "乘",
+    "explanation": "行(辶)+斤(近), 斧斤可及. 距离小=近",
+    "bagua_map": "艮(近/很近)",
+    "meaning": "近处、亲近"
+  },
+  "得": {
+    "components": [
+      "彳",
+      "旦",
+      "寸"
+    ],
+    "relation": "乘",
+    "explanation": "行(彳)+晨(旦)+手(寸), 清晨伸手取得. 获取到手=得",
+    "bagua_map": "乾(获得)",
+    "meaning": "获得、得到"
+  },
+  "失": {
+    "components": [
+      "手",
+      "失"
+    ],
+    "relation": "乘",
+    "explanation": "手失其物, 从手中掉落. 失去=失",
+    "bagua_map": "坎(失落)",
+    "meaning": "失去、丧失"
+  },
+  "求": {
+    "components": [
+      "求"
+    ],
+    "relation": "乘",
+    "explanation": "皮裘之形, 求索之物. 寻求所求=求",
+    "bagua_map": "坎(寻求/探求)",
+    "meaning": "寻求、要求"
+  },
+  "有": {
+    "components": [
+      "月",
+      "有"
+    ],
+    "relation": "乘",
+    "explanation": "月(肉)+有, 手持肉. 拥有肉食=有",
+    "bagua_map": "坤(拥有/存在)",
+    "meaning": "拥有、存在"
+  },
+  "无": {
+    "components": [
+      "无"
+    ],
+    "relation": "承",
+    "explanation": "舞者挥袖无形, 无形之象. 不存在=无",
+    "bagua_map": "乾(无形/虚无)",
+    "meaning": "没有、无需"
+  },
+  "出": {
+    "components": [
+      "屮",
+      "凵"
+    ],
+    "relation": "乘",
+    "explanation": "草木(屮)从坑(凵)中长出. 从内向外=出",
+    "bagua_map": "震(出去/出现)",
+    "meaning": "出去、出现"
+  },
+  "入": {
+    "components": [
+      "入"
+    ],
+    "relation": "乘",
+    "explanation": "尖锐之物进入之形. 从外向内=入",
+    "bagua_map": "巽(进入)",
+    "meaning": "进入、收入"
+  },
+  "友": {
+    "components": [
+      "又",
+      "又"
+    ],
+    "relation": "比",
+    "explanation": "左右两只手相助, 两手相携=朋友",
+    "bagua_map": "兑(朋友/相助)",
+    "meaning": "朋友、友善"
+  },
+  "朋": {
+    "components": [
+      "月",
+      "月"
+    ],
+    "relation": "比",
+    "explanation": "两串贝(月)并列, 朋党之形. 同门为朋",
+    "bagua_map": "兑(朋友/并列)",
+    "meaning": "朋友、朋党"
+  },
+  "众": {
+    "components": [
+      "人",
+      "从"
+    ],
+    "relation": "乘",
+    "explanation": "人在众人(从)之上, 众多之人. 人多=众",
+    "bagua_map": "坤(众多)",
+    "meaning": "众多、群众"
+  },
+  "令": {
+    "components": [
+      "亼",
+      "卩"
+    ],
+    "relation": "乘",
+    "explanation": "集众(亼)+跪人(卩), 集众发号. 发号施令=令",
+    "bagua_map": "乾(命令/权威)",
+    "meaning": "命令、法令"
+  },
+  "命": {
+    "components": [
+      "亼",
+      "口",
+      "卩"
+    ],
+    "relation": "乘",
+    "explanation": "集众(亼)+口+跪人(卩), 以口发令. 口头命令=命",
+    "bagua_map": "乾(天命/命令)",
+    "meaning": "生命、命令"
+  },
+  "使": {
+    "components": [
+      "亻",
+      "吏"
+    ],
+    "relation": "乘",
+    "explanation": "人+官吏, 以人充吏. 派遣差人=使",
+    "bagua_map": "乾(驱使/使用)",
+    "meaning": "使用、派遣"
+  },
+  "身": {
+    "components": [
+      "身"
+    ],
+    "relation": "承",
+    "explanation": "人怀胎之形, 身体的象形. 己之躯体=身",
+    "bagua_map": "坤(承载/身体)",
+    "meaning": "身体、自身"
+  },
+  "心": {
+    "components": [
+      "心"
+    ],
+    "relation": "承",
+    "explanation": "心脏的象形, 思想之源. 思之官=心",
+    "bagua_map": "离(心/思虑)",
+    "meaning": "心脏、心思"
+  },
+  "目": {
+    "components": [
+      "目"
+    ],
+    "relation": "承",
+    "explanation": "眼睛的象形, 视觉之门. 视之官=目",
+    "bagua_map": "离(目/观看)",
+    "meaning": "眼睛、目光"
+  },
+  "耳": {
+    "components": [
+      "耳"
+    ],
+    "relation": "承",
+    "explanation": "耳朵的象形, 听觉之门. 听之官=耳",
+    "bagua_map": "坎(耳/倾听)",
+    "meaning": "耳朵、听闻"
+  },
+  "天": {
+    "components": [
+      "一",
+      "大"
+    ],
+    "relation": "乘",
+    "explanation": "一人之上一横, 人头顶之上. 至高无上=天",
+    "bagua_map": "乾(天/至高)",
+    "meaning": "天空、天然"
+  },
+  "地": {
+    "components": [
+      "土",
+      "也"
+    ],
+    "relation": "承",
+    "explanation": "土地承载万物. 承载之力=地",
+    "bagua_map": "坤(大地/承载)",
+    "meaning": "大地、地方"
+  },
+  "日": {
+    "components": [
+      "日"
+    ],
+    "relation": "承",
+    "explanation": "太阳的象形, 光明之源. 最大光明=日",
+    "bagua_map": "离(日/光明)",
+    "meaning": "太阳、日子"
+  },
+  "月": {
+    "components": [
+      "月"
+    ],
+    "relation": "承",
+    "explanation": "月亮的象形, 夜间之光. 阴之精=月",
+    "bagua_map": "坎(月/阴柔)",
+    "meaning": "月亮、月份"
+  },
+  "山": {
+    "components": [
+      "山"
+    ],
+    "relation": "承",
+    "explanation": "山峰的象形, 大地之高. 高峻挺拔=山",
+    "bagua_map": "艮(山/高峻)",
+    "meaning": "山岳、高山"
+  },
+  "水": {
+    "components": [
+      "水"
+    ],
+    "relation": "承",
+    "explanation": "水流的象形, 生命之源. 流而润物=水",
+    "bagua_map": "坎(水/流动)",
+    "meaning": "水流、水利"
+  },
+  "火": {
+    "components": [
+      "火"
+    ],
+    "relation": "承",
+    "explanation": "火焰的象形, 热能之源. 炎上之形=火",
+    "bagua_map": "离(火/热能)",
+    "meaning": "火焰、火热"
+  },
+  "生": {
+    "components": [
+      "牛",
+      "一"
+    ],
+    "relation": "承",
+    "explanation": "草木从土中长出, 生命萌发. 从无到有=生",
+    "bagua_map": "震(生长/生命)",
+    "meaning": "生命、生长"
+  },
+  "死": {
+    "components": [
+      "歹",
+      "匕"
+    ],
+    "relation": "乘",
+    "explanation": "残骨(歹)+人(匕), 人化为骨. 生命终结=死",
+    "bagua_map": "艮(终止/死亡)",
+    "meaning": "死亡、死寂"
+  },
+  "色": {
+    "components": [
+      "色"
+    ],
+    "relation": "承",
+    "explanation": "人面之色, 颜气之表. 表现于外=色",
+    "bagua_map": "离(色彩/表象)",
+    "meaning": "颜色、神色"
+  },
+  "本": {
+    "components": [
+      "木",
+      "一"
+    ],
+    "relation": "承",
+    "explanation": "木下一横指根, 树木之根. 根基所在=本",
+    "bagua_map": "震(根本/基础)",
+    "meaning": "根本、本来"
+  },
+  "末": {
+    "components": [
+      "木",
+      "一"
+    ],
+    "relation": "乘",
+    "explanation": "木上一横指梢, 树之末梢. 枝末次要=末",
+    "bagua_map": "艮(末尾/枝节)",
+    "meaning": "末尾、末端"
+  },
+  "重": {
+    "components": [
+      "重"
+    ],
+    "relation": "承",
+    "explanation": "人负厚物之形, 分量大. 不轻=重",
+    "bagua_map": "坤(厚重/重要)",
+    "meaning": "重要、沉重"
+  },
+  "轻": {
+    "components": [
+      "车",
+      "巠"
+    ],
+    "relation": "乘",
+    "explanation": "车过小径, 轻车简从. 分量小=轻",
+    "bagua_map": "震(轻便)",
+    "meaning": "轻便、轻易"
+  },
+  "食": {
+    "components": [
+      "亽",
+      "良"
+    ],
+    "relation": "承",
+    "explanation": "谷米成熟之形, 人赖以养. 养生之物=食",
+    "bagua_map": "坤(养育/粮食)",
+    "meaning": "食物、饮食"
+  },
+  "富": {
+    "components": [
+      "宀",
+      "畐"
+    ],
+    "relation": "应",
+    "explanation": "房(宀)中有满器(畐), 物资满屋=富有",
+    "bagua_map": "坤(富足)",
+    "meaning": "富有、丰富"
+  },
+  "贫": {
+    "components": [
+      "分",
+      "贝"
+    ],
+    "relation": "乘",
+    "explanation": "分贝分散, 财分而散. 财物分散=贫穷",
+    "bagua_map": "坎(陷/贫穷)",
+    "meaning": "贫穷、贫乏"
+  },
+  "力": {
+    "components": [
+      "力"
+    ],
+    "relation": "承",
+    "explanation": "筋肉的象形, 人体之能. 发挥效用=力",
+    "bagua_map": "震(力量/动力)",
+    "meaning": "力量、能力"
+  },
+  "改": {
+    "components": [
+      "己",
+      "攵"
+    ],
+    "relation": "乘",
+    "explanation": "己+攵(手执鞭), 以鞭策己. 鞭策自我=改正",
+    "bagua_map": "震(改变/改正)",
+    "meaning": "改变、改正"
+  },
+  "省": {
+    "components": [
+      "少",
+      "目"
+    ],
+    "relation": "乘",
+    "explanation": "少用目, 减少目之所视. 向内审视=反省",
+    "bagua_map": "离(反省/视察)",
+    "meaning": "反省、节省"
+  },
+  "察": {
+    "components": [
+      "宀",
+      "祭"
+    ],
+    "relation": "乘",
+    "explanation": "屋(宀)中祭祀(祭), 仔细审视. 细致审视=察",
+    "bagua_map": "离(观察/明察)",
+    "meaning": "观察、明察"
+  },
+  "对": {
+    "components": [
+      "业",
+      "寸"
+    ],
+    "relation": "乘",
+    "explanation": "业(立桩)+寸(手量), 以手对准. 正确应对=对",
+    "bagua_map": "乾(正确/应对)",
+    "meaning": "正确、应对"
+  },
+  "君": {
+    "components": [
+      "尹",
+      "口"
+    ],
+    "relation": "乘",
+    "explanation": "尹(执权)+口(发令), 执权发令之人. 统治者=君",
+    "bagua_map": "乾(君主/主导)",
+    "meaning": "君主、君子"
+  },
+  "父": {
+    "components": [
+      "父"
+    ],
+    "relation": "乘",
+    "explanation": "手中执杖之形, 一家之长. 掌杖教子=父",
+    "bagua_map": "乾(父亲/权威)",
+    "meaning": "父亲"
+  },
+  "母": {
+    "components": [
+      "女"
+    ],
+    "relation": "承",
+    "explanation": "女子有乳之形, 哺育之源. 生养之本=母",
+    "bagua_map": "坤(母亲/养育)",
+    "meaning": "母亲"
+  },
+  "民": {
+    "components": [
+      "民"
+    ],
+    "relation": "承",
+    "explanation": "盲眇之形, 蒙昧之众. 被治之人=民",
+    "bagua_map": "坤(民众/承载)",
+    "meaning": "人民、民众"
+  },
+  "王": {
+    "components": [
+      "一",
+      "土"
+    ],
+    "relation": "乘",
+    "explanation": "三横贯一竖, 贯穿天地人. 贯通三才=王",
+    "bagua_map": "乾(君王/贯通)",
+    "meaning": "国王、王者"
+  },
+  "慎": {
+    "components": [
+      "忄",
+      "真"
+    ],
+    "relation": "乘",
+    "explanation": "心(忄)+真, 真心对待. 以真心行事=慎重",
+    "bagua_map": "离(谨慎/真心)",
+    "meaning": "谨慎、慎重"
+  },
+  "敬": {
+    "components": [
+      "苟",
+      "攵"
+    ],
+    "relation": "乘",
+    "explanation": "苟(谨慎之态)+攵(手执), 以手执敬. 恭敬行事=敬",
+    "bagua_map": "坤(恭敬/敬畏)",
+    "meaning": "尊敬、敬畏"
+  },
+  "而": {
+    "components": [
+      "而"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:连接/转折",
+    "bagua_map": "震(变易/连接)",
+    "meaning": "连接/转折"
+  },
+  "之": {
+    "components": [
+      "之"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:的/代词/到",
+    "bagua_map": "坤(承载/指代)",
+    "meaning": "的/代词/到"
+  },
+  "也": {
+    "components": [
+      "也"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:判断/停顿",
+    "bagua_map": "坤(确认/肯定)",
+    "meaning": "判断/停顿"
+  },
+  "乎": {
+    "components": [
+      "乎"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:疑问/感叹",
+    "bagua_map": "兑(疑问/发声)",
+    "meaning": "疑问/感叹"
+  },
+  "矣": {
+    "components": [
+      "矣"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:完成/断定",
+    "bagua_map": "艮(终止/完成)",
+    "meaning": "完成/断定"
+  },
+  "与": {
+    "components": [
+      "与"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:并列/疑问",
+    "bagua_map": "兑(并列/互动)",
+    "meaning": "并列/疑问"
+  },
+  "则": {
+    "components": [
+      "则"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:就/那么/法则",
+    "bagua_map": "乾(规则/因果)",
+    "meaning": "就/那么/法则"
+  },
+  "者": {
+    "components": [
+      "者"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:的人/的事物",
+    "bagua_map": "坤(承载/指代)",
+    "meaning": "的人/的事物"
+  },
+  "所": {
+    "components": [
+      "所"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:的地方/的事物",
+    "bagua_map": "坤(处所/承载)",
+    "meaning": "的地方/的事物"
+  },
+  "以": {
+    "components": [
+      "以"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:用来/因为",
+    "bagua_map": "乾(工具/因果)",
+    "meaning": "用来/因为"
+  },
+  "于": {
+    "components": [
+      "于"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:在/对于",
+    "bagua_map": "坤(定位/承载)",
+    "meaning": "在/对于"
+  },
+  "不": {
+    "components": [
+      "不"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:否定",
+    "bagua_map": "艮(止/否定)",
+    "meaning": "否定"
+  },
+  "勿": {
+    "components": [
+      "勿"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:不要/禁止",
+    "bagua_map": "艮(禁止/停止)",
+    "meaning": "不要/禁止"
+  },
+  "未": {
+    "components": [
+      "未"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:还没有",
+    "bagua_map": "坎(未至/未成)",
+    "meaning": "还没有"
+  },
+  "可": {
+    "components": [
+      "可"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:可以/能够",
+    "bagua_map": "乾(可行/允许)",
+    "meaning": "可以/能够"
+  },
+  "能": {
+    "components": [
+      "能"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:能够/能力",
+    "bagua_map": "乾(能力/可行)",
+    "meaning": "能够/能力"
+  },
+  "必": {
+    "components": [
+      "必"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:必定/必须",
+    "bagua_map": "乾(必然/确定)",
+    "meaning": "必定/必须"
+  },
+  "其": {
+    "components": [
+      "其"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:他的/那个/大概",
+    "bagua_map": "巽(指代/推测)",
+    "meaning": "他的/那个/大概"
+  },
+  "焉": {
+    "components": [
+      "焉"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:于此/怎样",
+    "bagua_map": "坤(处所/承载)",
+    "meaning": "于此/怎样"
+  },
+  "诸": {
+    "components": [
+      "诸"
+    ],
+    "relation": "承",
+    "explanation": "文言虚词:之于/之乎",
+    "bagua_map": "兑(合音/指代)",
+    "meaning": "之于/之乎"
+  }
+}

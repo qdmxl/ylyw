@@ -1,0 +1,62 @@
+{
+  "experiment": "B - Online Adaptive Locomotion Control (v4)",
+  "gait_family_recovery": {
+    "test": "gait_family_recovery",
+    "init_mean_dist": 0.495,
+    "final_mean_dist": 0.495,
+    "improvement": 0.0,
+    "corrections": 59,
+    "run_correct_rate": 0.0,
+    "late_correct_rate": 0.0
+  },
+  "anomaly_scenarios": [
+    {
+      "name": "COM渐变偏移",
+      "static_avg": 0.551,
+      "adaptive_avg": 0.554,
+      "improvement": 0.003,
+      "static_late": 0.434,
+      "adaptive_late": 0.438,
+      "late_improvement": 0.004,
+      "static_fells": 0,
+      "adaptive_fells": 0,
+      "adaptations": 44
+    },
+    {
+      "name": "电机老化衰减",
+      "static_avg": 0.599,
+      "adaptive_avg": 0.603,
+      "improvement": 0.005,
+      "static_late": 0.492,
+      "adaptive_late": 0.498,
+      "late_improvement": 0.006,
+      "static_fells": 0,
+      "adaptive_fells": 0,
+      "adaptations": 34
+    },
+    {
+      "name": "间歇外力推搡",
+      "static_avg": 0.762,
+      "adaptive_avg": 0.741,
+      "improvement": -0.022,
+      "static_late": 0.762,
+      "adaptive_late": 0.738,
+      "late_improvement": -0.024,
+      "static_fells": 0,
+      "adaptive_fells": 0,
+      "adaptations": 19
+    },
+    {
+      "name": "传感器零点漂移",
+      "static_avg": 0.757,
+      "adaptive_avg": 0.756,
+      "improvement": -0.002,
+      "static_late": 0.674,
+      "adaptive_late": 0.676,
+      "late_improvement": 0.002,
+      "static_fells": 0,
+      "adaptive_fells": 0,
+      "adaptations": 26
+    }
+  ]
+}

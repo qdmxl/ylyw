@@ -1,0 +1,209 @@
+{
+  "config": {
+    "model": "YLYW Zero-Shot (Official Sim)",
+    "simulator": "AlfredTWEnv (TextWorld 1.7.0)",
+    "split": "valid_unseen",
+    "max_steps": 50,
+    "agent_type": "YLYW_3layer_PriorInference"
+  },
+  "metrics": {
+    "total_tasks": 15,
+    "won": 0,
+    "lost": 15,
+    "success_rate": 0.0,
+    "type_accuracy": 1.0,
+    "avg_steps": 50.0,
+    "total_steps": 750,
+    "avg_walkthrough_len": 0.0
+  },
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "total": 3,
+      "won": 0,
+      "success_rate": 0.0,
+      "avg_steps": 50.0,
+      "type_accuracy": 1.0
+    },
+    "pick_and_place_simple": {
+      "total": 3,
+      "won": 0,
+      "success_rate": 0.0,
+      "avg_steps": 50.0,
+      "type_accuracy": 1.0
+    },
+    "pick_clean_then_place_in_recep": {
+      "total": 3,
+      "won": 0,
+      "success_rate": 0.0,
+      "avg_steps": 50.0,
+      "type_accuracy": 1.0
+    },
+    "pick_cool_then_place_in_recep": {
+      "total": 3,
+      "won": 0,
+      "success_rate": 0.0,
+      "avg_steps": 50.0,
+      "type_accuracy": 1.0
+    },
+    "pick_two_obj_and_place": {
+      "total": 3,
+      "won": 0,
+      "success_rate": 0.0,
+      "avg_steps": 50.0,
+      "type_accuracy": 1.0
+    }
+  },
+  "results": [
+    {
+      "game_idx": 0,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_clean_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Put a clean plate on the counter.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 1,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_clean_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Put a clean yellow plate on the counter.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 2,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_inferred": "pick_clean_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "wash the dirty bowl before putting the bowl on the counter",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 3,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "To move two bars of soap to the gold bin. ",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 4,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "Throw both pieces of soap into the trash can.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 5,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_inferred": "pick_two_obj_and_place",
+      "type_correct": true,
+      "task_desc": "Throw two bars of soap in the trash bin.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 6,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Look at a mug in lamp light.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 7,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Turn on the desk lamp.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 8,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_inferred": "look_at_obj_in_light",
+      "type_correct": true,
+      "task_desc": "Examine a mug using the light of a desk lamp. ",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 9,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Put a chilled mug in a cabinet.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 10,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Place a chilled mug in a cabinet.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 11,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_inferred": "pick_cool_then_place_in_recep",
+      "type_correct": true,
+      "task_desc": "Put a cold coffee up in the bottom cabinet. ",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 12,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "Move a pencil on the desk over. ",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 13,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "Move the pencil to a different area of the desk.",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    },
+    {
+      "game_idx": 14,
+      "task_type_real": "pick_and_place_simple",
+      "task_type_inferred": "pick_and_place_simple",
+      "type_correct": true,
+      "task_desc": "Take the pencil from the desk, put it back on the desk",
+      "steps": 50,
+      "won": false,
+      "walkthrough_len": 0
+    }
+  ],
+  "elapsed_seconds": 31.02401113510132
+}

@@ -119,7 +119,31 @@ class HexagramGaitRules:
     }
     
     def __init__(self):
+        # 爻位关系权重（可在线调参）
+        # 当位: 占多重 | 得中: 占多重 | 乘承: 占多重 | 比: 占多重 | 应: 占多重
+        self.relation_weights = {
+            'dangwei': 0.40,
+            'dezhong': 0.20,
+            'cheng_cheng': 0.15,
+            'bi': 0.10,
+            'ying': 0.15,
+        }
         self._build_full_templates()
+    
+    def update_template(self, hexagram_id, new_template):
+        """在线更新单个卦的爻模板"""
+        self.HEXAGRAM_YAO_TEMPLATES[hexagram_id] = np.clip(np.array(new_template), 0.02, 0.98).tolist()
+    
+    def update_all_force_coefficients(self, delta):
+        """批量调整所有卦的力系数（如设备老化补偿）"""
+        for hid in range(1, 65):
+            rule = list(self.HEXAGRAM_GAIT_RULES[hid])
+            rule[4] = round(np.clip(rule[4] + delta, 0.10, 0.98), 2)
+            self.HEXAGRAM_GAIT_RULES[hid] = tuple(rule)
+    
+    def get_template(self, hexagram_id):
+        """获取某个卦的爻模板（返回numpy副本）"""
+        return np.array(self.HEXAGRAM_YAO_TEMPLATES.get(hexagram_id, [0.5]*6))
     
     def _build_full_templates(self):
         """为所有64卦生成爻模板"""

@@ -1,0 +1,41 @@
+{
+  "push_recovery": {
+    "static": {
+      "fell_count": 1,
+      "recovery_time": 3.999999999999382
+    },
+    "adaptive": {
+      "fell_count": 1,
+      "recovery_time": 3.999999999999382,
+      "adaptations": 0
+    }
+  },
+  "ice_gait": {
+    "static": {
+      "fell_count": 1
+    },
+    "adaptive": {
+      "fell_count": 1,
+      "adaptations": 90
+    }
+  },
+  "template_recovery": {
+    "target_hexs": [
+      1,
+      14,
+      21,
+      25,
+      33,
+      34,
+      42,
+      51,
+      55
+    ],
+    "init_mean_dist": 0.461,
+    "final_mean_dist": 0.461,
+    "improvement": 0.0,
+    "correct_rate": 0.1,
+    "late_correct_rate": 0.2,
+    "total_adaptations": 72
+  }
+}

@@ -1,0 +1,9 @@
+obj_id,obj_type,obj_variant,trial,hexagram_name,hexagram_similarity,strategy_type,force_preset,modifier,effective_force,S_yao,inference_ms,strategy_label,difficulty,occluded,yao_relations_enabled
+0,sphere,网球,0,SUI,0.9913,following_grasp,0.42,0.85,0.36,0.38,3.71,reasonable,medium,False,True
+1,cube,塑料积木,0,LIN,0.9857,top_down_grasp,0.45,1.0,0.45,0.52,3.47,neutral,medium,False,True
+2,cylinder,笔筒,0,GOU,0.9409,adaptive_grasp,0.4,0.8,0.32,0.39,3.47,reasonable,medium,False,True
+3,bowl,塑料碗,0,YI_GUA,0.9762,progressive_grasp,0.4,1.0,0.4,0.52,3.51,neutral,medium,False,True
+4,bottle,塑料瓶,0,TONGREN,0.9444,coordinated_grasp,0.5,1.0,0.5,0.52,3.42,neutral,medium,False,True
+5,plate,纸盘,0,LI_GUA,0.9774,adhesion_grasp,0.4,1.0,0.4,0.65,3.45,neutral,medium,False,True
+6,rock,不规则石块,0,YU,0.9767,predictive_grasp,0.47,1.05,0.49,0.56,3.48,neutral,medium,False,True
+7,vase,陶瓷花瓶,0,XIAN,0.9903,tactile_feedback_grasp,0.4,1.0,0.4,0.52,3.72,neutral,medium,False,True
