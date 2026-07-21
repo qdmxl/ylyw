@@ -1,0 +1,23 @@
+{
+  "random": {
+    "sphere": {
+      "ok": 9,
+      "n": 9,
+      "avg_lift": 67.0
+    }
+  },
+  "openloop": {
+    "sphere": {
+      "ok": 9,
+      "n": 9,
+      "avg_lift": 47.7
+    }
+  },
+  "ylyw": {
+    "sphere": {
+      "ok": 9,
+      "n": 9,
+      "avg_lift": 44.7
+    }
+  }
+}

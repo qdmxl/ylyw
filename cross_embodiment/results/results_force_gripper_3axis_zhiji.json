@@ -1,0 +1,206 @@
+{
+  "body_type": "force_gripper_3axis",
+  "label": "\u529b\u63a7\u5939\u722a+3\u8f74\u81c2",
+  "use_zhiji": true,
+  "results": {
+    "sphere_(0mm, 0mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "sphere_(20mm, 20mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "box_(0mm, 0mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "box_(20mm, 20mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "cylinder_(0mm, 0mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "cylinder_(20mm, 20mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "long_rod_(0mm, 0mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "long_rod_(20mm, 20mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "mushroom_(0mm, 0mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "mushroom_(20mm, 20mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "dumbbell_(0mm, 0mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "dumbbell_(20mm, 20mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "disc_(0mm, 0mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    },
+    "disc_(20mm, 20mm)": {
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "std_lift": 0.0,
+      "avg_steps": 52
+    }
+  },
+  "summary": [
+    {
+      "body": "force_gripper_3axis",
+      "object": "sphere",
+      "offset": "(0mm, 0mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "sphere",
+      "offset": "(20mm, 20mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "box",
+      "offset": "(0mm, 0mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "box",
+      "offset": "(20mm, 20mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "cylinder",
+      "offset": "(0mm, 0mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "cylinder",
+      "offset": "(20mm, 20mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "long_rod",
+      "offset": "(0mm, 0mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "long_rod",
+      "offset": "(20mm, 20mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "mushroom",
+      "offset": "(0mm, 0mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "mushroom",
+      "offset": "(20mm, 20mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "dumbbell",
+      "offset": "(0mm, 0mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "dumbbell",
+      "offset": "(20mm, 20mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "disc",
+      "offset": "(0mm, 0mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    },
+    {
+      "body": "force_gripper_3axis",
+      "object": "disc",
+      "offset": "(20mm, 20mm)",
+      "sr": 100.0,
+      "avg_lift": 44.8,
+      "avg_steps": 52
+    }
+  ],
+  "timestamp": "2026-06-28 07:52:25"
+}

@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "type": "yao_online_tuner",
+  "release_confidence": {
+    "plate": {
+      "countertop": 32.0
+    },
+    "bowl": {
+      "countertop": 16.0,
+      "cabinet": 32.0,
+      "microwave": 16.0
+    },
+    "soapbar": {
+      "garbagecan": 70.0,
+      "countertop": 48.0,
+      "cabinet": 80.0
+    },
+    "mug": {
+      "cabinet": 93.0,
+      "coffeemachine": 80.0,
+      "desk": 48.0
+    },
+    "cup": {
+      "cabinet": 51.0,
+      "countertop": 45.0
+    },
+    "pencil": {
+      "desk": 48.0
+    },
+    "knife": {
+      "countertop": 45.0
+    },
+    "butterknife": {
+      "countertop": 3.0
+    },
+    "keychain": {
+      "safe": 64.0
+    },
+    "pillow": {
+      "sofa": 96.0
+    },
+    "potato": {
+      "garbagecan": 32.0,
+      "microwave": 32.0
+    },
+    "apple": {
+      "garbagecan": 48.0,
+      "fridge": 32.0,
+      "countertop": 16.0
+    },
+    "tomato": {
+      "garbagecan": 32.0,
+      "microwave": 32.0
+    },
+    "saltshaker": {
+      "drawer": 96.0
+    },
+    "egg": {
+      "garbagecan": 48.0,
+      "microwave": 48.0
+    },
+    "bread": {
+      "countertop": 48.0
+    },
+    "cloth": {
+      "cabinet": 32.0,
+      "countertop": 16.0
+    },
+    "pan": {
+      "countertop": 64.0
+    },
+    "vase": {
+      "safe": 48.0
+    },
+    "soapbottle": {
+      "cabinet": 16.0,
+      "toilet": 48.0,
+      "garbagecan": 26.0
+    },
+    "toiletpaper": {
+      "cabinet": 32.0
+    },
+    "peppershaker": {
+      "cabinet": 32.0,
+      "drawer": 96.0
+    },
+    "watch": {
+      "safe": 48.0
+    },
+    "lettuce": {
+      "countertop": 48.0
+    },
+    "cd": {
+      "safe": 64.0
+    },
+    "spatula": {
+      "drawer": 32.0
+    }
+  },
+  "take_confidence": {
+    "plate": {
+      "countertop": 20.0
+    },
+    "bowl": {
+      "cabinet": 20.0,
+      "shelf": 10.0,
+      "countertop": 10.0,
+      "desk": 30.0
+    },
+    "soapbar": {
+      "countertop": 120.0,
+      "toilet": 4.0
+    },
+    "mug": {
+      "desk": 20.0,
+      "coffeemachine": 78.0,
+      "countertop": 40.0,
+      "shelf": 30.0
+    },
+    "cup": {
+      "sinkbasin": 20.0,
+      "countertop": 30.0,
+      "cabinet": 12.0
+    },
+    "pencil": {
+      "desk": 60.0
+    },
+    "knife": {
+      "countertop": 28.0
+    },
+    "butterknife": {
+      "countertop": 2.0
+    },
+    "keychain": {
+      "dresser": 20.0,
+      "sidetable": 10.0,
+      "safe": 10.0
+    },
+    "alarmclock": {
+      "desk": 20.0
+    },
+    "pillow": {
+      "armchair": 60.0
+    },
+    "potato": {
+      "countertop": 50.0
+    },
+    "apple": {
+      "countertop": 30.0,
+      "garbagecan": 30.0
+    },
+    "tomato": {
+      "countertop": 50.0,
+      "garbagecan": 10.0
+    },
+    "saltshaker": {
+      "cabinet": 20.0,
+      "countertop": 30.0,
+      "drawer": 10.0
+    },
+    "egg": {
+      "garbagecan": 10.0,
+      "countertop": 50.0
+    },
+    "bread": {
+      "countertop": 30.0
+    },
+    "cloth": {
+      "cabinet": 20.0,
+      "countertop": 10.0
+    },
+    "pan": {
+      "stoveburner": 60.0
+    },
+    "book": {
+      "bed": 30.0
+    },
+    "vase": {
+      "shelf": 20.0,
+      "dresser": 10.0
+    },
+    "soapbottle": {
+      "countertop": 58.0,
+      "garbagecan": 8.0
+    },
+    "toiletpaper": {
+      "toilet": 10.0,
+      "cabinet": 10.0
+    },
+    "peppershaker": {
+      "cabinet": 40.0,
+      "drawer": 30.0,
+      "countertop": 10.0
+    },
+    "watch": {
+      "drawer": 10.0,
+      "dresser": 20.0
+    },
+    "lettuce": {
+      "countertop": 30.0
+    },
+    "cd": {
+      "desk": 60.0
+    },
+    "spatula": {
+      "countertop": 30.0
+    }
+  },
+  "container_preference": {
+    "plate": {
+      "countertop 3": 16.0,
+      "countertop 1": 16.0
+    },
+    "bowl": {
+      "countertop 3": 16.0,
+      "cabinet 3": 32.0,
+      "microwave 1": 16.0
+    },
+    "soapbar": {
+      "garbagecan 1": 70.0,
+      "countertop 1": 48.0,
+      "cabinet 1": 64.0,
+      "cabinet 2": 16.0
+    },
+    "mug": {
+      "cabinet 1": 93.0,
+      "coffeemachine 1": 80.0,
+      "desk 1": 48.0
+    },
+    "cup": {
+      "cabinet 3": 11.0,
+      "cabinet 1": 40.0,
+      "countertop 1": 45.0
+    },
+    "pencil": {
+      "desk 2": 48.0
+    },
+    "knife": {
+      "countertop 3": 32.0,
+      "countertop 1": 13.0
+    },
+    "butterknife": {
+      "countertop 3": 3.0
+    },
+    "keychain": {
+      "safe 1": 64.0
+    },
+    "pillow": {
+      "sofa 1": 96.0
+    },
+    "potato": {
+      "garbagecan 1": 32.0,
+      "microwave 1": 32.0
+    },
+    "apple": {
+      "garbagecan 1": 48.0,
+      "fridge 1": 32.0,
+      "countertop 1": 16.0
+    },
+    "tomato": {
+      "garbagecan 1": 32.0,
+      "microwave 1": 32.0
+    },
+    "saltshaker": {
+      "drawer 1": 61.0,
+      "drawer 3": 3.0,
+      "drawer 2": 32.0
+    },
+    "egg": {
+      "garbagecan 1": 48.0,
+      "microwave 1": 48.0
+    },
+    "bread": {
+      "countertop 1": 48.0
+    },
+    "cloth": {
+      "cabinet 1": 16.0,
+      "cabinet 3": 16.0,
+      "countertop 1": 16.0
+    },
+    "pan": {
+      "countertop 1": 64.0
+    },
+    "vase": {
+      "safe 1": 48.0
+    },
+    "soapbottle": {
+      "cabinet 2": 16.0,
+      "toilet 1": 48.0,
+      "garbagecan 1": 26.0
+    },
+    "toiletpaper": {
+      "cabinet 1": 16.0,
+      "cabinet 2": 16.0
+    },
+    "peppershaker": {
+      "cabinet 3": 32.0,
+      "drawer 1": 64.0,
+      "drawer 2": 32.0
+    },
+    "watch": {
+      "safe 1": 48.0
+    },
+    "lettuce": {
+      "countertop 3": 32.0,
+      "countertop 2": 16.0
+    },
+    "cd": {
+      "safe 1": 64.0
+    },
+    "spatula": {
+      "drawer 3": 32.0
+    }
+  }
+}

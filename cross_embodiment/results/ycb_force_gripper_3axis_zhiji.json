@@ -1,0 +1,1245 @@
+{
+  "config": {
+    "body_type": "force_gripper_3axis",
+    "n_objects": 17,
+    "n_repeats": 5
+  },
+  "summary": {
+    "body_type": "force_gripper_3axis",
+    "label": "\u529b\u63a7\u5939\u722a+3\u8f74\u81c2",
+    "n_objects": 17,
+    "n_repeats": 5,
+    "total_trials": 85,
+    "total_success": 85,
+    "success_rate": 100.0,
+    "avg_lift": 44.8,
+    "peak_lift": 44.8,
+    "type_stats": {
+      "sphere": {
+        "sr": 100.0,
+        "avg_lift": 44.8
+      },
+      "cube": {
+        "sr": 100.0,
+        "avg_lift": 44.8
+      },
+      "cylinder": {
+        "sr": 100.0,
+        "avg_lift": 44.8
+      },
+      "bowl": {
+        "sr": 100.0,
+        "avg_lift": 44.8
+      },
+      "bottle": {
+        "sr": 100.0,
+        "avg_lift": 44.8
+      },
+      "plate": {
+        "sr": 100.0,
+        "avg_lift": 44.8
+      },
+      "rock": {
+        "sr": 100.0,
+        "avg_lift": 44.8
+      },
+      "vase": {
+        "sr": 100.0,
+        "avg_lift": 44.8
+      }
+    },
+    "timestamp": "2026-06-28 08:01:46"
+  },
+  "results": [
+    {
+      "obj_id": "tennis_ball",
+      "obj_type": "sphere",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "tennis_ball",
+      "obj_type": "sphere",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "tennis_ball",
+      "obj_type": "sphere",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "tennis_ball",
+      "obj_type": "sphere",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "tennis_ball",
+      "obj_type": "sphere",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "pingpong_ball",
+      "obj_type": "sphere",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "pingpong_ball",
+      "obj_type": "sphere",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "pingpong_ball",
+      "obj_type": "sphere",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "pingpong_ball",
+      "obj_type": "sphere",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "pingpong_ball",
+      "obj_type": "sphere",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "golf_ball",
+      "obj_type": "sphere",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "golf_ball",
+      "obj_type": "sphere",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "golf_ball",
+      "obj_type": "sphere",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "golf_ball",
+      "obj_type": "sphere",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "golf_ball",
+      "obj_type": "sphere",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "wooden_block",
+      "obj_type": "cube",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "wooden_block",
+      "obj_type": "cube",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "wooden_block",
+      "obj_type": "cube",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "wooden_block",
+      "obj_type": "cube",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "wooden_block",
+      "obj_type": "cube",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "metal_cube",
+      "obj_type": "cube",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "metal_cube",
+      "obj_type": "cube",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "metal_cube",
+      "obj_type": "cube",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "metal_cube",
+      "obj_type": "cube",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "metal_cube",
+      "obj_type": "cube",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "soda_can",
+      "obj_type": "cylinder",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "soda_can",
+      "obj_type": "cylinder",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "soda_can",
+      "obj_type": "cylinder",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "soda_can",
+      "obj_type": "cylinder",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "soda_can",
+      "obj_type": "cylinder",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "water_bottle",
+      "obj_type": "cylinder",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "water_bottle",
+      "obj_type": "cylinder",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "water_bottle",
+      "obj_type": "cylinder",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "water_bottle",
+      "obj_type": "cylinder",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "water_bottle",
+      "obj_type": "cylinder",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bowl",
+      "obj_type": "bowl",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bowl",
+      "obj_type": "bowl",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bowl",
+      "obj_type": "bowl",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bowl",
+      "obj_type": "bowl",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bowl",
+      "obj_type": "bowl",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_bowl",
+      "obj_type": "bowl",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_bowl",
+      "obj_type": "bowl",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_bowl",
+      "obj_type": "bowl",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_bowl",
+      "obj_type": "bowl",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_bowl",
+      "obj_type": "bowl",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_bottle",
+      "obj_type": "bottle",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_bottle",
+      "obj_type": "bottle",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_bottle",
+      "obj_type": "bottle",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_bottle",
+      "obj_type": "bottle",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_bottle",
+      "obj_type": "bottle",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bottle",
+      "obj_type": "bottle",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bottle",
+      "obj_type": "bottle",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bottle",
+      "obj_type": "bottle",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bottle",
+      "obj_type": "bottle",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_bottle",
+      "obj_type": "bottle",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_plate",
+      "obj_type": "plate",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_plate",
+      "obj_type": "plate",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_plate",
+      "obj_type": "plate",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_plate",
+      "obj_type": "plate",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_plate",
+      "obj_type": "plate",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_plate",
+      "obj_type": "plate",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_plate",
+      "obj_type": "plate",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_plate",
+      "obj_type": "plate",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_plate",
+      "obj_type": "plate",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "plastic_plate",
+      "obj_type": "plate",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "irregular_rock",
+      "obj_type": "rock",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "irregular_rock",
+      "obj_type": "rock",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "irregular_rock",
+      "obj_type": "rock",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "irregular_rock",
+      "obj_type": "rock",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "irregular_rock",
+      "obj_type": "rock",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "smooth_stone",
+      "obj_type": "rock",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "smooth_stone",
+      "obj_type": "rock",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "smooth_stone",
+      "obj_type": "rock",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "smooth_stone",
+      "obj_type": "rock",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "smooth_stone",
+      "obj_type": "rock",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_vase",
+      "obj_type": "vase",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_vase",
+      "obj_type": "vase",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_vase",
+      "obj_type": "vase",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_vase",
+      "obj_type": "vase",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "ceramic_vase",
+      "obj_type": "vase",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_vase",
+      "obj_type": "vase",
+      "trial": 0,
+      "offset": [
+        0.002928810235639484,
+        0.012911361982345167
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_vase",
+      "obj_type": "vase",
+      "trial": 1,
+      "offset": [
+        0.002604296507457929,
+        -0.01329783689437223
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_vase",
+      "obj_type": "vase",
+      "trial": 2,
+      "offset": [
+        0.026857935411100216,
+        -0.01640715473209662
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_vase",
+      "obj_type": "vase",
+      "trial": 3,
+      "offset": [
+        -0.0029326458779967146,
+        -0.016738659497187273
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    },
+    {
+      "obj_id": "glass_vase",
+      "obj_type": "vase",
+      "trial": 4,
+      "offset": [
+        0.010123734530050478,
+        -0.016440091794092712
+      ],
+      "success": true,
+      "peak_lift_mm": 44.8,
+      "final_lift_mm": 44.8,
+      "steps": 50,
+      "hold_count": 50
+    }
+  ]
+}

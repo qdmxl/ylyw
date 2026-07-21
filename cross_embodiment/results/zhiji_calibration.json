@@ -1,0 +1,70 @@
+{
+  "version": 2,
+  "body_stats": {
+    "arm6_hand": {
+      "total_attempts": 9,
+      "total_successes": 0,
+      "avg_lift": 43.9206837891417,
+      "strategies_used": {
+        "withdraw_grasp": 7,
+        "balanced_grasp": 2
+      },
+      "objects_tried": [
+        "tennis_ball",
+        "golf_ball",
+        "pingpong_ball"
+      ]
+    }
+  },
+  "param_calibration": {
+    "arm6_hand": {
+      "tennis_ball": {
+        "speed_factor": 1.0,
+        "force_factor": 1.0,
+        "xy_tracking_gain": 1.2249999999999999,
+        "lift_target": 0.12,
+        "decoder_gains": {},
+        "encoder_thresholds": {},
+        "l1_step_force": 0.1,
+        "l1_step_xy": 0.05,
+        "l1_step_lift": 0.01,
+        "strategy_attrs": {}
+      },
+      "pingpong_ball": {
+        "speed_factor": 1.0,
+        "force_factor": 1.0,
+        "xy_tracking_gain": 1.2249999999999999,
+        "lift_target": 0.12,
+        "decoder_gains": {},
+        "encoder_thresholds": {},
+        "l1_step_force": 0.1,
+        "l1_step_xy": 0.05,
+        "l1_step_lift": 0.01,
+        "strategy_attrs": {}
+      },
+      "golf_ball": {
+        "speed_factor": 1.0,
+        "force_factor": 1.0,
+        "xy_tracking_gain": 1.2249999999999999,
+        "lift_target": 0.12,
+        "decoder_gains": {},
+        "encoder_thresholds": {},
+        "l1_step_force": 0.1,
+        "l1_step_xy": 0.05,
+        "l1_step_lift": 0.01,
+        "strategy_attrs": {}
+      }
+    }
+  },
+  "yao_bias": {
+    "arm6_hand": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "strategy_remap": {}
+}

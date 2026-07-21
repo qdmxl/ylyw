@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>系统架构图</title></head>
+<body style="margin:0;background:#fff;font-family:'Microsoft YaHei',sans-serif;font-size:14px;">
+<div style="width:800px;height:720px;position:relative;margin:20px auto;">
+
+<!-- 顶部：任务输入 -->
+<div style="position:absolute;top:10px;left:300px;width:200px;height:40px;background:#4A90D9;color:#fff;border-radius:8px;text-align:center;line-height:40px;font-weight:bold;">任务描述 (英文)</div>
+
+<!-- 箭头：任务输入→翻译 -->
+<div style="position:absolute;top:50px;left:400px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #666;"></div>
+
+<!-- 翻译块 -->
+<div style="position:absolute;top:65px;left:310px;width:180px;height:35px;background:#E8EEF7;border:1px solid #4A90D9;border-radius:6px;text-align:center;line-height:35px;">翻译为中文</div>
+
+<!-- Phase A 框 -->
+<div style="position:absolute;top:15px;left:20px;width:760px;height:110px;border:2px dashed #4A90D9;border-radius:10px;"></div>
+<div style="position:absolute;top:5px;left:30px;background:#fff;padding:0 8px;color:#4A90D9;font-weight:bold;font-size:13px;">Phase A 任务理解</div>
+
+<!-- 箭头：翻译→HanziEngine -->
+<div style="position:absolute;top:82px;left:400px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #666;"></div>
+
+<!-- HanziEngine -->
+<div style="position:absolute;top:100px;left:250px;width:300px;height:45px;background:#F0E68C;border:2px solid #B8860B;border-radius:8px;text-align:center;padding-top:8px;font-weight:bold;font-size:13px;">
+HanziEngine.sentence()<br>
+<span style="font-weight:normal;font-size:12px;">分词+角色+卦象+时序+依存</span>
+</div>
+
+<!-- 箭头：HanziEngine→输出参数 -->
+<div style="position:absolute;top:145px;left:400px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #666;"></div>
+
+<!-- 输出参数 -->
+<div style="position:absolute;top:155px;left:110px;width:580px;height:45px;background:#F5F5F5;border:1px solid #999;border-radius:6px;text-align:center;padding-top:8px;font-size:12px;">
+<span style="color:#4A90D9;font-weight:bold;">task_type</span> (清洗/冷却/加热/...) 
+<span style="color:#D2691E;font-weight:bold;">target_obj</span> (盘子/杯子/肥皂/...) 
+<span style="color:#228B22;font-weight:bold;">target_loc</span> (柜台/柜子/冰箱/...) 
+<span style="color:#8B0000;font-weight:bold;">preproc_loc</span> (水槽/微波炉/冰箱)
+</div>
+
+<!-- Phase B 框 -->
+<div style="position:absolute;top:210px;left:20px;width:760px;height:340px;border:2px dashed #D2691E;border-radius:10px;"></div>
+<div style="position:absolute;top:200px;left:30px;background:#fff;padding:0 8px;color:#D2691E;font-weight:bold;font-size:13px;">Phase B 每步决策循环</div>
+
+<!-- 决策循环中的三个盒子 -->
+<!-- Observ解析 -->
+<div style="position:absolute;top:240px;left:40px;width:200px;height:70px;background:#FFF3E0;border:2px solid #FF8C00;border-radius:8px;text-align:center;padding-top:15px;">
+<strong>ObsParser</strong><br>
+<span style="font-size:12px;">位置·库存·容器·可见物</span>
+</div>
+
+<!-- 箭头 -->
+<div style="position:absolute;top:275px;left:240px;width:30px;height:2px;background:#666;"></div>
+<div style="position:absolute;top:269px;left:270px;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:10px solid #666;"></div>
+
+<!-- 六爻编码 -->
+<div style="position:absolute;top:240px;left:280px;width:180px;height:70px;background:#E8F5E9;border:2px solid #388E3C;border-radius:8px;text-align:center;padding-top:8px;">
+<strong>build_yao()</strong><br>
+<span style="font-size:12px;">状态→[y₀ y₁ y₂ y₃ y₄ y₅]</span>
+</div>
+
+<!-- 箭头 -->
+<div style="position:absolute;top:275px;left:460px;width:30px;height:2px;background:#666;"></div>
+<div style="position:absolute;top:269px;left:490px;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:10px solid #666;"></div>
+
+<!-- 模糊规则 -->
+<div style="position:absolute;top:240px;left:500px;width:180px;height:70px;background:#FCE4EC;border:2px solid #C62828;border-radius:8px;text-align:center;padding-top:8px;">
+<strong>fuzzy_decide()</strong><br>
+<span style="font-size:12px;">8规则→调用意图</span>
+</div>
+
+<!-- 箭头下转 -->
+<div style="position:absolute;top:310px;left:590px;width:2px;height:30px;background:#666;"></div>
+<div style="position:absolute;top:340px;left:586px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #666;"></div>
+
+<!-- 动作构造 -->
+<div style="position:absolute;top:350px;left:430px;width:200px;height:55px;background:#EDE7F6;border:2px solid #6A1B9A;border-radius:8px;text-align:center;padding-top:12px;">
+<strong>pick_action()</strong><br>
+<span style="font-size:12px;">意图→具体ALFWorld命令</span>
+</div>
+
+<!-- 箭头左转 -->
+<div style="position:absolute;top:378px;left:390px;width:40px;height:2px;background:#666;"></div>
+<div style="position:absolute;top:372px;left:390px;width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-right:10px solid #666;"></div>
+
+<!-- 环境执行 -->
+<div style="position:absolute;top:350px;left:240px;width:150px;height:55px;background:#FFEBEE;border:2px solid #B71C1C;border-radius:8px;text-align:center;padding-top:12px;">
+<strong>env.step()</strong><br>
+<span style="font-size:12px;">执行→新obs</span>
+</div>
+
+<!-- 箭头下转 -->
+<div style="position:absolute;top:405px;left:315px;width:2px;height:20px;background:#666;"></div>
+<div style="position:absolute;top:425px;left:311px;width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid #666;"></div>
+
+<!-- 反馈更新 -->
+<div style="position:absolute;top:435px;left:230px;width:170px;height:45px;background:#FFF9C4;border:2px solid #F57F17;border-radius:8px;text-align:center;padding-top:10px;">
+<strong>update()</strong><br>
+<span style="font-size:12px;">反馈→更新六爻状态</span>
+</div>
+
+<!-- 回环箭头 ← -->
+<div style="position:absolute;top:270px;left:220px;width:20px;height:200px;border:2px solid #999;border-right:none;border-bottom:none;border-top-left-radius:10px;border-bottom-left-radius:10px;"></div>
+<div style="position:absolute;top:270px;left:222px;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:10px solid #999;transform:rotate(135deg);"></div>
+<div style="position:absolute;top:468px;left:215px;font-size:11px;color:#666;">决策循环</div>
+
+<!-- Phase C 框 -->
+<div style="position:absolute;top:560px;left:20px;width:760px;height:70px;border:2px dashed #228B22;border-radius:10px;"></div>
+<div style="position:absolute;top:550px;left:30px;background:#fff;padding:0 8px;color:#228B22;font-weight:bold;font-size:13px;">Phase C 知几学习（跨局）</div>
+
+<!-- 知几 -->
+<div style="position:absolute;top:575px;left:110px;width:200px;height:40px;background:#E8F5E9;border:2px solid #228B22;border-radius:8px;text-align:center;line-height:40px;">
+<strong>ZhijiLearning</strong> K=K_prior⊕K_calibration
+</div>
+
+<!-- 知几三种经验 -->
+<div style="position:absolute;top:575px;left:350px;width:400px;height:40px;background:#F5F5F5;border:1px solid #999;border-radius:6px;text-align:center;line-height:40px;font-size:12px;">
+同义词校准 / 位置先验校准 / 场景结构校准 → 注入下一局
+</div>
+
+<!-- 图例 -->
+<div style="position:absolute;top:640px;left:40px;font-size:12px;color:#666;">
+<span style="display:inline-block;width:12px;height:12px;background:#4A90D9;border-radius:2px;vertical-align:middle;"></span> Phase A 任务理解
+<span style="display:inline-block;width:12px;height:12px;background:#FF8C00;border-radius:2px;vertical-align:middle;margin-left:15px;"></span> Phase B 决策循环 
+<span style="display:inline-block;width:12px;height:12px;background:#228B22;border-radius:2px;vertical-align:middle;margin-left:15px;"></span> Phase C 知几学习
+</div>
+
+</div>
+</body>
+</html>

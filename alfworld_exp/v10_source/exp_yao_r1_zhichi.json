@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "type": "zhichi",
+  "failures_observed": 36,
+  "wrong_take_map": {
+    "knife": [
+      "butterknife"
+    ]
+  },
+  "object_negative_locations": {
+    "box": {
+      "desk": 10,
+      "shelf": 26,
+      "bed": 1,
+      "drawer": 6,
+      "garbagecan": 1,
+      "laundryhamper": 1,
+      "safe": 1
+    },
+    "tomato": {
+      "countertop": 4,
+      "microwave": 2,
+      "cabinet": 38,
+      "coffeemachine": 6,
+      "drawer": 6,
+      "fridge": 2,
+      "garbagecan": 2,
+      "shelf": 6,
+      "sinkbasin": 2,
+      "stoveburner": 8,
+      "toaster": 2
+    },
+    "mug": {
+      "fridge": 1,
+      "cabinet": 19,
+      "countertop": 3,
+      "drawer": 3,
+      "garbagecan": 1,
+      "microwave": 1,
+      "shelf": 3,
+      "sinkbasin": 1,
+      "stoveburner": 4,
+      "toaster": 1,
+      "coffeemachine": 2
+    },
+    "cup": {
+      "fridge": 1,
+      "cabinet": 19,
+      "countertop": 3,
+      "drawer": 3,
+      "garbagecan": 1,
+      "microwave": 1,
+      "shelf": 3,
+      "sinkbasin": 1,
+      "stoveburner": 4,
+      "toaster": 1,
+      "coffeemachine": 2
+    },
+    "potato": {
+      "microwave": 1,
+      "cabinet": 19,
+      "coffeemachine": 3,
+      "countertop": 2,
+      "drawer": 3,
+      "fridge": 1,
+      "garbagecan": 1,
+      "shelf": 3,
+      "sinkbasin": 1,
+      "stoveburner": 4,
+      "toaster": 1
+    },
+    "spatula": {
+      "countertop": 2,
+      "sinkbasin": 1,
+      "cabinet": 19,
+      "coffeemachine": 3,
+      "drawer": 3,
+      "fridge": 1,
+      "garbagecan": 1,
+      "microwave": 1,
+      "shelf": 3,
+      "stoveburner": 4,
+      "toaster": 1
+    }
+  },
+  "phase_fail_counts": {
+    "pick_clean_then_place_in_recep": {
+      "post_plan": 3,
+      "find_object": 1,
+      "use_tool": 1,
+      "find_recep": 1
+    },
+    "look_at_obj_in_light": {
+      "find_object": 3
+    },
+    "pick_cool_then_place_in_recep": {
+      "post_plan": 3,
+      "find_recep": 3
+    },
+    "pick_and_place_simple": {
+      "post_plan": 7,
+      "find_object": 1
+    },
+    "pick_heat_then_place_in_recep": {
+      "post_plan": 4,
+      "find_recep": 1
+    },
+    "pick_two_obj_and_place": {
+      "post_plan": 7,
+      "find_object": 1
+    }
+  },
+  "step_budget_hints": {
+    "look_at_obj_in_light": "高探索率(3/3次)仍未找到目标，优先open closed容器（如cabinet、drawer、fridge等）"
+  },
+  "failure_clusters": {
+    "pick_clean_then_place_in_recep|post_plan|FloorPlan10|True|False": 3,
+    "look_at_obj_in_light|find_object|FloorPlan308|False|False": 3,
+    "pick_cool_then_place_in_recep|post_plan|FloorPlan10|True|False": 3,
+    "pick_and_place_simple|post_plan|FloorPlan308|True|False": 3,
+    "pick_heat_then_place_in_recep|post_plan|FloorPlan10|True|False": 4,
+    "pick_two_obj_and_place|post_plan|FloorPlan219|True|False": 1,
+    "pick_heat_then_place_in_recep|find_recep|FloorPlan10|True|True": 1,
+    "pick_clean_then_place_in_recep|find_object|FloorPlan424|False|False": 1,
+    "pick_cool_then_place_in_recep|find_recep|FloorPlan10|True|True": 3,
+    "pick_clean_then_place_in_recep|use_tool|FloorPlan424|True|True": 1,
+    "pick_two_obj_and_place|post_plan|FloorPlan424|True|False": 3,
+    "pick_and_place_simple|post_plan|FloorPlan10|True|False": 4,
+    "pick_and_place_simple|find_object|FloorPlan10|False|False": 1,
+    "pick_two_obj_and_place|post_plan|FloorPlan10|True|False": 3,
+    "pick_two_obj_and_place|find_object|FloorPlan308|False|False": 1,
+    "pick_clean_then_place_in_recep|find_recep|FloorPlan10|True|True": 1
+  }
+}

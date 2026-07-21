@@ -265,3 +265,63 @@ class ZhijiLearning:
             self.scene_openable[k] = set(v)
         for k, v in data.get('scene_empty_locations', {}).items():
             self.scene_empty_locations[k] = set(v)
+
+    # ====== 爻参数播种接口 ======
+
+    def get_score_for_release(self, obj_base: str, rec_base: str) -> float:
+        """
+        获取知几经验对某(物体,容器)释放组合的评分加成。
+
+        使用场景：在_act_put中叠加到爻参数上，或作为爻参数的初始化值。
+
+        Returns:
+            float: 0.0~3.0，经验越丰富加成越高
+        """
+        counts = self.object_location_counts.get(obj_base, {})
+        if not counts:
+            return 0.0
+
+        rec_count = counts.get(rec_base, 0)
+        if rec_count == 0:
+            return 0.0
+
+        total = sum(counts.values())
+        # 出现频率 × 3.0
+        return (rec_count / total) * 3.0 if total > 0 else 0.0
+
+    def seed_yao_tuner(self, yao_tuner, task_type: str = ''):
+        """
+        用知几积累的跨局经验初始化爻参数（基于场景和任务类型）。
+
+        场景关联的逻辑是：某物体出现在某位置上的频率越高，
+        将其释放到同类型位置上的初始爻参数越高。
+        这个先验知识来自知几的跨局统计，而非单局观察。
+
+        "见几而作" —— 见到微小征兆（跨局统计中的频率信号）就行动
+        """
+        if yao_tuner is None:
+            return
+
+        seed_count = 0
+        for obj_base, loc_counts in self.object_location_counts.items():
+            total = sum(loc_counts.values())
+            if total == 0:
+                continue
+            for loc_base, count in loc_counts.items():
+                # 频率越高，初始爻参数越高
+                ratio = count / total
+                if ratio >= 0.3:  # 频率≥30% → 强先验
+                    current = yao_tuner.get_release_score(obj_base, loc_base)
+                    if current == 0.0:
+                        # 初始值设为轻度乐观（1.0 + 频率加成）
+                        boost = 1.0 + ratio * 2.0  # 1.0 ~ 3.0
+                        yao_tuner.release_confidence[obj_base][loc_base] += boost
+                        seed_count += 1
+                    elif current < 0:
+                        # 如果有负面经验但知几认为频率高，提供正向抵消
+                        boost = ratio * 2.0
+                        yao_tuner.release_confidence[obj_base][loc_base] += boost
+                        seed_count += 1
+
+        if seed_count > 0 and yao_tuner.verbose:
+            print(f"    [知几→爻调] 用知几经验播种了 {seed_count} 个释放爻参数")

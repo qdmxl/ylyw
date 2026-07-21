@@ -1,0 +1,433 @@
+{
+  "total": 40,
+  "won": 17,
+  "elapsed": 155.48,
+  "by_type": {
+    "pick_clean_then_place_in_recep": {
+      "won": 3,
+      "total": 9
+    },
+    "pick_two_obj_and_place": {
+      "won": 2,
+      "total": 8
+    },
+    "look_at_obj_in_light": {
+      "won": 4,
+      "total": 6
+    },
+    "pick_cool_then_place_in_recep": {
+      "won": 2,
+      "total": 3
+    },
+    "pick_and_place_simple": {
+      "won": 1,
+      "total": 3
+    },
+    "pick_heat_then_place_in_recep": {
+      "won": 5,
+      "total": 11
+    }
+  },
+  "results": [
+    {
+      "game_idx": 0,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a clean plate on the counter.",
+      "won": true,
+      "steps": 8,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 1,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a clean yellow plate on the counter.",
+      "won": true,
+      "steps": 9,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 2,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "wash the dirty bowl before putting the bowl on the counter",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 5,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 3,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "To move two bars of soap to the gold bin. ",
+      "won": true,
+      "steps": 23,
+      "sg_idx": 5,
+      "sg_label": "放置",
+      "sg_progress": 0.83
+    },
+    {
+      "game_idx": 4,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "Throw both pieces of soap into the trash can.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 0,
+      "sg_label": "拿取",
+      "sg_progress": 0.0
+    },
+    {
+      "game_idx": 5,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "Throw two bars of soap in the trash bin.",
+      "won": true,
+      "steps": 25,
+      "sg_idx": 5,
+      "sg_label": "放置",
+      "sg_progress": 0.83
+    },
+    {
+      "game_idx": 6,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Look at a mug in lamp light.",
+      "won": true,
+      "steps": 7,
+      "sg_idx": 2,
+      "sg_label": "预处理",
+      "sg_progress": 0.67
+    },
+    {
+      "game_idx": 7,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Turn on the desk lamp.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 0,
+      "sg_label": "拿取",
+      "sg_progress": 0.0
+    },
+    {
+      "game_idx": 8,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Examine a mug using the light of a desk lamp. ",
+      "won": true,
+      "steps": 7,
+      "sg_idx": 2,
+      "sg_label": "预处理",
+      "sg_progress": 0.67
+    },
+    {
+      "game_idx": 9,
+      "task_type": "pick_cool_then_place_in_recep",
+      "task_desc": "Put a chilled mug in a cabinet.",
+      "won": true,
+      "steps": 9,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 10,
+      "task_type": "pick_cool_then_place_in_recep",
+      "task_desc": "Place a chilled mug in a cabinet.",
+      "won": true,
+      "steps": 10,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 11,
+      "task_type": "pick_cool_then_place_in_recep",
+      "task_desc": "Put a cold coffee up in the bottom cabinet. ",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 0,
+      "sg_label": "拿取",
+      "sg_progress": 0.0
+    },
+    {
+      "game_idx": 12,
+      "task_type": "pick_and_place_simple",
+      "task_desc": "Move a pencil on the desk over. ",
+      "won": true,
+      "steps": 16,
+      "sg_idx": 3,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 13,
+      "task_type": "pick_and_place_simple",
+      "task_desc": "Move the pencil to a different area of the desk.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 3,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 14,
+      "task_type": "pick_and_place_simple",
+      "task_desc": "Take the pencil from the desk, put it back on the desk",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 3,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 15,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "put a knife in the sink before standing it on the counter",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 3,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 16,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Wash a knife in the sink to place on a countertop.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 5,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 17,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Place a clean knife on a plate on the counter.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 5,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 18,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Place a heated cup in a cabinet",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 0,
+      "sg_label": "拿取",
+      "sg_progress": 0.0
+    },
+    {
+      "game_idx": 19,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Warm up the cup inside the cabinet.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 0,
+      "sg_label": "拿取",
+      "sg_progress": 0.0
+    },
+    {
+      "game_idx": 20,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Put a warm cup in the cabinet.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 0,
+      "sg_label": "拿取",
+      "sg_progress": 0.0
+    },
+    {
+      "game_idx": 21,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Fill up a mug with water and take to the coffee machine.",
+      "won": true,
+      "steps": 8,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 22,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a cleaned mug on the coffee maker to the right of the stove.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 0,
+      "sg_label": "拿取",
+      "sg_progress": 0.0
+    },
+    {
+      "game_idx": 23,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Pick up the white coffee cup, fill it in the sink, place it in the coffee maker. ",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 3,
+      "sg_label": "去目标",
+      "sg_progress": 0.6
+    },
+    {
+      "game_idx": 24,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "Put two sets of keys in the safe. ",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 3,
+      "sg_label": "取第二件",
+      "sg_progress": 0.5
+    },
+    {
+      "game_idx": 25,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "put two sets of keys inside safe",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 3,
+      "sg_label": "取第二件",
+      "sg_progress": 0.5
+    },
+    {
+      "game_idx": 26,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Hold the clock and turn on the lamp.",
+      "won": true,
+      "steps": 7,
+      "sg_idx": 2,
+      "sg_label": "预处理",
+      "sg_progress": 0.67
+    },
+    {
+      "game_idx": 27,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Turn on a lamp with a metal box. ",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 0,
+      "sg_label": "拿取",
+      "sg_progress": 0.0
+    },
+    {
+      "game_idx": 28,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Examine the alarm clock by the light",
+      "won": true,
+      "steps": 7,
+      "sg_idx": 2,
+      "sg_label": "预处理",
+      "sg_progress": 0.67
+    },
+    {
+      "game_idx": 29,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "Put two pillows on the sofa.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 3,
+      "sg_label": "取第二件",
+      "sg_progress": 0.5
+    },
+    {
+      "game_idx": 30,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "Put two pillows on the couch.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 2,
+      "sg_label": "放置",
+      "sg_progress": 0.33
+    },
+    {
+      "game_idx": 31,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "Put two pillows on the sofa.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 3,
+      "sg_label": "取第二件",
+      "sg_progress": 0.5
+    },
+    {
+      "game_idx": 32,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Heat up a potato and put it in the trash.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 1,
+      "sg_label": "去预处理",
+      "sg_progress": 0.2
+    },
+    {
+      "game_idx": 33,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Put a cooked potato in the garbage can. ",
+      "won": true,
+      "steps": 16,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 34,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "place a microwaved apple inside the garbage bin",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 5,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 35,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Put in the heated apple in the trash bin",
+      "won": true,
+      "steps": 7,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 36,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Put a warmed up apple in the trash can.",
+      "won": true,
+      "steps": 8,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 37,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Heat a tomato and throw it away.",
+      "won": false,
+      "steps": 50,
+      "sg_idx": 5,
+      "sg_label": "完成",
+      "sg_progress": 1.0
+    },
+    {
+      "game_idx": 38,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Heat a tomato and place in the bin. ",
+      "won": true,
+      "steps": 11,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    },
+    {
+      "game_idx": 39,
+      "task_type": "pick_heat_then_place_in_recep",
+      "task_desc": "Heat a tomato and place in a bin. ",
+      "won": true,
+      "steps": 8,
+      "sg_idx": 4,
+      "sg_label": "放置",
+      "sg_progress": 0.8
+    }
+  ]
+}

@@ -1,26 +1,40 @@
 #!/usr/bin/env python3
 """
-运行V10 Agent（V9 + 知耻学习）
+运行V10 Agent（V9 + 知耻学习 + 爻参数在线微调）
 
-知几+知耻学习模式：
-- 知几(zhiji): 从所有轨迹中学习同义词/位置先验/场景结构
+三层学习体系：
+- 知几(zhiji): 从成功/所有轨迹中学习同义词/位置先验/场景结构
 - 知耻(zhichi): 从失败轨迹中学习错拿排除/否定先验/瓶颈/open优先
-两者协同校准先验知识，实现更有效的经验积累。
+- 爻调(yao_tune): 在每局的抓取/释放过程中实时微调爻参数
+
+三者协同：知几(正向先验) + 爻调(局内快速适应) + 知耻(负向记忆)
+爻参数是抓取/释放阶段的实时自适应机制。
 """
 import sys, os, json, time, argparse, re
 from collections import defaultdict
+
+# 确保TMPDIR设置在安全位置（/tmp有usrquota限制导致Disk quota exceeded）
+# Python的tempfile.gettempdir()缓存了TMPDIR，所以import前就要设置
+import tempfile as _tf
+os.environ['TMPDIR'] = '/home/lijinhan/.tmp_alfworld'
+_tf.tempdir = None
+_tf.gettempdir()
+if not os.path.exists(os.environ['TMPDIR']):
+    os.makedirs(os.environ['TMPDIR'], exist_ok=True)
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from alfworld_official_wrapper import ALFWorldOfficial
 from ylyw_agent_v10 import YLYWAgentV10
 from zhiji_learning import ZhijiLearning
 from zhichi_learning import ZhichiLearning
+from yao_online_tuner import YaoOnlineTuner
 
 MAX_STEPS = 50
 
 
-def run_single(env, game_idx, agent, zhiji, zhichi, verbose=False):
-    """运行单个游戏，并收集轨迹供知几/知耻学习"""
+def run_single(env, game_idx, agent, zhiji, zhichi, yao_tuner=None, verbose=False):
+    """运行单个游戏，并收集轨迹供知几/知耻/爻调学习"""
     obs, info = env.reset(game_idx=game_idx)
     task_desc = info.get('task_desc', '')
     task_type_real = info.get('task_type', '')
@@ -34,6 +48,8 @@ def run_single(env, game_idx, agent, zhiji, zhichi, verbose=False):
     agent._zhiji = zhiji
     # 注入知耻学习引擎
     agent._zhichi = zhichi
+    # 注入爻参数在线微调器
+    agent._yao_tuner = yao_tuner
 
     agent.reset(task_desc=task_desc, task_type=use_type,
                 pddl_params=None,
@@ -107,18 +123,18 @@ def run_single(env, game_idx, agent, zhiji, zhichi, verbose=False):
     }
 
 
-def run_all(env, agent, zhiji, zhichi, verbose=False, max_games=0, output_file='ylyw_agent_v10_results.json'):
-    """顺序执行全部游戏（知几+知耻学习模式）"""
+def run_all(env, agent, zhiji, zhichi, yao_tuner=None, verbose=False, max_games=0, output_file='ylyw_agent_v10_results.json'):
+    """顺序执行全部游戏（知几+知耻+爻调学习模式）"""
     n = env.num_games if max_games <= 0 else min(max_games, env.num_games)
     results = []
     start = time.time()
 
-    print(f"\nYLYW Agent V10 (知几+知耻学习) — {n} games")
+    print(f"\nYLYW Agent V10 (知几+知耻+爻调) — {n} games")
     print("=" * 60)
 
     for i in range(n):
         try:
-            r = run_single(env, i, agent, zhiji, zhichi, verbose=verbose)
+            r = run_single(env, i, agent, zhiji, zhichi, yao_tuner=yao_tuner, verbose=verbose)
         except Exception as e:
             import traceback
             traceback.print_exc()
@@ -145,7 +161,7 @@ def run_all(env, agent, zhiji, zhichi, verbose=False, max_games=0, output_file='
     type_matches = sum(1 for r in results if r.get('type_match', False))
 
     print(f"\n{'='*60}")
-    print(f"  V10 Results (知几+知耻学习)")
+    print(f"  V10 Results (知几+知耻+爻调)")
     print(f"{'='*60}")
     print(f"  成功率: {total_wins}/{len(results)} = {total_wins/len(results)*100:.1f}%")
     print(f"  类型准确率: {type_matches}/{len(results)} = {type_matches/len(results)*100:.1f}%")
@@ -180,6 +196,26 @@ def run_all(env, agent, zhiji, zhichi, verbose=False, max_games=0, output_file='
     print(f"\n  知耻经验: fails_analyzed={zhichi_stats['failures_observed']}, "
           f"wrong_takes={len(zhichi_stats.get('wrong_take_map', {}))}, "
           f"neg_priors={len(zhichi_stats.get('negative_priors', {}))}")
+
+    # 爻参数统计
+    if yao_tuner is not None:
+        yao_stats = yao_tuner.get_stats()
+        rcp = yao_stats.get('release_confidence_pairs', {})
+        print(f"\n  爻参数在线微调统计:")
+        print(f"    释放爻正分对数: {rcp.get('positive', 0)}")
+        print(f"    释放爻负分对数: {rcp.get('negative', 0)}")
+        print(f"    释放爻排除对数: {rcp.get('blocked', 0)}")
+        print(f"    抓持爻对数: {yao_stats.get('take_confidence_pairs', 0)}")
+        rfc = yao_stats.get('release_fail_counts', {})
+        if rfc:
+            print(f"    释放累计失败: {len(rfc)}对")
+            for k, v in sorted(rfc.items(), key=lambda x: -x[1])[:5]:
+                print(f"      {k} × {v}次")
+        rsc = yao_stats.get('release_success_counts', {})
+        if rsc:
+            print(f"    释放累计成功: {len(rsc)}对")
+            for k, v in sorted(rsc.items(), key=lambda x: -x[1])[:5]:
+                print(f"      {k} × {v}次")
 
     by_type = defaultdict(list)
     for r in results:
@@ -224,6 +260,10 @@ if __name__ == '__main__':
                         help='实验前加载经验(读取 PREFIX_zhiji.json + PREFIX_zhichi.json)')
     parser.add_argument('--output', type=str, default='ylyw_agent_v10_results.json',
                         help='结果输出文件名')
+    parser.add_argument('--save-yao', type=str, default='',
+                        help='实验后保存爻参数经验(生成 PREFIX_yao.json)')
+    parser.add_argument('--load-yao', type=str, default='',
+                        help='实验前加载爻参数经验(读取 PREFIX_yao.json)')
     args = parser.parse_args()
 
     print("Creating env...")
@@ -231,6 +271,7 @@ if __name__ == '__main__':
     agent = YLYWAgentV10(verbose=args.verbose, use_oracle_type=False)
     zhiji = ZhijiLearning(verbose=args.verbose)
     zhichi = ZhichiLearning(verbose=args.verbose)
+    yao_tuner = YaoOnlineTuner(verbose=args.verbose)
 
     # 加载先前积累的经验
     if args.load_exp:
@@ -247,12 +288,44 @@ if __name__ == '__main__':
             print(f"  ✅ 加载知耻经验: {zhichi_path} ({zhichi.failures_observed}局失败)")
         else:
             print(f"  ⚠️ 知耻经验文件不存在: {zhichi_path}")
+    
+    # 加载爻参数经验
+    if args.load_yao:
+        import os
+        yao_path = f'{args.load_yao}_yao.json'
+        if os.path.exists(yao_path):
+            yao_tuner.load_experience(yao_path)
+            print(f"  ✅ 加载爻参数经验: {yao_path}")
+        else:
+            print(f"  ⚠️ 爻参数经验文件不存在: {yao_path}")
+    
+    # 用知几经验播种爻参数（跨局经验→初始爻参数，只在首次运行前做一次）
+    if not args.load_yao:
+        seed_count = 0
+        for obj_base, loc_counts in zhiji.object_location_counts.items():
+            total = sum(loc_counts.values())
+            if total == 0:
+                continue
+            for loc_base, count in loc_counts.items():
+                ratio = count / total
+                if ratio >= 0.3:
+                    current = yao_tuner.get_release_score(obj_base, loc_base)
+                    if current == 0.0:
+                        boost = 1.0 + ratio * 2.0
+                        yao_tuner.release_confidence[obj_base][loc_base] += boost
+                        seed_count += 1
+                    elif current < 0:
+                        boost = ratio * 2.0
+                        yao_tuner.release_confidence[obj_base][loc_base] += boost
+                        seed_count += 1
+        if seed_count > 0 and args.verbose:
+            print(f"  🌱 知几经验播种 {seed_count} 个爻参数")
 
     if args.mode == 'single':
-        r = run_single(env, args.game, agent, zhiji, zhichi, verbose=True)
+        r = run_single(env, args.game, agent, zhiji, zhichi, yao_tuner=yao_tuner, verbose=True)
         print(json.dumps(r, indent=2, ensure_ascii=False))
     else:
-        run_all(env, agent, zhiji, zhichi, verbose=args.verbose,
+        run_all(env, agent, zhiji, zhichi, yao_tuner=yao_tuner, verbose=args.verbose,
                 max_games=args.num if args.num > 0 else 0,
                 output_file=args.output)
 
@@ -261,5 +334,8 @@ if __name__ == '__main__':
         zhiji.save_experience(f'{args.save_exp}_zhiji.json')
         zhichi.save_experience(f'{args.save_exp}_zhichi.json')
         print(f"  ✅ 经验已保存: {args.save_exp}_zhiji.json, {args.save_exp}_zhichi.json")
+    if args.save_yao:
+        yao_tuner.save_experience(f'{args.save_yao}_yao.json')
+        print(f"  ✅ 爻参数已保存: {args.save_yao}_yao.json")
 
     env.close()

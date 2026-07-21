@@ -1,0 +1,1349 @@
+{
+  "total": 85,
+  "passed": 85,
+  "rate": 1.0,
+  "avg_steps": 5.341176470588235,
+  "by_type": {
+    "look_at_obj_in_light": {
+      "total": 18,
+      "passed": 18,
+      "rate": 1.0
+    },
+    "pick_and_place_simple": {
+      "total": 10,
+      "passed": 10,
+      "rate": 1.0
+    },
+    "pick_and_place_with_movable_recep": {
+      "total": 11,
+      "passed": 11,
+      "rate": 1.0
+    },
+    "pick_clean_then_place_in_recep": {
+      "total": 12,
+      "passed": 12,
+      "rate": 1.0
+    },
+    "pick_cool_then_place_in_recep": {
+      "total": 12,
+      "passed": 12,
+      "rate": 1.0
+    },
+    "pick_heat_then_place_in_recep": {
+      "total": 14,
+      "passed": 14,
+      "rate": 1.0
+    },
+    "pick_two_obj_and_place": {
+      "total": 8,
+      "passed": 8,
+      "rate": 1.0
+    }
+  },
+  "results": [
+    {
+      "idx": 0,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看闹钟",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 台灯",
+        "put object on 台灯"
+      ]
+    },
+    {
+      "idx": 1,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看棒球棒",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 台灯",
+        "put object on 台灯"
+      ]
+    },
+    {
+      "idx": 2,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看篮球",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 台灯",
+        "put object on 台灯"
+      ]
+    },
+    {
+      "idx": 3,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看书",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 台灯",
+        "put object on 台灯"
+      ]
+    },
+    {
+      "idx": 4,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看碗",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 台灯",
+        "put object on 台灯"
+      ]
+    },
+    {
+      "idx": 5,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看盒子",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 6,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看光盘",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 台灯",
+        "put object on 台灯"
+      ]
+    },
+    {
+      "idx": 7,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看手机",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 8,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看信用卡",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 9,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看钥匙链",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 10,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看笔记本",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 11,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看杯子",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 台灯",
+        "put object on 台灯"
+      ]
+    },
+    {
+      "idx": 12,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看报纸",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 13,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看铅笔",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 台灯",
+        "put object on 台灯"
+      ]
+    },
+    {
+      "idx": 14,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看遥控器",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 15,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看雕像",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 16,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看纸巾盒",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 17,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看花瓶",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 落地灯",
+        "put object on 落地灯"
+      ]
+    },
+    {
+      "idx": 18,
+      "type": "pick_and_place_simple",
+      "cn": "把棒球棒放到床上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 床",
+        "put object on 床"
+      ]
+    },
+    {
+      "idx": 19,
+      "type": "pick_and_place_simple",
+      "cn": "把杯子放到桌子上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 桌子",
+        "put object on 桌子"
+      ]
+    },
+    {
+      "idx": 20,
+      "type": "pick_and_place_simple",
+      "cn": "把铅笔放到架子上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 架子",
+        "put object on 架子"
+      ]
+    },
+    {
+      "idx": 21,
+      "type": "pick_and_place_simple",
+      "cn": "把胡椒瓶放到抽屉里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 抽屉",
+        "put object on 抽屉"
+      ]
+    },
+    {
+      "idx": 22,
+      "type": "pick_and_place_simple",
+      "cn": "把皮搋子放到柜子里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 23,
+      "type": "pick_and_place_simple",
+      "cn": "把盐瓶放到柜子里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 24,
+      "type": "pick_and_place_simple",
+      "cn": "把盐瓶放到抽屉里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 抽屉",
+        "put object on 抽屉"
+      ]
+    },
+    {
+      "idx": 25,
+      "type": "pick_and_place_simple",
+      "cn": "把洗手液瓶放到马桶里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 马桶",
+        "put object on 马桶"
+      ]
+    },
+    {
+      "idx": 26,
+      "type": "pick_and_place_simple",
+      "cn": "把花瓶放到保险箱里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 保险箱",
+        "put object on 保险箱"
+      ]
+    },
+    {
+      "idx": 27,
+      "type": "pick_and_place_simple",
+      "cn": "把手表放到保险箱里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 保险箱",
+        "put object on 保险箱"
+      ]
+    },
+    {
+      "idx": 28,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把黄油刀移到柜台上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 29,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把黄油刀移到水槽里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 30,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把黄油刀移到水槽里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 31,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把鸡蛋移到柜台上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 32,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把叉子移到柜台上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 33,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把叉子移到水槽里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 34,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把Glassbottle移到水槽里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 35,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把钥匙链移到扶手椅上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 扶手椅",
+        "put object on 扶手椅"
+      ]
+    },
+    {
+      "idx": 36,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把铅笔移到架子上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 架子",
+        "put object on 架子"
+      ]
+    },
+    {
+      "idx": 37,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把勺子移到柜台上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 38,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把勺子移到水槽里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 39,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把碗洗干净后放到柜子里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 40,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把抹布洗干净后放到柜子里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 41,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把抹布洗干净后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 42,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把鸡蛋洗干净后放到微波炉里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 微波炉",
+        "put object on 微波炉"
+      ]
+    },
+    {
+      "idx": 43,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把刀洗干净后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 44,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把生菜洗干净后放到垃圾桶里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 垃圾桶",
+        "put object on 垃圾桶"
+      ]
+    },
+    {
+      "idx": 45,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把杯子洗干净后放到咖啡机上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 咖啡机",
+        "put object on 咖啡机"
+      ]
+    },
+    {
+      "idx": 46,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把锅洗干净后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 47,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把盘子洗干净后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 48,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把肥皂洗干净后放到柜子里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 49,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把肥皂洗干净后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 50,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把锅铲洗干净后放到抽屉里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 水槽",
+        "put object in 水槽",
+        "take object from 水槽",
+        "go to 抽屉",
+        "put object on 抽屉"
+      ]
+    },
+    {
+      "idx": 51,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把面包冷却后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 52,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把面包冷却后放到微波炉里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 微波炉",
+        "put object on 微波炉"
+      ]
+    },
+    {
+      "idx": 53,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把鸡蛋冷却后放到水槽里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 54,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把生菜冷却后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 55,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把生菜冷却后放到水槽里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 56,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把生菜冷却后放到垃圾桶里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 垃圾桶",
+        "put object on 垃圾桶"
+      ]
+    },
+    {
+      "idx": 57,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把杯子冷却后放到柜子里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 58,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把杯子冷却后放到咖啡机上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 咖啡机",
+        "put object on 咖啡机"
+      ]
+    },
+    {
+      "idx": 59,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把锅冷却后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 60,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把土豆冷却后放到微波炉里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 微波炉",
+        "put object on 微波炉"
+      ]
+    },
+    {
+      "idx": 61,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把番茄冷却后放到微波炉里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 微波炉",
+        "put object on 微波炉"
+      ]
+    },
+    {
+      "idx": 62,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把番茄冷却后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 冰箱",
+        "put object in 冰箱",
+        "take object from 冰箱",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 63,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把苹果加热后放到冰箱里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 冰箱",
+        "put object on 冰箱"
+      ]
+    },
+    {
+      "idx": 64,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把苹果加热后放到垃圾桶里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 垃圾桶",
+        "put object on 垃圾桶"
+      ]
+    },
+    {
+      "idx": 65,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把苹果加热后放到水槽里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 66,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把苹果加热后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 67,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把苹果加热后放到垃圾桶里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 垃圾桶",
+        "put object on 垃圾桶"
+      ]
+    },
+    {
+      "idx": 68,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把面包加热后放到柜台上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 69,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把杯子加热后放到柜子里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 70,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把鸡蛋加热后放到垃圾桶里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 垃圾桶",
+        "put object on 垃圾桶"
+      ]
+    },
+    {
+      "idx": 71,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把杯子加热后放到柜子里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 72,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把杯子加热后放到咖啡机上",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 咖啡机",
+        "put object on 咖啡机"
+      ]
+    },
+    {
+      "idx": 73,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把土豆加热后放到垃圾桶里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 垃圾桶",
+        "put object on 垃圾桶"
+      ]
+    },
+    {
+      "idx": 74,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把土豆加热后放到冰箱里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 冰箱",
+        "put object on 冰箱"
+      ]
+    },
+    {
+      "idx": 75,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把番茄加热后放到垃圾桶里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 垃圾桶",
+        "put object on 垃圾桶"
+      ]
+    },
+    {
+      "idx": 76,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把番茄加热后放到水槽里",
+      "steps": 7,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 微波炉",
+        "put object in 微波炉",
+        "take object from 微波炉",
+        "go to 水槽",
+        "put object on 水槽"
+      ]
+    },
+    {
+      "idx": 77,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块苹果放到柜台上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 柜台",
+        "put object on 柜台"
+      ]
+    },
+    {
+      "idx": 78,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块光盘放到保险箱里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 保险箱",
+        "put object on 保险箱"
+      ]
+    },
+    {
+      "idx": 79,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块钥匙链放到保险箱里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 保险箱",
+        "put object on 保险箱"
+      ]
+    },
+    {
+      "idx": 80,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块胡椒瓶放到抽屉里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 抽屉",
+        "put object on 抽屉"
+      ]
+    },
+    {
+      "idx": 81,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块枕头放到沙发上",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 沙发",
+        "put object on 沙发"
+      ]
+    },
+    {
+      "idx": 82,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块肥皂放到柜子里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    },
+    {
+      "idx": 83,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块肥皂放到垃圾桶里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 柜子",
+        "take object",
+        "go to 垃圾桶",
+        "put object on 垃圾桶"
+      ]
+    },
+    {
+      "idx": 84,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块卫生纸放到柜子里",
+      "steps": 4,
+      "done": true,
+      "success": true,
+      "actions": [
+        "go to 桌子",
+        "take object",
+        "go to 柜子",
+        "put object on 柜子"
+      ]
+    }
+  ]
+}

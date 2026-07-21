@@ -1,0 +1,306 @@
+Creating env...
+Initializing ALFWorld Official (split=valid_unseen)...
+Initializing AlfredTWEnv...
+  0%|          | 0/341 [00:00<?, ?it/s] 78%|███████▊  | 266/341 [00:00<00:00, 2606.20it/s]100%|██████████| 341/341 [00:00<00:00, 2451.14it/s]
+Overall we have 134 games in split=eval_out_of_distribution
+Evaluating with 134 games
+Collected 134 solvable game files
+
+YLYW Agent V11 (场景记忆+知几V11+知耻+爻调) — 134 games
+============================================================
+  [  1/134] ✅ (pick_clean_then_place_in_recep          )  7步 [1/1=100.0%] 知几:syn=6,cal=0 知耻:fail=0,wt=0 场景:obj=39
+  [  2/134] ✅ (pick_clean_then_place_in_recep          )  7步 [2/2=100.0%] 知几:syn=7,cal=0 知耻:fail=0,wt=0 场景:obj=50
+  [  3/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [2/3=66.7%] 知几:syn=11,cal=0 知耻:fail=1,wt=0 场景:obj=100
+  [  4/134] ✅ (pick_two_obj_and_place                  )  8步 [3/4=75.0%] 知几:syn=19,cal=0 知耻:fail=1,wt=0 场景:obj=10
+  [  5/134] ❌ (pick_two_obj_and_place                  ) 50步 [3/5=60.0%] 知几:syn=19,cal=0 知耻:fail=2,wt=0 场景:obj=14
+  [  6/134] ✅ (pick_two_obj_and_place                  )  9步 [4/6=66.7%] 知几:syn=22,cal=0 知耻:fail=2,wt=0 场景:obj=16
+  [  7/134] ✅ (look_at_obj_in_light                    )  5步 [5/7=71.4%] 知几:syn=26,cal=0 知耻:fail=2,wt=0 场景:obj=19
+  [  8/134] ❌ (look_at_obj_in_light                    ) 50步 [5/8=62.5%] 知几:syn=26,cal=0 知耻:fail=3,wt=0 场景:obj=61
+  [  9/134] ✅ (look_at_obj_in_light                    )  5步 [6/9=66.7%] 知几:syn=29,cal=0 知耻:fail=3,wt=0 场景:obj=70
+  [ 10/134] ✅ (pick_cool_then_place_in_recep           )  8步 [7/10=70.0%] 知几:syn=31,cal=0 知耻:fail=3,wt=0 场景:obj=120
+  [ 11/134] ✅ (pick_cool_then_place_in_recep           )  7步 [8/11=72.7%] 知几:syn=32,cal=0 知耻:fail=3,wt=0 场景:obj=136
+  [ 12/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [8/12=66.7%] 知几:syn=36,cal=0 知耻:fail=4,wt=0 场景:obj=185
+  [ 13/134] ❌ (pick_and_place_simple                   ) 50步 [8/13=61.5%] 知几:syn=37,cal=0 知耻:fail=5,wt=0 场景:obj=89
+  [ 14/134] ❌ (pick_and_place_simple                   ) 50步 [8/14=57.1%] 知几:syn=39,cal=0 知耻:fail=6,wt=0 场景:obj=103
+  [ 15/134] ❌ (pick_and_place_simple                   ) 50步 [8/15=53.3%] 知几:syn=43,cal=0 知耻:fail=7,wt=0 场景:obj=114
+  [ 16/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [8/16=50.0%] 知几:syn=46,cal=0 知耻:fail=8,wt=1 场景:obj=222
+  [ 17/134] ✅ (pick_clean_then_place_in_recep          )  7步 [9/17=52.9%] 知几:syn=47,cal=0 知耻:fail=8,wt=1 场景:obj=242
+  [ 18/134] ✅ (pick_clean_then_place_in_recep          )  7步 [10/18=55.6%] 知几:syn=48,cal=0 知耻:fail=8,wt=1 场景:obj=263
+  [ 19/134] ✅ (pick_heat_then_place_in_recep           )  7步 [11/19=57.9%] 知几:syn=49,cal=0 知耻:fail=8,wt=1 场景:obj=269
+  [ 20/134] ✅ (pick_heat_then_place_in_recep           )  7步 [12/20=60.0%] 知几:syn=51,cal=0 知耻:fail=8,wt=1 场景:obj=277
+  [ 21/134] ✅ (pick_heat_then_place_in_recep           ) 13步 [13/21=61.9%] 知几:syn=51,cal=0 知耻:fail=8,wt=1 场景:obj=284
+  [ 22/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [13/22=59.1%] 知几:syn=57,cal=0 知耻:fail=9,wt=1 场景:obj=318
+  [ 23/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [13/23=56.5%] 知几:syn=57,cal=0 知耻:fail=10,wt=1 场景:obj=320
+  [ 24/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [13/24=54.2%] 知几:syn=60,cal=0 知耻:fail=11,wt=1 场景:obj=342
+  [ 25/134] ❌ (pick_two_obj_and_place                  ) 50步 [13/25=52.0%] 知几:syn=63,cal=0 知耻:fail=12,wt=1 场景:obj=55
+  [ 26/134] ❌ (pick_two_obj_and_place                  ) 50步 [13/26=50.0%] 知几:syn=63,cal=0 知耻:fail=13,wt=1 场景:obj=63
+  [ 27/134] ✅ (look_at_obj_in_light                    )  5步 [14/27=51.9%] 知几:syn=66,cal=0 知耻:fail=13,wt=1 场景:obj=114
+  [ 28/134] ❌ (look_at_obj_in_light                    ) 50步 [14/28=50.0%] 知几:syn=66,cal=0 知耻:fail=14,wt=1 场景:obj=125
+  [ 29/134] ✅ (look_at_obj_in_light                    )  5步 [15/29=51.7%] 知几:syn=68,cal=0 知耻:fail=14,wt=1 场景:obj=126
+  [ 30/134] ✅ (pick_two_obj_and_place                  )  8步 [16/30=53.3%] 知几:syn=70,cal=0 知耻:fail=14,wt=1 场景:obj=65
+  [ 31/134] ✅ (pick_two_obj_and_place                  )  8步 [17/31=54.8%] 知几:syn=71,cal=0 知耻:fail=14,wt=1 场景:obj=69
+  [ 32/134] ✅ (pick_two_obj_and_place                  )  8步 [18/32=56.2%] 知几:syn=71,cal=0 知耻:fail=14,wt=1 场景:obj=72
+  [ 33/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [18/33=54.5%] 知几:syn=71,cal=0 知耻:fail=15,wt=1 场景:obj=350
+  [ 34/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [18/34=52.9%] 知几:syn=71,cal=0 知耻:fail=16,wt=1 场景:obj=350
+  [ 35/134] ✅ (pick_heat_then_place_in_recep           )  8步 [19/35=54.3%] 知几:syn=73,cal=0 知耻:fail=16,wt=1 场景:obj=354
+  [ 36/134] ✅ (pick_heat_then_place_in_recep           )  7步 [20/36=55.6%] 知几:syn=73,cal=0 知耻:fail=16,wt=1 场景:obj=355
+  [ 37/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [20/37=54.1%] 知几:syn=73,cal=0 知耻:fail=17,wt=1 场景:obj=355
+  [ 38/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [20/38=52.6%] 知几:syn=75,cal=0 知耻:fail=18,wt=1 场景:obj=379
+  [ 39/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [20/39=51.3%] 知几:syn=75,cal=0 知耻:fail=19,wt=1 场景:obj=384
+  [ 40/134] ✅ (pick_heat_then_place_in_recep           )  9步 [21/40=52.5%] 知几:syn=75,cal=0 知耻:fail=19,wt=1 场景:obj=386
+  [ 41/134] ❌ (pick_and_place_simple                   ) 50步 [21/41=51.2%] 知几:syn=75,cal=0 知耻:fail=20,wt=1 场景:obj=389
+  [ 42/134] ✅ (pick_and_place_simple                   )  6步 [22/42=52.4%] 知几:syn=78,cal=0 知耻:fail=20,wt=1 场景:obj=394
+  [ 43/134] ❌ (pick_and_place_simple                   ) 50步 [22/43=51.2%] 知几:syn=78,cal=0 知耻:fail=21,wt=1 场景:obj=394
+  [ 44/134] ✅ (pick_heat_then_place_in_recep           )  8步 [23/44=52.3%] 知几:syn=78,cal=0 知耻:fail=21,wt=1 场景:obj=395
+  [ 45/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [23/45=51.1%] 知几:syn=78,cal=0 知耻:fail=22,wt=1 场景:obj=397
+  [ 46/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [23/46=50.0%] 知几:syn=78,cal=0 知耻:fail=23,wt=1 场景:obj=401
+  [ 47/134] ✅ (pick_cool_then_place_in_recep           )  8步 [24/47=51.1%] 知几:syn=80,cal=0 知耻:fail=23,wt=1 场景:obj=404
+  [ 48/134] ✅ (pick_cool_then_place_in_recep           )  8步 [25/48=52.1%] 知几:syn=81,cal=0 知耻:fail=23,wt=1 场景:obj=407
+  [ 49/134] ✅ (pick_cool_then_place_in_recep           )  8步 [26/49=53.1%] 知几:syn=83,cal=0 知耻:fail=23,wt=1 场景:obj=408
+  [ 50/134] ✅ (pick_clean_then_place_in_recep          ) 24步 [27/50=54.0%] 知几:syn=85,cal=0 知耻:fail=23,wt=1 场景:obj=35
+  [ 51/134] ✅ (pick_clean_then_place_in_recep          ) 11步 [28/51=54.9%] 知几:syn=85,cal=0 知耻:fail=23,wt=1 场景:obj=39
+  [ 52/134] ✅ (pick_clean_then_place_in_recep          )  7步 [29/52=55.8%] 知几:syn=87,cal=0 知耻:fail=23,wt=1 场景:obj=41
+  [ 53/134] ✅ (pick_clean_then_place_in_recep          )  7步 [30/53=56.6%] 知几:syn=88,cal=0 知耻:fail=23,wt=1 场景:obj=41
+  [ 54/134] ✅ (pick_clean_then_place_in_recep          )  7步 [31/54=57.4%] 知几:syn=89,cal=0 知耻:fail=23,wt=1 场景:obj=41
+  [ 55/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [31/55=56.4%] 知几:syn=89,cal=0 知耻:fail=24,wt=1 场景:obj=409
+  [ 56/134] ✅ (pick_clean_then_place_in_recep          )  8步 [32/56=57.1%] 知几:syn=90,cal=0 知耻:fail=24,wt=1 场景:obj=409
+  [ 57/134] ✅ (pick_clean_then_place_in_recep          )  8步 [33/57=57.9%] 知几:syn=90,cal=0 知耻:fail=24,wt=1 场景:obj=410
+  [ 58/134] ✅ (look_at_obj_in_light                    )  4步 [34/58=58.6%] 知几:syn=93,cal=0 知耻:fail=24,wt=1 场景:obj=127
+  [ 59/134] ✅ (look_at_obj_in_light                    )  4步 [35/59=59.3%] 知几:syn=94,cal=0 知耻:fail=24,wt=1 场景:obj=128
+  [ 60/134] ✅ (look_at_obj_in_light                    )  4步 [36/60=60.0%] 知几:syn=94,cal=0 知耻:fail=24,wt=1 场景:obj=130
+  [ 61/134] ❌ (pick_and_place_simple                   ) 50步 [36/61=59.0%] 知几:syn=94,cal=0 知耻:fail=25,wt=1 场景:obj=77
+  [ 62/134] ❌ (pick_and_place_simple                   ) 50步 [36/62=58.1%] 知几:syn=94,cal=0 知耻:fail=26,wt=1 场景:obj=80
+  [ 63/134] ✅ (pick_and_place_simple                   )  5步 [37/63=58.7%] 知几:syn=94,cal=0 知耻:fail=26,wt=1 场景:obj=83
+  [ 64/134] ✅ (pick_heat_then_place_in_recep           ) 11步 [38/64=59.4%] 知几:syn=94,cal=0 知耻:fail=26,wt=1 场景:obj=412
+  [ 65/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [38/65=58.5%] 知几:syn=94,cal=0 知耻:fail=27,wt=1 场景:obj=414
+  [ 66/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [38/66=57.6%] 知几:syn=94,cal=0 知耻:fail=28,wt=1 场景:obj=414
+  [ 67/134] ✅ (pick_clean_then_place_in_recep          ) 11步 [39/67=58.2%] 知几:syn=94,cal=0 知耻:fail=28,wt=1 场景:obj=47
+  [ 68/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [39/68=57.4%] 知几:syn=94,cal=0 知耻:fail=29,wt=1 场景:obj=59
+  [ 69/134] ✅ (pick_cool_then_place_in_recep           )  8步 [40/69=58.0%] 知几:syn=94,cal=0 知耻:fail=29,wt=1 场景:obj=414
+  [ 70/134] ✅ (pick_cool_then_place_in_recep           )  8步 [41/70=58.6%] 知几:syn=96,cal=0 知耻:fail=29,wt=1 场景:obj=414
+  [ 71/134] ✅ (pick_cool_then_place_in_recep           )  8步 [42/71=59.2%] 知几:syn=96,cal=0 知耻:fail=29,wt=1 场景:obj=415
+  [ 72/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [42/72=58.3%] 知几:syn=96,cal=0 知耻:fail=30,wt=1 场景:obj=424
+  [ 73/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [42/73=57.5%] 知几:syn=96,cal=0 知耻:fail=31,wt=1 场景:obj=436
+  [ 74/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [42/74=56.8%] 知几:syn=96,cal=0 知耻:fail=32,wt=1 场景:obj=438
+  [ 75/134] ✅ (pick_cool_then_place_in_recep           )  9步 [43/75=57.3%] 知几:syn=98,cal=0 知耻:fail=32,wt=1 场景:obj=439
+  [ 76/134] ✅ (pick_cool_then_place_in_recep           )  8步 [44/76=57.9%] 知几:syn=98,cal=0 知耻:fail=32,wt=1 场景:obj=440
+  [ 77/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [44/77=57.1%] 知几:syn=99,cal=0 知耻:fail=33,wt=1 场景:obj=455
+  [ 78/134] ✅ (pick_clean_then_place_in_recep          )  8步 [45/78=57.7%] 知几:syn=100,cal=0 知耻:fail=33,wt=1 场景:obj=59
+  [ 79/134] ✅ (pick_clean_then_place_in_recep          )  8步 [46/79=58.2%] 知几:syn=100,cal=0 知耻:fail=33,wt=1 场景:obj=62
+  [ 80/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [46/80=57.5%] 知几:syn=100,cal=0 知耻:fail=34,wt=1 场景:obj=63
+  [ 81/134] ✅ (look_at_obj_in_light                    )  5步 [47/81=58.0%] 知几:syn=100,cal=0 知耻:fail=34,wt=1 场景:obj=130
+  [ 82/134] ✅ (look_at_obj_in_light                    )  5步 [48/82=58.5%] 知几:syn=101,cal=0 知耻:fail=34,wt=1 场景:obj=132
+  [ 83/134] ✅ (look_at_obj_in_light                    )  4步 [49/83=59.0%] 知几:syn=101,cal=0 知耻:fail=34,wt=1 场景:obj=138
+  [ 84/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [49/84=58.3%] 知几:syn=101,cal=0 知耻:fail=35,wt=1 场景:obj=455
+  [ 85/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [49/85=57.6%] 知几:syn=101,cal=0 知耻:fail=36,wt=1 场景:obj=456
+  [ 86/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [49/86=57.0%] 知几:syn=101,cal=0 知耻:fail=37,wt=1 场景:obj=457
+  [ 87/134] ❌ (pick_two_obj_and_place                  ) 50步 [49/87=56.3%] 知几:syn=101,cal=0 知耻:fail=38,wt=1 场景:obj=71
+  [ 88/134] ❌ (pick_two_obj_and_place                  ) 50步 [49/88=55.7%] 知几:syn=101,cal=0 知耻:fail=39,wt=1 场景:obj=74
+  [ 89/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [49/89=55.1%] 知几:syn=101,cal=0 知耻:fail=40,wt=1 场景:obj=458
+  [ 90/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [49/90=54.4%] 知几:syn=106,cal=0 知耻:fail=41,wt=1 场景:obj=474
+  [ 91/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [49/91=53.8%] 知几:syn=106,cal=0 知耻:fail=42,wt=1 场景:obj=474
+  [ 92/134] ❌ (pick_two_obj_and_place                  ) 50步 [49/92=53.3%] 知几:syn=109,cal=0 知耻:fail=43,wt=1 场景:obj=78
+  [ 93/134] ✅ (pick_cool_then_place_in_recep           )  9步 [50/93=53.8%] 知几:syn=109,cal=0 知耻:fail=43,wt=1 场景:obj=476
+  [ 94/134] ✅ (pick_cool_then_place_in_recep           )  9步 [51/94=54.3%] 知几:syn=109,cal=0 知耻:fail=43,wt=1 场景:obj=478
+  [ 95/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [51/95=53.7%] 知几:syn=109,cal=0 知耻:fail=44,wt=1 场景:obj=478
+  [ 96/134] ❌ (pick_and_place_simple                   ) 50步 [51/96=53.1%] 知几:syn=109,cal=0 知耻:fail=45,wt=1 场景:obj=481
+  [ 97/134] ❌ (pick_and_place_simple                   ) 50步 [51/97=52.6%] 知几:syn=109,cal=0 知耻:fail=46,wt=1 场景:obj=484
+  [ 98/134] ❌ (pick_and_place_simple                   ) 50步 [51/98=52.0%] 知几:syn=109,cal=0 知耻:fail=47,wt=1 场景:obj=496
+  [ 99/134] ❌ (pick_and_place_simple                   ) 50步 [51/99=51.5%] 知几:syn=109,cal=0 知耻:fail=48,wt=1 场景:obj=85
+  [100/134] ✅ (pick_and_place_simple                   )  6步 [52/100=52.0%] 知几:syn=109,cal=0 知耻:fail=48,wt=1 场景:obj=86
+  [101/134] ✅ (pick_and_place_simple                   )  6步 [53/101=52.5%] 知几:syn=110,cal=0 知耻:fail=48,wt=1 场景:obj=92
+  [102/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [53/102=52.0%] 知几:syn=110,cal=0 知耻:fail=49,wt=1 场景:obj=498
+  [103/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [53/103=51.5%] 知几:syn=113,cal=0 知耻:fail=50,wt=1 场景:obj=507
+  [104/134] ❌ (pick_cool_then_place_in_recep           ) 50步 [53/104=51.0%] 知几:syn=113,cal=0 知耻:fail=51,wt=1 场景:obj=507
+  [105/134] ❌ (look_at_obj_in_light                    ) 50步 [53/105=50.5%] 知几:syn=113,cal=0 知耻:fail=52,wt=1 场景:obj=139
+  [106/134] ❌ (look_at_obj_in_light                    ) 50步 [53/106=50.0%] 知几:syn=113,cal=0 知耻:fail=53,wt=1 场景:obj=140
+  [107/134] ❌ (look_at_obj_in_light                    ) 50步 [53/107=49.5%] 知几:syn=113,cal=0 知耻:fail=54,wt=1 场景:obj=142
+  [108/134] ✅ (pick_and_place_simple                   )  4步 [54/108=50.0%] 知几:syn=115,cal=0 知耻:fail=54,wt=1 场景:obj=79
+  [109/134] ❌ (pick_and_place_simple                   ) 50步 [54/109=49.5%] 知几:syn=116,cal=0 知耻:fail=55,wt=1 场景:obj=80
+  [110/134] ✅ (pick_and_place_simple                   )  4步 [55/110=50.0%] 知几:syn=118,cal=0 知耻:fail=55,wt=1 场景:obj=81
+  [111/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [55/111=49.5%] 知几:syn=118,cal=0 知耻:fail=56,wt=1 场景:obj=507
+  [112/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [55/112=49.1%] 知几:syn=118,cal=0 知耻:fail=57,wt=1 场景:obj=507
+  [113/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [55/113=48.7%] 知几:syn=118,cal=0 知耻:fail=58,wt=1 场景:obj=507
+  [114/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [55/114=48.2%] 知几:syn=119,cal=0 知耻:fail=59,wt=1 场景:obj=515
+  [115/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [55/115=47.8%] 知几:syn=119,cal=0 知耻:fail=60,wt=1 场景:obj=517
+  [116/134] ❌ (pick_heat_then_place_in_recep           ) 50步 [55/116=47.4%] 知几:syn=119,cal=0 知耻:fail=61,wt=1 场景:obj=523
+  [117/134] ❌ (pick_and_place_simple                   ) 50步 [55/117=47.0%] 知几:syn=119,cal=0 知耻:fail=62,wt=1 场景:obj=154
+  [118/134] ❌ (pick_and_place_simple                   ) 50步 [55/118=46.6%] 知几:syn=119,cal=0 知耻:fail=63,wt=1 场景:obj=155
+  [119/134] ✅ (pick_and_place_simple                   )  4步 [56/119=47.1%] 知几:syn=119,cal=0 知耻:fail=63,wt=1 场景:obj=155
+  [120/134] ❌ (pick_and_place_simple                   ) 50步 [56/120=46.7%] 知几:syn=119,cal=0 知耻:fail=64,wt=1 场景:obj=523
+  [121/134] ❌ (pick_and_place_simple                   ) 50步 [56/121=46.3%] 知几:syn=119,cal=0 知耻:fail=65,wt=1 场景:obj=523
+  [122/134] ❌ (pick_and_place_simple                   ) 50步 [56/122=45.9%] 知几:syn=119,cal=0 知耻:fail=66,wt=1 场景:obj=533
+  [123/134] ❌ (pick_two_obj_and_place                  ) 50步 [56/123=45.5%] 知几:syn=120,cal=0 知耻:fail=67,wt=1 场景:obj=551
+  [124/134] ❌ (pick_two_obj_and_place                  ) 50步 [56/124=45.2%] 知几:syn=120,cal=0 知耻:fail=68,wt=1 场景:obj=553
+  [125/134] ❌ (pick_two_obj_and_place                  ) 50步 [56/125=44.8%] 知几:syn=120,cal=0 知耻:fail=69,wt=1 场景:obj=554
+  [126/134] ✅ (look_at_obj_in_light                    )  5步 [57/126=45.2%] 知几:syn=120,cal=0 知耻:fail=69,wt=1 场景:obj=156
+  [127/134] ✅ (look_at_obj_in_light                    )  5步 [58/127=45.7%] 知几:syn=120,cal=0 知耻:fail=69,wt=1 场景:obj=157
+  [128/134] ✅ (look_at_obj_in_light                    )  5步 [59/128=46.1%] 知几:syn=122,cal=0 知耻:fail=69,wt=1 场景:obj=160
+  [129/134] ❌ (pick_two_obj_and_place                  ) 50步 [59/129=45.7%] 知几:syn=122,cal=0 知耻:fail=70,wt=1 场景:obj=162
+  [130/134] ❌ (pick_two_obj_and_place                  ) 50步 [59/130=45.4%] 知几:syn=122,cal=0 知耻:fail=71,wt=1 场景:obj=169
+  [131/134] ❌ (pick_two_obj_and_place                  ) 50步 [59/131=45.0%] 知几:syn=122,cal=0 知耻:fail=72,wt=1 场景:obj=169
+  [132/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [59/132=44.7%] 知几:syn=122,cal=0 知耻:fail=73,wt=1 场景:obj=554
+  [133/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [59/133=44.4%] 知几:syn=122,cal=0 知耻:fail=74,wt=1 场景:obj=554
+  [134/134] ❌ (pick_clean_then_place_in_recep          ) 50步 [59/134=44.0%] 知几:syn=122,cal=0 知耻:fail=75,wt=1 场景:obj=555
+
+============================================================
+  V11 Results (场景记忆+知几V11+知耻+爻调)
+============================================================
+  成功率: 59/134 = 44.0%
+  类型准确率: 132/134 = 98.5%
+  平均步数: 31.2
+  场景记忆: 4个场景, 897条物体记录
+  耗时: 367s
+
+  知几学习统计:
+    同义词组: 122
+      clean → ['plate', 'cloth', 'soapbar', 'knife']
+      a → ['soapbar', 'bowl', 'bread', 'book', 'saltshaker', 'watch', 'butterknife', 'apple', 'cloth', 'soapbottle', 'pan', 'tomato', 'toiletpaper', 'egg', 'pencil', 'potato', 'mug', 'knife', 'plate', 'cup', 'vase']
+      on → ['apple', 'cloth', 'mug', 'soapbar', 'bowl', 'alarmclock', 'soapbottle', 'knife', 'pan', 'plate', 'bread', 'pillow', 'pencil', 'book', 'butterknife']
+      put → ['tomato', 'apple', 'toiletpaper', 'cloth', 'mug', 'soapbar', 'pan', 'plate', 'bread', 'pillow', 'pencil', 'cup', 'saltshaker', 'vase', 'potato', 'keychain', 'butterknife']
+      the → ['soapbar', 'bowl', 'bread', 'book', 'keychain', 'watch', 'butterknife', 'apple', 'cloth', 'soapbottle', 'pan', 'pillow', 'tomato', 'toiletpaper', 'egg', 'alarmclock', 'pencil', 'potato', 'mug', 'knife', 'plate', 'cup']
+      counter → ['apple', 'cloth', 'soapbar', 'bowl', 'knife', 'pan', 'plate', 'bread', 'saltshaker', 'butterknife']
+      yellow → ['plate']
+      wash → ['bowl', 'cloth', 'knife']
+      putting → ['bowl']
+      before → ['bowl', 'butterknife']
+      dirty → ['bowl']
+      gold → ['soapbar']
+      to → ['apple', 'mug', 'soapbar', 'soapbottle', 'knife', 'book', 'pencil', 'cup', 'saltshaker', 'watch']
+      two → ['saltshaker', 'pillow', 'soapbar', 'keychain']
+      of → ['mug', 'soapbar', 'bowl', 'soapbottle', 'pan', 'bread', 'book', 'pencil', 'keychain', 'watch']
+      bars → ['soapbar']
+      soap → ['soapbottle', 'soapbar']
+      bin → ['tomato', 'apple', 'egg', 'soapbar']
+      move → ['soapbar', 'soapbottle', 'pencil', 'cup', 'saltshaker', 'watch']
+      in → ['tomato', 'apple', 'toiletpaper', 'cloth', 'mug', 'soapbar', 'knife', 'cup', 'saltshaker', 'vase', 'potato', 'keychain', 'butterknife']
+      throw → ['tomato', 'soapbar']
+      trash → ['apple', 'soapbar']
+      look → ['book', 'mug', 'pencil']
+      light → ['bowl', 'alarmclock', 'book', 'mug']
+      at → ['book', 'mug', 'pencil']
+      lamp → ['mug', 'bowl', 'alarmclock', 'book', 'pencil']
+      using → ['mug']
+      desk → ['bowl', 'mug', 'pencil']
+      examine → ['bowl', 'alarmclock', 'mug', 'pencil']
+      chilled → ['tomato', 'mug', 'pan', 'bread', 'cup', 'potato']
+      cabinet → ['toiletpaper', 'cloth', 'mug', 'soapbar', 'cup', 'watch']
+      place → ['tomato', 'apple', 'egg', 'mug', 'soapbar', 'soapbottle', 'knife', 'pan', 'bread', 'cup']
+      cold → ['pan', 'cup']
+      up → ['book', 'pencil', 'cup']
+      bottom → ['cup']
+      coffee → ['mug', 'cup']
+      over → ['pencil']
+      different → ['pencil']
+      area → ['pencil']
+      back → ['cloth', 'pencil']
+      it → ['tomato', 'apple', 'cloth', 'mug', 'soapbar', 'bread', 'book', 'pencil', 'cup', 'butterknife']
+      take → ['mug', 'pencil', 'cup']
+      from → ['cloth', 'mug', 'soapbottle', 'pencil', 'saltshaker', 'watch']
+      knife → ['butterknife']
+      sink → ['toiletpaper', 'soapbottle', 'knife', 'cup', 'butterknife']
+      standing → ['butterknife']
+      countertop → ['knife']
+      plate → ['knife']
+      heated → ['apple', 'cup']
+      warm → ['mug', 'cup']
+      inside → ['apple', 'egg', 'cup', 'potato', 'watch']
+      mug → ['cup']
+      with → ['cup']
+      water → ['cup']
+      machine → ['cup']
+      and → ['tomato', 'soapbar', 'alarmclock', 'bread', 'book', 'pencil', 'cup']
+      fill → ['cup']
+      maker → ['mug', 'cup']
+      white → ['cup']
+      pick → ['pencil', 'cup']
+      sets → ['keychain']
+      safe → ['vase', 'keychain', 'watch']
+      keys → ['keychain']
+      hold → ['alarmclock']
+      clock → ['alarmclock']
+      turn → ['bowl', 'alarmclock', 'book', 'pencil']
+      alarm → ['alarmclock']
+      by → ['bowl', 'alarmclock', 'book']
+      sofa → ['pillow']
+      pillows → ['pillow']
+      couch → ['pillow']
+      microwaved → ['apple', 'egg']
+      garbage → ['apple', 'egg']
+      away → ['tomato']
+      heat → ['tomato']
+      salt → ['saltshaker']
+      drawer → ['saltshaker']
+      shaker → ['saltshaker']
+      cool → ['bread', 'cup']
+      loaf → ['bread']
+      some → ['bread']
+      right → ['bread']
+      fridge → ['bread', 'cup']
+      cleaned → ['pan', 'cloth', 'soapbar']
+      blue → ['cloth']
+      off → ['soapbar']
+      rinse → ['soapbar']
+      wet → ['soapbar']
+      bar → ['soapbar']
+      washed → ['pan']
+      read → ['book']
+      turning → ['book']
+      picking → ['book']
+      table → ['book']
+      top → ['pan', 'soapbar']
+      dishwasher → ['pan']
+      microwave → ['tomato', 'potato']
+      cooled → ['tomato', 'potato']
+      cook → ['tomato']
+      rinsed → ['soapbar']
+      under → ['toiletpaper', 'pencil']
+      middle → ['apple']
+      refrigerator → ['apple']
+      lettuce → ['apple']
+      shelf → ['apple', 'mug']
+      next → ['apple']
+      toilet → ['toiletpaper', 'soapbottle', 'soapbar']
+      rolls → ['toiletpaper']
+      paper → ['toiletpaper']
+      small → ['watch']
+      then → ['apple']
+      return → ['apple']
+      chill → ['apple']
+      hand → ['soapbottle']
+      bottle → ['soapbottle']
+      dispenser → ['soapbar']
+      baisin → ['soapbottle']
+      green → ['soapbottle']
+      warmed → ['cup']
+      shakers → ['saltshaker']
+      while → ['bowl']
+      holding → ['bowl']
+    校准应用次数: 0
+    已知位置经验: 21种物体
+
+  知耻学习统计:
+    失败分析数: 75
+    错拿排除映射: 1条
+      knife → 排除 ['butterknife']
+    否定先验: 0条
+
+  知耻经验: fails_analyzed=75, wrong_takes=1, neg_priors=0
+
+  爻参数在线微调统计:
+    释放爻正分对数: 31
+    释放爻负分对数: 0
+    释放爻排除对数: 0
+    抓持爻对数: 24
+
+  按类型:
+    look_at_obj_in_light                         : 13/18 ( 72.2%)
+    pick_and_place_simple                        :  7/24 ( 29.2%)
+    pick_clean_then_place_in_recep               : 14/31 ( 45.2%)
+    pick_cool_then_place_in_recep                : 12/21 ( 57.1%)
+    pick_heat_then_place_in_recep                :  8/23 ( 34.8%)
+    pick_two_obj_and_place                       :  5/17 ( 29.4%)
+
+  Saved: ylyw_agent_v11_results.json
+  ✅ 经验已保存: ./exp_v11_zhiji.json, ./exp_v11_zhichi.json, ./exp_v11_scene_mem.json
+  ✅ 爻参数已保存: ./exp_v11_yao.json

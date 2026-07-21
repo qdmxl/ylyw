@@ -1,0 +1,61 @@
+{
+  "games_played": 10,
+  "synonym_map": {},
+  "known_entities": [],
+  "object_location_counts": {
+    "potato": {
+      "microwave": 10,
+      "sinkbasin": 25
+    },
+    "apple": {
+      "fridge": 9
+    },
+    "bowl": {
+      "fridge": 9,
+      "desk": 25
+    },
+    "egg": {
+      "fridge": 18,
+      "sinkbasin": 25
+    },
+    "lettuce": {
+      "fridge": 9
+    },
+    "mug": {
+      "fridge": 9,
+      "desk": 25
+    },
+    "tomato": {
+      "fridge": 18
+    },
+    "book": {
+      "bed": 60
+    },
+    "cellphone": {
+      "bed": 15
+    },
+    "pillow": {
+      "bed": 105
+    },
+    "creditcard": {
+      "desk": 50
+    },
+    "laptop": {
+      "desk": 75,
+      "bed": 15
+    },
+    "pencil": {
+      "desk": 75
+    },
+    "pen": {
+      "desk": 50
+    },
+    "cup": {
+      "sinkbasin": 50
+    }
+  },
+  "calibrations_applied": 0,
+  "yao_templates": {},
+  "total_success": 0,
+  "total_failure": 10
+}

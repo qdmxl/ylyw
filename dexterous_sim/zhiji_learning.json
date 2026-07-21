@@ -1,0 +1,44 @@
+{
+  "sphere": {
+    "pitch": -0.2,
+    "yaw": 0.0,
+    "reach": 0.01,
+    "success": false
+  },
+  "box": {
+    "pitch": 0.3014285714285714,
+    "yaw": 0.058928571428571434,
+    "reach": 0.044085714285714284,
+    "success": false
+  },
+  "cylinder": {
+    "pitch": 0.09999999999999998,
+    "yaw": 0.0,
+    "reach": 0.04,
+    "success": false
+  },
+  "long_rod": {
+    "pitch": 0.4,
+    "yaw": 0.0,
+    "reach": 0.05,
+    "success": true
+  },
+  "mushroom": {
+    "pitch": 0.05,
+    "yaw": -0.15,
+    "reach": 0.02,
+    "success": false
+  },
+  "dumbbell": {
+    "pitch": 0.1,
+    "yaw": 0.15,
+    "reach": 0.03,
+    "success": false
+  },
+  "disc": {
+    "pitch": -0.19999999999999998,
+    "yaw": 0.0,
+    "reach": 0.0,
+    "success": true
+  }
+}

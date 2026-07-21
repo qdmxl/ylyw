@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+跨本体泛化实验 — 力控夹爪 + 3轴笛卡尔臂 + 桌面场景
+
+与灵巧手共享同一套3轴臂结构，但末端是二指夹爪。
+
+自由度说明:
+  3轴臂: slide_x, slide_y, lift_z (3 DOF)
+  夹爪: 左指 slide, 右指 slide (2 DOF)
+  共 5 DOF
+
+控制方式:
+  3轴臂: position actuator
+  夹爪: motor actuator (力控，施加闭合力矩而非位置)
+
+物体通用参数:
+  所有物体放在桌面上，通过 XML 的 obj_size/obj_type 调整
+-->
+<mujoco model="ylyw_cross_embodiment_gripper_3axis">
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81">
+    <flag contact="enable"/>
+  </option>
+
+  <asset>
+    <material name="desk" rgba="0.4 0.35 0.3 1"/>
+    <material name="jaw" rgba="0.5 0.5 0.55 1"/>
+    <material name="object" rgba="0.8 0.3 0.2 1"/>
+    <material name="arm" rgba="0.35 0.35 0.45 1"/>
+  </asset>
+
+  <default>
+    <geom condim="4" friction="1.5 0.01 0.001"/>
+    <position kp="500" kv="60"/>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 5" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <light pos="2 2 4" dir="-1 -1 -2" diffuse="0.8 0.8 0.8"/>
+    <light pos="-2 2 3" dir="1 -1 -1" diffuse="0.3 0.3 0.3"/>
+
+    <!-- 桌面和地面 -->
+    <geom name="floor" type="plane" size="2 2 0.01" pos="0 0 0"/>
+    <geom name="table" type="box" size="0.4 0.4 0.02" pos="0 0 0.72" material="desk"/>
+
+    <!-- 物体 -->
+    <body name="object" pos="0 0 0.76">
+      <freejoint name="obj_free"/>
+      <geom name="obj_geom" type="sphere" size="0.025" mass="0.03" material="object"/>
+    </body>
+
+    <!-- ============================================================ -->
+    <!-- 3轴笛卡尔臂 + 二指夹爪                                        -->
+    <!-- ============================================================ -->
+    <body name="arm_base" pos="0 0 1.08">
+      <!-- X轴平移 -->
+      <joint name="slide_x" type="slide" axis="1 0 0" range="-0.08 0.08" damping="0.5"/>
+      <geom name="rail_x" type="box" size="0.12 0.01 0.01" pos="0 0 0" rgba="0.6 0.6 0.6 1"/>
+
+      <body name="arm_y" pos="0 0 0">
+        <!-- Y轴平移 -->
+        <joint name="slide_y" type="slide" axis="0 1 0" range="-0.08 0.08" damping="0.5"/>
+        <geom name="rail_y" type="box" size="0.01 0.12 0.01" pos="0 0 0" rgba="0.6 0.6 0.6 1"/>
+
+        <body name="arm_z" pos="0 0 0">
+          <!-- Z轴升降 -->
+          <joint name="lift_z" type="slide" axis="0 0 1" range="-0.35 0.10" damping="0.5"/>
+          <geom name="lift_rod" type="cylinder" size="0.008 0.02" pos="0 0 0" material="arm"/>
+
+          <!-- 夹爪基座 -->
+          <body name="gripper_base" pos="0 0 -0.06">
+            <geom name="gripper_mount" type="box" size="0.01 0.01 0.015" material="arm"/>
+
+            <!-- 左手指 -->
+            <body name="finger_left" pos="0 0.035 0">
+              <joint name="fl_j" type="slide" axis="0 -1 0" range="-0.08 0.08" 
+                     damping="1.0" armature="0.001"/>
+              <geom name="fl_geom" type="box" size="0.006 0.008 0.04" material="jaw"/>
+              <!-- 指尖半球 -->
+              <geom name="fl_tip" type="sphere" size="0.006" pos="0 -0.008 -0.04" material="jaw"/>
+            </body>
+
+            <!-- 右手指 -->
+            <body name="finger_right" pos="0 -0.035 0">
+              <joint name="fr_j" type="slide" axis="0 1 0" range="-0.08 0.08"
+                     damping="1.0" armature="0.001"/>
+              <geom name="fr_geom" type="box" size="0.006 0.008 0.04" material="jaw"/>
+              <geom name="fr_tip" type="sphere" size="0.006" pos="0 0.008 -0.04" material="jaw"/>
+            </body>
+
+          </body><!-- gripper_base -->
+        </body><!-- arm_z -->
+      </body><!-- arm_y -->
+    </body><!-- arm_base -->
+  </worldbody>
+
+  <actuator>
+    <!-- 3轴臂 position -->
+    <position name="slide_x" joint="slide_x" kp="500" kv="20"/>
+    <position name="slide_y" joint="slide_y" kp="500" kv="20"/>
+    <position name="lift_z" joint="lift_z" kp="500" kv="20"/>
+    <!-- 夹爪 motor (力控) -->
+    <motor name="fl_motor" joint="fl_j" gear="1" ctrllimited="true" ctrlrange="-1.0 1.0"/>
+    <motor name="fr_motor" joint="fr_j" gear="1" ctrllimited="true" ctrlrange="-1.0 1.0"/>
+  </actuator>
+
+</mujoco>

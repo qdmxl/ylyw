@@ -1,0 +1,120 @@
+{
+  "n": 10,
+  "won": 7,
+  "failed": 3,
+  "summaries": [
+    {
+      "game_idx": 0,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a clean plate on the counter.",
+      "won": true,
+      "steps": 7,
+      "max_steps": 50,
+      "obj_en": "plate",
+      "target_en": "countertop",
+      "preproc_en": "sinkbasin"
+    },
+    {
+      "game_idx": 1,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a clean yellow plate on the counter.",
+      "won": true,
+      "steps": 8,
+      "max_steps": 50,
+      "obj_en": "plate",
+      "target_en": "countertop",
+      "preproc_en": "sinkbasin"
+    },
+    {
+      "game_idx": 2,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "wash the dirty bowl before putting the bowl on the counter",
+      "won": false,
+      "steps": 50,
+      "max_steps": 50,
+      "obj_en": "bowl",
+      "target_en": "countertop",
+      "preproc_en": "sinkbasin",
+      "failure_category": "\u5176\u4ed6\u5931\u8d25"
+    },
+    {
+      "game_idx": 3,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "To move two bars of soap to the gold bin. ",
+      "won": true,
+      "steps": 23,
+      "max_steps": 50,
+      "obj_en": "soapbar",
+      "target_en": "garbagecan",
+      "preproc_en": ""
+    },
+    {
+      "game_idx": 4,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "Throw both pieces of soap into the trash can.",
+      "won": false,
+      "steps": 50,
+      "max_steps": 50,
+      "obj_en": "soapbar",
+      "target_en": "garbagecan",
+      "preproc_en": "",
+      "failure_category": "\u63a2\u7d22\u5faa\u73af-\u4ece\u672a\u62ff\u8fc7\u7269\u4f53(\u5bfc\u822a\u8fc7\u5ea6)"
+    },
+    {
+      "game_idx": 5,
+      "task_type": "pick_two_obj_and_place",
+      "task_desc": "Throw two bars of soap in the trash bin.",
+      "won": true,
+      "steps": 25,
+      "max_steps": 50,
+      "obj_en": "soapbar",
+      "target_en": "garbagecan",
+      "preproc_en": ""
+    },
+    {
+      "game_idx": 6,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Look at a mug in lamp light.",
+      "won": true,
+      "steps": 7,
+      "max_steps": 50,
+      "obj_en": "mug",
+      "target_en": "desklamp",
+      "preproc_en": "desklamp"
+    },
+    {
+      "game_idx": 7,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Turn on the desk lamp.",
+      "won": false,
+      "steps": 50,
+      "max_steps": 50,
+      "obj_en": "lamp",
+      "target_en": "desklamp",
+      "preproc_en": "desklamp",
+      "failure_category": "\u63a2\u7d22\u5faa\u73af-\u4ece\u672a\u62ff\u8fc7\u7269\u4f53(\u5bfc\u822a\u8fc7\u5ea6)"
+    },
+    {
+      "game_idx": 8,
+      "task_type": "look_at_obj_in_light",
+      "task_desc": "Examine a mug using the light of a desk lamp. ",
+      "won": true,
+      "steps": 7,
+      "max_steps": 50,
+      "obj_en": "mug",
+      "target_en": "desklamp",
+      "preproc_en": "desklamp"
+    },
+    {
+      "game_idx": 9,
+      "task_type": "pick_cool_then_place_in_recep",
+      "task_desc": "Put a chilled mug in a cabinet.",
+      "won": true,
+      "steps": 8,
+      "max_steps": 50,
+      "obj_en": "mug",
+      "target_en": "cabinet",
+      "preproc_en": "fridge"
+    }
+  ]
+}

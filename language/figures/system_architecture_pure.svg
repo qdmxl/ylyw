@@ -1,0 +1,106 @@
+<svg width="900" height="520" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="ar" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#555"/>
+    </marker>
+  </defs>
+  
+  <rect width="900" height="520" fill="#FAFAFA" rx="10"/>
+  
+  <!-- Phase A 框 -->
+  <rect x="15" y="15" width="870" height="125" fill="none" stroke="#4A90D9" stroke-width="2" stroke-dasharray="6,3" rx="8"/>
+  <text x="30" y="40" font-size="14" font-weight="bold" fill="#4A90D9">Phase A 任务理解</text>
+  
+  <rect x="30" y="55" width="180" height="35" rx="6" fill="#E3F2FD" stroke="#4A90D9"/>
+  <text x="120" y="76" text-anchor="middle" font-size="13" fill="#1565C0">任务描述(英文)</text>
+  
+  <line x1="145" y1="90" x2="195" y2="90" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <rect x="200" y="72" width="120" height="30" rx="5" fill="#E8EAF6" stroke="#7986CB"/>
+  <text x="260" y="91" text-anchor="middle" font-size="12" fill="#283593">翻译为中文</text>
+  
+  <line x1="320" y1="87" x2="350" y2="87" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <rect x="355" y="55" width="280" height="35" rx="6" fill="#FFF9C4" stroke="#F9A825" stroke-width="1.5"/>
+  <text x="495" y="76" text-anchor="middle" font-size="13" font-weight="bold" fill="#E65100">HanziEngine.sentence()</text>
+  <text x="495" y="86" text-anchor="middle" font-size="10" fill="#555">分词+角色+卦象+时序+依存→YLYW递归推理</text>
+  
+  <line x1="635" y1="72" x2="660" y2="72" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <rect x="665" y="55" width="210" height="70" rx="5" fill="#FFF" stroke="#999"/>
+  <text x="685" y="75" font-size="11" font-weight="bold">输出参数</text>
+  <text x="685" y="92" font-size="10" fill="#4A90D9">task_type(清洗/冷却/加热)</text>
+  <text x="685" y="107" font-size="10" fill="#D2691E">target_obj(盘子/杯子)</text>
+  <text x="685" y="120" font-size="10" fill="#2E7D32">target_loc(柜台/冰箱)</text>
+  
+  <!-- Phase B 框 -->
+  <rect x="15" y="150" width="870" height="240" fill="none" stroke="#E65100" stroke-width="2" stroke-dasharray="6,3" rx="8"/>
+  <text x="30" y="175" font-size="14" font-weight="bold" fill="#E65100">Phase B 逐步决策循环</text>
+  
+  <!-- 循环中四个步骤 -->
+  <!-- 1. ObsParser -->
+  <rect x="40" y="195" width="180" height="70" rx="6" fill="#FBE9E7" stroke="#E65100" stroke-width="1.5"/>
+  <text x="70" y="222" font-size="12" font-weight="bold">ObsParser</text>
+  <text x="70" y="240" font-size="11" fill="#555">从obs提取:位置·库存</text>
+  <text x="70" y="255" font-size="11" fill="#555">容器状态·可见物体</text>
+  
+  <line x1="220" y1="230" x2="257" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <!-- 2. build_yao -->
+  <rect x="263" y="195" width="180" height="70" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="293" y="222" font-size="12" font-weight="bold">build_yao()</text>
+  <text x="293" y="240" font-size="11" fill="#555">状态→6维爻向量</text>
+  <text x="293" y="255" font-size="11" fill="#666">[y₀ y₁ y₂ y₃ y₄ y₅]</text>
+  
+  <line x1="443" y1="230" x2="480" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <!-- 3. fuzzy_decide -->
+  <rect x="486" y="195" width="180" height="70" rx="6" fill="#FCE4EC" stroke="#C62828" stroke-width="1.5"/>
+  <text x="516" y="222" font-size="12" font-weight="bold">fuzzy_decide()</text>
+  <text x="516" y="240" font-size="11" fill="#555">8模糊规则并行计算</text>
+  <text x="516" y="255" font-size="11" fill="#666">取最高激活度意图</text>
+  
+  <line x1="666" y1="230" x2="703" y2="230" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <!-- 4. pick_action -->
+  <rect x="709" y="195" width="160" height="70" rx="6" fill="#EDE7F6" stroke="#6A1B9A" stroke-width="1.5"/>
+  <text x="749" y="222" text-anchor="middle" font-size="12" font-weight="bold">pick_action()</text>
+  <text x="749" y="240" text-anchor="middle" font-size="11" fill="#555">意图→具体命令</text>
+  <text x="749" y="255" text-anchor="middle" font-size="11" fill="#666">go to / take / move</text>
+  
+  <!-- 下转 -->
+  <line x1="749" y1="265" x2="749" y2="290" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <!-- 环境执行 -->
+  <rect x="350" y="295" width="200" height="45" rx="6" fill="#FFEBEE" stroke="#B71C1C" stroke-width="1.5"/>
+  <text x="450" y="322" text-anchor="middle" font-size="13" font-weight="bold">env.step(action)</text>
+  <text x="450" y="335" text-anchor="middle" font-size="10" fill="#555">执行→新obs</text>
+  
+  <line x1="450" y1="340" x2="450" y2="360" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <!-- 反馈更新 -->
+  <rect x="350" y="365" width="200" height="45" rx="6" fill="#FFF9C4" stroke="#F57F17" stroke-width="1.5"/>
+  <text x="450" y="385" text-anchor="middle" font-size="13" font-weight="bold">update()</text>
+  <text x="450" y="398" text-anchor="middle" font-size="10" fill="#555">反馈→更新六爻→下一轮</text>
+  
+  <!-- 回环 -->
+  <path d="M350,388 L310,388 L310,230 L263,230" fill="none" stroke="#999" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#ar)"/>
+  <text x="280" y="310" font-size="11" fill="#999" transform="rotate(-90,280,310)">决策循环</text>
+  
+  <!-- Phase C 框 -->
+  <rect x="15" y="400" width="870" height="105" fill="none" stroke="#2E7D32" stroke-width="2" stroke-dasharray="6,3" rx="8"/>
+  <text x="30" y="425" font-size="14" font-weight="bold" fill="#2E7D32">Phase C 知几学习(跨局)</text>
+  
+  <rect x="40" y="440" width="220" height="45" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="70" y="460" font-size="12" font-weight="bold">ZhijiLearning</text>
+  <text x="70" y="476" font-size="11" fill="#555">K = K_prior ⊕ K_calibration</text>
+  
+  <line x1="260" y1="462" x2="285" y2="462" stroke="#555" stroke-width="1.5" marker-end="url(#ar)"/>
+  
+  <rect x="290" y="440" width="580" height="45" rx="5" fill="#FFF" stroke="#999"/>
+  <text x="310" y="460" font-size="11" font-weight="bold">三类经验校准:</text>
+  <text x="420" y="460" font-size="11" fill="#555">同义词校准  |</text>
+  <text x="550" y="460" font-size="11" fill="#555">位置先验校准  |</text>
+  <text x="680" y="460" font-size="11" fill="#555">场景结构校准</text>
+  <text x="420" y="478" font-size="10" fill="#888">(分布经验→注入下一局)</text>
+</svg>

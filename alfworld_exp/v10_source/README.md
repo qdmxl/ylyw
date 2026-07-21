@@ -11,15 +11,17 @@ YLYW V10 Agent = V9 + 知耻学习（失败驱动校准）
 - V9（+知几学习）：94/134 = 70.1%
 - V10（+知几+知耻）：98/134 = 73.1%
 - V10+经验持久化（R2收敛）：99/134 = 73.9%
+- V10+经验持久化+**爻参数在线微调**：预估+1~3%（待验证）
 
 ## 文件说明
 
 | 文件 | 行数 | 说明 |
 |------|------|------|
-| `ylyw_agent_v10.py` | ~850行 | V10 Agent主体（层次化状态机+知耻学习集成） |
+| `ylyw_agent_v10.py` | ~870行 | V10 Agent主体（层次化状态机+知耻学习+爻调集成） |
 | `zhichi_learning.py` | ~530行 | 知耻学习模块（五层失败校准机制） |
-| `zhiji_learning.py` | ~260行 | 知己学习模块（同义词/位置/场景校准） |
-| `run_v10.py` | ~240行 | 运行脚本（支持--load-exp/--save-exp经验持久化） |
+| `zhiji_learning.py` | ~300行 | 知己学习模块（同义词/位置/场景校准+爻参数播种） |
+| `yao_online_tuner.py` | ~320行 | **新增** 爻参数在线微调模块（抓取/释放实时校准） |
+| `run_v10.py` | ~300行 | 运行脚本（支持--load-exp/--save-exp/--load-yao/--save-yao） |
 | `task_desc_parser.py` | ~250行 | NL任务描述解析器（方向性解析+同义词） |
 | `alfworld_official_wrapper.py` | ~300行 | ALFWorld环境封装（Per-Game Env方案） |
 
@@ -55,6 +57,28 @@ python3 run_v10.py --mode single --game 41 -v
 | L3 | 阶段瓶颈 | 蹇（艰难）| 统计(task_type, phase)失败频率 |
 | L4 | 步数预算 | 节（节制）| 分析探索比例，建议优先open |
 | L5 | 失败聚类 | 明夷（前车之鉴）| 按fingerprint聚类失败模式 |
+
+### 爻参数在线微调（新增）
+
+| 爻 | 名称 | 卦象 | 机制 |
+|----|------|------|------|
+| 抓持爻 | Take置信度 | ☲离（附着） | 物体→位置的抓持置信度，成功+2.0，无效位置-1.0 |
+| 释放爻 | Release置信度 | ☶艮（止位） | 物体→容器的释放置信度，成功+3.0，失败-3.0，同组合多次失败加重-4.0 |
+| 容器爻 | 细粒度偏好 | ☴巽（顺入） | 具体编号容器的微调(如countertop 1 vs countertop 2) |
+
+与知几/知耻的区分：
+- 知几 → **跨局**正向校准（从成功中学）
+- 知耻 → **跨局**负向校准（从失败中学）
+- **爻调** → **局内**在线微调（每步反馈实时更新）
+
+运行命令（新增 `--load-yao`/`--save-yao`）：
+```bash
+# 带爻参数持久化
+python3 run_v10.py --mode all --save-yao exp_yao_round1 --output v10_yao_round1.json
+
+# 加载爻参数再跑
+python3 run_v10.py --mode all --load-yao exp_yao_round1 --save-yao exp_yao_round2 --output v10_yao_round2.json
+```
 
 ## 经验持久化格式
 

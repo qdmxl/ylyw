@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1100" font-family="SimSun, serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#333"/>
+    </marker>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="#2563eb"/>
+    </marker>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="boxL1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef3c7"/>
+      <stop offset="100%" style="stop-color:#fde68a"/>
+    </linearGradient>
+    <linearGradient id="boxL2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dbeafe"/>
+      <stop offset="100%" style="stop-color:#bfdbfe"/>
+    </linearGradient>
+    <linearGradient id="boxL3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dcfce7"/>
+      <stop offset="100%" style="stop-color:#bbf7d0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 标题 -->
+  <rect x="0" y="0" width="900" height="60" rx="8" fill="url(#headerGrad)"/>
+  <text x="450" y="38" text-anchor="middle" fill="white" font-size="20" font-weight="bold">递归YLYW汉语理解与任务分解架构</text>
+
+  <!-- 第一行：L3 句级 -->
+  <rect x="50" y="90" width="800" height="180" rx="10" fill="url(#boxL3)" stroke="#16a34a" stroke-width="2"/>
+  <text x="70" y="118" fill="#166534" font-size="16" font-weight="bold">L3 句级YLYW</text>
+  <text x="750" y="118" fill="#166534" font-size="12" text-anchor="end">输出：句级卦象 + 动作序列</text>
+  
+  <rect x="80" y="135" width="220" height="50" rx="6" fill="white" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="190" y="158" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">句级六爻编码</text>
+  <text x="190" y="175" text-anchor="middle" fill="#666" font-size="11">词间乘承比应 → 6维爻向量</text>
+
+  <rect x="340" y="135" width="220" height="50" rx="6" fill="white" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="450" y="158" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">64卦匹配</text>
+  <text x="450" y="175" text-anchor="middle" fill="#666" font-size="11">余弦匹配 → 句级主卦</text>
+
+  <!-- 句级附加模块 -->
+  <rect x="600" y="135" width="220" height="50" rx="6" fill="white" stroke="#16a34a" stroke-width="1.5"/>
+  <text x="710" y="158" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">时序解析</text>
+  <text x="710" y="175" text-anchor="middle" fill="#666" font-size="11">虚词标记 → 动作顺序</text>
+
+  <rect x="80" y="200" width="350" height="50" rx="6" fill="white" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="255" y="223" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">卦象驱动依存关系解析</text>
+  <text x="255" y="240" text-anchor="middle" fill="#666" font-size="11">卦象推理修饰关系(无硬编码词表)</text>
+
+  <rect x="600" y="200" width="220" height="50" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="710" y="218" text-anchor="middle" fill="#991b1b" font-size="12" font-weight="bold">逐步决策闭环</text>
+  <text x="710" y="238" text-anchor="middle" fill="#991b1b" font-size="11">6维状态六爻→模糊推理</text>
+
+  <!-- 箭头 L3→L2 -->
+  <line x1="450" y1="270" x2="450" y2="310" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 第二行：L2 词级 -->
+  <rect x="50" y="320" width="800" height="170" rx="10" fill="url(#boxL2)" stroke="#2563eb" stroke-width="2"/>
+  <text x="70" y="348" fill="#1e40af" font-size="16" font-weight="bold">L2 词级YLYW</text>
+  <text x="750" y="348" fill="#1e40af" font-size="12" text-anchor="end">输入：字的8维卦象</text>
+
+  <rect x="80" y="365" width="220" height="50" rx="6" fill="white" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="190" y="388" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">词级六爻编码</text>
+  <text x="190" y="405" text-anchor="middle" fill="#666" font-size="11">字间乘承比应 → 6维爻向量</text>
+
+  <rect x="340" y="365" width="220" height="50" rx="6" fill="white" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="450" y="388" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">64卦匹配</text>
+  <text x="450" y="405" text-anchor="middle" fill="#666" font-size="11">余弦匹配 → 词级主卦</text>
+
+  <rect x="600" y="365" width="220" height="50" rx="6" fill="white" stroke="#2563eb" stroke-width="1.5"/>
+  <text x="710" y="388" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">分词角色判断</text>
+  <text x="710" y="405" text-anchor="middle" fill="#666" font-size="11">动作/物体/状态/虚词</text>
+
+  <!-- 箭头 L2→L1 -->
+  <line x1="450" y1="490" x2="450" y2="530" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 第三行：L1 字级 -->
+  <rect x="50" y="540" width="800" height="170" rx="10" fill="url(#boxL1)" stroke="#d97706" stroke-width="2"/>
+  <text x="70" y="568" fill="#92400e" font-size="16" font-weight="bold">L1 字级YLYW + L0 部首隶属度</text>
+  <text x="750" y="568" fill="#92400e" font-size="12" text-anchor="end">输入：部首8维隶属度</text>
+
+  <rect x="80" y="585" width="250" height="50" rx="6" fill="white" stroke="#d97706" stroke-width="1.5"/>
+  <text x="205" y="608" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">测字六法</text>
+  <text x="205" y="625" text-anchor="middle" fill="#666" font-size="11">整体/心意/义符/声符/形似/笔画</text>
+
+  <rect x="360" y="585" width="220" height="50" rx="6" fill="white" stroke="#d97706" stroke-width="1.5"/>
+  <text x="470" y="608" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">部首→汉字映射</text>
+  <text x="470" y="625" text-anchor="middle" fill="#666" font-size="11">42部首 × 8维 = 336参数</text>
+
+  <rect x="610" y="585" width="210" height="50" rx="6" fill="white" stroke="#d97706" stroke-width="1.5"/>
+  <text x="715" y="608" text-anchor="middle" fill="#333" font-size="13" font-weight="bold">汉字卦象输出</text>
+  <text x="715" y="625" text-anchor="middle" fill="#666" font-size="11">8维八卦隶属度</text>
+
+  <rect x="80" y="650" width="740" height="40" rx="6" fill="#f5f5f4" stroke="#d97706" stroke-width="1" stroke-dasharray="4"/>
+  <text x="450" y="675" text-anchor="middle" fill="#666" font-size="12">部首基座：42个部首的8维隶属度 + 318个汉字的部首拆解表</text>
+
+  <!-- 箭头到决策 -->
+  <line x1="450" y1="710" x2="450" y2="750" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- 第四行：任务分解与决策 -->
+  <rect x="50" y="760" width="800" height="150" rx="10" fill="#f0f9ff" stroke="#0284c7" stroke-width="2"/>
+  <text x="70" y="788" fill="#0369a1" font-size="16" font-weight="bold">具身智能任务分解与决策</text>
+  
+  <rect x="80" y="805" width="180" height="85" rx="6" fill="white" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="170" y="825" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">一次性任务规划</text>
+  <text x="170" y="845" text-anchor="middle" fill="#666" font-size="10">探索→拿取→</text>
+  <text x="170" y="860" text-anchor="middle" fill="#666" font-size="10">预处理→放置</text>
+
+  <rect x="290" y="805" width="180" height="85" rx="6" fill="white" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="380" y="825" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">状态六爻编码</text>
+  <text x="380" y="845" text-anchor="middle" fill="#666" font-size="10">初爻(持有)、二爻(位置)</text>
+  <text x="380" y="860" text-anchor="middle" fill="#666" font-size="10">四爻(状态)、五爻(目标)</text>
+
+  <rect x="500" y="805" width="160" height="85" rx="6" fill="white" stroke="#0284c7" stroke-width="1.5"/>
+  <text x="580" y="825" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">模糊推理</text>
+  <text x="580" y="845" text-anchor="middle" fill="#666" font-size="10">8条规则并行</text>
+  <text x="580" y="860" text-anchor="middle" fill="#666" font-size="10">取最高激活度</text>
+
+  <rect x="690" y="805" width="130" height="85" rx="6" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5"/>
+  <text x="755" y="825" text-anchor="middle" fill="#991b1b" font-size="12" font-weight="bold">执行</text>
+  <text x="755" y="848" text-anchor="middle" fill="#991b1b" font-size="10">go to/take/</text>
+  <text x="755" y="863" text-anchor="middle" fill="#991b1b" font-size="10">put/process</text>
+
+  <!-- 反馈闭环 -->
+  <path d="M755,890 L755,930 L450,930 L450,910" fill="none" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-blue)"/>
+  <text x="600" y="945" text-anchor="middle" fill="#2563eb" font-size="11" font-style="italic">每步闭环：感知→六爻编码→模糊推理→执行</text>
+
+  <!-- 底部说明 -->
+  <rect x="50" y="970" width="800" height="45" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="450" y="995" text-anchor="middle" fill="#64748b" font-size="11">参数总量：336（42部首×8维）+ 318汉字拆解表 | 无需训练 | 推理完全可解释</text>
+</svg>

@@ -1,0 +1,171 @@
+{
+  "scenes": {
+    "FloorPlan10": {
+      "scene_id": "FloorPlan10",
+      "locations": [
+        "sinkbasin 1",
+        "microwave 1",
+        "fridge 1"
+      ],
+      "location_objects": {
+        "microwave": {
+          "potato": 9
+        },
+        "microwave 1": {
+          "potato 1": 9
+        },
+        "fridge": {
+          "apple": 9,
+          "bowl": 9,
+          "egg": 18,
+          "lettuce": 9,
+          "mug": 9,
+          "tomato": 18
+        },
+        "fridge 1": {
+          "apple 1": 9,
+          "bowl 1": 9,
+          "egg 1": 9,
+          "egg 2": 9,
+          "lettuce 1": 9,
+          "mug 1": 9,
+          "tomato 1": 9,
+          "tomato 2": 9
+        },
+        "sinkbasin": {
+          "cup": 50,
+          "egg": 25,
+          "potato": 25
+        },
+        "sinkbasin 1": {
+          "cup 1": 25,
+          "cup 2": 25,
+          "egg 3": 25,
+          "potato 3": 25
+        }
+      },
+      "openables": {
+        "microwave 1": "microwave 1",
+        "fridge 1": "fridge 1"
+      },
+      "tool_locations": {},
+      "explored_locations": [],
+      "target_locations": [],
+      "empty_locations": []
+    },
+    "FloorPlan424": {
+      "scene_id": "FloorPlan424",
+      "locations": [
+        "sinkbasin 1",
+        "sinkbasin 2"
+      ],
+      "location_objects": {},
+      "openables": {},
+      "tool_locations": {},
+      "explored_locations": [],
+      "target_locations": [],
+      "empty_locations": []
+    },
+    "FloorPlan308": {
+      "scene_id": "FloorPlan308",
+      "locations": [
+        "bed 1",
+        "desk 1"
+      ],
+      "location_objects": {
+        "bed": {
+          "book": 60,
+          "cellphone": 15,
+          "pillow": 105,
+          "laptop": 15
+        },
+        "bed 1": {
+          "book 1": 45,
+          "cellphone 1": 15,
+          "pillow 1": 45,
+          "pillow 2": 30,
+          "pillow 3": 30,
+          "book 2": 15,
+          "laptop 1": 15
+        },
+        "desk": {
+          "creditcard": 48,
+          "laptop": 72,
+          "pencil": 72,
+          "mug": 24,
+          "pen": 48,
+          "bowl": 24
+        },
+        "desk 1": {
+          "creditcard 1": 24,
+          "laptop 1": 48,
+          "pencil 1": 48,
+          "pencil 2": 24,
+          "creditcard 3": 24,
+          "laptop 2": 24,
+          "mug 1": 24,
+          "pen 1": 48,
+          "bowl 1": 24
+        }
+      },
+      "openables": {},
+      "tool_locations": {},
+      "explored_locations": [],
+      "target_locations": [],
+      "empty_locations": []
+    }
+  },
+  "cross_scene": {
+    "potato": {
+      "microwave": 9,
+      "sinkbasin": 25
+    },
+    "apple": {
+      "fridge": 9
+    },
+    "bowl": {
+      "fridge": 9,
+      "desk": 24
+    },
+    "egg": {
+      "fridge": 18,
+      "sinkbasin": 25
+    },
+    "lettuce": {
+      "fridge": 9
+    },
+    "mug": {
+      "fridge": 9,
+      "desk": 24
+    },
+    "tomato": {
+      "fridge": 18
+    },
+    "book": {
+      "bed": 60
+    },
+    "cellphone": {
+      "bed": 15
+    },
+    "pillow": {
+      "bed": 105
+    },
+    "creditcard": {
+      "desk": 48
+    },
+    "laptop": {
+      "desk": 72,
+      "bed": 15
+    },
+    "pencil": {
+      "desk": 72
+    },
+    "pen": {
+      "desk": 48
+    },
+    "cup": {
+      "sinkbasin": 50
+    }
+  },
+  "current_scene": "FloorPlan10"
+}

@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
-ALFWorld 官方环境适配器 — 方案B (Per-Game Env)
+ALFWorld 官方环境适配器 — 方案D (Per-Game Env + fast_downward.so缓存)
 
-核心修复：
-  旧版wrapper把所有134个game_files注册到一个TextWorld BatchEnv里，
-  然后每次reset()取的是内部shuffled iterator的"下一个"游戏，
-  根本无法按game_idx选择特定游戏。
+修复方案B的问题：
+  方案B每次reset()时注册+创建新的gym env，触发fast_downward.load_lib()
+  向/tmp写入32MB的.so文件。/tmp有usrquota限制(~15MB)，导致Disk quota exceeded。
 
-  方案B：每次reset(game_idx)时，只把那一个gamefile注册为一个全新的
-  TextWorld环境，确保reset()加载的就是我们要的游戏。
+  方案D：patch fast_downward.load_lib() 使其只在第一次拷贝.so到/tmp，
+  后续复用缓存文件。同时每次reset后正确加载指定游戏。
 
 接口兼容：
   - reset(game_idx) → (obs_str, info_dict)
@@ -22,6 +21,8 @@ import sys
 import json
 import yaml
 import re
+import shutil
+import importlib
 from pathlib import Path
 from typing import List, Dict, Optional, Tuple
 from functools import partial
@@ -34,8 +35,9 @@ from alfworld.agents.environment.alfred_tw_env import (
 )
 
 
+
 class ALFWorldOfficial:
-    """ALFWorld 官方 TextWorld 仿真器适配器 (方案B: per-game env)"""
+    """ALFWorld 官方 TextWorld 仿真器适配器 (方案C: batch env + 索引切换)"""
 
     def __init__(self, config_path: str = None, split: str = "valid_unseen"):
         """
@@ -59,14 +61,13 @@ class ALFWorldOfficial:
         self.train_eval = split_map.get(split, 'eval_out_of_distribution')
         self.split = split
 
-        # 用 AlfredTWEnv.collect_game_files() 收集有效游戏列表
-        # 但不调用 init_env()——我们自己按需创建单游戏环境
+        # 用 AlfredTWEnv 收集有效游戏列表
         print(f"Initializing ALFWorld Official (split={split})...")
         self._tw_env_obj = AlfredTWEnv(self.config, train_eval=self.train_eval)
-        self._game_files = list(self._tw_env_obj.game_files)  # 确定性列表
+        self._game_files = list(self._tw_env_obj.game_files)
         print(f"Collected {len(self._game_files)} solvable game files")
 
-        # 预加载所有 traj_data（只读元信息，很快）
+        # 预加载所有 traj_data
         self._traj_cache: Dict[int, Dict] = {}
         for idx, gf in enumerate(self._game_files):
             td = self._load_traj_data(gf)
@@ -74,7 +75,7 @@ class ALFWorldOfficial:
                 self._traj_cache[idx] = td
 
         # 运行时状态
-        self._gym_env = None  # 当前活跃的 gym env
+        self._gym_env = None
         self._current_game_idx = -1
         self._current_traj_data = None
 
@@ -102,7 +103,7 @@ class ALFWorldOfficial:
 
     def reset(self, game_idx: int = 0) -> Tuple[str, Dict]:
         """
-        重置到指定游戏（方案B：每次创建单游戏环境）。
+        重置到指定游戏（方案D：per-game env + fast_downward so缓存）。
 
         Returns:
             (observation: str, info: dict)
@@ -120,34 +121,31 @@ class ALFWorldOfficial:
         game_file = self._game_files[self._current_game_idx]
         self._current_traj_data = self._traj_cache.get(self._current_game_idx)
 
-        # ---- 方案B核心：只注册这一个gamefile ----
+        # ---- per-game env 创建 ----
         request_infos = textworld.EnvInfos(
             won=True,
             admissible_commands=True,
             extras=["gamefile"]
         )
 
-        domain_randomization = False  # eval 模式不随机化
+        domain_randomization = False
         alfred_demangler = AlfredDemangler(shuffle=domain_randomization)
         wrappers = [alfred_demangler, AlfredInfos]
 
         env_id = textworld.gym.register_games(
-            [game_file],              # 只注册这一个游戏！
+            [game_file],
             request_infos,
             batch_size=1,
-            asynchronous=False,       # 单游戏无需异步
+            asynchronous=False,
             max_episode_steps=self._max_steps,
             wrappers=wrappers,
         )
         self._gym_env = textworld.gym.make(env_id)
 
-        # reset → 必定加载我们指定的那个游戏
         obs, info = self._gym_env.reset()
 
-        # 解包 batch[0]
         obs_str = obs[0] if isinstance(obs, (list, tuple)) else str(obs)
 
-        # 验证：extra.gamefile 应该就是我们指定的 game_file
         actual_gamefile = None
         if isinstance(info, dict):
             extras = info.get('extra.gamefile', info.get('extras', {}).get('gamefile', None))

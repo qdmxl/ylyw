@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!--
+6轴通用协作机械臂 + 灵巧手末端 + 桌面场景
+
+模拟 UR5 / Franka Panda 风格的 6-DOF 串联机械臂。
+相比 3轴滑台：
+  - 6个旋转关节 (J1-J6)，工作空间更大
+  - 可从任意角度接近物体
+  - 符合学术界的标准配置
+
+自由度: 6 (机械臂) + 10 (灵巧手手指) = 16 DOF
+-->
+<mujoco model="ylyw_6axis_arm_hand">
+  <compiler angle="radian" meshdir="../meshes"/>
+
+  <option timestep="0.002" gravity="0 0 -9.81">
+    <flag contact="enable"/>
+  </option>
+
+  <asset>
+    <material name="base" rgba="0.3 0.3 0.35 1"/>
+    <material name="link" rgba="0.4 0.4 0.5 1"/>
+    <material name="joint" rgba="0.6 0.6 0.7 1"/>
+    <material name="palm" rgba="0.45 0.45 0.50 1"/>
+    <material name="finger" rgba="0.55 0.55 0.60 1"/>
+    <material name="object" rgba="0.8 0.3 0.2 1"/>
+    <material name="table" rgba="0.4 0.35 0.3 1"/>
+  </asset>
+
+  <default>
+    <geom type="capsule" condim="4" friction="1.5 0.01 0.001"/>
+    <joint damping="10.0" armature="0.01" frictionloss="0.05"/>
+    <position kp="50" kv="30"/>
+  </default>
+
+  <worldbody>
+    <light pos="0 0 5" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <light pos="2 2 4" dir="-1 -1 -2" diffuse="0.8 0.8 0.8"/>
+    <light pos="-2 2 3" dir="1 -1 -1" diffuse="0.3 0.3 0.3"/>
+
+    <!-- 桌面和地面 -->
+    <geom name="floor" type="plane" size="2 2 0.01" pos="0 0 0"/>
+    <geom name="table" type="box" size="0.4 0.4 0.02" pos="0 0 0.72" material="table"/>
+
+    <!-- 俯视摄像头 -->
+    <camera name="topview" pos="0 0 1.8" xyaxes="1 0 0 0 1 0" mode="fixed"/>
+    <!-- 侧视摄像头（从右前方45°向下看桌面中心） -->
+    <camera name="sideview" pos="0.7 0 0.9" xyaxes="0 -1 0 0.707 0 0.707" mode="fixed"/>
+    <!-- 第一人称摄像头（挂载在palm上，面向物体方向） -->
+    <camera name="egocentric" pos="0 0.06 0.05" zaxis="0 0 -1" mode="fixed"/>
+
+    <!-- ============================================================ -->
+    <!-- 6轴协作机械臂 (UR5风格)                                     -->
+    <!-- ============================================================ -->
+    <body name="base" pos="0 0 0.72">
+      <geom name="base_geom" type="box" size="0.07 0.07 0.04" material="base"/>
+
+      <!-- J1: 腰部旋转 (绕Z轴) -->
+      <body name="link1" pos="0 0 0.04">
+        <joint name="j1" type="hinge" axis="0 0 1" range="-3.14 3.14" damping="2.0"/>
+        <geom name="link1_geom" type="cylinder" size="0.045 0.08" material="link"/>
+        <geom name="j1_indicator" type="sphere" size="0.025" material="joint"/>
+
+        <!-- J2: 肩部俯仰 (绕Y轴) -->
+        <body name="link2" pos="0 0 0.08">
+          <joint name="j2" type="hinge" axis="0 1 0" range="-2.5 2.5" damping="2.0"/>
+          <geom name="link2_geom" type="capsule" fromto="0 0 0 0 0 0.25" size="0.04" material="link"/>
+
+          <!-- J3: 肘部俯仰 (绕Y轴) -->
+          <body name="link3" pos="0 0 0.25">
+            <joint name="j3" type="hinge" axis="0 1 0" range="-2.5 2.5" damping="2.0"/>
+            <geom name="link3_geom" type="capsule" fromto="0 0 0 0 0 0.20" size="0.032" material="link"/>
+
+            <!-- J4: 腕部旋转1 (绕Z轴) -->
+            <body name="link4" pos="0 0 0.20">
+              <joint name="j4" type="hinge" axis="0 0 1" range="-3.14 3.14" damping="1.0"/>
+              <geom name="link4_geom" type="cylinder" size="0.025 0.04" material="link"/>
+
+              <!-- J5: 腕部俯仰 (绕Y轴) -->
+              <body name="link5" pos="0 0 0.04">
+                <joint name="j5" type="hinge" axis="0 1 0" range="-2.0 2.0" damping="1.0"/>
+                <geom name="link5_geom" type="capsule" fromto="0 0 0 0 0 0.10" size="0.02" material="link"/>
+
+                <!-- J6: 腕部旋转2 (绕Z轴) — 法兰盘 -->
+                <body name="link6" pos="0 0 0.10">
+                  <joint name="j6" type="hinge" axis="0 0 1" range="-3.14 3.14" damping="1.0"/>
+                  <geom name="flange" type="cylinder" size="0.02 0.015" material="joint"/>
+
+                  <!-- ============================================================ -->
+                  <!-- 灵巧手末端 (与 hand_scene_3axis.xml 相同)                  -->
+                  <!-- ============================================================ -->
+                  <body name="palm" pos="0 0 -0.02">
+                    <geom name="palm_geom" type="box" size="0.02 0.03 0.04" material="palm"/>
+
+                    <!-- 拇指 -->
+                    <body name="thumb_proximal" pos="0.01 -0.03 0.0">
+                      <geom name="thumb_base" type="sphere" size="0.012" material="finger"/>
+                      <joint name="THJ1" type="hinge" axis="0 1 0" range="-0.3 0.5"/>
+                      <body name="thumb_distal" pos="0.0 0.0 -0.035">
+                        <geom name="thumb_link" type="capsule" fromto="0 0 0 0 0 -0.04" size="0.008" material="finger"/>
+                        <joint name="THJ2" type="hinge" axis="1 0 0" range="-0.3 0.6"/>
+                        <geom name="thumb_tip" type="sphere" size="0.009" pos="0 0 -0.005" material="finger"/>
+                      </body>
+                    </body>
+
+                    <!-- 食指 -->
+                    <body name="index_proximal" pos="0.015 -0.015 -0.01">
+                      <geom name="index_base" type="sphere" size="0.010" material="finger"/>
+                      <joint name="FFJ1" type="hinge" axis="1 0 0" range="-0.3 1.5"/>
+                      <body name="index_distal" pos="0.0 0.0 -0.04">
+                        <geom name="index_link" type="capsule" fromto="0 0 0 0 0 -0.05" size="0.007" material="finger"/>
+                        <joint name="FFJ2" type="hinge" axis="1 0 0" range="-0.3 1.5"/>
+                        <geom name="index_tip" type="sphere" size="0.007" pos="0 0 -0.005" material="finger"/>
+                      </body>
+                    </body>
+
+                    <!-- 中指 -->
+                    <body name="middle_proximal" pos="0.0 -0.015 -0.01">
+                      <geom name="middle_base" type="sphere" size="0.010" material="finger"/>
+                      <joint name="MFJ1" type="hinge" axis="1 0 0" range="-0.3 1.5"/>
+                      <body name="middle_distal" pos="0.0 0.0 -0.045">
+                        <geom name="middle_link" type="capsule" fromto="0 0 0 0 0 -0.055" size="0.007" material="finger"/>
+                        <joint name="MFJ2" type="hinge" axis="1 0 0" range="-0.3 1.5"/>
+                        <geom name="middle_tip" type="sphere" size="0.007" pos="0 0 -0.005" material="finger"/>
+                      </body>
+                    </body>
+
+                    <!-- 无名指 -->
+                    <body name="ring_proximal" pos="-0.015 -0.015 -0.01">
+                      <geom name="ring_base" type="sphere" size="0.010" material="finger"/>
+                      <joint name="RFJ1" type="hinge" axis="1 0 0" range="-0.3 1.5"/>
+                      <body name="ring_distal" pos="0.0 0.0 -0.04">
+                        <geom name="ring_link" type="capsule" fromto="0 0 0 0 0 -0.05" size="0.007" material="finger"/>
+                        <joint name="RFJ2" type="hinge" axis="1 0 0" range="-0.3 1.5"/>
+                        <geom name="ring_tip" type="sphere" size="0.007" pos="0 0 -0.005" material="finger"/>
+                      </body>
+                    </body>
+
+                    <!-- 小指 -->
+                    <body name="pinky_proximal" pos="-0.02 -0.03 -0.01">
+                      <geom name="pinky_base" type="sphere" size="0.009" material="finger"/>
+                      <joint name="LFJ1" type="hinge" axis="1 0 0" range="-0.3 1.5"/>
+                      <body name="pinky_distal" pos="0.0 0.0 -0.03">
+                        <geom name="pinky_link" type="capsule" fromto="0 0 0 0 0 -0.04" size="0.006" material="finger"/>
+                        <joint name="LFJ2" type="hinge" axis="1 0 0" range="-0.3 1.5"/>
+                        <geom name="pinky_tip" type="sphere" size="0.006" pos="0 0 -0.004" material="finger"/>
+                      </body>
+                    </body>
+
+                  </body><!-- palm -->
+                </body><!-- link6 -->
+              </body><!-- link5 -->
+            </body><!-- link4 -->
+          </body><!-- link3 -->
+        </body><!-- link2 -->
+      </body><!-- link1 -->
+    </body><!-- base -->
+    <!-- 抓取物体 (freejoint, 由代码控制位置) -->
+    <body name="object" pos="0 0 0.76">
+      <freejoint name="obj_free"/>
+      <geom name="obj_geom" type="sphere" size="0.028" mass="0.03" material="object"/>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <!-- 6轴臂 position控制 -->
+    <position name="j1" joint="j1" kp="200" kv="20"/>
+    <position name="j2" joint="j2" kp="200" kv="20"/>
+    <position name="j3" joint="j3" kp="200" kv="20"/>
+    <position name="j4" joint="j4" kp="100" kv="10"/>
+    <position name="j5" joint="j5" kp="100" kv="10"/>
+    <position name="j6" joint="j6" kp="200" kv="10"/>
+    <!-- 灵巧手 position控制 -->
+    <position name="THJ1" joint="THJ1" kp="200" kv="10"/>
+    <position name="THJ2" joint="THJ2" kp="200" kv="10"/>
+    <position name="FFJ1" joint="FFJ1" kp="200" kv="10"/>
+    <position name="FFJ2" joint="FFJ2" kp="200" kv="10"/>
+    <position name="MFJ1" joint="MFJ1" kp="200" kv="10"/>
+    <position name="MFJ2" joint="MFJ2" kp="200" kv="10"/>
+    <position name="RFJ1" joint="RFJ1" kp="200" kv="10"/>
+    <position name="RFJ2" joint="RFJ2" kp="200" kv="10"/>
+    <position name="LFJ1" joint="LFJ1" kp="200" kv="10"/>
+    <position name="LFJ2" joint="LFJ2" kp="200" kv="10"/>
+  </actuator>
+
+</mujoco>

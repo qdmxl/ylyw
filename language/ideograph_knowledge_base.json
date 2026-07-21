@@ -1555,5 +1555,504 @@
     "explanation": "文言虚词:之于/之乎",
     "bagua_map": "兑(合音/指代)",
     "meaning": "之于/之乎"
+  },
+  "柜": {
+    "components": [
+      "木",
+      "巨"
+    ],
+    "relation": "乘",
+    "explanation": "木制巨形储存器具，藏物纳品",
+    "bagua_map": "艮(止/藏)",
+    "meaning": "柜子、橱柜、储物"
+  },
+  "箱": {
+    "components": [
+      "竹",
+      "相"
+    ],
+    "relation": "承",
+    "explanation": "竹编方形容器，收纳存放",
+    "bagua_map": "坤(纳/容)",
+    "meaning": "箱子、容器"
+  },
+  "桌": {
+    "components": [
+      "木",
+      "卓"
+    ],
+    "relation": "乘",
+    "explanation": "木制平面支撑物，放置物品",
+    "bagua_map": "巽(平/置)",
+    "meaning": "桌子、台面"
+  },
+  "台": {
+    "components": [
+      "厶",
+      "口"
+    ],
+    "relation": "承",
+    "explanation": "高出地面的平坦构筑物，承载摆放",
+    "bagua_map": "坤(载/平)",
+    "meaning": "平台、台面、承载"
+  },
+  "槽": {
+    "components": [
+      "木",
+      "曹"
+    ],
+    "relation": "乘",
+    "explanation": "木制长形容器，蓄水纳物",
+    "bagua_map": "坎(水/蓄)",
+    "meaning": "水槽、槽道"
+  },
+  "架": {
+    "components": [
+      "加",
+      "木"
+    ],
+    "relation": "比",
+    "explanation": "木制支撑结构，架空放置",
+    "bagua_map": "巽(入/架)",
+    "meaning": "架子、支架"
+  },
+  "屉": {
+    "components": [
+      "尸",
+      "世"
+    ],
+    "relation": "乘",
+    "explanation": "可抽拉的容器，收纳小物",
+    "bagua_map": "艮(止/纳)",
+    "meaning": "抽屉、匣子"
+  },
+  "盘": {
+    "components": [
+      "舟",
+      "皿"
+    ],
+    "relation": "承",
+    "explanation": "浅底器皿，盛放食物",
+    "bagua_map": "坤(容/载)",
+    "meaning": "盘子、托盘"
+  },
+  "碟": {
+    "components": [
+      "石",
+      "枼"
+    ],
+    "relation": "乘",
+    "explanation": "石制小盘，盛放佐餐",
+    "bagua_map": "坤(容/浅)",
+    "meaning": "碟子、小盘"
+  },
+  "碗": {
+    "components": [
+      "石",
+      "宛"
+    ],
+    "relation": "承",
+    "explanation": "石制凹形容器，盛饭食汤水",
+    "bagua_map": "坎(水/容)",
+    "meaning": "碗、碗具"
+  },
+  "杯": {
+    "components": [
+      "木",
+      "不"
+    ],
+    "relation": "承",
+    "explanation": "木制饮具，盛水饮酒",
+    "bagua_map": "坎(水/容)",
+    "meaning": "杯子、水杯"
+  },
+  "壶": {
+    "components": [
+      "士",
+      "冖",
+      "业"
+    ],
+    "relation": "乘",
+    "explanation": "有盖容器，盛水倒水",
+    "bagua_map": "坎(水/容)",
+    "meaning": "壶、水壶"
+  },
+  "锅": {
+    "components": [
+      "金",
+      "呙"
+    ],
+    "relation": "乘",
+    "explanation": "金属制烹饪器，受热烹食",
+    "bagua_map": "离(火/烹)",
+    "meaning": "锅、炊具"
+  },
+  "菜": {
+    "components": [
+      "艹",
+      "采"
+    ],
+    "relation": "乘",
+    "explanation": "采摘的植物，可食用",
+    "bagua_map": "震(生/长)",
+    "meaning": "蔬菜、菜肴"
+  },
+  "果": {
+    "components": [
+      "田",
+      "木"
+    ],
+    "relation": "乘",
+    "explanation": "树木结出的果实，可食",
+    "bagua_map": "震(生/果)",
+    "meaning": "果实、水果、结果"
+  },
+  "肉": {
+    "components": [
+      "冂",
+      "人",
+      "人"
+    ],
+    "relation": "比",
+    "explanation": "动物筋肉，食物来源",
+    "bagua_map": "坤(体/养)",
+    "meaning": "肉、肌肉、食物"
+  },
+  "蛋": {
+    "components": [
+      "疋",
+      "虫"
+    ],
+    "relation": "乘",
+    "explanation": "虫类产出，圆形食物",
+    "bagua_map": "坤(生/出)",
+    "meaning": "蛋、鸡蛋"
+  },
+  "奶": {
+    "components": [
+      "女",
+      "乃"
+    ],
+    "relation": "乘",
+    "explanation": "女子哺乳之汁，滋养品",
+    "bagua_map": "坎(水/养)",
+    "meaning": "奶、乳汁"
+  },
+  "酒": {
+    "components": [
+      "氵",
+      "酉"
+    ],
+    "relation": "比",
+    "explanation": "水与发酵谷物结合成饮品",
+    "bagua_map": "坎(水/饮)",
+    "meaning": "酒、酒精饮品"
+  },
+  "糖": {
+    "components": [
+      "米",
+      "唐"
+    ],
+    "relation": "乘",
+    "explanation": "米制甜味调味品",
+    "bagua_map": "坤(甘/甜)",
+    "meaning": "糖、甜味"
+  },
+  "灯": {
+    "components": [
+      "火",
+      "丁"
+    ],
+    "relation": "乘",
+    "explanation": "火丁照明，夜晚光明",
+    "bagua_map": "离(火/明)",
+    "meaning": "灯、照明器"
+  },
+  "炉": {
+    "components": [
+      "火",
+      "户"
+    ],
+    "relation": "乘",
+    "explanation": "户内之火，烹饪取暖",
+    "bagua_map": "离(火/热)",
+    "meaning": "炉子、火炉"
+  },
+  "机": {
+    "components": [
+      "木",
+      "几"
+    ],
+    "relation": "乘",
+    "explanation": "木制机械装置，运作巧制",
+    "bagua_map": "震(动/机)",
+    "meaning": "机器、机关"
+  },
+  "器": {
+    "components": [
+      "口",
+      "犬"
+    ],
+    "relation": "比",
+    "explanation": "四口守犬，众多器具",
+    "bagua_map": "坤(容/器)",
+    "meaning": "器具、容器、工具"
+  },
+  "洗": {
+    "components": [
+      "氵",
+      "先"
+    ],
+    "relation": "比",
+    "explanation": "水在前冲刷污垢，清洁",
+    "bagua_map": "坎(水/洗)",
+    "meaning": "清洗、洗涤"
+  },
+  "擦": {
+    "components": [
+      "扌",
+      "察"
+    ],
+    "relation": "乘",
+    "explanation": "手工细致去除污迹",
+    "bagua_map": "坎(水/净)",
+    "meaning": "擦拭、清洁"
+  },
+  "刷": {
+    "components": [
+      "尸",
+      "巾",
+      "刂"
+    ],
+    "relation": "比",
+    "explanation": "用巾布加刃刮拭去污",
+    "bagua_map": "坎(水/涤)",
+    "meaning": "刷洗、冲刷"
+  },
+  "热": {
+    "components": [
+      "执",
+      "火"
+    ],
+    "relation": "乘",
+    "explanation": "手持火使温度升高",
+    "bagua_map": "离(火/热)",
+    "meaning": "热、加热、温度高"
+  },
+  "冷": {
+    "components": [
+      "冫",
+      "令"
+    ],
+    "relation": "乘",
+    "explanation": "冰寒令使温度降低",
+    "bagua_map": "坎(寒/冷)",
+    "meaning": "冷、寒冷、降温"
+  },
+  "冰": {
+    "components": [
+      "冫",
+      "水"
+    ],
+    "relation": "比",
+    "explanation": "水凝结为冰，寒之极致",
+    "bagua_map": "坎(寒/冰)",
+    "meaning": "冰、冰雪"
+  },
+  "照": {
+    "components": [
+      "日",
+      "召",
+      "火"
+    ],
+    "relation": "乘",
+    "explanation": "日光召火，光明照耀",
+    "bagua_map": "离(光/照)",
+    "meaning": "照耀、照明、照射"
+  },
+  "前": {
+    "components": [
+      "丷",
+      "月",
+      "刂"
+    ],
+    "relation": "比",
+    "explanation": "止于舟前，空间时间之前方",
+    "bagua_map": "震(前/进)",
+    "meaning": "前面、前方、之前"
+  },
+  "后": {
+    "components": [
+      "厂",
+      "口"
+    ],
+    "relation": "承",
+    "explanation": "在后的位置，后续",
+    "bagua_map": "艮(后/止)",
+    "meaning": "后面、之后、后代"
+  },
+  "里": {
+    "components": [
+      "田",
+      "土"
+    ],
+    "relation": "乘",
+    "explanation": "田土之内，内部空间",
+    "bagua_map": "坤(内/容)",
+    "meaning": "里面、内部"
+  },
+  "外": {
+    "components": [
+      "夕",
+      "卜"
+    ],
+    "relation": "比",
+    "explanation": "夕卜于外，外部空间",
+    "bagua_map": "乾(外/出)",
+    "meaning": "外面、外部、之外"
+  },
+  "牛": {
+    "components": [
+      "牛"
+    ],
+    "relation": "比",
+    "explanation": "耕畜，力大刚健",
+    "bagua_map": "乾(健/力)",
+    "meaning": "牛、牛肉"
+  },
+  "猪": {
+    "components": [
+      "犭",
+      "者"
+    ],
+    "relation": "乘",
+    "explanation": "犬类野兽，家畜",
+    "bagua_map": "坎(畜/养)",
+    "meaning": "猪、猪肉"
+  },
+  "鸡": {
+    "components": [
+      "又",
+      "鸟"
+    ],
+    "relation": "乘",
+    "explanation": "手捉鸟类，家禽",
+    "bagua_map": "巽(禽/入)",
+    "meaning": "鸡、鸡肉"
+  },
+  "鱼": {
+    "components": [
+      "鱼"
+    ],
+    "relation": "比",
+    "explanation": "水生动物，鲜美食材",
+    "bagua_map": "坎(水/鱼)",
+    "meaning": "鱼、鱼类"
+  },
+  "刀": {
+    "components": [
+      "刀"
+    ],
+    "relation": "比",
+    "explanation": "切割之器，利器",
+    "bagua_map": "兑(毁/刀)",
+    "meaning": "刀、刀具"
+  },
+  "叉": {
+    "components": [
+      "叉"
+    ],
+    "relation": "比",
+    "explanation": "分叉之器，刺取食物",
+    "bagua_map": "震(分/叉)",
+    "meaning": "叉子、分叉"
+  },
+  "勺": {
+    "components": [
+      "勺"
+    ],
+    "relation": "比",
+    "explanation": "勺形取物之器",
+    "bagua_map": "坎(水/勺)",
+    "meaning": "勺子、汤匙"
+  },
+  "去": {
+    "components": [
+      "土",
+      "厶"
+    ],
+    "relation": "乘",
+    "explanation": "土上有所往，离开前往某处",
+    "bagua_map": "震(动/行)",
+    "meaning": "去、前往、离开"
+  },
+  "拿": {
+    "components": [
+      "合",
+      "手"
+    ],
+    "relation": "乘",
+    "explanation": "合手取物，手持把握",
+    "bagua_map": "乾(手/取)",
+    "meaning": "拿、取、持"
+  },
+  "放": {
+    "components": [
+      "方",
+      "攵"
+    ],
+    "relation": "乘",
+    "explanation": "以手持杖放置，安放物于某处",
+    "bagua_map": "巽(入/置)",
+    "meaning": "放、放置、安放"
+  },
+  "开": {
+    "components": [
+      "一",
+      "廾"
+    ],
+    "relation": "乘",
+    "explanation": "双手打开门户，使开启",
+    "bagua_map": "兑(开/启)",
+    "meaning": "开、打开、开启"
+  },
+  "关": {
+    "components": [
+      "丷",
+      "天"
+    ],
+    "relation": "乘",
+    "explanation": "关门闭合，使封闭",
+    "bagua_map": "艮(止/闭)",
+    "meaning": "关、关闭、合闭"
+  },
+  "闭": {
+    "components": [
+      "门",
+      "才"
+    ],
+    "relation": "乘",
+    "explanation": "门中有木闩使不得开",
+    "bagua_map": "艮(止/闭)",
+    "meaning": "闭、关闭、封闭"
+  },
+  "用": {
+    "components": [
+      "用"
+    ],
+    "relation": "比",
+    "explanation": "可施行之器，使用工具",
+    "bagua_map": "乾(用/能)",
+    "meaning": "用、使用、作用"
+  },
+  "找": {
+    "components": [
+      "扌",
+      "戈"
+    ],
+    "relation": "乘",
+    "explanation": "手持戈搜索寻觅",
+    "bagua_map": "震(动/求)",
+    "meaning": "找、寻找、搜索"
   }
 }

@@ -1,0 +1,302 @@
+{
+  "config": {
+    "agent": "V11",
+    "scene_memory": true,
+    "zhiji_v11": true,
+    "zhichi": true,
+    "yao_tune": true,
+    "pddl": false
+  },
+  "metrics": {
+    "total": 10,
+    "won": 0,
+    "rate": 0.0,
+    "type_accuracy": 1.0,
+    "elapsed": 28.448564052581787
+  },
+  "zhiji_stats": {
+    "games_played": 10,
+    "synonyms_learned": {},
+    "object_locations": {
+      "potato": {
+        "microwave": 10,
+        "sinkbasin": 25
+      },
+      "apple": {
+        "fridge": 9
+      },
+      "bowl": {
+        "fridge": 9,
+        "desk": 25
+      },
+      "egg": {
+        "fridge": 18,
+        "sinkbasin": 25
+      },
+      "lettuce": {
+        "fridge": 9
+      },
+      "mug": {
+        "fridge": 9,
+        "desk": 25
+      },
+      "tomato": {
+        "fridge": 18
+      },
+      "book": {
+        "bed": 60
+      },
+      "cellphone": {
+        "bed": 15
+      },
+      "pillow": {
+        "bed": 105
+      },
+      "creditcard": {
+        "desk": 50
+      },
+      "laptop": {
+        "desk": 75,
+        "bed": 15
+      },
+      "pencil": {
+        "desk": 75
+      },
+      "pen": {
+        "desk": 50
+      },
+      "cup": {
+        "sinkbasin": 50
+      }
+    },
+    "calibrations_applied": 0,
+    "yao_templates": {},
+    "known_entities": 0
+  },
+  "zhichi_stats": {
+    "failures_observed": 10,
+    "wrong_take_map": {
+      "mug": [
+        "bowl",
+        "creditcard"
+      ]
+    },
+    "negative_locations": {
+      "plate": {
+        "fridge": 49,
+        "microwave": 49
+      },
+      "bowl": {
+        "fridge": 25,
+        "microwave": 25
+      },
+      "soapbar": {
+        "sinkbasin": 150
+      },
+      "mug": {
+        "bed": 30,
+        "desk": 30,
+        "sinkbasin": 25,
+        "fridge": 25
+      }
+    },
+    "phase_bottlenecks": {
+      "pick_clean_then_place_in_recep": {
+        "dynamic": 3
+      },
+      "pick_two_obj_and_place": {
+        "dynamic": 3
+      },
+      "look_at_obj_in_light": {
+        "dynamic": 3
+      }
+    },
+    "step_budget_hints": {},
+    "failure_clusters_top": [
+      {
+        "task_type": "pick_two_obj_and_place",
+        "phase": "dynamic",
+        "scene": "FloorPlan424",
+        "obj_found": false,
+        "tool_found": false,
+        "count": 3
+      },
+      {
+        "task_type": "pick_clean_then_place_in_recep",
+        "phase": "dynamic",
+        "scene": "FloorPlan10",
+        "obj_found": false,
+        "tool_found": false,
+        "count": 2
+      },
+      {
+        "task_type": "look_at_obj_in_light",
+        "phase": "dynamic",
+        "scene": "FloorPlan308",
+        "obj_found": false,
+        "tool_found": false,
+        "count": 2
+      },
+      {
+        "task_type": "pick_clean_then_place_in_recep",
+        "phase": "dynamic",
+        "scene": "FloorPlan10",
+        "obj_found": true,
+        "tool_found": false,
+        "count": 1
+      },
+      {
+        "task_type": "look_at_obj_in_light",
+        "phase": "dynamic",
+        "scene": "FloorPlan308",
+        "obj_found": true,
+        "tool_found": false,
+        "count": 1
+      }
+    ]
+  },
+  "by_task_type": {
+    "look_at_obj_in_light": {
+      "total": 3,
+      "won": 0,
+      "rate": 0.0
+    },
+    "pick_clean_then_place_in_recep": {
+      "total": 3,
+      "won": 0,
+      "rate": 0.0
+    },
+    "pick_cool_then_place_in_recep": {
+      "total": 1,
+      "won": 0,
+      "rate": 0.0
+    },
+    "pick_two_obj_and_place": {
+      "total": 3,
+      "won": 0,
+      "rate": 0.0
+    }
+  },
+  "results": [
+    {
+      "game_idx": 0,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean plate on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 1,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a clean yellow plate on the counter.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 2,
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_type_parsed": "pick_clean_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "wash the dirty bowl before putting the bowl on the counter",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 3,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "To move two bars of soap to the gold bin. ",
+      "scene": "FloorPlan424",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 4,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Throw both pieces of soap into the trash can.",
+      "scene": "FloorPlan424",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 5,
+      "task_type_real": "pick_two_obj_and_place",
+      "task_type_parsed": "pick_two_obj_and_place",
+      "type_match": true,
+      "task_desc": "Throw two bars of soap in the trash bin.",
+      "scene": "FloorPlan424",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 6,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Look at a mug in lamp light.",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 7,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Turn on the desk lamp.",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 8,
+      "task_type_real": "look_at_obj_in_light",
+      "task_type_parsed": "look_at_obj_in_light",
+      "type_match": true,
+      "task_desc": "Examine a mug using the light of a desk lamp. ",
+      "scene": "FloorPlan308",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    },
+    {
+      "game_idx": 9,
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_type_parsed": "pick_cool_then_place_in_recep",
+      "type_match": true,
+      "task_desc": "Put a chilled mug in a cabinet.",
+      "scene": "FloorPlan10",
+      "steps": 50,
+      "won": false,
+      "final_phase": 0,
+      "plan_len": 0
+    }
+  ]
+}

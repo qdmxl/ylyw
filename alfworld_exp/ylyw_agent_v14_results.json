@@ -1,0 +1,37 @@
+{
+  "agent": "YLYWAgentV14",
+  "games": 3,
+  "won": 0,
+  "rate": 0.0,
+  "elapsed": 62.908034801483154,
+  "by_type": {
+    "pick_clean_then_place_in_recep": {
+      "total": 3,
+      "won": 0,
+      "rate": 0.0
+    }
+  },
+  "results": [
+    {
+      "game_idx": 0,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a clean plate on the counter.",
+      "steps": 50,
+      "won": false
+    },
+    {
+      "game_idx": 1,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a clean yellow plate on the counter.",
+      "steps": 50,
+      "won": false
+    },
+    {
+      "game_idx": 2,
+      "task_type": "pick_clean_then_place_in_recep",
+      "task_desc": "wash the dirty bowl before putting the bowl on the counter",
+      "steps": 50,
+      "won": false
+    }
+  ]
+}

@@ -5,14 +5,20 @@ YLYW → Unitree G1 人形机器人 MuJoCo 仿真
 基于宇树官方 g1_23dof.xml（29个STL网格 + 真实惯量参数）
 集成 YLYW 运动控制推理引擎
 
+渲染：EGL 离屏渲染（无 GLFW/GTK/Qt 依赖，VirtualBox 友好）
+
 用法：
-  python3 launch_mujoco_g1.py                    # 10种步态演示
-  python3 launch_mujoco_g1.py --adaptive          # 自适应YLYW
-  python3 launch_mujoco_g1.py --no-gui --duration 30
+  python3 launch_mujoco_g1.py                          # 命令行快速模式（10种步态演示）
+  python3 launch_mujoco_g1.py --adaptive                # 自适应YLYW
+  python3 launch_mujoco_g1.py --no-gui --duration 30    # 无头模式
+  python3 launch_mujoco_g1.py --record                  # 录视频到 output.mp4
+  python3 launch_mujoco_g1.py --save-frames frames/      # 保存关键帧截图
 """
 import sys, os, time, math, argparse
 import numpy as np
 
+# GL相关环境变量——尽量早设
+os.environ.setdefault('MUJOCO_GL', 'egl')
 os.environ.setdefault('MUJOCO_GL_DEBUG', '0')
 os.environ.setdefault('LIBGL_ALWAYS_SOFTWARE', '1')
 os.environ.setdefault('GALLIUM_DRIVER', 'llvmpipe')
@@ -24,7 +30,7 @@ os.environ.setdefault('XDG_SESSION_TYPE', 'x11')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ylyw_locomotion import YLYWLocomotionController
 from ylyw_adaptive import YLYWAdaptiveController
-import mujoco, mujoco.viewer
+import mujoco
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -32,7 +38,30 @@ warnings.filterwarnings('ignore')
 MODEL_DIR = os.path.join(os.path.dirname(__file__), 'unitree_models')
 XML_PATH = os.path.join(MODEL_DIR, 'g1_23dof.xml')
 
+# ============================================================
+# 渲染器（延迟初始化单例）
+# ============================================================
+_renderer = None
+def get_renderer(model):
+    global _renderer
+    if _renderer is None:
+        import os
+        # 低内存配置：小尺寸 + 单帧缓存
+        _renderer = mujoco.Renderer(model, height=240, width=320)
+    return _renderer
 
+def close_renderer():
+    global _renderer
+    if _renderer is not None:
+        try:
+            _renderer.close()
+        except Exception:
+            pass
+        _renderer = None
+
+# ============================================================
+# XML 构建
+# ============================================================
 def add_actuators_to_xml(xml_path):
     """在G1 XML中添加执行器 + 约束基座（滑轨代替free joint）"""
     with open(xml_path) as f:
@@ -48,12 +77,15 @@ def add_actuators_to_xml(xml_path):
         '<joint name="slide_x" type="slide" axis="1 0 0"/>'
     )
     
+    # 设置离屏 framebuffer（低配）
+    xml = xml.replace('<global azimuth', '<global offwidth="320" offheight="240" azimuth')
+    
     # 检查是否有地面，没有则添加
     if '<geom name="floor"' not in xml:
         xml = xml.replace('<worldbody>', 
                          '<worldbody>\n    <geom name="floor" type="plane" size="20 20 0.1" rgba="0.35 0.45 0.55 1"/>')
     
-    # 在</worldbody>之后添加执行器（含slide_x马达和跑步机标记）
+    # 执行器
     actuators = """
   <actuator>
     <motor name="slide_x_motor" joint="slide_x" gear="0 0 0 1 0 0"/>
@@ -73,13 +105,13 @@ def add_actuators_to_xml(xml_path):
     <position name="right_ankle_roll"  joint="right_ankle_roll_joint"  kp="150" kv="15"/>
     <!-- 腰部 -->
     <position name="waist_yaw"         joint="waist_yaw_joint"         kp="100" kv="10"/>
-    <!-- 左臂（保持） -->
+    <!-- 左臂 -->
     <position name="left_shoulder_pitch"  joint="left_shoulder_pitch_joint"  kp="50" kv="5"/>
     <position name="left_shoulder_roll"   joint="left_shoulder_roll_joint"   kp="50" kv="5"/>
     <position name="left_shoulder_yaw"    joint="left_shoulder_yaw_joint"    kp="30" kv="3"/>
     <position name="left_elbow"           joint="left_elbow_joint"           kp="50" kv="5"/>
     <position name="left_wrist_roll"      joint="left_wrist_roll_joint"      kp="30" kv="3"/>
-    <!-- 右臂（保持） -->
+    <!-- 右臂 -->
     <position name="right_shoulder_pitch" joint="right_shoulder_pitch_joint" kp="50" kv="5"/>
     <position name="right_shoulder_roll"  joint="right_shoulder_roll_joint"  kp="50" kv="5"/>
     <position name="right_shoulder_yaw"   joint="right_shoulder_yaw_joint"   kp="30" kv="3"/>
@@ -95,11 +127,7 @@ def add_actuators_to_xml(xml_path):
 class G1LocomotionSim:
     """G1人形机器人 YLYW 运动控制仿真"""
     
-    # GPU渲染
-    RENDER_GPU = False  # VirtualBox下用软件渲染
-    
     def __init__(self, adaptive=False, learning_rate=0.05):
-        # 构建带执行器的XML
         xml_str = add_actuators_to_xml(XML_PATH)
         
         self.model = mujoco.MjModel.from_xml_string(xml_str)
@@ -133,7 +161,6 @@ class G1LocomotionSim:
         self.torso_id = mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_BODY, 'torso_link')
     
     def reset_pose(self):
-        """重置为初始姿态"""
         mujoco.mj_resetData(self.model, self.data)
         self.data.ctrl[:] = 0
         self.phase = 0.0
@@ -142,21 +169,10 @@ class G1LocomotionSim:
         self.sim_time = 0.0
     
     def is_fallen(self):
-        """检测摔倒（滑轨约束下几乎不会摔倒）"""
         pos = self.data.xpos[self.torso_id]
         return pos[2] < 0.40
     
     def apply_gait(self, gait_params):
-        """
-        YLYW步态参数 → G1关节角度
-        
-        G1关节映射:
-          髋pitch → 前后摆动（主驱动力）
-          膝 → 弯曲
-          踝pitch → 辅助
-          髋roll → 侧向平衡
-          髋yaw → 转向（暂不用）
-        """
         speed = gait_params.get('speed', 0.0)
         freq = gait_params.get('freq', 0.0)
         force_coef = gait_params.get('force_coefficient', 0.5)
@@ -164,42 +180,33 @@ class G1LocomotionSim:
         dt = self.model.opt.timestep
         
         if speed < 0.02:
-            # 站立：微前倾保持平衡
             for a in self.act_ids.values():
                 self.data.ctrl[a] = 0
         
         self.phase += freq * dt * 2 * math.pi
         self.phase %= 2 * math.pi
         
-        # 步态幅度（适配G1的关节范围）
-        # G1 hip_pitch range: -2.53 ~ 2.88 rad, knee: -0.087 ~ 2.88 rad
         hip_amp = 0.45 * min(speed, 1.2) * force_coef
         knee_amp = 0.55 * min(speed, 1.2) * force_coef
         ankle_amp = 0.12 * min(speed, 1.2) * force_coef
         
-        # 左右腿相位差
         l_phase = self.phase
         r_phase = self.phase + math.pi
         
-        # 左腿
         l_hip = hip_amp * math.sin(l_phase)
         l_knee = knee_amp * max(0, math.sin(l_phase - 0.3))
         l_ankle = -ankle_amp * math.sin(l_phase)
         
-        # 右腿
         r_hip = hip_amp * math.sin(r_phase)
         r_knee = knee_amp * max(0, math.sin(r_phase - 0.3))
         r_ankle = -ankle_amp * math.sin(r_phase)
         
-        # 设置执行器目标
         ctrl_targets = {
             'left_hip_pitch': l_hip,     'right_hip_pitch': r_hip,
             'left_knee': l_knee,          'right_knee': r_knee,
             'left_ankle_pitch': l_ankle,  'right_ankle_pitch': r_ankle,
-            # 侧向平衡
             'left_hip_roll': 0.08 * force_coef,
             'right_hip_roll': -0.08 * force_coef,
-            # 其他关节保持0
             'left_hip_yaw': 0, 'right_hip_yaw': 0,
             'left_ankle_roll': 0, 'right_ankle_roll': 0,
             'waist_yaw': 0,
@@ -209,7 +216,6 @@ class G1LocomotionSim:
             if name in self.act_ids:
                 self.data.ctrl[self.act_ids[name]] = target
         
-        # 手臂：自然摆动
         arm_swing = 0.2 * min(speed, 1.0)
         for side, sign in [('left', +1), ('right', -1)]:
             p = l_phase if side == 'left' else r_phase
@@ -221,8 +227,6 @@ class G1LocomotionSim:
                     self.data.ctrl[self.act_ids[name]] = shoulder * (0.5 if jn != 'shoulder_pitch' else 1.0)
     
     def step(self, state_6d, feedback=None):
-        """执行一步仿真：YLYW推理→关节控制→物理步进"""
-        # YLYW推理
         if self.step_count % 3 == 0:
             if isinstance(self.controller, YLYWAdaptiveController):
                 result = self.controller.step(np.array(state_6d), feedback=feedback)
@@ -233,19 +237,15 @@ class G1LocomotionSim:
             if result:
                 self.current_gait = result
         
-        # 关节控制
         gait = self.current_gait or {'speed': 0, 'freq': 0, 'step_height': 0, 'force_coefficient': 0.5,
                                       'hexagram_name': 'N/A', 'gait_name': 'N/A'}
         self.apply_gait(gait)
         
-        # 躯干滑动（跑步机效果）
         sx_dof = self.model.jnt_dofadr[mujoco.mj_name2id(self.model, mujoco.mjtObj.mjOBJ_JOINT, 'slide_x')]
         self.data.qvel[sx_dof] = gait.get('speed', 0) * 1.5
         
-        # 物理步进
         mujoco.mj_step(self.model, self.data)
         
-        # 摔倒检测
         fell = self.is_fallen()
         if fell and not self.prev_fell:
             self.fell_count += 1
@@ -257,8 +257,37 @@ class G1LocomotionSim:
         return gait, fell
 
 
-def run_gui(adaptive=False, duration=90):
-    """GUI模式：10种步态演示"""
+def render_frame(sim, renderer, camera=None):
+    """渲染一帧并叠加HUD信息"""
+    if camera is None:
+        camera = mujoco.MjvCamera()
+        mujoco.mjv_defaultFreeCamera(sim.model, camera)
+    
+    torso_pos = sim.data.xpos[sim.torso_id]
+    camera.distance = 3.0
+    camera.azimuth = 60
+    camera.elevation = -15
+    camera.lookat[:] = [torso_pos[0], torso_pos[1], 0.8]
+    
+    renderer.update_scene(sim.data, camera)
+    rgb = renderer.render()
+    
+    # HUD
+    import cv2
+    hud_info = [
+        f"t={sim.sim_time:.1f}s",
+        f"步态: {sim.current_gait.get('gait_name', 'N/A') if sim.current_gait else 'N/A'}",
+        f"卦: {sim.current_gait.get('hexagram_name', 'N/A') if sim.current_gait else 'N/A'}",
+        f"速度: {sim.current_gait.get('speed', 0):.2f}" if sim.current_gait else "速度: 0",
+    ]
+    for i, txt in enumerate(hud_info):
+        cv2.putText(rgb, txt, (12, 30 + i * 28),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+    return rgb
+
+
+def run_gui(adaptive=False, duration=90, record=False):
+    """快速命令行模式（无GUI依赖，适用于所有环境）"""
     sim = G1LocomotionSim(adaptive=adaptive)
     
     demo_seq = [
@@ -278,51 +307,61 @@ def run_gui(adaptive=False, duration=90):
     model_name = "自适应" if adaptive else "静态"
     print(f"{'='*60}")
     print(f"YLYW → Unitree G1 人形机器人 ({model_name}YLYW)")
-    print(f"23 DOF | MuJoCo物理引擎 | STL网格渲染")
+    print(f"23 DOF | MuJoCo物理仿真 | 快速模式")
     print(f"{'='*60}")
     print(f"{'时间':>5} {'场景':<8} {'卦象':<10} {'步态':<10} {'速':>4} {'摔倒':>4}")
     print("-" * 50)
     
     last_log_time = -99
     
-    with mujoco.viewer.launch_passive(sim.model, sim.data) as viewer:
-        viewer.cam.distance = 3.0
-        viewer.cam.azimuth = 60
-        viewer.cam.elevation = -15
-        viewer.cam.lookat = [0, 0, 0.8]
-        
-        # 软件渲染优化
-        viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_TRANSPARENT] = False
-        viewer.opt.flags[mujoco.mjtVisFlag.mjVIS_REFLECTION] = False
-        
-        while viewer.is_running() and sim.sim_time < duration:
+    # 初始化渲染器和相机（用于record/video fallback）
+    renderer = get_renderer(sim.model)
+    cam = mujoco.MjvCamera()
+    mujoco.mjv_defaultFreeCamera(sim.model, cam)
+    
+    # 视频录制
+    video_writer = None
+    if record:
+        import cv2
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        video_writer = cv2.VideoWriter('output.mp4', fourcc, 15.0, (320, 240))
+    
+    frame_buf = np.empty((240, 320, 3), dtype=np.uint8)
+    
+    try:
+        while sim.sim_time < duration:
             while demo_idx+1 < len(demo_seq) and sim.sim_time >= demo_seq[demo_idx+1][0]:
                 demo_idx += 1
             name, state = demo_seq[demo_idx][1], demo_seq[demo_idx][2]
             
             gait, fell = sim.step(state)
             
-            # 摄像头跟随
-            torso_pos = sim.data.xpos[sim.torso_id]
-            viewer.cam.lookat = [torso_pos[0], torso_pos[1], 0.8]
+            # 视频录制（每帧渲染）
+            if video_writer:
+                frame = render_frame(sim, renderer, camera=cam)
+                import cv2 as _cv2
+                _cv2.cvtColor(frame, _cv2.COLOR_RGB2BGR, dst=frame_buf)
+                video_writer.write(frame_buf)
             
-            # 日志
+            # 日志（每秒）
             if sim.sim_time - last_log_time >= 1.0:
-                hex_name = gait['hexagram_name']
-                gait_name = gait['gait_name']
-                speed = gait.get('speed', 0)
-                fell_mark = '💀' if fell else '  '
-                print(f"{sim.sim_time:>4.1f}s {name:<8} {hex_name:<10} {gait_name:<10} {speed:>3.2f} {fell_mark:>4}")
+                print(f"{sim.sim_time:>4.1f}s {name:<8} {gait['hexagram_name']:<10} "
+                      f"{gait['gait_name']:<10} {gait.get('speed',0):>3.2f} "
+                      f"{'💀' if fell else '  ':>4}")
                 last_log_time = sim.sim_time
-            
-            viewer.sync()
-            time.sleep(0.015)  # 降低渲染帧率（VirtualBox软件渲染优化）
+    
+    except KeyboardInterrupt:
+        pass
+    finally:
+        if video_writer:
+            video_writer.release()
+        close_renderer()
     
     print(f"\n摔倒{sim.fell_count}次 | 推理{sim.controller.step_count if hasattr(sim.controller, 'step_count') else sim.step_count}次")
 
 
 def run_no_gui(adaptive=False, duration=30):
-    """无头模式"""
+    """无头模式（极简日志）"""
     sim = G1LocomotionSim(adaptive=adaptive)
     
     demo_seq = [
@@ -348,14 +387,62 @@ def run_no_gui(adaptive=False, duration=30):
     print(f"\n摔倒{sim.fell_count}次")
 
 
+def run_save_frames(adaptive=False, duration=35, outdir='frames'):
+    """保存关键帧为图片（用于论文/PPT）"""
+    import cv2
+    os.makedirs(outdir, exist_ok=True)
+    
+    sim = G1LocomotionSim(adaptive=adaptive)
+    renderer = get_renderer(sim.model)
+    
+    demo_seq = [
+        (0,  "站立", [0.90,0.82,0.75,0.88,0.05,0.82]),
+        (6,  "慢走", [0.72,0.72,0.68,0.65,0.20,0.80]),
+        (13, "行走", [0.65,0.70,0.65,0.60,0.30,0.78]),
+        (20, "小跑", [0.55,0.72,0.72,0.50,0.52,0.76]),
+        (28, "站立", [0.88,0.78,0.72,0.85,0.10,0.80]),
+    ]
+    demo_idx = 0
+    frame_interval = int(1.0 / sim.model.opt.timestep)
+    cam = mujoco.MjvCamera()
+    mujoco.mjv_defaultFreeCamera(sim.model, cam)
+    
+    while sim.sim_time < duration:
+        while demo_idx+1 < len(demo_seq) and sim.sim_time >= demo_seq[demo_idx+1][0]:
+            demo_idx += 1
+        name, state = demo_seq[demo_idx][1], demo_seq[demo_idx][2]
+        gait, _ = sim.step(state)
+        
+        if sim.step_count % frame_interval == 0:
+            frame = render_frame(sim, renderer, camera=cam)
+            fname = f"{outdir}/g1_{name}_{sim.sim_time:.0f}s.png"
+            cv2.imwrite(fname, cv2.cvtColor(frame, cv2.COLOR_RGB2BGR))
+            print(f"  Saved {fname}")
+    
+    close_renderer()
+    print(f"\n共保存 {sim.sim_time:.0f} 帧到 {outdir}/")
+    print(f"摔倒{sim.fell_count}次")
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='YLYW → Unitree G1 仿真')
-    parser.add_argument('--adaptive', action='store_true')
-    parser.add_argument('--no-gui', action='store_true')
-    parser.add_argument('--duration', type=float, default=90)
+    parser.add_argument('--adaptive', action='store_true',
+                        help='使用自适应YLYW控制器')
+    parser.add_argument('--no-gui', action='store_true',
+                        help='无头模式（仅命令行日志）')
+    parser.add_argument('--duration', type=float, default=90,
+                        help='仿真时长(秒)')
+    parser.add_argument('--record', action='store_true',
+                        help='录视频到 output.mp4')
+    parser.add_argument('--save-frames', type=str, nargs='?', const='frames',
+                        help='保存关键帧到指定目录')
     args = parser.parse_args()
     
     if args.no_gui:
         run_no_gui(adaptive=args.adaptive, duration=args.duration)
+    elif args.save_frames is not None:
+        run_save_frames(adaptive=args.adaptive, duration=args.duration,
+                        outdir=args.save_frames)
     else:
-        run_gui(adaptive=args.adaptive, duration=args.duration)
+        run_gui(adaptive=args.adaptive, duration=args.duration,
+                record=args.record)

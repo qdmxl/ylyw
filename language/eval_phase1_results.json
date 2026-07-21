@@ -1,0 +1,4025 @@
+{
+  "total_tasks": 85,
+  "segments_ok": 84,
+  "object_found": 84,
+  "location_found": 85,
+  "action_found": 85,
+  "deps_ok": 18,
+  "by_type": {
+    "look_at_obj_in_light": {
+      "total": 18,
+      "seg_ok": 17,
+      "obj_found": 17,
+      "loc_found": 18,
+      "act_found": 18,
+      "deps_ok": 18
+    },
+    "pick_and_place_simple": {
+      "total": 10,
+      "seg_ok": 10,
+      "obj_found": 10,
+      "loc_found": 10,
+      "act_found": 10,
+      "deps_ok": 0
+    },
+    "pick_and_place_with_movable_recep": {
+      "total": 11,
+      "seg_ok": 11,
+      "obj_found": 11,
+      "loc_found": 11,
+      "act_found": 11,
+      "deps_ok": 0
+    },
+    "pick_clean_then_place_in_recep": {
+      "total": 12,
+      "seg_ok": 12,
+      "obj_found": 12,
+      "loc_found": 12,
+      "act_found": 12,
+      "deps_ok": 0
+    },
+    "pick_cool_then_place_in_recep": {
+      "total": 12,
+      "seg_ok": 12,
+      "obj_found": 12,
+      "loc_found": 12,
+      "act_found": 12,
+      "deps_ok": 0
+    },
+    "pick_heat_then_place_in_recep": {
+      "total": 14,
+      "seg_ok": 14,
+      "obj_found": 14,
+      "loc_found": 14,
+      "act_found": 14,
+      "deps_ok": 0
+    },
+    "pick_two_obj_and_place": {
+      "total": 8,
+      "seg_ok": 8,
+      "obj_found": 8,
+      "loc_found": 8,
+      "act_found": 8,
+      "deps_ok": 0
+    }
+  },
+  "hexagram_distribution": {
+    "泽风大过": 37,
+    "乾为天": 29,
+    "火风鼎": 10,
+    "地天泰": 9
+  },
+  "results": [
+    {
+      "idx": 0,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看闹钟",
+      "obj": "闹钟",
+      "parent": "台灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "闹钟"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 1,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看棒球棒",
+      "obj": "棒球棒",
+      "parent": "台灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "棒球棒"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 2,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看篮球",
+      "obj": "篮球",
+      "parent": "台灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "篮球"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 3,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看书",
+      "obj": "书",
+      "parent": "台灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "书"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 4,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看碗",
+      "obj": "碗",
+      "parent": "台灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "碗"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 5,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看盒子",
+      "obj": "盒子",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "盒子"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 6,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看光盘",
+      "obj": "光盘",
+      "parent": "台灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "光盘"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 7,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看手机",
+      "obj": "手机",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "手机"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 8,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看信用卡",
+      "obj": "信用卡",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "信",
+        "用",
+        "卡"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        },
+        {
+          "modifier": "信",
+          "head": "卡",
+          "type": "loc_mod",
+          "modifier_idx": 5,
+          "head_idx": 7,
+          "marker": "",
+          "reason": "坤→位置修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": false,
+        "object_found": false,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 9,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看钥匙链",
+      "obj": "钥匙链",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "钥匙链"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 10,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看笔记本",
+      "obj": "笔记本",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "笔记本"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 11,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看杯子",
+      "obj": "杯子",
+      "parent": "台灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "杯子"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 12,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看报纸",
+      "obj": "报纸",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "报纸"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 13,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看铅笔",
+      "obj": "铅笔",
+      "parent": "台灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "铅笔"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 14,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看遥控器",
+      "obj": "遥控器",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "遥控器"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 15,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看雕像",
+      "obj": "雕像",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "雕像"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 16,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看TissueBox",
+      "obj": "TissueBox",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "TissueBox"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 17,
+      "type": "look_at_obj_in_light",
+      "cn": "用灯的光看看花瓶",
+      "obj": "花瓶",
+      "parent": "落地灯",
+      "segments": [
+        "用",
+        "灯",
+        "的",
+        "光",
+        "看看",
+        "花瓶"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "虚词",
+        "物体",
+        "动作",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9891,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.391,
+        0.259,
+        0.27,
+        0.292,
+        0.303,
+        0.348
+      ],
+      "deps": [
+        {
+          "modifier": "灯",
+          "head": "光",
+          "type": "attr_mod",
+          "modifier_idx": 1,
+          "head_idx": 3,
+          "marker": "的",
+          "reason": "离→属性修饰"
+        }
+      ],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": true,
+        "errors": []
+      }
+    },
+    {
+      "idx": 18,
+      "type": "pick_and_place_simple",
+      "cn": "把棒球棒放到床上",
+      "obj": "棒球棒",
+      "parent": "床",
+      "segments": [
+        "把",
+        "棒球棒",
+        "放",
+        "到",
+        "床上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9901,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.153,
+        0.279,
+        0.231,
+        0.243,
+        0.245,
+        0.329
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 19,
+      "type": "pick_and_place_simple",
+      "cn": "把杯子放到桌子上",
+      "obj": "杯子",
+      "parent": "桌子",
+      "segments": [
+        "把",
+        "杯子",
+        "放",
+        "到",
+        "桌子上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.153,
+        0.283,
+        0.231,
+        0.243,
+        0.245,
+        0.332
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 20,
+      "type": "pick_and_place_simple",
+      "cn": "把铅笔放到架子上",
+      "obj": "铅笔",
+      "parent": "架子",
+      "segments": [
+        "把",
+        "铅笔",
+        "放",
+        "到",
+        "架子上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.153,
+        0.283,
+        0.231,
+        0.243,
+        0.245,
+        0.332
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 21,
+      "type": "pick_and_place_simple",
+      "cn": "把胡椒瓶放到抽屉里",
+      "obj": "胡椒瓶",
+      "parent": "抽屉",
+      "segments": [
+        "把",
+        "胡椒瓶",
+        "放",
+        "到",
+        "抽屉里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9897,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.147,
+        0.267,
+        0.222,
+        0.235,
+        0.237,
+        0.324
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 22,
+      "type": "pick_and_place_simple",
+      "cn": "把皮搋子放到柜子里",
+      "obj": "皮搋子",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "皮搋子",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9899,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.273,
+        0.226,
+        0.238,
+        0.24,
+        0.324
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 23,
+      "type": "pick_and_place_simple",
+      "cn": "把盐瓶放到柜子里",
+      "obj": "盐瓶",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "盐瓶",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9902,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.152,
+        0.304,
+        0.246,
+        0.26,
+        0.262,
+        0.35
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 24,
+      "type": "pick_and_place_simple",
+      "cn": "把盐瓶放到抽屉里",
+      "obj": "盐瓶",
+      "parent": "抽屉",
+      "segments": [
+        "把",
+        "盐瓶",
+        "放",
+        "到",
+        "抽屉里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9902,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.152,
+        0.304,
+        0.246,
+        0.26,
+        0.262,
+        0.35
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 25,
+      "type": "pick_and_place_simple",
+      "cn": "把洗手液瓶放到马桶里",
+      "obj": "洗手液瓶",
+      "parent": "马桶",
+      "segments": [
+        "把",
+        "洗手液瓶",
+        "放",
+        "到",
+        "马桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.99,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.176,
+        0.366,
+        0.295,
+        0.308,
+        0.31,
+        0.401
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 26,
+      "type": "pick_and_place_simple",
+      "cn": "把花瓶放到保险箱里",
+      "obj": "花瓶",
+      "parent": "保险箱",
+      "segments": [
+        "把",
+        "花瓶",
+        "放",
+        "到",
+        "保险箱里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9897,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.148,
+        0.269,
+        0.224,
+        0.237,
+        0.239,
+        0.328
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 27,
+      "type": "pick_and_place_simple",
+      "cn": "把手表放到保险箱里",
+      "obj": "手表",
+      "parent": "保险箱",
+      "segments": [
+        "把",
+        "手表",
+        "放",
+        "到",
+        "保险箱里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.148,
+        0.27,
+        0.224,
+        0.237,
+        0.239,
+        0.327
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 28,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把黄油刀移到柜台上",
+      "obj": "黄油刀",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "黄油刀",
+        "移",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 29,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把黄油刀移到水槽里",
+      "obj": "黄油刀",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "黄油刀",
+        "移",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 30,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把黄油刀移到水槽里",
+      "obj": "黄油刀",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "黄油刀",
+        "移",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 31,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把鸡蛋移到柜台上",
+      "obj": "鸡蛋",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "鸡蛋",
+        "移",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 32,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把叉子移到柜台上",
+      "obj": "叉子",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "叉子",
+        "移",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9901,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.161,
+        0.311,
+        0.248,
+        0.259,
+        0.261,
+        0.341
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 33,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把叉子移到水槽里",
+      "obj": "叉子",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "叉子",
+        "移",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9901,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.161,
+        0.311,
+        0.248,
+        0.259,
+        0.261,
+        0.341
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 34,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把Glassbottle移到水槽里",
+      "obj": "Glassbottle",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "Glassbottle",
+        "移",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9899,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.273,
+        0.226,
+        0.238,
+        0.24,
+        0.324
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 35,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把钥匙链移到扶手椅上",
+      "obj": "钥匙链",
+      "parent": "扶手椅",
+      "segments": [
+        "把",
+        "钥匙链",
+        "移",
+        "到",
+        "扶手椅上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.153,
+        0.283,
+        0.231,
+        0.243,
+        0.245,
+        0.332
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 36,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把铅笔移到架子上",
+      "obj": "铅笔",
+      "parent": "架子",
+      "segments": [
+        "把",
+        "铅笔",
+        "移",
+        "到",
+        "架子上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.153,
+        0.283,
+        0.231,
+        0.243,
+        0.245,
+        0.332
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 37,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把勺子移到柜台上",
+      "obj": "勺子",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "勺子",
+        "移",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.153,
+        0.283,
+        0.231,
+        0.243,
+        0.245,
+        0.332
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 38,
+      "type": "pick_and_place_with_movable_recep",
+      "cn": "把勺子移到水槽里",
+      "obj": "勺子",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "勺子",
+        "移",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.153,
+        0.283,
+        0.231,
+        0.243,
+        0.245,
+        0.332
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 39,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把碗洗干净后放到柜子里",
+      "obj": "碗",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "碗",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.45,
+        0.252,
+        0.277,
+        0.306,
+        0.319,
+        0.367
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 40,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把抹布洗干净后放到柜子里",
+      "obj": "抹布",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "抹布",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9886,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.48,
+        0.404,
+        0.392,
+        0.427,
+        0.44,
+        0.549
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 41,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把抹布洗干净后放到柜台上",
+      "obj": "抹布",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "抹布",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9886,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.48,
+        0.404,
+        0.392,
+        0.427,
+        0.44,
+        0.549
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 42,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把鸡蛋洗干净后放到微波炉里",
+      "obj": "鸡蛋",
+      "parent": "微波炉",
+      "segments": [
+        "把",
+        "鸡蛋",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "微波炉里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.989,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.483,
+        0.4,
+        0.392,
+        0.425,
+        0.438,
+        0.539
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 43,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把刀洗干净后放到柜台上",
+      "obj": "刀",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "刀",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.45,
+        0.252,
+        0.277,
+        0.306,
+        0.319,
+        0.367
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 44,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把LettuceSliced洗干净后放到垃圾桶里",
+      "obj": "LettuceSliced",
+      "parent": "垃圾桶",
+      "segments": [
+        "把",
+        "LettuceSliced",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "垃圾桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.989,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.483,
+        0.4,
+        0.392,
+        0.425,
+        0.438,
+        0.539
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 45,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把杯子洗干净后放到咖啡机上",
+      "obj": "杯子",
+      "parent": "咖啡机",
+      "segments": [
+        "把",
+        "杯子",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "咖啡机上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9892,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.485,
+        0.418,
+        0.399,
+        0.433,
+        0.446,
+        0.554
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 46,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把锅洗干净后放到柜台上",
+      "obj": "锅",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "锅",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9896,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.45,
+        0.252,
+        0.277,
+        0.306,
+        0.319,
+        0.367
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 47,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把盘子洗干净后放到柜台上",
+      "obj": "盘子",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "盘子",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.482,
+        0.404,
+        0.392,
+        0.426,
+        0.439,
+        0.541
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 48,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把肥皂洗干净后放到柜子里",
+      "obj": "肥皂",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "肥皂",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9892,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.485,
+        0.418,
+        0.399,
+        0.433,
+        0.446,
+        0.554
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 49,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把肥皂洗干净后放到柜台上",
+      "obj": "肥皂",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "肥皂",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9892,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.485,
+        0.418,
+        0.399,
+        0.433,
+        0.446,
+        0.554
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 50,
+      "type": "pick_clean_then_place_in_recep",
+      "cn": "把锅铲洗干净后放到抽屉里",
+      "obj": "锅铲",
+      "parent": "抽屉",
+      "segments": [
+        "把",
+        "锅铲",
+        "洗干净",
+        "后",
+        "放",
+        "到",
+        "抽屉里"
+      ],
+      "roles": [
+        "虚词",
+        "动作",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.387,
+        0.467,
+        0.396,
+        0.422,
+        0.432,
+        0.541
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 51,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把面包冷却后放到柜台上",
+      "obj": "面包",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "面包",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "动作",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9887,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.476,
+        0.392,
+        0.383,
+        0.419,
+        0.432,
+        0.528
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 52,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把BreadSliced冷却后放到微波炉里",
+      "obj": "BreadSliced",
+      "parent": "微波炉",
+      "segments": [
+        "把",
+        "BreadSliced",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "微波炉里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.9892,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.49,
+        0.41,
+        0.407,
+        0.444,
+        0.458,
+        0.577
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 53,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把鸡蛋冷却后放到水槽里",
+      "obj": "鸡蛋",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "鸡蛋",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.9899,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.488,
+        0.396,
+        0.399,
+        0.436,
+        0.449,
+        0.566
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 54,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把生菜冷却后放到柜台上",
+      "obj": "生菜",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "生菜",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.9901,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.485,
+        0.396,
+        0.397,
+        0.435,
+        0.449,
+        0.571
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 55,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把生菜冷却后放到水槽里",
+      "obj": "生菜",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "生菜",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.9901,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.485,
+        0.396,
+        0.397,
+        0.435,
+        0.449,
+        0.571
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 56,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把LettuceSliced冷却后放到垃圾桶里",
+      "obj": "LettuceSliced",
+      "parent": "垃圾桶",
+      "segments": [
+        "把",
+        "LettuceSliced",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "垃圾桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.9899,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.488,
+        0.396,
+        0.399,
+        0.436,
+        0.449,
+        0.566
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 57,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把杯子冷却后放到柜子里",
+      "obj": "杯子",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "杯子",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.989,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.49,
+        0.414,
+        0.406,
+        0.444,
+        0.458,
+        0.581
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 58,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把杯子冷却后放到咖啡机上",
+      "obj": "杯子",
+      "parent": "咖啡机",
+      "segments": [
+        "把",
+        "杯子",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "咖啡机上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.989,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.49,
+        0.414,
+        0.406,
+        0.444,
+        0.458,
+        0.581
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 59,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把锅冷却后放到柜台上",
+      "obj": "锅",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "锅",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9894,
+      "dominant_bagua": "艮",
+      "yao_vector_preview": [
+        0.455,
+        0.248,
+        0.284,
+        0.317,
+        0.331,
+        0.394
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 60,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把土豆冷却后放到微波炉里",
+      "obj": "土豆",
+      "parent": "微波炉",
+      "segments": [
+        "把",
+        "土豆",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "微波炉里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.99,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.485,
+        0.399,
+        0.399,
+        0.437,
+        0.451,
+        0.574
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 61,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把番茄冷却后放到微波炉里",
+      "obj": "番茄",
+      "parent": "微波炉",
+      "segments": [
+        "把",
+        "番茄",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "微波炉里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.9892,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.49,
+        0.41,
+        0.407,
+        0.444,
+        0.458,
+        0.577
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 62,
+      "type": "pick_cool_then_place_in_recep",
+      "cn": "把TomatoSliced冷却后放到柜台上",
+      "obj": "TomatoSliced",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "TomatoSliced",
+        "冷却",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "火风鼎",
+      "hexagram_score": 0.9899,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.488,
+        0.396,
+        0.399,
+        0.436,
+        0.449,
+        0.566
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 63,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把苹果加热后放到冰箱里",
+      "obj": "苹果",
+      "parent": "冰箱",
+      "segments": [
+        "把",
+        "苹果",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "冰箱里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.497,
+        0.406,
+        0.405,
+        0.444,
+        0.457,
+        0.559
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 64,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把苹果加热后放到垃圾桶里",
+      "obj": "苹果",
+      "parent": "垃圾桶",
+      "segments": [
+        "把",
+        "苹果",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "垃圾桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.497,
+        0.406,
+        0.405,
+        0.444,
+        0.457,
+        0.559
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 65,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把苹果加热后放到水槽里",
+      "obj": "苹果",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "苹果",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.497,
+        0.406,
+        0.405,
+        0.444,
+        0.457,
+        0.559
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 66,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把AppleSliced加热后放到柜台上",
+      "obj": "AppleSliced",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "AppleSliced",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.497,
+        0.406,
+        0.405,
+        0.444,
+        0.457,
+        0.559
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 67,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把AppleSliced加热后放到垃圾桶里",
+      "obj": "AppleSliced",
+      "parent": "垃圾桶",
+      "segments": [
+        "把",
+        "AppleSliced",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "垃圾桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.497,
+        0.406,
+        0.405,
+        0.444,
+        0.457,
+        0.559
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 68,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把BreadSliced加热后放到柜台上",
+      "obj": "BreadSliced",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "BreadSliced",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9885,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.503,
+        0.416,
+        0.413,
+        0.45,
+        0.463,
+        0.56
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 69,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把杯子加热后放到柜子里",
+      "obj": "杯子",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "杯子",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.503,
+        0.42,
+        0.412,
+        0.45,
+        0.463,
+        0.564
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 70,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把鸡蛋加热后放到垃圾桶里",
+      "obj": "鸡蛋",
+      "parent": "垃圾桶",
+      "segments": [
+        "把",
+        "鸡蛋",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "垃圾桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.5,
+        0.403,
+        0.404,
+        0.441,
+        0.455,
+        0.549
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 71,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把杯子加热后放到柜子里",
+      "obj": "杯子",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "杯子",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.503,
+        0.42,
+        0.412,
+        0.45,
+        0.463,
+        0.564
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 72,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把杯子加热后放到咖啡机上",
+      "obj": "杯子",
+      "parent": "咖啡机",
+      "segments": [
+        "把",
+        "杯子",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "咖啡机上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.503,
+        0.42,
+        0.412,
+        0.45,
+        0.463,
+        0.564
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 73,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把土豆加热后放到垃圾桶里",
+      "obj": "土豆",
+      "parent": "垃圾桶",
+      "segments": [
+        "把",
+        "土豆",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "垃圾桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.497,
+        0.406,
+        0.405,
+        0.443,
+        0.456,
+        0.557
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 74,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把PotatoSliced加热后放到冰箱里",
+      "obj": "PotatoSliced",
+      "parent": "冰箱",
+      "segments": [
+        "把",
+        "PotatoSliced",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "冰箱里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9885,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.502,
+        0.442,
+        0.427,
+        0.466,
+        0.48,
+        0.582
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 75,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把番茄加热后放到垃圾桶里",
+      "obj": "番茄",
+      "parent": "垃圾桶",
+      "segments": [
+        "把",
+        "番茄",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "垃圾桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "泽风大过",
+      "hexagram_score": 0.9885,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.503,
+        0.416,
+        0.413,
+        0.45,
+        0.463,
+        0.56
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 76,
+      "type": "pick_heat_then_place_in_recep",
+      "cn": "把TomatoSliced加热后放到水槽里",
+      "obj": "TomatoSliced",
+      "parent": "水槽",
+      "segments": [
+        "把",
+        "TomatoSliced",
+        "加热",
+        "后",
+        "放",
+        "到",
+        "水槽里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "地天泰",
+      "hexagram_score": 0.9888,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.5,
+        0.403,
+        0.404,
+        0.441,
+        0.455,
+        0.549
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 77,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块AppleSliced放到柜台上",
+      "obj": "AppleSliced",
+      "parent": "柜台",
+      "segments": [
+        "把",
+        "两块AppleSliced",
+        "放",
+        "到",
+        "柜台上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 78,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块光盘放到保险箱里",
+      "obj": "光盘",
+      "parent": "保险箱",
+      "segments": [
+        "把",
+        "两块光盘",
+        "放",
+        "到",
+        "保险箱里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 79,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块钥匙链放到保险箱里",
+      "obj": "钥匙链",
+      "parent": "保险箱",
+      "segments": [
+        "把",
+        "两块钥匙链",
+        "放",
+        "到",
+        "保险箱里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 80,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块胡椒瓶放到抽屉里",
+      "obj": "胡椒瓶",
+      "parent": "抽屉",
+      "segments": [
+        "把",
+        "两块胡椒瓶",
+        "放",
+        "到",
+        "抽屉里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 81,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块枕头放到沙发上",
+      "obj": "枕头",
+      "parent": "沙发",
+      "segments": [
+        "把",
+        "两块枕头",
+        "放",
+        "到",
+        "沙发上"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 82,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块肥皂放到柜子里",
+      "obj": "肥皂",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "两块肥皂",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 83,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块肥皂放到垃圾桶里",
+      "obj": "肥皂",
+      "parent": "垃圾桶",
+      "segments": [
+        "把",
+        "两块肥皂",
+        "放",
+        "到",
+        "垃圾桶里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    },
+    {
+      "idx": 84,
+      "type": "pick_two_obj_and_place",
+      "cn": "把两块卫生纸放到柜子里",
+      "obj": "卫生纸",
+      "parent": "柜子",
+      "segments": [
+        "把",
+        "两块卫生纸",
+        "放",
+        "到",
+        "柜子里"
+      ],
+      "roles": [
+        "虚词",
+        "物体",
+        "动作",
+        "虚词",
+        "物体"
+      ],
+      "main_hexagram": "乾为天",
+      "hexagram_score": 0.9898,
+      "dominant_bagua": "坤",
+      "yao_vector_preview": [
+        0.15,
+        0.266,
+        0.223,
+        0.235,
+        0.237,
+        0.318
+      ],
+      "deps": [],
+      "evaluation": {
+        "segments_ok": true,
+        "object_found": true,
+        "location_found": true,
+        "action_found": true,
+        "hexagram_reasonable": true,
+        "deps_ok": false,
+        "errors": []
+      }
+    }
+  ]
+}

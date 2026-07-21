@@ -171,7 +171,11 @@ ALL_RECEPTACLES = {
 
 class YLYWAgentV10:
     """
-    YLYW Agent V10: V9 + 知耻学习(失败驱动校准)
+    YLYW Agent V10: V9 + 知耻学习(失败驱动校准) + 爻参数在线微调
+    
+    V10+ 爻调改进：
+    6. 爻参数在线微调 — 在抓取/释放过程中实时微调爻参数，
+       使得释放阶段越来越好的自适应机制
     """
 
     def __init__(self, verbose: bool = False, use_oracle_type: bool = True):
@@ -210,6 +214,9 @@ class YLYWAgentV10:
         self._prioritize_open = False
         self._wrong_take_exclusions = set()
 
+        # 爻参数在线微调
+        self._yao_tuner = None  # 外部注入
+
         self.history: List[str] = []
         self.step_count = 0
 
@@ -238,6 +245,10 @@ class YLYWAgentV10:
         self._prioritize_open = False
         self._wrong_take_exclusions = set()
         self._explored_no_target = {}  # 当前局内否定记忆清空
+
+        # 重置爻参数在线微调状态
+        if hasattr(self, '_yao_tuner') and self._yao_tuner is not None:
+            self._yao_tuner.reset_online_state()
 
         # V7: 从task_desc纯NL解析（不使用pddl_params）
         from task_desc_parser import parse_task_desc
@@ -273,6 +284,10 @@ class YLYWAgentV10:
             hint = self._zhichi.get_failure_hint(task_type, '')
             if hint and self.verbose:
                 print(f"    [知耻:L5] 失败提示: {hint}")
+
+        # 爻参数在线微调：检查知几/知耻的跨局经验对爻参数的初始化
+        if hasattr(self, '_yao_tuner') and self._yao_tuner is not None:
+            pass  # 爻参数初始化由外部注入管理，这里不做额外处理
 
         # 补充从 task_desc 提取（兜底）
         if not self.target_objects:
@@ -423,7 +438,7 @@ class YLYWAgentV10:
         return None
 
     def update(self, action: str, obs: str, info: Dict):
-        """更新状态"""
+        """更新状态 + 爻参数在线微调"""
         self.history.append(action)
         success = info.get('action_success', True)
 
@@ -438,17 +453,61 @@ class YLYWAgentV10:
             container = action[5:].strip()
             self.opened_containers.add(container)
 
-        # 跟踪手持物品
-        if action.startswith('take ') and success:
-            # "take plate 2 from countertop 2" → "plate 2"
-            m = re.match(r'take (.+?) from .+', action)
-            if m:
-                self.holding = m.group(1)
-            else:
-                self.holding = action[5:].strip()
+        # ====== 爻参数实时微调 ======
+        has_yao = hasattr(self, '_yao_tuner') and self._yao_tuner is not None
 
-        if (action.startswith('put ') or action.startswith('move ')) and success:
-            self.holding = None
+        # 抓持爻（Take）反馈
+        if action.startswith('take '):
+            m = re.match(r'take (.+?) from (.+)', action)
+            if m:
+                taken = m.group(1).strip()
+                taken_loc = m.group(2).strip()
+                taken_base = re.sub(r'\s*\d+$', '', taken.lower())
+                loc_base = re.sub(r'\s*\d+$', '', taken_loc.lower())
+                
+                if success:
+                    self.holding = taken
+                    # 抓持成功：正强化爻参数
+                    if has_yao:
+                        self._yao_tuner.observe_take_success(taken_base, loc_base)
+                # 抓持失败（take但failed）：标记该位置该物体不可拿（负反馈）
+                elif has_yao:
+                    self._yao_tuner.observe_take_miss(taken_base, loc_base)
+        
+        # 抓持爻（Take）—— 如果目标物体在当前admissible中但没出现take命令（去了但没有）
+        # 这个在_memorize_objects中已经处理，这里不需要重复
+
+        # 释放爻（Put/Move）反馈
+        if (action.startswith('put ') or action.startswith('move ')):
+            m = re.match(r'(?:put|move) (.+?) (?:in|on|to) (.+)', action.lower())
+            if m and self.holding:
+                obj_name = m.group(1).strip()
+                rec_full = m.group(2).strip()
+                obj_base = re.sub(r'\s*\d+$', '', obj_name.lower())
+                rec_base = re.sub(r'\s*\d+$', '', rec_full.lower())
+                
+                if success:
+                    self.holding = None
+                    # 释放成功：正强化爻参数（这个物体放这个容器是对的）
+                    if has_yao:
+                        self._yao_tuner.observe_release_success(obj_base, rec_base, rec_full)
+                else:
+                    # 释放失败：负强化爻参数（这个物体不放这个容器）
+                    if has_yao:
+                        self._yao_tuner.observe_release_fail(obj_base, rec_base, rec_full)
+                    
+                    # 同时记录到知耻：知耻的错拿排除也需要考虑释放失败
+                    # 但知耻是跨局学习，这里只记录到本地状态
+                    if has_yao and self.verbose:
+                        # 释放失败时，当前局内尝试另一个容器
+                        pass
+            elif success:
+                # put/move success 但没有解析出物体和容器（格式不标准时）
+                self.holding = None
+
+        # 遗留跟踪：非爻参数格式的take
+        if action.startswith('take ') and success and ' from ' not in action:
+            self.holding = action[5:].strip()
 
         # 自动阶段推进
         self._auto_advance(action, obs, info)
@@ -613,6 +672,21 @@ class YLYWAgentV10:
             # 常识先验（YLYW风格）
             if goal in ('find_object', 'find_object_2'):
                 score += self._object_location_prior(self.target_objects, loc_base)
+            elif goal in ('find_recep', 'find_recep_2', 'find_final'):
+                score += self._object_location_prior(self.target_receps, loc_base)
+
+            # 知几位置先验校准（跨局统计叠加，覆盖硬编码先验无法覆盖的物体和容器）
+            if hasattr(self, '_zhiji') and self._zhiji is not None:
+                if goal in ('find_object', 'find_object_2'):
+                    for obj in self.target_objects:
+                        boost = self._zhiji.get_location_prior_boost(obj, loc_base)
+                        if boost > 0:
+                            score += boost
+                elif goal in ('find_recep', 'find_recep_2', 'find_final'):
+                    for rec in self.target_receps:
+                        boost = self._zhiji.get_location_prior_boost(rec, loc_base)
+                        if boost > 0:
+                            score += boost
 
             # V10知耻学习L2: 否定先验惩罚（跨局经验）
             if hasattr(self, '_zhichi') and self._zhichi is not None:
@@ -690,7 +764,8 @@ class YLYWAgentV10:
             'towel': {'towelholder': 3, 'countertop': 2, 'bathtubbasin': 1},
             'handtowel': {'handtowelholder': 3, 'countertop': 2},
             'toiletpaper': {'toiletpaperhanger': 3, 'cabinet': 2, 'countertop': 1},
-            'cloth': {'countertop': 2, 'bathtubbasin': 2},
+            'cloth': {'countertop': 2, 'bathtubbasin': 2, 'sinkbasin': 1, 'handtowelholder': 1, 'cabinet': 1, 'drawer': 1, 'shelf': 1},
+            'rag': {'countertop': 2, 'bathtubbasin': 2, 'sinkbasin': 1, 'cabinet': 1, 'drawer': 1, 'shelf': 1},
             'spraybottle': {'countertop': 3, 'cabinet': 2, 'toilet': 1},
             'candle': {'countertop': 2, 'shelf': 2, 'bathtubbasin': 1},
             'tissuebox': {'sidetable': 2, 'desk': 2, 'shelf': 2, 'toilet': 1, 'countertop': 1},
@@ -797,7 +872,46 @@ class YLYWAgentV10:
     # ------------------------------------------------------------------
 
     def _act_put(self, cmds: List[str], obs: str) -> str:
-        """放置物体 (V6: 带open和容器遍历)"""
+        """放置物体 (V10+: 爻参数在线微调 + 容器遍历)"""
+        holding_base = ''
+        if self.holding:
+            holding_base = re.sub(r'\s*\d+$', '', self.holding.lower())
+
+        # ---- Step 1: 用爻参数找最优的 put/move 命令 ----
+        # 如果有爻参数，用爻参数排序候选容器，优先选置信度高的
+        use_yao = (hasattr(self, '_yao_tuner') and self._yao_tuner is not None
+                   and holding_base)
+
+        if use_yao:
+            # 收集所有可用的 put/move 命令及其容器
+            put_candidates = []
+            for cmd in cmds:
+                if cmd.startswith('move ') or cmd.startswith('put '):
+                    m = re.match(r'(?:put|move) .+ (?:in|on|to) (.+)', cmd.lower())
+                    if m:
+                        rec_full = m.group(1).strip()
+                        rec_base = re.sub(r'\s*\d+$', '', rec_full)
+                        yao_score = self._yao_tuner.get_release_score(holding_base, rec_base)
+                        
+                        # 检查是否被释放爻排除（低于阈值则不选）
+                        if self._yao_tuner.is_release_blocked(holding_base, rec_base):
+                            if self.verbose:
+                                print(f"    [爻调:排除] {holding_base}→{rec_base} 已被排除(score={yao_score:.1f})")
+                            continue
+                        
+                        # 爻参数评分作为排序依据
+                        put_candidates.append((yao_score, cmd, rec_base, rec_full))
+            
+            if put_candidates:
+                # 按爻参数降序排列
+                put_candidates.sort(key=lambda x: -x[0])
+                if self.verbose:
+                    print(f"    [爻调:put候选] holding={holding_base}")
+                    for s, c, rb, rf in put_candidates[:3]:
+                        print(f"      {s:5.1f} | {c}")
+                return put_candidates[0][1]
+        
+        # ---- Step 2: 无爻参数或holding_base为空时的原始策略 ----
         # 检查 admissible 中是否有 put/move 到目标容器
         for cmd in cmds:
             if cmd.startswith('move ') or cmd.startswith('put '):
@@ -810,10 +924,9 @@ class YLYWAgentV10:
         if put_cmds:
             return put_cmds[0]
 
-        # V6: 如果有open命令，可能需要先open才能放进去
+        # ---- Step 3: 尝试open容器 ----
         open_cmds = [c for c in cmds if c.startswith('open ')]
         if open_cmds:
-            # open目标容器
             for cmd in open_cmds:
                 container = cmd.replace('open ', '').strip()
                 if container not in self.opened_containers:
@@ -828,15 +941,34 @@ class YLYWAgentV10:
                             print(f"    [V6:put] opening {container}")
                         return cmd
 
-        # V6: 放置不可用 → 去下一个同类容器
+        # ---- Step 4: 放置不可用 → 用爻参数选下一个容器 ----
         self.tried_recep_locs.add(self.current_location)
         self.put_attempts += 1
 
         if self.verbose:
             print(f"    [V6:put] put failed at {self.current_location}, trying next recep")
 
-        # 找下一个未尝试的同类容器
+        # 用爻参数对未尝试的容器排序
         go_cmds = [c for c in cmds if c.startswith('go to ')]
+        if use_yao and go_cmds:
+            scored_gotos = []
+            for cmd in go_cmds:
+                loc = cmd[6:].strip()
+                loc_base = re.sub(r'\s*\d+$', '', loc.lower())
+                if loc not in self.tried_recep_locs:
+                    for rec in self.target_receps:
+                        if rec in loc_base or loc_base in rec:
+                            yao_score = self._yao_tuner.get_release_score(holding_base, rec)
+                            scored_gotos.append((yao_score, cmd))
+                            break
+            if scored_gotos:
+                scored_gotos.sort(key=lambda x: -x[0])
+                if self.verbose:
+                    for s, c in scored_gotos[:3]:
+                        print(f"      [爻调:go_to] {s:5.1f} | {c}")
+                return scored_gotos[0][1]
+
+        # 无爻参数或没有合适的：找下一个未尝试的同类容器
         for cmd in go_cmds:
             loc = cmd[6:].strip()
             loc_base = re.sub(r'\s*\d+$', '', loc.lower())
@@ -889,7 +1021,7 @@ class YLYWAgentV10:
 
     def get_trajectory_state(self) -> dict:
         """导出当前状态供知耻学习分析"""
-        return {
+        state = {
             'target_objects': list(self.target_objects),
             'target_receps': list(self.target_receps),
             'final_phase': self.phase,
@@ -899,3 +1031,7 @@ class YLYWAgentV10:
             'holding': self.holding,
             'history': list(self.history),
         }
+        # 添加爻参数统计
+        if hasattr(self, '_yao_tuner') and self._yao_tuner is not None:
+            state['yao_stats'] = self._yao_tuner.get_stats()
+        return state
