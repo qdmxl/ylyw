@@ -1,0 +1,11 @@
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 运行日志（临时；结果均已落盘为 json）
+*.log
+
+# 评测集真值导出工具与产物（dev-only；决策路径从不读取真值，故不纳入仓库）
+dump_gt.py
+gt_seen.json
+gt_unseen.json
