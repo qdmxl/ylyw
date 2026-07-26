@@ -1,0 +1,72 @@
+{
+  "total": 134,
+  "won": 10,
+  "results": [
+    {
+      "game_idx": 0,
+      "won": true,
+      "steps": 7,
+      "time": 36.7
+    },
+    {
+      "game_idx": 1,
+      "won": true,
+      "steps": 8,
+      "time": 34.3
+    },
+    {
+      "game_idx": 2,
+      "won": true,
+      "steps": 14,
+      "time": 66.2
+    },
+    {
+      "game_idx": 3,
+      "won": true,
+      "steps": 8,
+      "time": 20.4
+    },
+    {
+      "game_idx": 4,
+      "won": true,
+      "steps": 11,
+      "time": 27.2
+    },
+    {
+      "game_idx": 5,
+      "won": true,
+      "steps": 8,
+      "time": 21.1
+    },
+    {
+      "game_idx": 6,
+      "won": true,
+      "steps": 17,
+      "time": 64.8
+    },
+    {
+      "game_idx": 7,
+      "won": false,
+      "steps": 50,
+      "time": 164.1
+    },
+    {
+      "game_idx": 8,
+      "won": true,
+      "steps": 17,
+      "time": 62.4
+    },
+    {
+      "game_idx": 9,
+      "won": true,
+      "steps": 6,
+      "time": 20.0
+    },
+    {
+      "game_idx": 10,
+      "won": true,
+      "steps": 6,
+      "time": 22.2
+    }
+  ]
+}

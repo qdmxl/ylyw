@@ -1,0 +1,801 @@
+{
+  "split": "valid_seen",
+  "range": [
+    0,
+    20
+  ],
+  "success_rate": 0.95,
+  "n_won": 19,
+  "n_total": 20,
+  "by_type": {
+    "pick_clean_then_place_in_recep": {
+      "won": 4,
+      "total": 5,
+      "rate": 0.8
+    },
+    "look_at_obj_in_light": {
+      "won": 1,
+      "total": 1,
+      "rate": 1.0
+    },
+    "pick_heat_then_place_in_recep": {
+      "won": 3,
+      "total": 3,
+      "rate": 1.0
+    },
+    "pick_cool_then_place_in_recep": {
+      "won": 3,
+      "total": 3,
+      "rate": 1.0
+    },
+    "pick_two_obj_and_place": {
+      "won": 4,
+      "total": 4,
+      "rate": 1.0
+    },
+    "pick_and_place_simple": {
+      "won": 4,
+      "total": 4,
+      "rate": 1.0
+    }
+  },
+  "ablation": "full",
+  "wall_time_s": 56.8,
+  "results": [
+    {
+      "game_idx": 0,
+      "won": true,
+      "steps": 42,
+      "actions": [
+        "go to drawer 1",
+        "open drawer 1",
+        "open drawer 4",
+        "go to drawer 10",
+        "open drawer 10",
+        "go to drawer 11",
+        "open drawer 11",
+        "go to drawer 12",
+        "open drawer 12",
+        "go to drawer 2",
+        "open drawer 2",
+        "open drawer 3",
+        "go to drawer 4",
+        "go to drawer 3",
+        "go to drawer 5",
+        "open drawer 5",
+        "go to drawer 6",
+        "open drawer 6",
+        "go to drawer 7",
+        "open drawer 7",
+        "go to drawer 8",
+        "open drawer 8",
+        "go to drawer 9",
+        "open drawer 9",
+        "go to countertop 1",
+        "go to countertop 2",
+        "take spoon 2 from countertop 2",
+        "go to sinkbasin 1",
+        "clean spoon 2 with sinkbasin 1",
+        "go to diningtable 1",
+        "move spoon 2 to diningtable 1",
+        "take spoon 1 from diningtable 1",
+        "go to sinkbasin 1",
+        "clean spoon 1 with sinkbasin 1",
+        "go to countertop 1",
+        "move spoon 1 to countertop 1",
+        "go to diningtable 1",
+        "take ladle 1 from diningtable 1",
+        "go to sinkbasin 1",
+        "clean ladle 1 with sinkbasin 1",
+        "go to diningtable 1",
+        "move ladle 1 to diningtable 1"
+      ],
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a clean large metal spoon on the round white table.",
+      "parsed_goal": {
+        "task_type": "pick_clean_then_place_in_recep",
+        "object_class": "spoon",
+        "recep_class": "diningtable",
+        "process": "clean",
+        "tool_class": "sinkbasin",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 42,
+        "multi_candidate_decisions": 42,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 1,
+      "won": true,
+      "steps": 47,
+      "actions": [
+        "go to dresser 1",
+        "go to armchair 1",
+        "go to armchair 2",
+        "take remotecontrol 2 from armchair 2",
+        "go to sidetable 1",
+        "go to sidetable 2",
+        "go to sidetable 3",
+        "use desklamp 1",
+        "move remotecontrol 2 to sidetable 3",
+        "go to sidetable 2",
+        "take creditcard 3 from sidetable 2",
+        "go to sidetable 3",
+        "use desklamp 1",
+        "move creditcard 3 to sidetable 3",
+        "go to sidetable 1",
+        "take statue 1 from sidetable 1",
+        "go to sidetable 3",
+        "use desklamp 1",
+        "move statue 1 to sidetable 3",
+        "go to sidetable 2",
+        "take watch 2 from sidetable 2",
+        "go to sidetable 3",
+        "use desklamp 1",
+        "move watch 2 to sidetable 3",
+        "go to garbagecan 1",
+        "go to ottoman 1",
+        "go to sofa 1",
+        "take pillow 1 from sofa 1",
+        "go to sidetable 3",
+        "use desklamp 1",
+        "go to sofa 1",
+        "move pillow 1 to sofa 1",
+        "take laptop 1 from sofa 1",
+        "go to sidetable 3",
+        "use desklamp 1",
+        "move laptop 1 to sidetable 3",
+        "go to drawer 1",
+        "open drawer 1",
+        "go to drawer 2",
+        "open drawer 2",
+        "go to drawer 3",
+        "open drawer 3",
+        "go to drawer 4",
+        "open drawer 4",
+        "go to diningtable 1",
+        "take box 1 from diningtable 1",
+        "go to sidetable 3"
+      ],
+      "task_type_real": "look_at_obj_in_light",
+      "task_desc": "Turn on a light with a box in hand.",
+      "parsed_goal": {
+        "task_type": "look_at_obj_in_light",
+        "object_class": "box",
+        "recep_class": null,
+        "process": "examine",
+        "tool_class": "desklamp",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 47,
+        "multi_candidate_decisions": 40,
+        "argmax_changed_vs_linear": 7,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.175
+      }
+    },
+    {
+      "game_idx": 2,
+      "won": true,
+      "steps": 6,
+      "actions": [
+        "go to countertop 1",
+        "take plate 2 from countertop 1",
+        "go to microwave 1",
+        "heat plate 2 with microwave 1",
+        "go to diningtable 1",
+        "move plate 2 to diningtable 1"
+      ],
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_desc": "Warm a plate and place it on the table.",
+      "parsed_goal": {
+        "task_type": "pick_heat_then_place_in_recep",
+        "object_class": "plate",
+        "recep_class": "diningtable",
+        "process": "heat",
+        "tool_class": "microwave",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 6,
+        "multi_candidate_decisions": 6,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 3,
+      "won": true,
+      "steps": 10,
+      "actions": [
+        "go to coffeemachine 1",
+        "go to countertop 1",
+        "take cup 1 from countertop 1",
+        "go to fridge 1",
+        "cool cup 1 with fridge 1",
+        "go to diningtable 1",
+        "move cup 1 to diningtable 1",
+        "take cup 1 from diningtable 1",
+        "go to sidetable 1",
+        "move cup 1 to sidetable 1"
+      ],
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_desc": "Place a chilled cup on the table.",
+      "parsed_goal": {
+        "task_type": "pick_cool_then_place_in_recep",
+        "object_class": "cup",
+        "recep_class": "sidetable",
+        "process": "cool",
+        "tool_class": "fridge",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 10,
+        "multi_candidate_decisions": 10,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 4,
+      "won": true,
+      "steps": 8,
+      "actions": [
+        "go to countertop 1",
+        "take soapbar 1 from countertop 1",
+        "go to garbagecan 1",
+        "move soapbar 1 to garbagecan 1",
+        "go to countertop 1",
+        "take soapbar 4 from countertop 1",
+        "go to garbagecan 1",
+        "move soapbar 4 to garbagecan 1"
+      ],
+      "task_type_real": "pick_two_obj_and_place",
+      "task_desc": "To move two bars of soap to the black bin. ",
+      "parsed_goal": {
+        "task_type": "pick_two_obj_and_place",
+        "object_class": "soapbar",
+        "recep_class": "garbagecan",
+        "process": null,
+        "tool_class": null,
+        "count": 2
+      },
+      "influence": {
+        "decisions": 8,
+        "multi_candidate_decisions": 8,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 5,
+      "won": true,
+      "steps": 8,
+      "actions": [
+        "go to countertop 1",
+        "take soapbar 2 from countertop 1",
+        "go to garbagecan 1",
+        "move soapbar 2 to garbagecan 1",
+        "go to countertop 1",
+        "take soapbar 3 from countertop 1",
+        "go to garbagecan 1",
+        "move soapbar 3 to garbagecan 1"
+      ],
+      "task_type_real": "pick_two_obj_and_place",
+      "task_desc": "Put two bars of soap into the trash can.",
+      "parsed_goal": {
+        "task_type": "pick_two_obj_and_place",
+        "object_class": "soapbar",
+        "recep_class": "garbagecan",
+        "process": null,
+        "tool_class": null,
+        "count": 2
+      },
+      "influence": {
+        "decisions": 8,
+        "multi_candidate_decisions": 8,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 6,
+      "won": true,
+      "steps": 6,
+      "actions": [
+        "go to shelf 1",
+        "take cd 3 from shelf 1",
+        "go to drawer 1",
+        "move cd 3 to drawer 1",
+        "take cd 1 from desk 1",
+        "move cd 1 to drawer 1"
+      ],
+      "task_type_real": "pick_two_obj_and_place",
+      "task_desc": "Move two CDs to the bottom drawer of the desk.",
+      "parsed_goal": {
+        "task_type": "pick_two_obj_and_place",
+        "object_class": "cd",
+        "recep_class": "drawer",
+        "process": null,
+        "tool_class": null,
+        "count": 2
+      },
+      "influence": {
+        "decisions": 6,
+        "multi_candidate_decisions": 6,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 7,
+      "won": true,
+      "steps": 7,
+      "actions": [
+        "go to coffeemachine 1",
+        "take mug 1 from coffeemachine 1",
+        "go to microwave 1",
+        "heat mug 1 with microwave 1",
+        "go to cabinet 1",
+        "open cabinet 1",
+        "move mug 1 to cabinet 1"
+      ],
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_desc": "Move mug from coffee maker to microwave and heat, move to cabinet.",
+      "parsed_goal": {
+        "task_type": "pick_heat_then_place_in_recep",
+        "object_class": "mug",
+        "recep_class": "cabinet",
+        "process": "heat",
+        "tool_class": "microwave",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 7,
+        "multi_candidate_decisions": 6,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 8,
+      "won": true,
+      "steps": 9,
+      "actions": [
+        "go to coffeemachine 1",
+        "take mug 1 from coffeemachine 1",
+        "go to microwave 1",
+        "heat mug 1 with microwave 1",
+        "go to diningtable 1",
+        "move mug 1 to diningtable 1",
+        "take mug 1 from diningtable 1",
+        "go to sidetable 1",
+        "move mug 1 to sidetable 1"
+      ],
+      "task_type_real": "pick_heat_then_place_in_recep",
+      "task_desc": "Put a heated mug down on a table.",
+      "parsed_goal": {
+        "task_type": "pick_heat_then_place_in_recep",
+        "object_class": "mug",
+        "recep_class": "sidetable",
+        "process": "heat",
+        "tool_class": "microwave",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 9,
+        "multi_candidate_decisions": 9,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 9,
+      "won": true,
+      "steps": 4,
+      "actions": [
+        "go to countertop 1",
+        "take knife 1 from countertop 1",
+        "go to sidetable 1",
+        "move knife 1 to sidetable 1"
+      ],
+      "task_type_real": "pick_and_place_simple",
+      "task_desc": "place a knife on the microwave oven table",
+      "parsed_goal": {
+        "task_type": "pick_and_place_simple",
+        "object_class": "knife",
+        "recep_class": "sidetable",
+        "process": null,
+        "tool_class": null,
+        "count": 1
+      },
+      "influence": {
+        "decisions": 4,
+        "multi_candidate_decisions": 4,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 10,
+      "won": true,
+      "steps": 7,
+      "actions": [
+        "go to dresser 1",
+        "go to armchair 1",
+        "go to garbagecan 1",
+        "go to sofa 1",
+        "take box 3 from sofa 1",
+        "go to dresser 1",
+        "move box 3 to dresser 1"
+      ],
+      "task_type_real": "pick_and_place_simple",
+      "task_desc": "move a box from the couch to the dresser",
+      "parsed_goal": {
+        "task_type": "pick_and_place_simple",
+        "object_class": "box",
+        "recep_class": "dresser",
+        "process": null,
+        "tool_class": null,
+        "count": 1
+      },
+      "influence": {
+        "decisions": 7,
+        "multi_candidate_decisions": 7,
+        "argmax_changed_vs_linear": 3,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.42857142857142855
+      }
+    },
+    {
+      "game_idx": 11,
+      "won": true,
+      "steps": 15,
+      "actions": [
+        "go to sidetable 1",
+        "go to sidetable 2",
+        "go to sidetable 3",
+        "go to garbagecan 1",
+        "go to armchair 1",
+        "go to sofa 1",
+        "go to sofa 2",
+        "go to coffeetable 1",
+        "take watch 1 from coffeetable 1",
+        "go to drawer 1",
+        "go to coffeetable 1",
+        "move watch 1 to coffeetable 1",
+        "take watch 1 from coffeetable 1",
+        "go to sidetable 1",
+        "move watch 1 to sidetable 1"
+      ],
+      "task_type_real": "pick_and_place_simple",
+      "task_desc": "Put one watch on the end tale. ",
+      "parsed_goal": {
+        "task_type": "pick_and_place_simple",
+        "object_class": "watch",
+        "recep_class": "sidetable",
+        "process": null,
+        "tool_class": null,
+        "count": 1
+      },
+      "influence": {
+        "decisions": 15,
+        "multi_candidate_decisions": 15,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 12,
+      "won": true,
+      "steps": 7,
+      "actions": [
+        "go to coffeetable 1",
+        "go to sidetable 1",
+        "go to sidetable 2",
+        "go to sidetable 3",
+        "take book 1 from sidetable 3",
+        "go to sofa 1",
+        "move book 1 to sofa 1"
+      ],
+      "task_type_real": "pick_and_place_simple",
+      "task_desc": "Move a book from a desk to a sofa.",
+      "parsed_goal": {
+        "task_type": "pick_and_place_simple",
+        "object_class": "book",
+        "recep_class": "sofa",
+        "process": null,
+        "tool_class": null,
+        "count": 1
+      },
+      "influence": {
+        "decisions": 7,
+        "multi_candidate_decisions": 7,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 13,
+      "won": false,
+      "steps": 50,
+      "actions": [
+        "go to countertop 1",
+        "go to countertop 2",
+        "go to fridge 1",
+        "open fridge 1",
+        "go to garbagecan 1",
+        "go to sinkbasin 1",
+        "go to drawer 1",
+        "open drawer 1",
+        "open drawer 4",
+        "go to drawer 10",
+        "open drawer 10",
+        "go to drawer 11",
+        "open drawer 11",
+        "go to drawer 12",
+        "open drawer 12",
+        "go to drawer 2",
+        "open drawer 2",
+        "open drawer 3",
+        "go to drawer 4",
+        "go to drawer 3",
+        "go to drawer 5",
+        "open drawer 5",
+        "go to drawer 6",
+        "open drawer 6",
+        "go to drawer 7",
+        "open drawer 7",
+        "go to drawer 8",
+        "open drawer 8",
+        "go to drawer 9",
+        "open drawer 9",
+        "go to microwave 1",
+        "open microwave 1",
+        "go to cabinet 1",
+        "open cabinet 1",
+        "go to cabinet 10",
+        "open cabinet 10",
+        "go to cabinet 11",
+        "open cabinet 11",
+        "go to cabinet 12",
+        "go to cabinet 14",
+        "open cabinet 14",
+        "go to cabinet 13",
+        "go to cabinet 15",
+        "go to cabinet 16",
+        "open cabinet 16",
+        "go to cabinet 17",
+        "open cabinet 17",
+        "go to cabinet 18",
+        "open cabinet 18",
+        "go to cabinet 19"
+      ],
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_desc": "Retrieve green vegetable from table, wash it in the sink, put it on the right side counter",
+      "parsed_goal": {
+        "task_type": "pick_clean_then_place_in_recep",
+        "object_class": "lettuce",
+        "recep_class": "countertop",
+        "process": "clean",
+        "tool_class": "sinkbasin",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 50,
+        "multi_candidate_decisions": 50,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 14,
+      "won": true,
+      "steps": 6,
+      "actions": [
+        "go to countertop 1",
+        "take lettuce 1 from countertop 1",
+        "go to fridge 1",
+        "cool lettuce 1 with fridge 1",
+        "go to countertop 1",
+        "move lettuce 1 to countertop 1"
+      ],
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_desc": "Place a chilled head of lettuce on a counter.",
+      "parsed_goal": {
+        "task_type": "pick_cool_then_place_in_recep",
+        "object_class": "lettuce",
+        "recep_class": "countertop",
+        "process": "cool",
+        "tool_class": "fridge",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 6,
+        "multi_candidate_decisions": 6,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 15,
+      "won": true,
+      "steps": 6,
+      "actions": [
+        "go to stoveburner 1",
+        "take pan 1 from stoveburner 3",
+        "go to fridge 1",
+        "cool pan 1 with fridge 1",
+        "go to stoveburner 1",
+        "move pan 1 to stoveburner 1"
+      ],
+      "task_type_real": "pick_cool_then_place_in_recep",
+      "task_desc": "Place a chilled frying pan on the stove.",
+      "parsed_goal": {
+        "task_type": "pick_cool_then_place_in_recep",
+        "object_class": "pan",
+        "recep_class": "stoveburner",
+        "process": "cool",
+        "tool_class": "fridge",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 6,
+        "multi_candidate_decisions": 6,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 16,
+      "won": true,
+      "steps": 7,
+      "actions": [
+        "go to sinkbasin 1",
+        "go to bathtubbasin 1",
+        "take dishsponge 2 from bathtubbasin 1",
+        "go to sinkbasin 1",
+        "clean dishsponge 2 with sinkbasin 1",
+        "go to cart 1",
+        "move dishsponge 2 to cart 1"
+      ],
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_desc": "Put a wet sponge on the metal rack. ",
+      "parsed_goal": {
+        "task_type": "pick_clean_then_place_in_recep",
+        "object_class": "dishsponge",
+        "recep_class": "cart",
+        "process": "clean",
+        "tool_class": "sinkbasin",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 7,
+        "multi_candidate_decisions": 7,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 17,
+      "won": true,
+      "steps": 8,
+      "actions": [
+        "go to countertop 1",
+        "go to countertop 2",
+        "take cloth 4 from countertop 2",
+        "go to sinkbasin 1",
+        "clean cloth 4 with sinkbasin 1",
+        "go to drawer 1",
+        "open drawer 1",
+        "move cloth 4 to drawer 1"
+      ],
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_desc": "Get wash rag wet and put it away in drawer.",
+      "parsed_goal": {
+        "task_type": "pick_clean_then_place_in_recep",
+        "object_class": "cloth",
+        "recep_class": "drawer",
+        "process": "clean",
+        "tool_class": "sinkbasin",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 8,
+        "multi_candidate_decisions": 7,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 18,
+      "won": true,
+      "steps": 13,
+      "actions": [
+        "go to sidetable 1",
+        "go to sidetable 2",
+        "go to sidetable 3",
+        "go to sidetable 4",
+        "go to sidetable 5",
+        "go to sofa 1",
+        "take newspaper 1 from sofa 1",
+        "go to drawer 1",
+        "move newspaper 1 to drawer 1",
+        "go to dresser 1",
+        "take newspaper 2 from dresser 1",
+        "go to drawer 1",
+        "move newspaper 2 to drawer 1"
+      ],
+      "task_type_real": "pick_two_obj_and_place",
+      "task_desc": "Place the two newsletters in a tv drawer.",
+      "parsed_goal": {
+        "task_type": "pick_two_obj_and_place",
+        "object_class": "newspaper",
+        "recep_class": "drawer",
+        "process": null,
+        "tool_class": null,
+        "count": 2
+      },
+      "influence": {
+        "decisions": 13,
+        "multi_candidate_decisions": 13,
+        "argmax_changed_vs_linear": 0,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.0
+      }
+    },
+    {
+      "game_idx": 19,
+      "won": true,
+      "steps": 8,
+      "actions": [
+        "go to countertop 1",
+        "go to fridge 1",
+        "open fridge 1",
+        "take tomato 1 from fridge 1",
+        "go to sinkbasin 1",
+        "clean tomato 1 with sinkbasin 1",
+        "go to countertop 1",
+        "move tomato 1 to countertop 1"
+      ],
+      "task_type_real": "pick_clean_then_place_in_recep",
+      "task_desc": "wash a tomato and put it on the counter",
+      "parsed_goal": {
+        "task_type": "pick_clean_then_place_in_recep",
+        "object_class": "tomato",
+        "recep_class": "countertop",
+        "process": "clean",
+        "tool_class": "sinkbasin",
+        "count": 1
+      },
+      "influence": {
+        "decisions": 8,
+        "multi_candidate_decisions": 8,
+        "argmax_changed_vs_linear": 1,
+        "l3_dest_routings": 0,
+        "influence_rate": 0.125
+      }
+    }
+  ],
+  "note": "V20: CnWorldModel (汉字+YLYW卦象) replaces V18 WorldModel (正则英文)"
+}

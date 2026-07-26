@@ -1,0 +1,132 @@
+Initializing ALFWorld Official (split=valid_unseen)...
+Initializing AlfredTWEnv...
+  0%|          | 0/341 [00:00<?, ?it/s] 81%|████████  | 277/341 [00:00<00:00, 2765.36it/s]100%|██████████| 341/341 [00:00<00:00, 2819.61it/s]
+Overall we have 134 games in split=eval_out_of_distribution
+Evaluating with 134 games
+Collected 134 solvable game files
+Env ready
+  gi= 11 W s=15 t=3.9s
+  gi= 12 W s=31 t=7.3s
+  gi= 13 W s=30 t=7.1s
+  gi= 14 W s=35 t=8.3s
+  gi= 15 W s= 7 t=1.8s
+  gi= 16 W s= 8 t=2.0s
+  gi= 17 W s= 7 t=1.8s
+  gi= 18 W s= 9 t=2.3s
+  gi= 19 W s=14 t=3.6s
+  gi= 20 W s=14 t=3.7s
+  gi= 21 W s= 7 t=1.7s
+  gi= 22 W s= 7 t=1.7s
+  gi= 23 W s=38 t=9.7s
+  gi= 24 W s=18 t=4.4s
+  gi= 25 W s=42 t=11.0s
+  gi= 26 W s=13 t=3.0s
+  gi= 27 W s= 6 t=1.3s
+  gi= 28 W s=10 t=2.2s
+  gi= 29 W s= 9 t=2.3s
+  gi= 30 W s= 9 t=2.4s
+  gi= 31 W s= 9 t=2.4s
+  gi= 32 W s= 6 t=1.5s
+  gi= 33 W s= 7 t=1.8s
+  gi= 34 W s= 6 t=1.4s
+  gi= 35 W s=11 t=2.8s
+  gi= 36 W s= 6 t=1.5s
+  gi= 37 W s= 7 t=1.7s
+  gi= 38 W s= 8 t=2.0s
+  gi= 39 W s= 6 t=1.4s
+  gi= 40 W s= 5 t=1.1s
+  gi= 41 W s=19 t=5.1s
+  gi= 42 W s= 7 t=1.8s
+  gi= 43 W s=11 t=2.8s
+  gi= 44 W s= 6 t=1.4s
+  gi= 45 W s= 8 t=2.0s
+  gi= 46 W s= 8 t=2.0s
+  gi= 47 W s= 8 t=1.9s
+  gi= 48 W s= 8 t=2.0s
+  gi= 49 W s=14 t=2.8s
+  gi= 50 W s=10 t=2.1s
+  gi= 51 W s= 6 t=1.2s
+  gi= 52 W s= 6 t=1.3s
+  gi= 53 W s= 6 t=1.0s
+  gi= 54 W s= 4 t=0.8s
+  gi= 55 W s= 7 t=1.5s
+  gi= 56 W s= 7 t=1.5s
+  gi= 57 W s=39 t=9.1s
+  gi= 58 W s=38 t=8.8s
+  gi= 59 W s=36 t=8.3s
+  gi= 60 W s=13 t=3.1s
+  gi= 61 W s= 6 t=1.4s
+  gi= 62 W s=18 t=4.5s
+  gi= 63 W s= 6 t=1.2s
+  gi= 64 W s= 6 t=1.3s
+  gi= 65 W s= 9 t=2.2s
+  gi= 66 W s= 6 t=1.1s
+  gi= 67 W s= 8 t=1.5s
+  gi= 68 W s= 7 t=1.5s
+  gi= 69 W s= 7 t=1.5s
+  gi= 70 W s= 4 t=0.8s
+  gi= 71 W s= 6 t=1.3s
+  gi= 72 W s= 6 t=1.3s
+  gi= 73 W s= 6 t=1.3s
+  gi= 74 W s=12 t=3.0s
+  gi= 75 W s= 7 t=1.6s
+  gi= 76 W s= 8 t=2.0s
+  gi= 77 W s= 7 t=1.2s
+  gi= 78 W s= 7 t=1.3s
+  gi= 79 W s=12 t=2.5s
+  gi= 80 W s= 5 t=1.1s
+  gi= 81 W s= 5 t=1.1s
+  gi= 82 W s= 3 t=0.6s
+  gi= 83 W s= 8 t=2.0s
+  gi= 84 W s= 9 t=2.3s
+  gi= 85 W s= 7 t=1.7s
+  gi= 86 W s=11 t=2.3s
+  gi= 87 W s= 9 t=1.9s
+  gi= 88 W s=11 t=2.9s
+  gi= 89 W s=12 t=3.0s
+  gi= 90 W s= 7 t=1.8s
+  gi= 91 W s=23 t=4.7s
+  gi= 92 W s= 8 t=2.1s
+  gi= 93 W s= 8 t=2.1s
+  gi= 94 W s= 7 t=1.8s
+  gi= 95 W s=17 t=4.5s
+  gi= 96 W s=27 t=7.3s
+  gi= 97 L s=50 t=13.0s
+  gi= 98 W s=40 t=10.3s
+  gi= 99 W s= 5 t=1.3s
+  gi=100 W s= 5 t=1.3s
+  gi=101 W s= 7 t=1.7s
+  gi=102 W s= 7 t=1.7s
+  gi=103 W s= 6 t=1.4s
+  gi=104 W s= 6 t=1.3s
+  gi=105 W s=48 t=11.3s
+  gi=106 W s=27 t=6.1s
+  gi=107 W s= 4 t=0.7s
+  gi=108 W s=11 t=2.1s
+  gi=109 W s= 4 t=0.7s
+  gi=110 W s=16 t=7.1s
+  gi=111 W s= 9 t=2.9s
+  gi=112 W s= 8 t=2.8s
+  gi=113 W s=17 t=5.3s
+  gi=114 W s= 6 t=2.9s
+  gi=115 W s= 6 t=1.6s
+  gi=116 W s= 4 t=0.9s
+  gi=117 W s= 5 t=1.1s
+  gi=118 W s= 4 t=0.8s
+  gi=119 W s= 9 t=2.3s
+  gi=120 W s=17 t=4.4s
+  gi=121 W s=25 t=6.7s
+  gi=122 W s=34 t=9.4s
+  gi=123 W s=34 t=9.0s
+  gi=124 W s=42 t=11.6s
+  gi=125 W s=44 t=10.1s
+  gi=126 W s=50 t=11.5s
+  gi=127 W s=48 t=10.9s
+  gi=128 W s=26 t=5.8s
+  gi=129 W s=25 t=5.7s
+  gi=130 W s=24 t=5.4s
+  gi=131 W s= 9 t=2.3s
+  gi=132 W s= 9 t=2.2s
+  gi=133 W s=11 t=2.7s
+
+=== V19完整134局: 122/134 = 91.0% ===

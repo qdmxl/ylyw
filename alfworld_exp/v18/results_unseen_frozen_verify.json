@@ -1,0 +1,677 @@
+{
+  "n_total": 134,
+  "n_won": 132,
+  "success_rate": 0.9850746268656716,
+  "results": [
+    {
+      "game_idx": 0,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 1,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 2,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "game_idx": 3,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 4,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "game_idx": 5,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 6,
+      "won": true,
+      "steps": 17
+    },
+    {
+      "game_idx": 7,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "game_idx": 8,
+      "won": true,
+      "steps": 17
+    },
+    {
+      "game_idx": 9,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 10,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 11,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "game_idx": 12,
+      "won": true,
+      "steps": 27
+    },
+    {
+      "game_idx": 13,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "game_idx": 14,
+      "won": true,
+      "steps": 27
+    },
+    {
+      "game_idx": 15,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 16,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 17,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 18,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 19,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "game_idx": 20,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "game_idx": 21,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 22,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 23,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "game_idx": 24,
+      "won": true,
+      "steps": 18
+    },
+    {
+      "game_idx": 25,
+      "won": true,
+      "steps": 42
+    },
+    {
+      "game_idx": 26,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "game_idx": 27,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 28,
+      "won": true,
+      "steps": 10
+    },
+    {
+      "game_idx": 29,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 30,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 31,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 32,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 33,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 34,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 35,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "game_idx": 36,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 37,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 38,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 39,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 40,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "game_idx": 41,
+      "won": true,
+      "steps": 22
+    },
+    {
+      "game_idx": 42,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 43,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "game_idx": 44,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 45,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 46,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 47,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 48,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 49,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "game_idx": 50,
+      "won": true,
+      "steps": 10
+    },
+    {
+      "game_idx": 51,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 52,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 53,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 54,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "game_idx": 55,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 56,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 57,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "game_idx": 58,
+      "won": true,
+      "steps": 38
+    },
+    {
+      "game_idx": 59,
+      "won": true,
+      "steps": 36
+    },
+    {
+      "game_idx": 60,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "game_idx": 61,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 62,
+      "won": true,
+      "steps": 19
+    },
+    {
+      "game_idx": 63,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 64,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 65,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 66,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 67,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 68,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 69,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 70,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "game_idx": 71,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 72,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 73,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 74,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "game_idx": 75,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 76,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 77,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 78,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 79,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "game_idx": 80,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "game_idx": 81,
+      "won": true,
+      "steps": 19
+    },
+    {
+      "game_idx": 82,
+      "won": true,
+      "steps": 3
+    },
+    {
+      "game_idx": 83,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 84,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 85,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 86,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "game_idx": 87,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 88,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "game_idx": 89,
+      "won": true,
+      "steps": 10
+    },
+    {
+      "game_idx": 90,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 91,
+      "won": true,
+      "steps": 23
+    },
+    {
+      "game_idx": 92,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 93,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 94,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 95,
+      "won": true,
+      "steps": 18
+    },
+    {
+      "game_idx": 96,
+      "won": true,
+      "steps": 30
+    },
+    {
+      "game_idx": 97,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "game_idx": 98,
+      "won": true,
+      "steps": 40
+    },
+    {
+      "game_idx": 99,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "game_idx": 100,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "game_idx": 101,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 102,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "game_idx": 103,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 104,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 105,
+      "won": true,
+      "steps": 48
+    },
+    {
+      "game_idx": 106,
+      "won": true,
+      "steps": 26
+    },
+    {
+      "game_idx": 107,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "game_idx": 108,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "game_idx": 109,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "game_idx": 110,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "game_idx": 111,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 112,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "game_idx": 113,
+      "won": true,
+      "steps": 17
+    },
+    {
+      "game_idx": 114,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 115,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "game_idx": 116,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "game_idx": 117,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "game_idx": 118,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "game_idx": 119,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 120,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "game_idx": 121,
+      "won": true,
+      "steps": 33
+    },
+    {
+      "game_idx": 122,
+      "won": true,
+      "steps": 34
+    },
+    {
+      "game_idx": 123,
+      "won": true,
+      "steps": 34
+    },
+    {
+      "game_idx": 124,
+      "won": true,
+      "steps": 42
+    },
+    {
+      "game_idx": 125,
+      "won": true,
+      "steps": 44
+    },
+    {
+      "game_idx": 126,
+      "won": true,
+      "steps": 50
+    },
+    {
+      "game_idx": 127,
+      "won": true,
+      "steps": 48
+    },
+    {
+      "game_idx": 128,
+      "won": true,
+      "steps": 23
+    },
+    {
+      "game_idx": 129,
+      "won": true,
+      "steps": 25
+    },
+    {
+      "game_idx": 130,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "game_idx": 131,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 132,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "game_idx": 133,
+      "won": true,
+      "steps": 11
+    }
+  ]
+}

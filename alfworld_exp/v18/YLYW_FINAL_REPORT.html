@@ -1,0 +1,467 @@
+<style>
+  :root{
+    --paper:#F5F4F1; --raised:#FFFFFF; --ink:#211D1B; --ink-soft:#585149;
+    --ink-faint:#8B837A; --line:#E0DBD2; --line-strong:#CFC8BC;
+    --seal:#B23A2E; --seal-soft:#C86A5E;
+    --gen:#356B5D; --gen-bg:#E6EFEA;
+    --dev:#8A5E18; --dev-bg:#F3EBDA;
+    --shadow:0 1px 2px rgba(33,29,27,.04),0 6px 24px rgba(33,29,27,.06);
+    --serif:"Songti SC","STSong","Noto Serif CJK SC",Georgia,"Times New Roman",serif;
+    --sans:"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",-apple-system,"Segoe UI",Roboto,sans-serif;
+    --mono:"SF Mono","Cascadia Code","JetBrains Mono",Consolas,Menlo,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#191614; --raised:#211D1A; --ink:#ECE7DF; --ink-soft:#A79F95;
+      --ink-faint:#786F65; --line:#332E29; --line-strong:#403A33;
+      --seal:#E07566; --seal-soft:#B24A3C;
+      --gen:#83BCAB; --gen-bg:#1E2A26;
+      --dev:#D6A552; --dev-bg:#2A2519;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#191614; --raised:#211D1A; --ink:#ECE7DF; --ink-soft:#A79F95;
+    --ink-faint:#786F65; --line:#332E29; --line-strong:#403A33;
+    --seal:#E07566; --seal-soft:#B24A3C;
+    --gen:#83BCAB; --gen-bg:#1E2A26; --dev:#D6A552; --dev-bg:#2A2519;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 30px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --paper:#F5F4F1; --raised:#FFFFFF; --ink:#211D1B; --ink-soft:#585149;
+    --ink-faint:#8B837A; --line:#E0DBD2; --line-strong:#CFC8BC;
+    --seal:#B23A2E; --seal-soft:#C86A5E;
+    --gen:#356B5D; --gen-bg:#E6EFEA; --dev:#8A5E18; --dev-bg:#F3EBDA;
+    --shadow:0 1px 2px rgba(33,29,27,.04),0 6px 24px rgba(33,29,27,.06);
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    line-height:1.7;-webkit-font-smoothing:antialiased;font-feature-settings:"tnum" 0;}
+  .wrap{max-width:960px;margin:0 auto;padding:clamp(20px,5vw,64px) clamp(18px,5vw,48px) 96px;}
+  .num{font-variant-numeric:tabular-nums;font-family:var(--mono);}
+
+  /* ---------- masthead ---------- */
+  .mast{border-bottom:1px solid var(--line-strong);padding-bottom:14px;margin-bottom:8px;
+    display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;}
+  .mast .tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-faint);}
+  .mast .seal{color:var(--seal);font-weight:600;}
+
+  h1{font-family:var(--serif);font-weight:600;line-height:1.18;text-wrap:balance;
+    font-size:clamp(30px,5.4vw,52px);letter-spacing:-.01em;margin:26px 0 0;}
+  h1 .em{color:var(--seal);}
+  .thesis{font-size:clamp(16px,2.2vw,19px);color:var(--ink-soft);max-width:60ch;
+    margin:18px 0 0;line-height:1.62;}
+  .thesis b{color:var(--ink);font-weight:600;}
+
+  /* ---------- yao rule (deconstructed hexagram divider) ---------- */
+  .yao{display:flex;flex-direction:column;gap:5px;width:54px;margin:0;}
+  .yao span{height:4px;border-radius:1px;background:var(--seal);opacity:.85;display:block;}
+  .yao span.yin{background:linear-gradient(90deg,var(--seal) 0 42%,transparent 42% 58%,var(--seal) 58% 100%);}
+
+  /* ---------- calibration strip (the thesis, visualized) ---------- */
+  .cal{background:var(--raised);border:1px solid var(--line);border-radius:14px;
+    box-shadow:var(--shadow);padding:26px clamp(18px,3vw,32px) 22px;margin:34px 0 8px;}
+  .cal h2{font-family:var(--sans);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 26px;font-weight:600;}
+  .track{position:relative;height:8px;background:linear-gradient(90deg,var(--line) 0,var(--line-strong));
+    border-radius:6px;margin:64px 0 58px;}
+  .band{position:absolute;top:-4px;height:16px;border-radius:6px;background:var(--gen);
+    opacity:.22;}
+  .mk{position:absolute;top:50%;width:2px;height:22px;transform:translate(-50%,-50%);border-radius:2px;}
+  .mk::after{content:attr(data-v);position:absolute;left:50%;transform:translateX(-50%);
+    font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:15px;font-weight:600;white-space:nowrap;}
+  .mk::before{content:attr(data-l);position:absolute;left:50%;transform:translateX(-50%);
+    font-family:var(--sans);font-size:11px;letter-spacing:.02em;white-space:nowrap;color:var(--ink-soft);}
+  .mk.up::after{bottom:26px}.mk.up::before{bottom:44px}
+  .mk.dn::after{top:26px}.mk.dn::before{top:44px}
+  .mk.start{background:var(--ink-faint)} .mk.start::after{color:var(--ink-faint)}
+  .mk.gen{background:var(--gen)} .mk.gen::after{color:var(--gen)}
+  .mk.dev{background:var(--dev)} .mk.dev::after{color:var(--dev)}
+  .gap{position:absolute;height:1px;background:var(--dev);top:-30px;}
+  .gap span{position:absolute;left:50%;top:-20px;transform:translateX(-50%);font-size:11px;
+    color:var(--dev);white-space:nowrap;font-family:var(--sans);}
+  .gap::before,.gap::after{content:"";position:absolute;top:-4px;width:1px;height:9px;background:var(--dev);}
+  .gap::before{left:0}.gap::after{right:0}
+
+  /* ---------- metric tiles ---------- */
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:20px 0 0;}
+  .tile{background:var(--raised);padding:18px 18px 16px;}
+  .tile .big{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:clamp(30px,4.6vw,40px);
+    font-weight:600;line-height:1;letter-spacing:-.02em;}
+  .tile .lab{font-size:12.5px;color:var(--ink-soft);margin-top:9px;line-height:1.4;}
+  .tile .sub{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:3px;}
+  .tile.gen .big{color:var(--gen)} .tile.dev .big{color:var(--dev)}
+  .tile.start .big{color:var(--ink-faint)} .tile.seal .big{color:var(--seal)}
+
+  /* ---------- legend ---------- */
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:18px 2px 0;font-size:12.5px;color:var(--ink-soft);}
+  .legend b{font-weight:600}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:baseline;}
+  .dot.gen{background:var(--gen)}.dot.dev{background:var(--dev)}.dot.seal{background:var(--seal)}
+  .dot.ink{background:var(--ink-faint)}
+
+  /* ---------- sections ---------- */
+  section{margin-top:60px;}
+  .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+  .eyebrow .yao{width:40px}
+  .eyebrow .yao span{height:3px;gap:4px}
+  .eyebrow h3{font-family:var(--serif);font-size:clamp(21px,3vw,27px);font-weight:600;margin:0;
+    letter-spacing:-.01em;text-wrap:balance;}
+  .eyebrow .idx{font-family:var(--mono);font-size:12px;color:var(--seal);letter-spacing:.1em;}
+  p.lead{color:var(--ink-soft);max-width:64ch;margin:0 0 20px;}
+  p.lead b{color:var(--ink);font-weight:600}
+
+  /* ---------- tables ---------- */
+  .scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);
+    background:var(--raised);}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px;}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);white-space:nowrap;}
+  thead th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);
+    font-weight:600;background:var(--paper);}
+  tbody tr:last-child td{border-bottom:none;}
+  td.n{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:600;}
+  .row-hi td{background:var(--gen-bg);}
+  .row-hi td.n{color:var(--gen)}
+  td .u{color:var(--ink-faint);font-family:var(--mono);font-size:12px;font-weight:400;margin-left:4px;}
+
+  /* chips */
+  .chip{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;
+    letter-spacing:.02em;line-height:1.5;white-space:nowrap;}
+  .chip.gen{color:var(--gen);background:var(--gen-bg);}
+  .chip.dev{color:var(--dev);background:var(--dev-bg);}
+  .chip.seal{color:#fff;background:var(--seal);}
+  :root[data-theme="dark"] .chip.seal,@media (prefers-color-scheme:dark){.chip.seal{color:#1a1210}}
+
+  /* ---------- ablation bars ---------- */
+  .bars{display:flex;flex-direction:column;gap:14px;margin:6px 0 4px;}
+  .barrow{display:grid;grid-template-columns:132px 1fr;gap:14px;align-items:center;}
+  .barrow .k{font-size:13px;color:var(--ink-soft);}
+  .barrow .k b{color:var(--ink);font-family:var(--mono);}
+  .barwrap{position:relative;background:var(--line);border-radius:6px;height:30px;overflow:hidden;}
+  .barfill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:10px;color:#fff;font-family:var(--mono);font-variant-numeric:tabular-nums;
+    font-size:13px;font-weight:600;min-width:52px;transition:width 1s cubic-bezier(.2,.7,.2,1);}
+  :root[data-theme="dark"] .barfill{color:#171310}
+  @media (prefers-color-scheme:dark){.barfill{color:#171310}}
+  .barfill.l2{background:var(--gen)} .barfill.l3{background:var(--dev)} .barfill.dead{background:var(--seal)}
+  .barnote{font-size:12.5px;color:var(--ink-faint);margin-top:2px;}
+
+  /* ---------- callout cards ---------- */
+  .cards{display:grid;gap:16px;grid-template-columns:1fr;}
+  @media(min-width:680px){.cards.three{grid-template-columns:repeat(3,1fr)}}
+  .card{background:var(--raised);border:1px solid var(--line);border-left:3px solid var(--seal);
+    border-radius:10px;padding:18px 20px;box-shadow:var(--shadow);}
+  .card h4{margin:0 0 8px;font-size:15px;font-weight:600;font-family:var(--sans);}
+  .card p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.6;}
+  .card .k{font-family:var(--mono);font-size:11px;color:var(--seal);letter-spacing:.08em;
+    text-transform:uppercase;display:block;margin-bottom:9px;}
+
+  /* two-column honest vs inflated */
+  .versus{display:grid;gap:16px;grid-template-columns:1fr;}
+  @media(min-width:640px){.versus{grid-template-columns:1fr 1fr}}
+  .vcol{border-radius:12px;padding:20px 22px;border:1px solid var(--line);background:var(--raised);}
+  .vcol.book{border-top:3px solid var(--seal)}
+  .vcol.ours{border-top:3px solid var(--gen)}
+  .vcol h4{margin:0 0 14px;font-size:14px;font-weight:600;}
+  .vcol ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .vcol li{font-size:13px;color:var(--ink-soft);line-height:1.55;padding-left:20px;position:relative;}
+  .vcol li::before{position:absolute;left:0;top:0;font-family:var(--mono);font-size:12px;}
+  .vcol.book li::before{content:"✕";color:var(--seal)}
+  .vcol.ours li::before{content:"✓";color:var(--gen)}
+  .vcol li b{color:var(--ink);font-family:var(--mono);font-weight:600}
+
+  /* limitations list */
+  .lims{display:flex;flex-direction:column;gap:10px;}
+  .lim{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+    padding:14px 16px;background:var(--raised);border:1px solid var(--line);border-radius:10px;}
+  .lim .sev{font-family:var(--mono);font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:5px;
+    letter-spacing:.04em;white-space:nowrap;height:fit-content;margin-top:2px;}
+  .sev.cr{background:var(--seal);color:#fff}
+  :root[data-theme="dark"] .sev.cr{color:#1a1210}
+  @media(prefers-color-scheme:dark){.sev.cr{color:#1a1210}}
+  .sev.hi{background:var(--dev-bg);color:var(--dev)}
+  .lim .txt{font-size:13.5px;color:var(--ink-soft);line-height:1.55;}
+  .lim .txt b{color:var(--ink);font-weight:600}
+
+  /* reminders (numbered — a real sequence of 3 priorities) */
+  .rem{display:flex;flex-direction:column;gap:14px;}
+  .remitem{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;
+    padding:20px 22px;background:var(--raised);border:1px solid var(--line);border-radius:12px;
+    box-shadow:var(--shadow);}
+  .remitem .no{font-family:var(--serif);font-size:34px;font-weight:600;color:var(--seal);
+    line-height:.9;font-variant-numeric:tabular-nums;}
+  .remitem h4{margin:0 0 6px;font-size:15.5px;font-weight:600;}
+  .remitem p{margin:0;font-size:13.5px;color:var(--ink-soft);line-height:1.62;}
+  .remitem p b{color:var(--ink);font-weight:600}
+
+  .foot{margin-top:72px;padding-top:24px;border-top:1px solid var(--line-strong);
+    font-size:12.5px;color:var(--ink-faint);line-height:1.8;}
+  .foot code{font-family:var(--mono);font-size:11.5px;background:var(--raised);
+    border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--ink-soft);}
+  .foot .files{margin-top:12px;display:flex;flex-wrap:wrap;gap:8px 14px;}
+
+  a{color:var(--seal);text-decoration:none;border-bottom:1px solid transparent;}
+  a:hover{border-bottom-color:var(--seal);}
+  :focus-visible{outline:2px solid var(--seal);outline-offset:2px;border-radius:3px;}
+
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .barfill{transition:none}
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="mast">
+    <span class="tag">易理研物 · YLYW × ALFWorld</span>
+    <span class="tag">诚实收官报告 · <span class="seal">2026-07-24</span></span>
+  </div>
+
+  <h1>从 <span class="em">~40%</span> 到诚实泛化 <span class="em">~80%</span><br>—— 一次真实的提升，与它的正确标签</h1>
+
+  <p class="thesis">在不改动 YLYW 三层卦象框架的前提下，把 ALFWorld 文本基准的成绩从老师原版的 ~40% 提升到
+    <b>真实泛化 ~80%</b>（两个独立的"未调参"估计互相印证）、<b>完整错误分析后的开发集上限 98.5%</b>。
+    全部数字真实、逐局位级确定可复现、无信息泄漏、无删题。本报告的核心不是数字有多高，而是把每个数字<b>贴对标签</b>。</p>
+
+  <!-- ============ CALIBRATION STRIP ============ -->
+  <div class="cal reveal">
+    <h2>成绩标定轴 · 一图读懂全部口径</h2>
+    <div class="track">
+      <div class="band" style="left:76%;width:8%"></div>
+      <div class="gap" style="left:80%;width:18.5%"><span>过拟合增益 ≈ 17pp（照失败调词典）</span></div>
+      <div class="mk start dn" style="left:40%" data-v="~40%" data-l="老师原版 v17"></div>
+      <div class="mk gen up" style="left:79.9%" data-v="79.9 · 81.3" data-l="真实泛化（冻结 · 留出）"></div>
+      <div class="mk dev dn" style="left:98.5%" data-v="98.5%" data-l="开发集上限 unseen"></div>
+    </div>
+    <div class="tiles">
+      <div class="tile start"><div class="big" data-count="40" data-suf="%">~40%</div>
+        <div class="lab">老师原版起点</div><div class="sub">v17 卦象真决策</div></div>
+      <div class="tile gen"><div class="big" data-count="81.3" data-suf="%">81.3%</div>
+        <div class="lab">真实泛化 · train 留出集</div><div class="sub">205 / 252 · 先验零泄漏</div></div>
+      <div class="tile gen"><div class="big" data-count="79.9" data-suf="%">79.9%</div>
+        <div class="lab">真实泛化 · 冻结首跑</div><div class="sub">107 / 134 unseen</div></div>
+      <div class="tile dev"><div class="big" data-count="98.5" data-suf="%">98.5%</div>
+        <div class="lab">开发集上限 unseen</div><div class="sub">132 / 134 · 非泛化</div></div>
+    </div>
+    <div class="legend">
+      <span><span class="dot gen"></span><b>青瓷绿</b> = 可对外主张的泛化数（未触测试集）</span>
+      <span><span class="dot dev"></span><b>琥珀</b> = 开发集/transductive 数（照失败调过，非泛化）</span>
+      <span><span class="dot seal"></span><b>朱砂</b> = 书中加持数字 / 必须回避的说法</span>
+    </div>
+  </div>
+
+  <!-- ============ 1. 演进 ============ -->
+  <section class="reveal">
+    <div class="eyebrow">
+      <div class="yao"><span></span><span class="yin"></span></div>
+      <span class="idx">一</span><h3>战果全景：五个阶段</h3>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>阶段</th><th>valid_unseen (134)</th><th>valid_seen (140)</th><th>口径</th></tr></thead>
+        <tbody>
+          <tr><td>老师原版 v17（卦象真决策）</td><td class="n">~36.7–50%</td><td class="n">—</td><td><span class="chip">诚实</span></td></tr>
+          <tr class="row-hi"><td>v18 冻结首跑</td><td class="n">79.9%<span class="u">107</span></td><td class="n">75.0%</td><td><span class="chip gen">归纳/OOD</span></td></tr>
+          <tr><td>v18.1（对 unseen 失败错误分析后修复）</td><td class="n">98.5%<span class="u">132</span></td><td class="n">79.3%</td><td><span class="chip dev">transductive</span></td></tr>
+          <tr><td><b>v18.2（收尾 · 补通用词表 + 激活 L3）</b></td><td class="n">98.5%<span class="u">132</span></td><td class="n">92.1%<span class="u">129</span></td><td><span class="chip dev">开发集</span></td></tr>
+          <tr class="row-hi"><td><b>train held-out（252 局 · 从未调参）</b></td><td class="n" colspan="2" style="text-align:center">81.3% &nbsp;·&nbsp; 205 / 252 &nbsp;·&nbsp; 真泛化实证</td><td><span class="chip gen">泛化</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="lead" style="margin-top:18px">参考 SOTA（valid_unseen）：BUTLER 37 · ExpeL 59 · ReAct 71 · AutoGen 77 ·
+      <b>EmbodiSkill (27B LLM) 93.28（干净归纳 SOTA）</b> · Reflexion 97（GPT-3.5，transductive）。</p>
+  </section>
+
+  <!-- ============ 2. 泛化实证 ============ -->
+  <section class="reveal">
+    <div class="eyebrow">
+      <div class="yao"><span class="yin"></span><span></span></div>
+      <span class="idx">二</span><h3>为什么可以说"机制真实泛化到 ~80%"</h3>
+    </div>
+    <p class="lead">两条<b>完全独立</b>的"未调参"路径给出高度一致的泛化估计——冻结首跑 <b>79.9%</b> 与 train 留出集 <b>81.3%</b>，
+      相差仅 1.4pp，互相印证。留出集的失败与 valid 失败<b>完全同型</b>（目的地/物名解析、空间指代、多步时序、深藏超时），
+      <b>没有任何"新数据上的新崩溃"</b>——说明 ~80% 是机制真实水平，98.5% 与它的差距等于"针对 valid 补词典"的过拟合增益。</p>
+    <div class="cards three">
+      <div class="card" style="border-left-color:var(--gen)"><span class="k" style="color:var(--gen)">留出集设计</span>
+        <h4>252 局 · 6 类型各 42</h4><p>从 train 抽取（seed 20260723），这些局从未参与任何调参、从未被观察过失败模式。</p></div>
+      <div class="card" style="border-left-color:var(--gen)"><span class="k" style="color:var(--gen)">先验零泄漏</span>
+        <h4>excl = full = 205</h4><p>排除 H 重建先验（5134 局）vs 完整先验（5386 局）：402 字段不同，但逐局 <b>0 局翻转</b>。先验贡献来自真实聚合规律，非"见过标注"。</p></div>
+      <div class="card" style="border-left-color:var(--gen)"><span class="k" style="color:var(--gen)">失败同型</span>
+        <h4>47 局失败 · 无新模式</h4><p>与 valid 失败完全同类（数据噪声 + 解析边界 + 探索预算），非机制崩溃。</p></div>
+    </div>
+    <div class="scroll" style="margin-top:18px">
+      <table>
+        <thead><tr><th>held-out 分任务类型</th><th>heat</th><th>clean</th><th>look</th><th>pick&amp;place</th><th>cool</th><th>pick_two</th></tr></thead>
+        <tbody><tr><td>成功率（205/252 = 81.3%）</td>
+          <td class="n">93%</td><td class="n">90%</td><td class="n">90%</td><td class="n">74%</td><td class="n">71%</td><td class="n">69%</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 3. 消融：易经到底有没有用 ============ -->
+  <section class="reveal">
+    <div class="eyebrow">
+      <div class="yao"><span></span><span></span></div>
+      <span class="idx">三</span><h3>消融：易经卦象到底有没有用？</h3>
+    </div>
+    <p class="lead">这是最必须说清、也最反直觉的一节。结论：<b>承重的是 L2 六爻手工目标特征（本质是符号规划的评分函数），
+      不是"易经卦象"。</b>去掉整个 L3 卦象层，成绩几乎不变（valid_seen 129→128，McNemar <b>p = 1.0</b>）；
+      冻结 L2 六爻，成绩直接崩塌。</p>
+    <div class="bars">
+      <div class="barrow"><div class="k"><b>full</b><br>六爻 × 卦象</div>
+        <div class="barwrap"><div class="barfill l2" data-w="92.1" style="width:0">92.1%</div></div></div>
+      <div class="barrow"><div class="k"><b>linear</b><br>去掉 L3 卦象</div>
+        <div class="barwrap"><div class="barfill l2" data-w="91.4" style="width:0">91.4%</div></div></div>
+      <div class="barrow"><div class="k"><b>perm</b><br>打乱 64 卦吉凶</div>
+        <div class="barwrap"><div class="barfill l3" data-w="90.0" style="width:0">90.0%</div></div></div>
+      <div class="barrow"><div class="k"><b>fixed_yao</b><br>冻结六爻 L2</div>
+        <div class="barwrap"><div class="barfill dead" data-w="29.3" style="width:0">29.3%</div></div></div>
+    </div>
+    <p class="barnote">valid_seen（140 局）消融。full → linear 仅差 <b>1 局</b>（L3 净贡献 ≈ 0）；linear → fixed_yao 掉 <b>62pp</b>（L2 承重）。
+      但六爻特征 linear 基线同样使用，所以崩塌只能记功给"目标特征工程"，<b>不能记功给"易经"</b>。</p>
+    <div class="cards three" style="margin-top:20px">
+      <div class="card"><span class="k">L3 影响率</span><h4>3.7% / 4.1%</h4><p>卦象层每步只在极少数多候选决策改变 argmax，且几乎不改胜负（净 +0 / +1 局）。</p></div>
+      <div class="card"><span class="k">架构合规</span><h4>卦象确实参与</h4><p>卦象每步对所有候选打分、是唯一胜者选择器——无造假，但因果贡献微弱。</p></div>
+      <div class="card"><span class="k">诚实定性</span><h4>脚手架，非承重</h4><p>《易经》是"符号骨架 + 命名 schema"；性能来自 NL 解析 + train 先验 + veto/重试（经典符号规划）。</p></div>
+    </div>
+  </section>
+
+  <!-- ============ 4. 与书中对比 ============ -->
+  <section class="reveal">
+    <div class="eyebrow">
+      <div class="yao"><span class="yin"></span><span class="yin"></span></div>
+      <span class="idx">四</span><h3>与书中 92.5% / 73.9% / 90% 的性质区别</h3>
+    </div>
+    <p class="lead">核心区别不在数值高低，而在<b>口径</b>。书中三个高分是"给系统喂答案 / 让系统反复看测试集 / 缩小分母"换来的；
+      我们的数字在"不喂答案、不删难题、每局重置"下取得。</p>
+    <div class="versus">
+      <div class="vcol book"><h4><span class="chip seal">书中口径 · 加持</span></h4>
+        <ul>
+          <li><b>92.5%</b> (v6)：喂 PDDL 真值目标 + oracle 任务类型 + 硬编码 FSM；卦象根本不参与决策</li>
+          <li><b>73.9%</b> (v10)：同一评测集跑 5 轮累积经验，测试集跨轮泄漏</li>
+          <li><b>90%</b> (子集)：删掉 34 局难题后的子集分母</li>
+        </ul></div>
+      <div class="vcol ours"><h4><span class="chip gen">我们的口径 · 诚实</span></h4>
+        <ul>
+          <li>决策路径对 info 真值完全隔离；<b>won</b> 传入即丢弃，无 oracle、无按局 FSM</li>
+          <li>每局 <b>fresh agent</b>，无跨局学习、无经验累积</li>
+          <li>分母是标准全集（unseen 134 / seen 140），<b>无删题</b></li>
+        </ul></div>
+    </div>
+  </section>
+
+  <!-- ============ 5. SOTA 定位 ============ -->
+  <section class="reveal">
+    <div class="eyebrow">
+      <div class="yao"><span></span><span class="yin"></span></div>
+      <span class="idx">五</span><h3>诚实的文献定位</h3>
+    </div>
+    <p class="lead"><b>绝不宣称"纯符号超越 27B LLM"。</b> 两条不能混的坐标轴：归纳轴上我们 ~80%，低于干净 SOTA（EmbodiSkill 93.28），
+      高于 ReAct/ExpeL/BUTLER；开发集轴上 98.5% 的唯一公平对照是 Reflexion 97%（同为多次重试的 transductive）。
+      真正的独特卖点是 <b>无 LLM · CPU · ~2ms/步 · 完全确定可复现</b>——算力比所有 LLM 竞品低若干数量级。</p>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>方法</th><th>LLM</th><th>valid_unseen</th><th>口径</th></tr></thead>
+        <tbody>
+          <tr><td>BUTLER</td><td>无（需训练）</td><td class="n">37%</td><td>归纳</td></tr>
+          <tr><td>ExpeL</td><td>GPT-3.5</td><td class="n">59%</td><td>归纳</td></tr>
+          <tr><td>ReAct</td><td>PaLM-540B</td><td class="n">71%</td><td>归纳</td></tr>
+          <tr><td>AutoGen</td><td>GPT-4/3.5</td><td class="n">77%</td><td>归纳</td></tr>
+          <tr><td>EmbodiSkill</td><td>Qwen3.5-27B</td><td class="n">93.28%</td><td>干净归纳 SOTA</td></tr>
+          <tr><td>Reflexion</td><td>GPT-3.5</td><td class="n">97%</td><td>transductive</td></tr>
+          <tr class="row-hi"><td><b>YLYW v18.2（本工作）</b></td><td><b>无 · CPU</b></td><td class="n">~80 / 98.5</td><td>归纳 / 开发集</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ 6. Limitations ============ -->
+  <section class="reveal">
+    <div class="eyebrow">
+      <div class="yao"><span class="yin"></span><span></span></div>
+      <span class="idx">六</span><h3>必须披露的局限</h3>
+    </div>
+    <div class="lims">
+      <div class="lim"><span class="sev cr">CRITICAL</span><div class="txt"><b>依赖 env won 的有界闭环重试。</b>
+        放置未触发 won 即判解析错、回退换候选重试（硬上限 ≤10 retry / 50 步）。几个最难的胜局靠"枚举撞中"而非一次性语言理解——须披露为 bounded trial-and-error，<b>不能宣传成 zero-shot</b>。</div></div>
+      <div class="lim"><span class="sev cr">CRITICAL</span><div class="txt"><b>valid_unseen 事实上被当开发集。</b>
+        98.5% 是"在 unseen 上调过后的拟合"；唯一 OOD 数是冻结 79.9% + 留出 81.3%。</div></div>
+      <div class="lim"><span class="sev hi">HIGH</span><div class="txt"><b>L3 卦象层对结果贡献 ≈ 0；承重的是 L2 六爻特征</b>（linear 共享之），不能记功于易经。</div></div>
+      <div class="lim"><span class="sev hi">HIGH</span><div class="txt"><b>大量 ALFWorld 特定词典/启发式</b>（~58 词典条目 + 十余条护栏），非 zero-shot、非通用；目标仅"接收类"粒度，基准判定宽松放过空间限定。</div></div>
+      <div class="lim"><span class="sev hi">HIGH</span><div class="txt"><b>"443 参数"表述会误导</b>——这 443 个卦象核心数几乎惰性；诚实容量 = 443 + ~50 手调常数 + ~58 词典 + regex + train 先验。</div></div>
+    </div>
+  </section>
+
+  <!-- ============ 7. 三条提醒 ============ -->
+  <section class="reveal">
+    <div class="eyebrow">
+      <div class="yao"><span></span><span></span></div>
+      <span class="idx">七</span><h3>给老师的三条提醒</h3>
+    </div>
+    <p class="lead">避免重蹈书中数字虚高的覆辙——这三条按重要性排序。</p>
+    <div class="rem">
+      <div class="remitem"><div class="no">1</div><div>
+        <h4>"泛化"只留给 79.9% / 81.3%，绝不给 98.5%。</h4>
+        <p>书中 v10 栽在"测试集反复跑泄漏"。只要对外把 98.5% 称作"泛化 / 超越 LLM"，审稿人 5 分钟即可从我们自己的日志验证出"照失败调过"。<b>泛化 headline 只放 79.9% / 81.3%，98.5% 明标"开发集上限"。</b></p></div></div>
+      <div class="remitem"><div class="no">2</div><div>
+        <h4>不要把 98.5% 归功于"易经 / 卦象"——我们自己的消融已证否。</h4>
+        <p>书中 v6 栽在"卦象不参与决策却宣称易经驱动"。我们的卦象确实参与打分（架构合规），但消融显示 L3 净贡献 +1/274 局。<b>诚实讲法：把《易经》定位为"符号骨架 + 命名 schema"，主动报告"卦象层中性"这一负结果</b>——反而是可引用的科学贡献。</p></div></div>
+      <div class="remitem"><div class="no">3</div><div>
+        <h4>主动披露三件事，别等复现者发现。</h4>
+        <p>① valid 被当开发集；② 依赖 env won 的闭环枚举试错；③ L3 卦象几乎惰性。<b>主动披露不削弱成果</b>——40% → 诚实泛化 ~80% / 开发集上限 98.5% 是真实的重大提升——它只让成果从"漂亮但可疑"变成"经得起对抗性复现与审稿"。</p></div></div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <b style="color:var(--ink-soft)">复现与文件</b>（<code>ylyw/alfworld_exp/v18/</code>；环境 WSL2 + alfworld 0.5.0 + textworld 1.7.0）：
+    <div class="files">
+      <span><code>results_{seen,unseen}_v182.json</code> 主结果</span>
+      <span><code>results_unseen_frozen_full.json</code> 冻结 79.9%</span>
+      <span><code>heldout_results_{excl,full}.json</code> 留出 81.3%</span>
+      <span><code>abl_*_v182.json</code> 消融四件套</span>
+      <span><code>YLYW_FINAL_REPORT.md</code> 完整文本报告</span>
+    </div>
+    <p style="margin-top:14px">锁死核心未改：<code>hanzi_engine.py</code> · <code>ylyw_action_primitives.py</code>。
+      待补实验（投稿前）：no-YLYW 纯符号基线 · perm 多 seed 置换检验 · no_favor 模式。
+      分节标记为解构的爻线（阴/阳）——呼应本报告的核心发现：<b style="color:var(--seal)">《易经》是脚手架，不是承重结构</b>。</p>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    var rm = window.matchMedia && window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        e.target.classList.add("in");
+        // count-up
+        e.target.querySelectorAll("[data-count]").forEach(function(el){
+          if(el._done) return; el._done=1;
+          var end=parseFloat(el.getAttribute("data-count")),
+              suf=el.getAttribute("data-suf")||"",
+              pre=(el.textContent.trim().charAt(0)==="~")?"~":"",
+              dec=(end%1!==0)?1:0;
+          if(rm){el.textContent=pre+end.toFixed(dec)+suf;return;}
+          var t0=null,dur=1100;
+          function tick(ts){t0=t0||ts;var p=Math.min((ts-t0)/dur,1);
+            var v=(1-Math.pow(1-p,3))*end;
+            el.textContent=pre+v.toFixed(dec)+suf;
+            if(p<1)requestAnimationFrame(tick);}
+          requestAnimationFrame(tick);
+        });
+        // bar fills
+        e.target.querySelectorAll(".barfill[data-w]").forEach(function(el){
+          el.style.width=el.getAttribute("data-w")+"%";
+        });
+        io.unobserve(e.target);
+      });
+    },{threshold:.16});
+    document.querySelectorAll(".reveal").forEach(function(el){io.observe(el);});
+  })();
+</script>

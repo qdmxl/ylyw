@@ -1,0 +1,20 @@
+Initializing ALFWorld Official (split=valid_unseen)...
+Initializing AlfredTWEnv...
+  0%|          | 0/341 [00:00<?, ?it/s] 66%|██████▋   | 226/341 [00:00<00:00, 2257.24it/s]100%|██████████| 341/341 [00:00<00:00, 2017.15it/s]
+Overall we have 134 games in split=eval_out_of_distribution
+Evaluating with 134 games
+Collected 134 solvable game files
+... gi=0 done (0%)
+  [FAIL] gi=7
+Traceback (most recent call last):
+  File "<string>", line 24, in <module>
+    action = agent.act(obs, adm)
+  File "/home/lijinhan/MXL/科研/ylyw/alfworld_exp/v19/agent_v19.py", line 47, in act
+    return self._act_with_ylyw_recovery(obs, admissible)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/lijinhan/MXL/科研/ylyw/alfworld_exp/v19/agent_v19.py", line 55, in _act_with_ylyw_recovery
+    phase = self._maybe_retry(phase, admissible)
+  File "/home/lijinhan/MXL/科研/ylyw/alfworld_exp/v19/../v18/agent_v18.py", line 549, in _maybe_retry
+    favs = {d: round(self.scorer.dest_favorability(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'V19YLYWScorer' object has no attribute 'dest_favorability'
