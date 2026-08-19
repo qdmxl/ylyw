@@ -1,0 +1,2506 @@
+{
+  "static": {
+    "growth_on": false,
+    "seed": 0,
+    "n_train": 72,
+    "n_test": 48,
+    "test_acc": 0.625,
+    "complexity": {
+      "total_cells": 125,
+      "active_cells": 125,
+      "dormant_cells": 0,
+      "max_depth": 1,
+      "mean_depth": 1.0,
+      "total_theta_var": 5.45047033286791,
+      "new_cells_this_run": 125
+    },
+    "growth_curve": [
+      {
+        "step": 0,
+        "cells": 31,
+        "active": 31
+      },
+      {
+        "step": 10,
+        "cells": 41,
+        "active": 41
+      },
+      {
+        "step": 20,
+        "cells": 50,
+        "active": 50
+      },
+      {
+        "step": 30,
+        "cells": 59,
+        "active": 59
+      },
+      {
+        "step": 40,
+        "cells": 69,
+        "active": 69
+      },
+      {
+        "step": 50,
+        "cells": 77,
+        "active": 77
+      },
+      {
+        "step": 60,
+        "cells": 86,
+        "active": 86
+      },
+      {
+        "step": 70,
+        "cells": 95,
+        "active": 95
+      },
+      {
+        "step": 71,
+        "cells": 96,
+        "active": 96
+      }
+    ],
+    "test_curve": [
+      {
+        "step": 0,
+        "correct": true,
+        "acc": 1.0,
+        "cells": 97
+      },
+      {
+        "step": 1,
+        "correct": false,
+        "acc": 0.5,
+        "cells": 98
+      },
+      {
+        "step": 2,
+        "correct": false,
+        "acc": 0.3333333333333333,
+        "cells": 98
+      },
+      {
+        "step": 3,
+        "correct": true,
+        "acc": 0.5,
+        "cells": 99
+      },
+      {
+        "step": 4,
+        "correct": true,
+        "acc": 0.6,
+        "cells": 101
+      },
+      {
+        "step": 5,
+        "correct": false,
+        "acc": 0.5,
+        "cells": 101
+      },
+      {
+        "step": 6,
+        "correct": true,
+        "acc": 0.5714285714285714,
+        "cells": 103
+      },
+      {
+        "step": 7,
+        "correct": false,
+        "acc": 0.5,
+        "cells": 105
+      },
+      {
+        "step": 8,
+        "correct": false,
+        "acc": 0.4444444444444444,
+        "cells": 106
+      },
+      {
+        "step": 9,
+        "correct": true,
+        "acc": 0.5,
+        "cells": 107
+      },
+      {
+        "step": 10,
+        "correct": true,
+        "acc": 0.5454545454545454,
+        "cells": 111
+      },
+      {
+        "step": 11,
+        "correct": true,
+        "acc": 0.5833333333333334,
+        "cells": 111
+      },
+      {
+        "step": 12,
+        "correct": true,
+        "acc": 0.6153846153846154,
+        "cells": 113
+      },
+      {
+        "step": 13,
+        "correct": false,
+        "acc": 0.5714285714285714,
+        "cells": 113
+      },
+      {
+        "step": 14,
+        "correct": true,
+        "acc": 0.6,
+        "cells": 113
+      },
+      {
+        "step": 15,
+        "correct": true,
+        "acc": 0.625,
+        "cells": 113
+      },
+      {
+        "step": 16,
+        "correct": true,
+        "acc": 0.6470588235294118,
+        "cells": 113
+      },
+      {
+        "step": 17,
+        "correct": false,
+        "acc": 0.6111111111111112,
+        "cells": 113
+      },
+      {
+        "step": 18,
+        "correct": true,
+        "acc": 0.631578947368421,
+        "cells": 115
+      },
+      {
+        "step": 19,
+        "correct": true,
+        "acc": 0.65,
+        "cells": 117
+      },
+      {
+        "step": 20,
+        "correct": false,
+        "acc": 0.6190476190476191,
+        "cells": 117
+      },
+      {
+        "step": 21,
+        "correct": true,
+        "acc": 0.6363636363636364,
+        "cells": 117
+      },
+      {
+        "step": 22,
+        "correct": true,
+        "acc": 0.6521739130434783,
+        "cells": 117
+      },
+      {
+        "step": 23,
+        "correct": false,
+        "acc": 0.625,
+        "cells": 118
+      },
+      {
+        "step": 24,
+        "correct": false,
+        "acc": 0.6,
+        "cells": 118
+      },
+      {
+        "step": 25,
+        "correct": false,
+        "acc": 0.5769230769230769,
+        "cells": 119
+      },
+      {
+        "step": 26,
+        "correct": true,
+        "acc": 0.5925925925925926,
+        "cells": 122
+      },
+      {
+        "step": 27,
+        "correct": false,
+        "acc": 0.5714285714285714,
+        "cells": 122
+      },
+      {
+        "step": 28,
+        "correct": false,
+        "acc": 0.5517241379310345,
+        "cells": 122
+      },
+      {
+        "step": 29,
+        "correct": true,
+        "acc": 0.5666666666666667,
+        "cells": 123
+      },
+      {
+        "step": 30,
+        "correct": true,
+        "acc": 0.5806451612903226,
+        "cells": 123
+      },
+      {
+        "step": 31,
+        "correct": true,
+        "acc": 0.59375,
+        "cells": 123
+      },
+      {
+        "step": 32,
+        "correct": true,
+        "acc": 0.6060606060606061,
+        "cells": 123
+      },
+      {
+        "step": 33,
+        "correct": true,
+        "acc": 0.6176470588235294,
+        "cells": 123
+      },
+      {
+        "step": 34,
+        "correct": false,
+        "acc": 0.6,
+        "cells": 123
+      },
+      {
+        "step": 35,
+        "correct": false,
+        "acc": 0.5833333333333334,
+        "cells": 123
+      },
+      {
+        "step": 36,
+        "correct": true,
+        "acc": 0.5945945945945946,
+        "cells": 123
+      },
+      {
+        "step": 37,
+        "correct": true,
+        "acc": 0.6052631578947368,
+        "cells": 125
+      },
+      {
+        "step": 38,
+        "correct": true,
+        "acc": 0.6153846153846154,
+        "cells": 125
+      },
+      {
+        "step": 39,
+        "correct": false,
+        "acc": 0.6,
+        "cells": 125
+      },
+      {
+        "step": 40,
+        "correct": true,
+        "acc": 0.6097560975609756,
+        "cells": 125
+      },
+      {
+        "step": 41,
+        "correct": true,
+        "acc": 0.6190476190476191,
+        "cells": 125
+      },
+      {
+        "step": 42,
+        "correct": true,
+        "acc": 0.627906976744186,
+        "cells": 125
+      },
+      {
+        "step": 43,
+        "correct": false,
+        "acc": 0.6136363636363636,
+        "cells": 125
+      },
+      {
+        "step": 44,
+        "correct": true,
+        "acc": 0.6222222222222222,
+        "cells": 125
+      },
+      {
+        "step": 45,
+        "correct": true,
+        "acc": 0.6304347826086957,
+        "cells": 125
+      },
+      {
+        "step": 46,
+        "correct": false,
+        "acc": 0.6170212765957447,
+        "cells": 125
+      },
+      {
+        "step": 47,
+        "correct": true,
+        "acc": 0.625,
+        "cells": 125
+      }
+    ],
+    "word_cells": [],
+    "cell_samples": []
+  },
+  "growth": {
+    "growth_on": true,
+    "seed": 0,
+    "n_train": 72,
+    "n_test": 48,
+    "test_acc": 0.875,
+    "complexity": {
+      "total_cells": 253,
+      "active_cells": 253,
+      "dormant_cells": 0,
+      "max_depth": 2,
+      "mean_depth": 1.5059288537549407,
+      "total_theta_var": 7.253723672226818,
+      "new_cells_this_run": 253
+    },
+    "growth_curve": [
+      {
+        "step": 0,
+        "cells": 32,
+        "active": 32
+      },
+      {
+        "step": 10,
+        "cells": 53,
+        "active": 53
+      },
+      {
+        "step": 20,
+        "cells": 73,
+        "active": 73
+      },
+      {
+        "step": 30,
+        "cells": 97,
+        "active": 97
+      },
+      {
+        "step": 40,
+        "cells": 118,
+        "active": 118
+      },
+      {
+        "step": 50,
+        "cells": 136,
+        "active": 136
+      },
+      {
+        "step": 60,
+        "cells": 157,
+        "active": 157
+      },
+      {
+        "step": 70,
+        "cells": 179,
+        "active": 179
+      },
+      {
+        "step": 71,
+        "cells": 181,
+        "active": 181
+      }
+    ],
+    "test_curve": [
+      {
+        "step": 0,
+        "correct": true,
+        "acc": 1.0,
+        "cells": 183
+      },
+      {
+        "step": 1,
+        "correct": false,
+        "acc": 0.5,
+        "cells": 184
+      },
+      {
+        "step": 2,
+        "correct": true,
+        "acc": 0.6666666666666666,
+        "cells": 185
+      },
+      {
+        "step": 3,
+        "correct": true,
+        "acc": 0.75,
+        "cells": 187
+      },
+      {
+        "step": 4,
+        "correct": true,
+        "acc": 0.8,
+        "cells": 189
+      },
+      {
+        "step": 5,
+        "correct": true,
+        "acc": 0.8333333333333334,
+        "cells": 189
+      },
+      {
+        "step": 6,
+        "correct": true,
+        "acc": 0.8571428571428571,
+        "cells": 191
+      },
+      {
+        "step": 7,
+        "correct": true,
+        "acc": 0.875,
+        "cells": 194
+      },
+      {
+        "step": 8,
+        "correct": true,
+        "acc": 0.8888888888888888,
+        "cells": 196
+      },
+      {
+        "step": 9,
+        "correct": true,
+        "acc": 0.9,
+        "cells": 200
+      },
+      {
+        "step": 10,
+        "correct": true,
+        "acc": 0.9090909090909091,
+        "cells": 207
+      },
+      {
+        "step": 11,
+        "correct": true,
+        "acc": 0.9166666666666666,
+        "cells": 209
+      },
+      {
+        "step": 12,
+        "correct": true,
+        "acc": 0.9230769230769231,
+        "cells": 212
+      },
+      {
+        "step": 13,
+        "correct": true,
+        "acc": 0.9285714285714286,
+        "cells": 212
+      },
+      {
+        "step": 14,
+        "correct": true,
+        "acc": 0.9333333333333333,
+        "cells": 214
+      },
+      {
+        "step": 15,
+        "correct": true,
+        "acc": 0.9375,
+        "cells": 216
+      },
+      {
+        "step": 16,
+        "correct": true,
+        "acc": 0.9411764705882353,
+        "cells": 216
+      },
+      {
+        "step": 17,
+        "correct": true,
+        "acc": 0.9444444444444444,
+        "cells": 216
+      },
+      {
+        "step": 18,
+        "correct": true,
+        "acc": 0.9473684210526315,
+        "cells": 220
+      },
+      {
+        "step": 19,
+        "correct": true,
+        "acc": 0.95,
+        "cells": 224
+      },
+      {
+        "step": 20,
+        "correct": false,
+        "acc": 0.9047619047619048,
+        "cells": 225
+      },
+      {
+        "step": 21,
+        "correct": true,
+        "acc": 0.9090909090909091,
+        "cells": 226
+      },
+      {
+        "step": 22,
+        "correct": true,
+        "acc": 0.9130434782608695,
+        "cells": 227
+      },
+      {
+        "step": 23,
+        "correct": false,
+        "acc": 0.875,
+        "cells": 228
+      },
+      {
+        "step": 24,
+        "correct": false,
+        "acc": 0.84,
+        "cells": 228
+      },
+      {
+        "step": 25,
+        "correct": false,
+        "acc": 0.8076923076923077,
+        "cells": 229
+      },
+      {
+        "step": 26,
+        "correct": true,
+        "acc": 0.8148148148148148,
+        "cells": 234
+      },
+      {
+        "step": 27,
+        "correct": true,
+        "acc": 0.8214285714285714,
+        "cells": 236
+      },
+      {
+        "step": 28,
+        "correct": true,
+        "acc": 0.8275862068965517,
+        "cells": 236
+      },
+      {
+        "step": 29,
+        "correct": true,
+        "acc": 0.8333333333333334,
+        "cells": 237
+      },
+      {
+        "step": 30,
+        "correct": true,
+        "acc": 0.8387096774193549,
+        "cells": 238
+      },
+      {
+        "step": 31,
+        "correct": true,
+        "acc": 0.84375,
+        "cells": 239
+      },
+      {
+        "step": 32,
+        "correct": true,
+        "acc": 0.8484848484848485,
+        "cells": 239
+      },
+      {
+        "step": 33,
+        "correct": true,
+        "acc": 0.8529411764705882,
+        "cells": 239
+      },
+      {
+        "step": 34,
+        "correct": true,
+        "acc": 0.8571428571428571,
+        "cells": 240
+      },
+      {
+        "step": 35,
+        "correct": true,
+        "acc": 0.8611111111111112,
+        "cells": 240
+      },
+      {
+        "step": 36,
+        "correct": true,
+        "acc": 0.8648648648648649,
+        "cells": 241
+      },
+      {
+        "step": 37,
+        "correct": true,
+        "acc": 0.868421052631579,
+        "cells": 244
+      },
+      {
+        "step": 38,
+        "correct": true,
+        "acc": 0.8717948717948718,
+        "cells": 246
+      },
+      {
+        "step": 39,
+        "correct": true,
+        "acc": 0.875,
+        "cells": 248
+      },
+      {
+        "step": 40,
+        "correct": true,
+        "acc": 0.8780487804878049,
+        "cells": 248
+      },
+      {
+        "step": 41,
+        "correct": true,
+        "acc": 0.8809523809523809,
+        "cells": 248
+      },
+      {
+        "step": 42,
+        "correct": true,
+        "acc": 0.8837209302325582,
+        "cells": 249
+      },
+      {
+        "step": 43,
+        "correct": false,
+        "acc": 0.8636363636363636,
+        "cells": 250
+      },
+      {
+        "step": 44,
+        "correct": true,
+        "acc": 0.8666666666666667,
+        "cells": 251
+      },
+      {
+        "step": 45,
+        "correct": true,
+        "acc": 0.8695652173913043,
+        "cells": 252
+      },
+      {
+        "step": 46,
+        "correct": true,
+        "acc": 0.8723404255319149,
+        "cells": 252
+      },
+      {
+        "step": 47,
+        "correct": true,
+        "acc": 0.875,
+        "cells": 253
+      }
+    ],
+    "word_cells": [
+      "明瞥",
+      "弱弱",
+      "强强",
+      "门讲",
+      "则读",
+      "踩行",
+      "江电",
+      "流雷",
+      "达追",
+      "逃逃",
+      "肌孝",
+      "贵抓",
+      "诗话",
+      "情怨",
+      "情盲",
+      "刚认",
+      "浅河",
+      "弱强",
+      "强弱",
+      "贵锁",
+      "件代",
+      "仕仕",
+      "件休",
+      "胖胖",
+      "女肌",
+      "守家",
+      "风家",
+      "胞脾",
+      "女方",
+      "仁抓",
+      "件他",
+      "仁贫",
+      "往循",
+      "忘睛",
+      "吹快",
+      "安家",
+      "守守",
+      "退家",
+      "试关",
+      "安风",
+      "守宝",
+      "守退",
+      "肝始",
+      "肌方",
+      "林徐",
+      "行逃",
+      "仁宝",
+      "前林",
+      "晶睛",
+      "针钢",
+      "说闻",
+      "晶恒",
+      "盲恒",
+      "思明",
+      "安安",
+      "退退",
+      "锋打",
+      "盯快",
+      "河电",
+      "女肺",
+      "孝肝",
+      "始脾",
+      "清江",
+      "电浅",
+      "关识",
+      "跑达",
+      "家安",
+      "雪雷",
+      "海海",
+      "雪痛",
+      "饮过",
+      "家宝",
+      "安宝",
+      "睛忍",
+      "忘悟",
+      "信贫",
+      "打锤",
+      "思慎",
+      "门门",
+      "关读",
+      "提痛",
+      "贫仁",
+      "进跑",
+      "浊河",
+      "思忧",
+      "远进",
+      "宝安",
+      "证闻",
+      "女放",
+      "拍休",
+      "浊雷",
+      "海深",
+      "雪深",
+      "炎悔",
+      "热怨",
+      "问吹",
+      "肝方",
+      "孝始",
+      "跟踢",
+      "流流",
+      "江河",
+      "进风",
+      "关达",
+      "钢锋",
+      "银铁",
+      "旦唱",
+      "热忧",
+      "浊痛",
+      "过跟",
+      "仕针",
+      "睛味",
+      "睹志",
+      "河浊",
+      "海雪",
+      "盯悟",
+      "盯响",
+      "浅海",
+      "脾放",
+      "忧盯",
+      "清雷",
+      "深河",
+      "风退",
+      "家守",
+      "门话",
+      "雷江",
+      "流深",
+      "踩循",
+      "通循"
+    ],
+    "cell_samples": [
+      {
+        "w": "明瞥",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0356,
+          "J_ying": 0.4908,
+          "h_dang": 0.2733,
+          "h_zhong": 0.1911,
+          "J_comp": 0.4773
+        }
+      },
+      {
+        "w": "弱弱",
+        "e": 4,
+        "wins": 3,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0194,
+          "J_ying": 0.5406,
+          "h_dang": 0.3067,
+          "h_zhong": 0.1484,
+          "J_comp": 0.4757
+        }
+      },
+      {
+        "w": "强强",
+        "e": 6,
+        "wins": 5,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0405,
+          "J_ying": 0.5523,
+          "h_dang": 0.3335,
+          "h_zhong": 0.1294,
+          "J_comp": 0.4719
+        }
+      },
+      {
+        "w": "门讲",
+        "e": 2,
+        "wins": 2,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0828,
+          "J_ying": 0.461,
+          "h_dang": 0.3351,
+          "h_zhong": 0.1536,
+          "J_comp": 0.4725
+        }
+      },
+      {
+        "w": "则读",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0176,
+          "J_ying": 0.4492,
+          "h_dang": 0.2581,
+          "h_zhong": 0.1153,
+          "J_comp": 0.5528
+        }
+      },
+      {
+        "w": "踩行",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0277,
+          "J_ying": 0.5457,
+          "h_dang": 0.3045,
+          "h_zhong": 0.1196,
+          "J_comp": 0.5485
+        }
+      },
+      {
+        "w": "江电",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0199,
+          "J_ying": 0.5797,
+          "h_dang": 0.2443,
+          "h_zhong": 0.1198,
+          "J_comp": 0.4436
+        }
+      },
+      {
+        "w": "流雷",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9203,
+          "J_ying": 0.4626,
+          "h_dang": 0.2684,
+          "h_zhong": 0.107,
+          "J_comp": 0.5798
+        }
+      },
+      {
+        "w": "达追",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9937,
+          "J_ying": 0.4766,
+          "h_dang": 0.2632,
+          "h_zhong": 0.1631,
+          "J_comp": 0.5267
+        }
+      },
+      {
+        "w": "逃逃",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9748,
+          "J_ying": 0.4559,
+          "h_dang": 0.2833,
+          "h_zhong": 0.1327,
+          "J_comp": 0.5269
+        }
+      },
+      {
+        "w": "肌孝",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0125,
+          "J_ying": 0.4812,
+          "h_dang": 0.3105,
+          "h_zhong": 0.1093,
+          "J_comp": 0.4704
+        }
+      },
+      {
+        "w": "贵抓",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.05,
+          "J_ying": 0.4615,
+          "h_dang": 0.3223,
+          "h_zhong": 0.1837,
+          "J_comp": 0.5363
+        }
+      },
+      {
+        "w": "诗话",
+        "e": 2,
+        "wins": 2,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0007,
+          "J_ying": 0.4906,
+          "h_dang": 0.3138,
+          "h_zhong": 0.1482,
+          "J_comp": 0.5424
+        }
+      },
+      {
+        "w": "情怨",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9772,
+          "J_ying": 0.4653,
+          "h_dang": 0.2247,
+          "h_zhong": 0.1986,
+          "J_comp": 0.5503
+        }
+      },
+      {
+        "w": "情盲",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9539,
+          "J_ying": 0.4715,
+          "h_dang": 0.2404,
+          "h_zhong": 0.1624,
+          "J_comp": 0.5503
+        }
+      },
+      {
+        "w": "刚认",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0528,
+          "J_ying": 0.4621,
+          "h_dang": 0.3582,
+          "h_zhong": 0.2007,
+          "J_comp": 0.4822
+        }
+      },
+      {
+        "w": "浅河",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0627,
+          "J_ying": 0.4956,
+          "h_dang": 0.2744,
+          "h_zhong": 0.1415,
+          "J_comp": 0.5225
+        }
+      },
+      {
+        "w": "弱强",
+        "e": 3,
+        "wins": 3,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0441,
+          "J_ying": 0.5244,
+          "h_dang": 0.3205,
+          "h_zhong": 0.1205,
+          "J_comp": 0.5188
+        }
+      },
+      {
+        "w": "强弱",
+        "e": 2,
+        "wins": 2,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.1142,
+          "J_ying": 0.5579,
+          "h_dang": 0.3635,
+          "h_zhong": 0.1599,
+          "J_comp": 0.5155
+        }
+      },
+      {
+        "w": "贵锁",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0564,
+          "J_ying": 0.5278,
+          "h_dang": 0.3365,
+          "h_zhong": 0.1965,
+          "J_comp": 0.4605
+        }
+      },
+      {
+        "w": "件代",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9794,
+          "J_ying": 0.5262,
+          "h_dang": 0.2847,
+          "h_zhong": 0.1612,
+          "J_comp": 0.523
+        }
+      },
+      {
+        "w": "仕仕",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0093,
+          "J_ying": 0.5091,
+          "h_dang": 0.2965,
+          "h_zhong": 0.1341,
+          "J_comp": 0.4234
+        }
+      },
+      {
+        "w": "件休",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0308,
+          "J_ying": 0.4727,
+          "h_dang": 0.3322,
+          "h_zhong": 0.1914,
+          "J_comp": 0.4533
+        }
+      },
+      {
+        "w": "胖胖",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0033,
+          "J_ying": 0.4932,
+          "h_dang": 0.3454,
+          "h_zhong": 0.2012,
+          "J_comp": 0.4968
+        }
+      },
+      {
+        "w": "女肌",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0088,
+          "J_ying": 0.5201,
+          "h_dang": 0.3115,
+          "h_zhong": 0.122,
+          "J_comp": 0.5258
+        }
+      },
+      {
+        "w": "守家",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0155,
+          "J_ying": 0.4477,
+          "h_dang": 0.2604,
+          "h_zhong": 0.1231,
+          "J_comp": 0.5391
+        }
+      },
+      {
+        "w": "风家",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9557,
+          "J_ying": 0.4884,
+          "h_dang": 0.2994,
+          "h_zhong": 0.1003,
+          "J_comp": 0.5184
+        }
+      },
+      {
+        "w": "胞脾",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9481,
+          "J_ying": 0.526,
+          "h_dang": 0.287,
+          "h_zhong": 0.1735,
+          "J_comp": 0.4743
+        }
+      },
+      {
+        "w": "女方",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0185,
+          "J_ying": 0.5424,
+          "h_dang": 0.3157,
+          "h_zhong": 0.1785,
+          "J_comp": 0.4854
+        }
+      },
+      {
+        "w": "仁抓",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9811,
+          "J_ying": 0.5085,
+          "h_dang": 0.266,
+          "h_zhong": 0.1815,
+          "J_comp": 0.4551
+        }
+      },
+      {
+        "w": "件他",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9445,
+          "J_ying": 0.4884,
+          "h_dang": 0.257,
+          "h_zhong": 0.1924,
+          "J_comp": 0.4537
+        }
+      },
+      {
+        "w": "仁贫",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9681,
+          "J_ying": 0.5403,
+          "h_dang": 0.3347,
+          "h_zhong": 0.1225,
+          "J_comp": 0.4666
+        }
+      },
+      {
+        "w": "往循",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.1069,
+          "J_ying": 0.5368,
+          "h_dang": 0.2699,
+          "h_zhong": 0.159,
+          "J_comp": 0.5752
+        }
+      },
+      {
+        "w": "忘睛",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0878,
+          "J_ying": 0.4672,
+          "h_dang": 0.2844,
+          "h_zhong": 0.1188,
+          "J_comp": 0.5172
+        }
+      },
+      {
+        "w": "吹快",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9518,
+          "J_ying": 0.5464,
+          "h_dang": 0.2703,
+          "h_zhong": 0.0984,
+          "J_comp": 0.5108
+        }
+      },
+      {
+        "w": "安家",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9913,
+          "J_ying": 0.4851,
+          "h_dang": 0.2456,
+          "h_zhong": 0.1891,
+          "J_comp": 0.4932
+        }
+      },
+      {
+        "w": "守守",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.992,
+          "J_ying": 0.4445,
+          "h_dang": 0.3154,
+          "h_zhong": 0.0995,
+          "J_comp": 0.4582
+        }
+      },
+      {
+        "w": "退家",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9718,
+          "J_ying": 0.4716,
+          "h_dang": 0.2717,
+          "h_zhong": 0.114,
+          "J_comp": 0.5389
+        }
+      },
+      {
+        "w": "试关",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0623,
+          "J_ying": 0.4371,
+          "h_dang": 0.2743,
+          "h_zhong": 0.139,
+          "J_comp": 0.484
+        }
+      },
+      {
+        "w": "安风",
+        "e": 2,
+        "wins": 2,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0301,
+          "J_ying": 0.5044,
+          "h_dang": 0.274,
+          "h_zhong": 0.1552,
+          "J_comp": 0.4796
+        }
+      },
+      {
+        "w": "守宝",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9847,
+          "J_ying": 0.4667,
+          "h_dang": 0.2753,
+          "h_zhong": 0.113,
+          "J_comp": 0.5504
+        }
+      },
+      {
+        "w": "守退",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0099,
+          "J_ying": 0.4468,
+          "h_dang": 0.3048,
+          "h_zhong": 0.0947,
+          "J_comp": 0.4637
+        }
+      },
+      {
+        "w": "肝始",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0003,
+          "J_ying": 0.5376,
+          "h_dang": 0.2789,
+          "h_zhong": 0.1417,
+          "J_comp": 0.5706
+        }
+      },
+      {
+        "w": "肌方",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0225,
+          "J_ying": 0.4828,
+          "h_dang": 0.3293,
+          "h_zhong": 0.1576,
+          "J_comp": 0.4878
+        }
+      },
+      {
+        "w": "林徐",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9779,
+          "J_ying": 0.4548,
+          "h_dang": 0.347,
+          "h_zhong": 0.1254,
+          "J_comp": 0.4994
+        }
+      },
+      {
+        "w": "行逃",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0763,
+          "J_ying": 0.5174,
+          "h_dang": 0.3322,
+          "h_zhong": 0.2028,
+          "J_comp": 0.5438
+        }
+      },
+      {
+        "w": "仁宝",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.962,
+          "J_ying": 0.4858,
+          "h_dang": 0.3093,
+          "h_zhong": 0.0961,
+          "J_comp": 0.4895
+        }
+      },
+      {
+        "w": "前林",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9538,
+          "J_ying": 0.5638,
+          "h_dang": 0.3157,
+          "h_zhong": 0.1699,
+          "J_comp": 0.5204
+        }
+      },
+      {
+        "w": "晶睛",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0276,
+          "J_ying": 0.5052,
+          "h_dang": 0.2759,
+          "h_zhong": 0.083,
+          "J_comp": 0.5055
+        }
+      },
+      {
+        "w": "针钢",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0079,
+          "J_ying": 0.5163,
+          "h_dang": 0.2626,
+          "h_zhong": 0.1859,
+          "J_comp": 0.5357
+        }
+      },
+      {
+        "w": "说闻",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0942,
+          "J_ying": 0.5142,
+          "h_dang": 0.3347,
+          "h_zhong": 0.127,
+          "J_comp": 0.5056
+        }
+      },
+      {
+        "w": "晶恒",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0247,
+          "J_ying": 0.5422,
+          "h_dang": 0.2923,
+          "h_zhong": 0.059,
+          "J_comp": 0.4769
+        }
+      },
+      {
+        "w": "盲恒",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0207,
+          "J_ying": 0.5363,
+          "h_dang": 0.3165,
+          "h_zhong": 0.1836,
+          "J_comp": 0.4746
+        }
+      },
+      {
+        "w": "思明",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9581,
+          "J_ying": 0.5425,
+          "h_dang": 0.3647,
+          "h_zhong": 0.2085,
+          "J_comp": 0.5168
+        }
+      },
+      {
+        "w": "安安",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9817,
+          "J_ying": 0.4778,
+          "h_dang": 0.257,
+          "h_zhong": 0.1227,
+          "J_comp": 0.507
+        }
+      },
+      {
+        "w": "退退",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0158,
+          "J_ying": 0.4718,
+          "h_dang": 0.2983,
+          "h_zhong": 0.1545,
+          "J_comp": 0.5213
+        }
+      },
+      {
+        "w": "锋打",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.055,
+          "J_ying": 0.485,
+          "h_dang": 0.3908,
+          "h_zhong": 0.1543,
+          "J_comp": 0.5066
+        }
+      },
+      {
+        "w": "盯快",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0215,
+          "J_ying": 0.5091,
+          "h_dang": 0.2671,
+          "h_zhong": 0.1418,
+          "J_comp": 0.4897
+        }
+      },
+      {
+        "w": "河电",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9254,
+          "J_ying": 0.5136,
+          "h_dang": 0.2979,
+          "h_zhong": 0.1361,
+          "J_comp": 0.4912
+        }
+      },
+      {
+        "w": "女肺",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.029,
+          "J_ying": 0.5426,
+          "h_dang": 0.3252,
+          "h_zhong": 0.1829,
+          "J_comp": 0.4882
+        }
+      },
+      {
+        "w": "孝肝",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0172,
+          "J_ying": 0.4964,
+          "h_dang": 0.3815,
+          "h_zhong": 0.1468,
+          "J_comp": 0.5564
+        }
+      },
+      {
+        "w": "始脾",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 1.0066,
+          "J_ying": 0.5108,
+          "h_dang": 0.3063,
+          "h_zhong": 0.129,
+          "J_comp": 0.51
+        }
+      },
+      {
+        "w": "清江",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0324,
+          "J_ying": 0.4907,
+          "h_dang": 0.2682,
+          "h_zhong": 0.0855,
+          "J_comp": 0.5493
+        }
+      },
+      {
+        "w": "电浅",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9975,
+          "J_ying": 0.4458,
+          "h_dang": 0.3225,
+          "h_zhong": 0.1196,
+          "J_comp": 0.4454
+        }
+      },
+      {
+        "w": "关识",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0138,
+          "J_ying": 0.5301,
+          "h_dang": 0.3477,
+          "h_zhong": 0.1823,
+          "J_comp": 0.5599
+        }
+      },
+      {
+        "w": "跑达",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9926,
+          "J_ying": 0.5611,
+          "h_dang": 0.3429,
+          "h_zhong": 0.1531,
+          "J_comp": 0.5868
+        }
+      },
+      {
+        "w": "家安",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9825,
+          "J_ying": 0.4596,
+          "h_dang": 0.2924,
+          "h_zhong": 0.1387,
+          "J_comp": 0.4534
+        }
+      },
+      {
+        "w": "雪雷",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9494,
+          "J_ying": 0.5598,
+          "h_dang": 0.2564,
+          "h_zhong": 0.0946,
+          "J_comp": 0.5096
+        }
+      },
+      {
+        "w": "海海",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0765,
+          "J_ying": 0.5386,
+          "h_dang": 0.3627,
+          "h_zhong": 0.1306,
+          "J_comp": 0.508
+        }
+      },
+      {
+        "w": "雪痛",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9768,
+          "J_ying": 0.5567,
+          "h_dang": 0.2538,
+          "h_zhong": 0.0676,
+          "J_comp": 0.4207
+        }
+      },
+      {
+        "w": "饮过",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9856,
+          "J_ying": 0.469,
+          "h_dang": 0.2822,
+          "h_zhong": 0.1998,
+          "J_comp": 0.5256
+        }
+      },
+      {
+        "w": "家宝",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0362,
+          "J_ying": 0.4749,
+          "h_dang": 0.261,
+          "h_zhong": 0.1981,
+          "J_comp": 0.5261
+        }
+      },
+      {
+        "w": "安宝",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9822,
+          "J_ying": 0.455,
+          "h_dang": 0.2768,
+          "h_zhong": 0.1506,
+          "J_comp": 0.5483
+        }
+      },
+      {
+        "w": "睛忍",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9835,
+          "J_ying": 0.5151,
+          "h_dang": 0.3125,
+          "h_zhong": 0.1532,
+          "J_comp": 0.5144
+        }
+      },
+      {
+        "w": "忘悟",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0995,
+          "J_ying": 0.4452,
+          "h_dang": 0.3352,
+          "h_zhong": 0.1478,
+          "J_comp": 0.5118
+        }
+      },
+      {
+        "w": "信贫",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9972,
+          "J_ying": 0.4799,
+          "h_dang": 0.2929,
+          "h_zhong": 0.2127,
+          "J_comp": 0.4329
+        }
+      },
+      {
+        "w": "打锤",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0117,
+          "J_ying": 0.541,
+          "h_dang": 0.375,
+          "h_zhong": 0.2357,
+          "J_comp": 0.4797
+        }
+      },
+      {
+        "w": "思慎",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9463,
+          "J_ying": 0.5278,
+          "h_dang": 0.3617,
+          "h_zhong": 0.2314,
+          "J_comp": 0.5584
+        }
+      },
+      {
+        "w": "门门",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0104,
+          "J_ying": 0.4808,
+          "h_dang": 0.2786,
+          "h_zhong": 0.1887,
+          "J_comp": 0.4986
+        }
+      },
+      {
+        "w": "关读",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.076,
+          "J_ying": 0.5142,
+          "h_dang": 0.3036,
+          "h_zhong": 0.1757,
+          "J_comp": 0.5519
+        }
+      },
+      {
+        "w": "提痛",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9628,
+          "J_ying": 0.4342,
+          "h_dang": 0.2447,
+          "h_zhong": 0.1399,
+          "J_comp": 0.4729
+        }
+      },
+      {
+        "w": "贫仁",
+        "e": 1,
+        "wins": 0,
+        "losses": 1,
+        "theta": {
+          "J_adj": 0.9678,
+          "J_ying": 0.5081,
+          "h_dang": 0.2982,
+          "h_zhong": 0.1597,
+          "J_comp": 0.5275
+        }
+      },
+      {
+        "w": "进跑",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9874,
+          "J_ying": 0.505,
+          "h_dang": 0.3715,
+          "h_zhong": 0.1373,
+          "J_comp": 0.514
+        }
+      },
+      {
+        "w": "浊河",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.968,
+          "J_ying": 0.5073,
+          "h_dang": 0.2905,
+          "h_zhong": 0.0921,
+          "J_comp": 0.548
+        }
+      },
+      {
+        "w": "思忧",
+        "e": 1,
+        "wins": 1,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9429,
+          "J_ying": 0.5485,
+          "h_dang": 0.3401,
+          "h_zhong": 0.2406,
+          "J_comp": 0.5364
+        }
+      },
+      {
+        "w": "远进",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.005,
+          "J_ying": 0.527,
+          "h_dang": 0.3163,
+          "h_zhong": 0.0735,
+          "J_comp": 0.5298
+        }
+      },
+      {
+        "w": "宝安",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9383,
+          "J_ying": 0.4401,
+          "h_dang": 0.3097,
+          "h_zhong": 0.1781,
+          "J_comp": 0.4937
+        }
+      },
+      {
+        "w": "证闻",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0468,
+          "J_ying": 0.4925,
+          "h_dang": 0.2669,
+          "h_zhong": 0.2127,
+          "J_comp": 0.5112
+        }
+      },
+      {
+        "w": "女放",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0382,
+          "J_ying": 0.5233,
+          "h_dang": 0.2707,
+          "h_zhong": 0.1949,
+          "J_comp": 0.5346
+        }
+      },
+      {
+        "w": "拍休",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9795,
+          "J_ying": 0.5757,
+          "h_dang": 0.2832,
+          "h_zhong": 0.0627,
+          "J_comp": 0.5029
+        }
+      },
+      {
+        "w": "浊雷",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9952,
+          "J_ying": 0.4868,
+          "h_dang": 0.358,
+          "h_zhong": 0.0909,
+          "J_comp": 0.4853
+        }
+      },
+      {
+        "w": "海深",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9993,
+          "J_ying": 0.5742,
+          "h_dang": 0.3487,
+          "h_zhong": 0.1693,
+          "J_comp": 0.5866
+        }
+      },
+      {
+        "w": "雪深",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9406,
+          "J_ying": 0.5533,
+          "h_dang": 0.2905,
+          "h_zhong": 0.0699,
+          "J_comp": 0.5153
+        }
+      },
+      {
+        "w": "炎悔",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0038,
+          "J_ying": 0.5064,
+          "h_dang": 0.3479,
+          "h_zhong": 0.1884,
+          "J_comp": 0.537
+        }
+      },
+      {
+        "w": "热怨",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0095,
+          "J_ying": 0.4817,
+          "h_dang": 0.2782,
+          "h_zhong": 0.1782,
+          "J_comp": 0.5401
+        }
+      },
+      {
+        "w": "问吹",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.031,
+          "J_ying": 0.5019,
+          "h_dang": 0.3014,
+          "h_zhong": 0.1209,
+          "J_comp": 0.4932
+        }
+      },
+      {
+        "w": "肝方",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0319,
+          "J_ying": 0.5105,
+          "h_dang": 0.2332,
+          "h_zhong": 0.2278,
+          "J_comp": 0.5045
+        }
+      },
+      {
+        "w": "孝始",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0099,
+          "J_ying": 0.5618,
+          "h_dang": 0.2945,
+          "h_zhong": 0.1886,
+          "J_comp": 0.5163
+        }
+      },
+      {
+        "w": "跟踢",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9758,
+          "J_ying": 0.4351,
+          "h_dang": 0.2932,
+          "h_zhong": 0.1978,
+          "J_comp": 0.4899
+        }
+      },
+      {
+        "w": "流流",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.981,
+          "J_ying": 0.4535,
+          "h_dang": 0.2359,
+          "h_zhong": 0.1296,
+          "J_comp": 0.5745
+        }
+      },
+      {
+        "w": "江河",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0822,
+          "J_ying": 0.5333,
+          "h_dang": 0.3283,
+          "h_zhong": 0.1085,
+          "J_comp": 0.4328
+        }
+      },
+      {
+        "w": "进风",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0084,
+          "J_ying": 0.4334,
+          "h_dang": 0.3491,
+          "h_zhong": 0.0872,
+          "J_comp": 0.4899
+        }
+      },
+      {
+        "w": "关达",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9733,
+          "J_ying": 0.5322,
+          "h_dang": 0.2604,
+          "h_zhong": 0.1102,
+          "J_comp": 0.4752
+        }
+      },
+      {
+        "w": "钢锋",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9513,
+          "J_ying": 0.5099,
+          "h_dang": 0.2351,
+          "h_zhong": 0.0839,
+          "J_comp": 0.5534
+        }
+      },
+      {
+        "w": "银铁",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0261,
+          "J_ying": 0.538,
+          "h_dang": 0.3119,
+          "h_zhong": 0.1462,
+          "J_comp": 0.5591
+        }
+      },
+      {
+        "w": "旦唱",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0343,
+          "J_ying": 0.4496,
+          "h_dang": 0.3064,
+          "h_zhong": 0.1998,
+          "J_comp": 0.5738
+        }
+      },
+      {
+        "w": "热忧",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0273,
+          "J_ying": 0.5001,
+          "h_dang": 0.2193,
+          "h_zhong": 0.1372,
+          "J_comp": 0.4904
+        }
+      },
+      {
+        "w": "浊痛",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0227,
+          "J_ying": 0.5292,
+          "h_dang": 0.3564,
+          "h_zhong": 0.1215,
+          "J_comp": 0.4895
+        }
+      },
+      {
+        "w": "过跟",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0648,
+          "J_ying": 0.5247,
+          "h_dang": 0.3223,
+          "h_zhong": 0.13,
+          "J_comp": 0.5135
+        }
+      },
+      {
+        "w": "仕针",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0686,
+          "J_ying": 0.5513,
+          "h_dang": 0.3173,
+          "h_zhong": 0.1865,
+          "J_comp": 0.4183
+        }
+      },
+      {
+        "w": "睛味",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0345,
+          "J_ying": 0.5367,
+          "h_dang": 0.2913,
+          "h_zhong": 0.1792,
+          "J_comp": 0.5248
+        }
+      },
+      {
+        "w": "睹志",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9923,
+          "J_ying": 0.4944,
+          "h_dang": 0.2977,
+          "h_zhong": 0.1337,
+          "J_comp": 0.4858
+        }
+      },
+      {
+        "w": "河浊",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9767,
+          "J_ying": 0.534,
+          "h_dang": 0.3194,
+          "h_zhong": 0.1094,
+          "J_comp": 0.5084
+        }
+      },
+      {
+        "w": "海雪",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0431,
+          "J_ying": 0.5318,
+          "h_dang": 0.3078,
+          "h_zhong": 0.1102,
+          "J_comp": 0.5058
+        }
+      },
+      {
+        "w": "盯悟",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9596,
+          "J_ying": 0.5149,
+          "h_dang": 0.2453,
+          "h_zhong": 0.126,
+          "J_comp": 0.5258
+        }
+      },
+      {
+        "w": "盯响",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9818,
+          "J_ying": 0.528,
+          "h_dang": 0.328,
+          "h_zhong": 0.162,
+          "J_comp": 0.5578
+        }
+      },
+      {
+        "w": "浅海",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0336,
+          "J_ying": 0.4531,
+          "h_dang": 0.286,
+          "h_zhong": 0.1456,
+          "J_comp": 0.5414
+        }
+      },
+      {
+        "w": "脾放",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0094,
+          "J_ying": 0.5022,
+          "h_dang": 0.3323,
+          "h_zhong": 0.1949,
+          "J_comp": 0.4483
+        }
+      },
+      {
+        "w": "忧盯",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9771,
+          "J_ying": 0.4296,
+          "h_dang": 0.3134,
+          "h_zhong": 0.2241,
+          "J_comp": 0.4642
+        }
+      },
+      {
+        "w": "清雷",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9675,
+          "J_ying": 0.497,
+          "h_dang": 0.3151,
+          "h_zhong": 0.1357,
+          "J_comp": 0.501
+        }
+      },
+      {
+        "w": "深河",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9908,
+          "J_ying": 0.539,
+          "h_dang": 0.3181,
+          "h_zhong": 0.2112,
+          "J_comp": 0.5348
+        }
+      },
+      {
+        "w": "风退",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9591,
+          "J_ying": 0.4849,
+          "h_dang": 0.2471,
+          "h_zhong": 0.1369,
+          "J_comp": 0.4704
+        }
+      },
+      {
+        "w": "家守",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0557,
+          "J_ying": 0.529,
+          "h_dang": 0.288,
+          "h_zhong": 0.1722,
+          "J_comp": 0.5358
+        }
+      },
+      {
+        "w": "门话",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0038,
+          "J_ying": 0.4808,
+          "h_dang": 0.3159,
+          "h_zhong": 0.1482,
+          "J_comp": 0.5047
+        }
+      },
+      {
+        "w": "雷江",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0213,
+          "J_ying": 0.5379,
+          "h_dang": 0.2748,
+          "h_zhong": 0.1779,
+          "J_comp": 0.4249
+        }
+      },
+      {
+        "w": "流深",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 0.9376,
+          "J_ying": 0.4757,
+          "h_dang": 0.2944,
+          "h_zhong": 0.1137,
+          "J_comp": 0.5399
+        }
+      },
+      {
+        "w": "踩循",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.0283,
+          "J_ying": 0.5261,
+          "h_dang": 0.315,
+          "h_zhong": 0.1623,
+          "J_comp": 0.5529
+        }
+      },
+      {
+        "w": "通循",
+        "e": 0,
+        "wins": 0,
+        "losses": 0,
+        "theta": {
+          "J_adj": 1.024,
+          "J_ying": 0.4932,
+          "h_dang": 0.287,
+          "h_zhong": 0.0681,
+          "J_comp": 0.5064
+        }
+      }
+    ]
+  }
+}
