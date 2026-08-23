@@ -1,0 +1,14 @@
+# 实验数据(除示例外不追踪)
+experiments/
+*.csv
+*.jsonl
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 标定/运行产物
+calibration/*.json
+!calibration/hand_eye_example.json
