@@ -216,7 +216,7 @@ class YlywGraspPlanner:
         if yao_vec is None:
             return ""
         try:
-            return "".join("一" if v > 0.5 else "阴" for v in np.asarray(yao_vec, dtype=float))
+            return "".join("一" if v >= 0.5 else "阴" for v in np.asarray(yao_vec, dtype=float))
         except Exception:
             return str(yao_vec)
 

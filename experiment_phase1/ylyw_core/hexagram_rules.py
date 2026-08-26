@@ -1209,9 +1209,15 @@ class HexagramRuleBase:
         """
         根据六爻向量匹配最佳卦象
 
-        使用余弦相似度计算与64个卦象理想爻模板的匹配度。
-        这就是《易经》中"观象"的过程：根据当前的状态（爻），
-        判断它最接近哪个卦。
+        方案A（爻位加权 + 权威阴阳模板 + 两级匹配）：
+          阶段一：将六爻向量二值化(>=0.5 为阳)，与 64 卦权威阴阳模板
+                  做加权汉明匹配，取候选（保证稳定、可分）。
+          阶段二：在候选中用原始连续爻值做加权距离精细排序，
+                  打破离散阶段可能出现的并列（tie），返回唯一最佳卦。
+
+        相比旧版纯余弦匹配（模板挤在窄带、top1 与 top2 分数差仅 ~0.001、
+        近半数输入随微扰跳变），本方案模板可分性、区分度、稳定性均有
+        数量级提升（基准实验见 scripts/l3_*）。
 
         Args:
             yao_vector: np.ndarray, 形状(6,)
@@ -1219,134 +1225,120 @@ class HexagramRuleBase:
         Returns:
             (Hexagram, float): 最佳卦象及其匹配分数
         """
-        best_match = None
-        best_score = -1.0
-
-        for hexagram in self.rules:
-            template = self._get_ideal_yao_template(hexagram)
-            if template is not None:
-                # 计算余弦相似度
-                dot = np.dot(yao_vector, template)
-                norm = np.linalg.norm(yao_vector) * np.linalg.norm(template)
-                score = float(dot / norm) if norm > 0 else 0.0
-                if score > best_score:
-                    best_score = score
-                    best_match = hexagram
-
-        return best_match, best_score
+        yao = np.asarray(yao_vector, dtype=float).reshape(-1)
+        if yao.size != 6:
+            raise ValueError(f"六爻向量长度必须为 6，实际 {yao.size}")
+        ranked = self._rank_hexagrams(yao)
+        if not ranked:
+            return None, 0.0
+        best, score = ranked[0]
+        return best, float(score)
 
     def get_top_k_hexagrams(self, yao_vector, k=3):
         """
         获取匹配度最高的 k 个卦象
 
-        用于"变卦"分析——不仅看最匹配的卦，也看次匹配的卦
+        用于"变卦"分析——不仅看最匹配的卦，也看次匹配的卦。
+
+        采用方案A两级匹配（见 get_best_hexagram 说明）：
+          阶段一加权汉明粗选 → 阶段二连续值细化排序。
 
         Returns:
             list of (Hexagram, float): 按匹配度降序排列
         """
-        scores = []
-        for hexagram in self.rules:
-            template = self._get_ideal_yao_template(hexagram)
-            if template is not None:
-                dot = np.dot(yao_vector, template)
-                norm = np.linalg.norm(yao_vector) * np.linalg.norm(template)
-                scores.append((hexagram, float(dot / norm) if norm > 0 else 0.0))
-
-        scores.sort(key=lambda x: x[1], reverse=True)
-        return scores[:k]
+        yao = np.asarray(yao_vector, dtype=float).reshape(-1)
+        if yao.size != 6:
+            raise ValueError(f"六爻向量长度必须为 6，实际 {yao.size}")
+        ranked = self._rank_hexagrams(yao)
+        return ranked[:k]
 
     def _get_ideal_yao_template(self, hexagram):
         """
-        获取一个卦的理想六爻模板
+        获取一个卦的理想六爻模板（方案A：权威阴阳模板）。
 
-        这是先验知识——每个卦有固定的"理想爻象"。
-        源自《周易》卦象结构中阴阳爻的分布模式。
+        返回 64 卦的权威六爻阴阳模板（阳=1.0，阴=0.0）。
 
-        模板规则：
-            - 1.0 → 该位为阳爻（—）
-            - 0.0 → 该位为阴爻（--）
-            - 中间值 → 表示该爻的权重/重要性
+        推导方式：64 卦 = 上卦(外卦) + 下卦(内卦)，每个卦的上下卦由
+        本规则库 upper_lower 字段给出。六爻从下往上(初->上)
+        = 下卦三爻 ++ 上卦三爻。八卦三爻阴阳是《周易》确定的：
 
-        模板不完全是二值的，因为在工程语境中，
-        即使同一个卦，各爻的"重要性"也不同（如乾卦九五最重要）。
+          乾☰=[1,1,1] 兑☱=[1,1,0] 离☲=[1,0,1] 震☳=[1,0,0]
+          巽☴=[0,1,1] 坎☵=[0,1,0] 艮☶=[0,0,1] 坤☷=[0,0,0]
+
+        如此生成的模板彼此可分性强、零重复，且严格符合《周易》卦象，
+        完全可复现（论文方法论站得住）。
+
+        返回: np.ndarray(6,) 或 None（未定义规则的卦）
         """
-        templates = {
-            # 上经核心
-            Hexagram.QIAN:    np.array([0.75, 0.61, 0.59, 0.76, 0.45, 0.65]),  # ☰☰ 乾为天
-            Hexagram.KUN:     np.array([0.39, 0.61, 0.30, 0.28, 0.35, 0.59]),  # ☷☷ 坤为地
-            Hexagram.ZHUN:    np.array([0.31, 0.57, 0.46, 0.54, 0.38, 0.57]),  # ☵☳ 水雷屯
-            Hexagram.MENG:    np.array([0.21, 0.59, 0.45, 0.71, 0.44, 0.63]),  # ☶☵ 山水蒙
-            Hexagram.XU:      np.array([0.21, 0.59, 0.41, 0.71, 0.48, 0.73]),  # ☵☰ 水天需
-            Hexagram.SONG:    np.array([0.14, 0.86, 0.15, 0.85, 0.80, 0.20]),  # ☰☵ 天水讼
-            Hexagram.SHI:     np.array([0.19, 0.14, 0.21, 0.15, 0.16, 0.84]),  # ☷☵ 地水师
-            Hexagram.BI:      np.array([0.27, 0.59, 0.32, 0.33, 0.34, 0.49]),  # ☵☷ 水地比
-            Hexagram.XIAOXU:  np.array([0.42, 0.64, 0.25, 0.36, 0.33, 0.65]),  # ☴☰ 风天小畜
-            Hexagram.LU:      np.array([0.34, 0.56, 0.34, 0.22, 0.33, 0.58]),  # ☰☱ 天泽履
-            Hexagram.TAI:     np.array([0.76, 0.58, 0.60, 0.74, 0.45, 0.66]),  # ☷☰ 地天泰
-            Hexagram.PI:      np.array([0.09, 0.10, 0.11, 0.88, 0.88, 0.89]),  # ☰☷ 天地否
+        rule = self.rules.get(hexagram)
+        if rule is None:
+            return None
+        up_sym, low_sym = rule["upper_lower"]
+        t = self._derive_six_yao(up_sym, low_sym)
+        if t is None:
+            return None
+        return np.asarray(t, dtype=float)
 
-            # 核心重卦
-            Hexagram.ZHEN_GUA: np.array([0.25, 0.59, 0.43, 0.71, 0.50, 0.74]),  # ☳☳ 震为雷
-            Hexagram.GEN_GUA:  np.array([0.87, 0.85, 0.16, 0.12, 0.11, 0.12]),  # ☶☶ 艮为山
-            Hexagram.LI_GUA:   np.array([0.76, 0.57, 0.24, 0.19, 0.33, 0.46]),  # ☲☲ 离为火
-            Hexagram.KAN_GUA:  np.array([0.28, 0.57, 0.33, 0.37, 0.36, 0.51]),  # ☵☵ 坎为水
-            Hexagram.XUN_GUA:  np.array([0.33, 0.53, 0.57, 0.71, 0.42, 0.63]),  # ☴☴ 巽为风
-            Hexagram.DUI_GUA:  np.array([0.59, 0.61, 0.24, 0.28, 0.34, 0.56]),  # ☱☱ 兑为泽
+    # ---- 方案A 辅助：八卦符号→六爻阴阳 推导 ----
+    _TRIGRAM_YINYANG = {
+        # 上/下卦符号(U+2630..U+2637) -> 该卦三爻阴阳(从下往上, 阳=1阴=0)
+        # 与 self.rules[hexagram]['upper_lower'] 的实际符号码点严格一致
+        "☰": (1.0, 1.0, 1.0),  # 乾 ☰
+        "☱": (1.0, 1.0, 0.0),  # 兑 ☱
+        "☲": (1.0, 0.0, 1.0),  # 离 ☲
+        "☳": (1.0, 0.0, 0.0),  # 震 ☳
+        "☴": (0.0, 1.0, 1.0),  # 巽 ☴
+        "☵": (0.0, 1.0, 0.0),  # 坎 ☵
+        "☶": (0.0, 0.0, 1.0),  # 艮 ☶
+        "☷": (0.0, 0.0, 0.0),  # 坤 ☷
+    }
 
-            # A档核心卦象补充（22卦，基于物体质心优化）
-            Hexagram.YU:        np.array([0.25, 0.62, 0.41, 0.70, 0.49, 0.71]),  # ☳☷ 雷地豫
-            Hexagram.SUI:       np.array([0.23, 0.60, 0.41, 0.71, 0.46, 0.74]),  # ☱☳ 泽雷随
-            Hexagram.GU:        np.array([0.33, 0.55, 0.53, 0.66, 0.47, 0.69]),  # ☶☴ 山风蛊
-            Hexagram.LIN:       np.array([0.46, 0.63, 0.23, 0.39, 0.35, 0.64]),  # ☷☱ 地泽临
-            Hexagram.GUAN:      np.array([0.53, 0.56, 0.28, 0.21, 0.32, 0.60]),  # ☴☷ 风地观
-            Hexagram.SHIHE:     np.array([0.29, 0.55, 0.44, 0.51, 0.39, 0.57]),  # ☲☳ 火雷噬嗑
-            Hexagram.BO:        np.array([0.74, 0.56, 0.21, 0.19, 0.30, 0.46]),  # ☶☷ 山地剥
-            Hexagram.FU:        np.array([0.39, 0.60, 0.30, 0.22, 0.36, 0.64]),  # ☷☳ 地雷复
-            Hexagram.WUWANG:    np.array([0.74, 0.58, 0.62, 0.77, 0.43, 0.68]),  # ☰☳ 天雷无妄
-            Hexagram.DACHU:     np.array([0.77, 0.58, 0.59, 0.78, 0.46, 0.64]),  # ☶☰ 山天大畜
-            Hexagram.DAGUO:     np.array([0.55, 0.59, 0.57, 0.71, 0.43, 0.61]),  # ☱☴ 泽风大过
-            Hexagram.XIAN:      np.array([0.34, 0.57, 0.32, 0.21, 0.36, 0.61]),  # ☱☶ 泽山咸
-            Hexagram.HENG:      np.array([0.36, 0.62, 0.49, 0.65, 0.47, 0.79]),  # ☳☴ 雷风恒
-            Hexagram.DUN:       np.array([0.12, 0.12, 0.88, 0.88, 0.89, 0.88]),  # ☰☶ 天山遁
-            Hexagram.DAZHUANG:  np.array([0.53, 0.56, 0.58, 0.71, 0.44, 0.64]),  # ☳☰ 雷天大壮
-            Hexagram.JIN:       np.array([0.43, 0.60, 0.28, 0.21, 0.35, 0.66]),  # ☲☷ 火地晋
-            Hexagram.MINGYI:    np.array([0.56, 0.54, 0.27, 0.13, 0.35, 0.60]),  # ☷☲ 地火明夷
-            Hexagram.JIAREN:    np.array([0.32, 0.55, 0.35, 0.23, 0.35, 0.60]),  # ☴☲ 风火家人
-            Hexagram.KUI:       np.array([0.34, 0.52, 0.59, 0.68, 0.44, 0.59]),  # ☲☱ 火泽睽
-            Hexagram.JIAN:      np.array([0.34, 0.52, 0.57, 0.69, 0.44, 0.58]),  # ☵☶ 水山蹇
-            Hexagram.XIE:       np.array([0.35, 0.52, 0.58, 0.70, 0.42, 0.63]),  # ☳☵ 雷水解
-            Hexagram.SUN:       np.array([0.51, 0.60, 0.28, 0.23, 0.35, 0.61]),  # ☶☱ 山泽损
+    # 爻位权重：得中的二爻、五爻权重更高(呼应L3+得中思想)
+    _YAO_WEIGHTS = (1.0, 2.0, 1.0, 1.0, 2.0, 1.0)
 
-            # 下经终端卦
-            Hexagram.JIJI:  np.array([0.92, 0.10, 0.89, 0.10, 0.93, 0.10]),   # ☵☲ 水火既济
-            Hexagram.WEIJI: np.array([0.07, 0.88, 0.11, 0.07, 0.06, 0.11]),   # ☲☵ 火水未济
+    def _derive_six_yao(self, up_sym, low_sym):
+        """由上下卦符号推导六爻阴阳(从下往上)。"""
+        up = self._TRIGRAM_YINYANG.get(up_sym)
+        low = self._TRIGRAM_YINYANG.get(low_sym)
+        if up is None or low is None:
+            return None
+        # 六爻从下往上 = 下卦三爻 + 上卦三爻
+        return list(low) + list(up)
 
-            # B档衍生卦象补充（22卦）
-            Hexagram.TONGREN: np.array([0.29, 0.52, 0.32, 0.23, 0.34, 0.61]),  # ☰☲ 天火同人
-            Hexagram.DAYOU: np.array([0.75, 0.55, 0.23, 0.19, 0.31, 0.47]),  # ☲☰ 火天大有
-            Hexagram.QIAN_GUA: np.array([0.51, 0.63, 0.29, 0.21, 0.38, 0.61]),  # ☷☶ 地山谦
-            Hexagram.BI_GUA: np.array([0.57, 0.53, 0.29, 0.18, 0.31, 0.56]),  # ☶☲ 山火贲
-            Hexagram.YI: np.array([0.34, 0.64, 0.50, 0.68, 0.50, 0.77]),  # ☶☳ 山雷颐
-            Hexagram.YI_GUA: np.array([0.39, 0.66, 0.22, 0.40, 0.36, 0.68]),  # ☴☳ 风雷益
-            Hexagram.GUAI: np.array([0.75, 0.55, 0.63, 0.80, 0.39, 0.70]),  # ☱☰ 泽天夬
-            Hexagram.GOU: np.array([0.22, 0.59, 0.48, 0.74, 0.45, 0.61]),  # ☰☴ 天风姤
-            Hexagram.CUI: np.array([0.19, 0.11, 0.23, 0.14, 0.15, 0.83]),  # ☱☷ 泽地萃
-            Hexagram.SHENG: np.array([0.47, 0.66, 0.24, 0.38, 0.37, 0.65]),  # ☷☴ 地风升
-            Hexagram.KUN_GUA: np.array([0.30, 0.53, 0.57, 0.71, 0.42, 0.60]),  # ☱☵ 泽水困
-            Hexagram.JING: np.array([0.91, 0.86, 0.18, 0.13, 0.10, 0.12]),  # ☵☴ 水风井
-            Hexagram.GE: np.array([0.37, 0.53, 0.55, 0.65, 0.48, 0.70]),  # ☱☲ 泽火革
-            Hexagram.DING: np.array([0.76, 0.56, 0.61, 0.70, 0.43, 0.64]),  # ☲☴ 火风鼎
-            Hexagram.JIAN_GUA: np.array([0.47, 0.59, 0.24, 0.18, 0.32, 0.66]),  # ☴☶ 风山渐
-            Hexagram.GUIMEI: np.array([0.35, 0.52, 0.60, 0.73, 0.40, 0.66]),  # ☳☱ 雷泽归妹
-            Hexagram.FENG: np.array([0.54, 0.58, 0.58, 0.74, 0.47, 0.64]),  # ☳☲ 雷火丰
-            Hexagram.LU_GUA: np.array([0.22, 0.60, 0.40, 0.69, 0.49, 0.75]),  # ☲☶ 火山旅
-            Hexagram.HUAN: np.array([0.08, 0.88, 0.07, 0.10, 0.05, 0.11]),  # ☴☵ 风水涣
-            Hexagram.JIE: np.array([0.49, 0.60, 0.29, 0.21, 0.32, 0.64]),  # ☵☱ 水泽节
-            Hexagram.ZHONGFU: np.array([0.33, 0.57, 0.34, 0.19, 0.33, 0.59]),  # ☴☱ 风泽中孚
-            Hexagram.XIAOGUO: np.array([0.36, 0.57, 0.35, 0.20, 0.36, 0.55]),  # ☳☶ 雷山小过
-        }
+    def _rank_hexagrams(self, yao_vector):
+        """方案A两级匹配，返回按得分降序的 [(Hexagram, score), ...]。
 
-        return templates.get(hexagram, None)
+        阶段一：二值化 + 权威阴阳模板加权汉明，粗选稳定候选。
+        阶段二：在候选内用原始连续爻值加权距离细化排序，打破离散并列。
+        """
+        weights = np.asarray(self._YAO_WEIGHTS, dtype=float)
+        total_w = weights.sum()
+        b = (np.asarray(yao_vector, dtype=float) >= 0.5).astype(float)
+
+        scores = []
+        for hexagram in self.rules:
+            t = self._get_ideal_yao_template(hexagram)
+            if t is None:
+                continue
+            hamming = 1.0 - (np.abs(b - t) * weights).sum() / total_w
+            cont_dist = (np.abs(np.asarray(yao_vector, dtype=float) - t)
+                         * weights).sum()
+            scores.append((hexagram, float(hamming), float(cont_dist)))
+
+        if not scores:
+            return []
+
+        max_dist = float(2.0 * total_w)  # |yao-t| 每维最大1
+        refined = []
+        for hexagram, hamming, cont_dist in scores:
+            cont_norm = 1.0 - (cont_dist / max_dist)
+            # 汉明占主导(0.9)，连续值微调(0.1)打破并列
+            final = 0.9 * hamming + 0.1 * cont_norm
+            refined.append((hexagram, final, hamming, cont_dist))
+
+        refined.sort(key=lambda x: (-x[1], -x[2]))
+        return [(h, s) for h, s, _h, _c in refined]
+
 
     def count_rules(self):
         """返回已定义的规则数量"""
