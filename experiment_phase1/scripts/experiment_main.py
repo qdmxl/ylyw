@@ -253,7 +253,9 @@ class ExperimentManager:
             trigram_membership=trigram_membership.tolist() if hasattr(trigram_membership, 'tolist') else list(trigram_membership),
             inference_ms=t_total * 1000,
             strategy_reasonable=is_reasonable,
-            execution_success=True if self.config.simulation_mode else None,
+            # 仿真模式下无真实执行结果，execution_success 保持 None（未执行），
+            # 避免被误读为“实物执行成功”。实物执行后由实验者填入。
+            execution_success=None,
             strategy_label=label,
         )
     
