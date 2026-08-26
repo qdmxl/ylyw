@@ -172,7 +172,12 @@ class RobotArm:
 
     def move_to_coords(self, target: List[float], speed: Optional[int] = None,
                        block: bool = True) -> None:
-        """笛卡尔位姿 → 逆解 → 关节运动(带连续性校验)。"""
+        """笛卡尔位姿 → 逆解 → 关节运动(带连续性与限位校验)。
+
+        注意：这里做的是“目标位姿一次性逆解 + 关节空间分段插值”。
+        关节插值过程中末端轨迹并非笛卡尔直线，且不会逐点重新逆解验证。
+        对桌面安全更严格的需求应改用采样笛卡尔路径后逐点逆解(见 _validate_path)。
+        """
         speed = speed or self.config.speed
         current = self.get_angles()
         target = [float(v) for v in target]
@@ -182,37 +187,67 @@ class RobotArm:
             sol, current, self.config.max_joint_change * 4, self.config.min_margin
         )
         path = self._interp_angles(current, target_angles, self.config.joint_step_deg)
-        for pts in path[:-1]:
-            # 逐点逆解：确保路径中间点也在关节限位内
-            inter_sol = self._robot.solve_inv_kinematics(target, current)  # placeholder
-            self._robot.send_angles(pts, speed)
-            time.sleep(0.3)
-        self._robot.send_angles(path[-1], speed)
+        # 逐点校验：确保插值出的每个中间关节角都在安全限位内(移除旧的占位IK)
+        self._validate_path(path, speed)
         if block:
             self.wait_stopped()
 
+    def _validate_path(self, path: List[List[float]], speed: int) -> None:
+        """逐点校验关节插值路径：每点都在限位内且无致命跳变。
+
+        这是对“路径中间点安全”的真实检查(旧版只算了占位IK没做任何事)：
+          - 发送每个中间点前，确认其关节角在限位+安全余量内；
+          - 若某点越界/非有限，立即中止并报错(不继续发送，安全优先)。
+        """
+        low = [c[0] + self.config.min_margin for c in self.config.joint_limits]
+        high = [c[1] - self.config.min_margin for c in self.config.joint_limits]
+        prev = None
+        for pts in path[:-1]:
+            vals = [float(v) for v in pts]
+            for i, v in enumerate(vals):
+                if not math.isfinite(v) or not (low[i] <= v <= high[i]):
+                    raise RobotError(
+                        f"路径中间点关节{i+1} {v:.1f}° 超出安全限位，已中止；"
+                        f"(终点IK合法，但关节空间插值路径不安全)"
+                    )
+            if prev is not None and max(abs(v - p) for v, p in zip(vals, prev)) \
+                    > self.config.max_joint_change:
+                raise RobotError("路径中间点单步关节跳变过大，已中止")
+            self._robot.send_angles(pts, speed)
+            time.sleep(0.3)
+            prev = vals
+        if not path:
+            return
+        self._robot.send_angles(path[-1], speed)
+
     # ---------- 夹爪 ----------
-    def gripper_open(self, speed: int = 4) -> None:
+    def gripper_open(self, speed: int = 35) -> None:
+        """张开夹爪。set_gripper_state(0)=张开，为 MyCobot 官方语义。"""
         self._robot.set_gripper_state(0, speed)
         time.sleep(1.2)
         if self.config.simulate:
-            LOGGER.info("【模拟】夹爪张开(开度100%)")
+            LOGGER.info("【模拟】夹爪张开(打开状态)")
             return
         val = self._robot.get_gripper_value()
         if val == -1:
             raise RobotError("无法确认夹爪张开")
-        LOGGER.info("夹爪张开 value=%s", val)
+        LOGGER.info("夹爪张开 value=%s(打开→开度大)", val)
 
-    def gripper_close(self, value: int = 30, speed: int = 4) -> None:
+    def gripper_close(self, value: int = 30, speed: int = 35) -> None:
+        """按闭合值夹紧。set_gripper_value(value): value 越小闭合越多(夹越紧)。
+
+        value 语义是夹爪位置/开合值(官方 set_gripper_value)，不是物理夹持力(N)。
+        真机夹爪型号与标定决定 value↔实际开度/力量的方向，实机前务必确认。
+        """
         self._robot.set_gripper_value(value, speed)
         time.sleep(1.5)
         if self.config.simulate:
-            LOGGER.info("【模拟】夹爪夹紧 value=%d", value)
+            LOGGER.info("【模拟】夹爪闭合 value=%d(贴合度/开合值)", value)
             return
         val = self._robot.get_gripper_value()
         if val == -1:
             raise RobotError("无法确认夹爪夹紧")
-        LOGGER.info("夹爪夹紧 value=%s (期望 %d)", val, value)
+        LOGGER.info("夹爪闭合 value=%s (期望 %d)", val, value)
 
     # ---------- 便捷 ----------
     def pick_and_place(self, grasp_xyz_camera, grasp_angle_deg: float = 0.0,
@@ -234,7 +269,7 @@ class _SimRobot:
         self.gripper = 100
         self.moving = 0
 
-    def send_angles(self, angles, speed=3):
+    def send_angles(self, angles, speed=35):
         LOGGER.info("【模拟】send_angles %s", [round(a,1) for a in angles])
         self.angles = list(angles)
         self.moving = 0
@@ -258,14 +293,18 @@ class _SimRobot:
         self.moving = 0
 
     def solve_inv_kinematics(self, coords, seed):
-        """简单模拟逆解：返回输入近似角度。"""
+        """简单模拟逆解：返回输入近似角度(不真正求解，不验证可达性)。
+
+        注：simulate 模式只能验证“软件流程/调用/数据结构”，
+        不能验证目标可达性、IK 是否有解、轨迹是否安全。真机前必须用真 IK。
+        """
         return list(seed)  # 不真正求解
 
-    def set_gripper_state(self, state, speed=4):
+    def set_gripper_state(self, state, speed=35):
         self.gripper = 0 if state == 0 else 100
-        LOGGER.info("【模拟】夹爪 state=%s", state)
+        LOGGER.info("【模拟】夹爪 state=%s (0=张开)", state)
 
-    def set_gripper_value(self, value, speed=4):
+    def set_gripper_value(self, value, speed=35):
         self.gripper = value
         LOGGER.info("【模拟】夹爪 value=%d", value)
 

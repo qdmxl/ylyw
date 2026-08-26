@@ -56,40 +56,65 @@ class GraspController:
         """对给定抓取方案执行一次抓取。
 
         plan.grasp_xyz 是相机坐标系(米)下的质心。这里把它变换到基座并执行。
+
+        Z 方向约定（基座系，Z 朝上为正，mm）：
+          桌面/抓取在较低处，安全接近点在该处上方偏移处。
+          故 approach_z_mm > grasp_z_mm。
+          先到 approach（高位）→ 张开 → 下降至 grasp（低位）夹取
+          → 抬升回 approach。
         """
+        sm = self.config.speed_map
+        speed_fast = int(sm.get("fast", 50))
+        speed_norm = int(sm.get("normal", 35))
+        speed_slow = int(sm.get("slow", 20))
+
         # 1. 目标位姿(相机系→基座, mm)
         base_xyz_mm = self.tfr.to_base(plan.grasp_xyz, out_mm=True)
         grasp_z_mm = float(base_xyz_mm[2]) if force_height_mm is None else force_height_mm
-        # 桌面高度(基座系数值)的安全下限
-        lift_z = max(80.0, grasp_z_mm + self.config.lift_height_mm * 0.5)
-        approach_z = min(200.0, grasp_z_mm + 60.0)
+
+        # 安全校验：抓取高度必须在合理桌面范围内，防止坐标换算异常/Z反向直接上真机
+        z_min, z_max = 20.0, 500.0
+        if not (z_min <= grasp_z_mm <= z_max):
+            raise ValueError(
+                f"抓取高度异常 z={grasp_z_mm:.1f}mm，不在 [z_min, z_max] 安全区间；"
+                f"请先做手-眼标定并检查 from_overhead 默认外参（严禁用占位外参直接抓取）"
+            )
+
+        # 安全接近点：在抓取高度上方偏移（approach_z > grasp_z）
+        approach_off = float(self.config.approach_offset_mm)  # 默认 60
+        approach_z_mm = grasp_z_mm + approach_off
+        # 抓取后抬升到本目标上方更高处
+        lift_z_mm = max(approach_z_mm, grasp_z_mm + float(self.config.lift_height_mm))
 
         target = [base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm,
                   plan.approach_angle_deg, -90.0, 0.0]
-        above = [base_xyz_mm[0], base_xyz_mm[1], approach_z,
+        above = [base_xyz_mm[0], base_xyz_mm[1], approach_z_mm,
                  plan.approach_angle_deg, -90.0, 0.0]
+        lift = [base_xyz_mm[0], base_xyz_mm[1], lift_z_mm,
+                plan.approach_angle_deg, -90.0, 0.0]
 
-        LOGGER.info("→ 目标基座坐标(mm): x=%0.1f y=%0.1f z=%0.1f",
+        LOGGER.info("→ 目标基座坐标(mm): x=%0.1f y=%0.1f z=%0.1f(抓取)",
                     base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm)
-        LOGGER.info("→ YLYW 抓取类型=%s 夹紧值=%d 速度档=%d",
+        LOGGER.info("→ 接近/抬升 z(mm): %.1f / %.1f", approach_z_mm, lift_z_mm)
+        LOGGER.info("→ YLYW 策略=%s 夹爪闭合度=%d 速度档=%s",
                     plan.strategy_type, plan.close_value, plan.speed_level)
 
         try:
-            # 2. 先到目标上方
-            LOGGER.info("① 移动到目标上方")
-            self.arm.move_to_coords(above, speed=3)
+            # 2. 先到目标上方(高位)张开
+            LOGGER.info("① 移动到目标上方(接近位)")
+            self.arm.move_to_coords(above, speed=speed_fast)
             # 3. 张开夹爪
             LOGGER.info("② 张开夹爪")
-            self.arm.gripper_open(speed=4)
-            # 4. 下降到抓取高度
+            self.arm.gripper_open(speed=speed_norm)
+            # 4. 下降到抓取高度(低位)
             LOGGER.info("③ 下降到抓取高度")
-            self.arm.move_to_coords(target, speed=2)
-            # 5. 夹紧(YLYW 力)
-            LOGGER.info("④ 按 YLYW 力夹紧 value=%d", plan.close_value)
-            self.arm.gripper_close(plan.close_value, speed=4)
-            # 6. 抬升
+            self.arm.move_to_coords(target, speed=speed_slow)
+            # 5. 夹紧(YLYW 闭合度)
+            LOGGER.info("④ 按 YLYW 闭合度夹紧 value=%d", plan.close_value)
+            self.arm.gripper_close(plan.close_value, speed=speed_norm)
+            # 6. 抬升到更高处
             LOGGER.info("⑤ 抬升")
-            self.arm.move_to_coords(above, speed=3)
+            self.arm.move_to_coords(lift, speed=speed_fast)
             return True
         except Exception as exc:  # noqa: BLE001 —— 安全优先，失败归位
             LOGGER.error("抓取失败: %s", exc)
@@ -101,15 +126,18 @@ class GraspController:
 
     def place(self, place_xyz_mm) -> bool:
         """移动到放置区并释放物体。"""
+        sm = self.config.speed_map
+        speed_fast = int(sm.get("fast", 50))
+        speed_slow = int(sm.get("slow", 20))
         try:
             LOGGER.info("⑥ 移动到放置区")
             lift_above = [place_xyz_mm[0], place_xyz_mm[1], 180.0, 0.0, -90.0, 0.0]
-            self.arm.move_to_coords(lift_above, speed=3)
+            self.arm.move_to_coords(lift_above, speed=speed_fast)
             self.arm.move_to_coords(
                 [place_xyz_mm[0], place_xyz_mm[1], place_xyz_mm[2], 0.0, -90.0, 0.0],
-                speed=2)
+                speed=speed_slow)
             LOGGER.info("⑦ 释放物体")
-            self.arm.gripper_open(speed=4)
+            self.arm.gripper_open(speed=speed_fast)
             self.goto_home()
             return True
         except Exception as exc:  # noqa: BLE001

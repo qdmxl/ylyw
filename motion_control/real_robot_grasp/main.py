@@ -149,13 +149,15 @@ def run_app(args: argparse.Namespace) -> int:
                 continue
             LOGGER.info("检测到 %d 个物体", len(objects))
 
-            # 3. 选目标
+            # 3. 选目标(当前逻辑：每轮检测多个 → 只选1个最优目标抓取)
             target_obj = _choose_target(objects, app_cfg.target_class)
             if target_obj is None:
                 LOGGER.warning("第%d轮：无匹配物体，跳过", rnd)
                 recorder.log_result(_empty_plan(args.target or "none"),
                                     False, time.time() - t0)
                 continue
+            LOGGER.info("本轮检测 %d 个物体，选择目标: %s",
+                        len(objects), target_obj.label)
 
             # 4. YLYW 规划
             plan = planner.plan(target_obj)
@@ -173,17 +175,24 @@ def run_app(args: argparse.Namespace) -> int:
                 if success:
                     successes += 1
             else:
-                # dryrun 视为"规划成功"预设
+                # dryrun：只验证“规划流程无异常”，不执行机械臂。
+                # 此处 success=True 仅表示“规划成功”，不是物理抓取成功。
                 success = True
                 successes += 1
-                LOGGER.info("[dryrun] 已规划抓取 %s，未执行机械臂", target_obj.label)
+                LOGGER.info("[dryrun] 已规划抓取 %s（未执行机械臂，success=规划成功）",
+                            target_obj.label)
 
             recorder.log_result(plan, success, time.time() - t0,
                                 extra={"n_objects": len(objects)})
 
         # 汇总
         summary = recorder.summary()
-        LOGGER.info("==== 实验汇总 ==== 成功率=%s", summary.get("success_rate"))
+        if args.dryrun:
+            LOGGER.info("==== 汇总(dryrun) ==== 规划成功率=%s（≠抓取成功率）",
+                        summary.get("success_rate"))
+        else:
+            LOGGER.info("==== 实验汇总 ==== 抓取成功率=%s",
+                        summary.get("success_rate"))
         if args.verbose:
             import json as _json
             print("实验汇总:\n" + _json.dumps(summary, ensure_ascii=False, indent=2))

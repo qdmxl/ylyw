@@ -81,9 +81,9 @@ class YlywGraspConfig:
     # 抓取类型映射表：策略 type -> 夹爪模式
     force_range_mm: tuple[float, float] = (20.0, 60.0)   # 夹爪开度范围(mm)
     force_to_close_value: tuple[int, int] = (5, 50)       # 夹爪夹紧值(越小越紧)
-    # 接近速度档映射（MyCobot 1~5）
+    # 接近速度档映射（MyCobot 280 speed 范围 1~100）
     speed_map: dict = field(default_factory=lambda: {
-        "slow": 2, "normal": 3, "fast": 4,
+        "slow": 20, "normal": 35, "fast": 50,
     })
     # 默认安全姿态（MyCobot 280 Cartesian, mm + 欧拉角）
     home_pose: list = field(default_factory=lambda: [0.0, 0.0, 200.0])
@@ -105,8 +105,8 @@ class RobotConfig:
         (-168.0, 168.0), (-140.0, 140.0), (-150.0, 150.0),
         (-150.0, 150.0), (-155.0, 160.0), (-180.0, 180.0),
     ])
-    # 运动安全
-    speed: int = 3                        # 1~5
+    # 运动安全（speed 1~100）
+    speed: int = 35                       # 1~100
     joint_step_deg: float = 4.0           # 关节插值最大步长
     max_joint_change: float = 8.0         # 单步最大关节变化
     min_margin: float = 8.0               # 关节限位安全余量

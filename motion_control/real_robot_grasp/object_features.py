@@ -205,19 +205,23 @@ def analyze_object(points: np.ndarray, config: FeaturesConfig,
     weight_ratio = mass_kg / 2.0
 
     features = {
-        "stability": float(stability),
-        "roll_tendency": float(roll_tendency),
-        "strength_needed": float(strength_needed),
-        "fragility": 0.5,                       # 默认，可由 Yolo 类别覆盖
-        "reachability": float(reachability),
-        "grasp_surface_quality": float(surface_quality),
-        "support_area": float(support),
-        "occlusion": 0.1,
-        "obstacle_density": 0.1,
-        "task_priority": 0.7,
-        "weight_ratio": float(weight_ratio),
-        "visibility": 0.9,
-        "deformability": 0.1,
+        "stability": float(stability),          # 真实感知(几何+曲率)
+        "roll_tendency": float(roll_tendency),  # 真实感知(派生)
+        "strength_needed": float(strength_needed),  # 真实感知(体积×密度→质量)
+        # ---- 以下为“暂用常数占位”，尚未接入真实感知/Yolo类别先验 ----
+        # 实机/论文前需替换为: 脆弱性(Yolo类别/材质), 遮挡(深度缺口),
+        # 障碍密度(邻域物体), 任务优先级(任务层), 可见性(点云完整度),
+        # 可变形性(类别/材质)。目前取固定值以联调链路。
+        "fragility": 0.5,                       # 常数占位(可由 Yolo 类别覆盖)
+        "reachability": float(reachability),    # 真实感知(法向/朝向)
+        "grasp_surface_quality": float(surface_quality),  # 真实感知(曲率/法向)
+        "support_area": float(support),         # 真实感知(投影面积)
+        "occlusion": 0.1,                       # 常数占位
+        "obstacle_density": 0.1,                # 常数占位
+        "task_priority": 0.7,                   # 常数占位
+        "weight_ratio": float(weight_ratio),    # 真实感知(派生)
+        "visibility": 0.9,                      # 常数占位
+        "deformability": 0.1,                   # 常数占位
     }
 
     return ObjectFeatures(

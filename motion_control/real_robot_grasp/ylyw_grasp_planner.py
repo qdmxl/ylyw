@@ -58,7 +58,7 @@ class GraspPlan:
     strategy_type: str = ""        # YLYW抓取类型
     # — 映射到机械臂 —
     approach_angle_deg: float = 0.0
-    speed_level: int = 3           # MyCobot 1~5
+    speed_level: int = 35          # MyCobot 1~100 速度档
     close_value: int = 30          # 夹爪夹紧值(越小越紧)
     force: float = 0.5
     cautions: list = field(default_factory=list)
@@ -200,13 +200,17 @@ class YlywGraspPlanner:
             plan.approach_angle_deg = 0.0
         plan.cautions = list(strategy.get("cautions", []))
         plan.speed_level = self.grasp_cfg.speed_map.get(
-            str(strategy.get("speed", "normal")).lower(), 3)
+            str(strategy.get("speed", "normal")).lower(), 35)
         plan.close_value = self._force_to_close(plan.force)
 
         return plan
 
     def _force_to_close(self, force: float) -> int:
-        """力预设[0,1] → 夹爪夹紧值(越小越紧)。"""
+        """抓取强度[0,1] → 夹爪闭合值(越小越紧)。
+
+        注意：force 是 YLYW 的抓取强度/闭合程度参数(0~1)，不是物理夹持力(N)。
+        下发到真机的是 set_gripper_value 的夹爪位置/开合值，需按实际夹爪标定。
+        """
         lo, hi = self.grasp_cfg.force_to_close_value
         # force 越大夹得越紧(值越小)
         f = float(np.clip(force, 0, 1))
@@ -241,9 +245,9 @@ def format_plan(plan: GraspPlan) -> str:
         f"  卦辞: {plan.hexagram_desc or '-'}\n"
         f"  L3+ 爻位质量: {plan.yao_quality:.3f} | 谨慎度: {plan.caution_level}\n"
         f"  ── 决策 ──\n"
-        f"  抓取类型: {plan.strategy_type} | 力: {plan.force:.2f} "
-        f"(修正 ×{plan.force_modifier:.2f})\n"
+        f"  抓取类型: {plan.strategy_type} | 抓取强度: {plan.force:.2f} "
+        f"(修正 ×{plan.force_modifier:.2f}, 非物理力N)\n"
         f"  接近角: {plan.approach_angle_deg:.0f}° | 速度档: {plan.speed_level} "
-        f"| 夹爪夹紧值: {plan.close_value}\n"
+        f"| 夹爪闭合值: {plan.close_value}\n"
         f"  注意事项: {'; '.join(plan.cautions) if plan.cautions else '无'}"
     )
