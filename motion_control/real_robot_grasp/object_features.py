@@ -32,6 +32,8 @@ class ObjectFeatures:
     dimensions_m: Tuple[float, float, float] = (0.0, 0.0, 0.0)   # 长宽高(米)
     center_m: Tuple[float, float, float] = (0.0, 0.0, 0.0)      # 质心(相机系)
     principal_axis: np.ndarray = field(default_factory=lambda: np.zeros(3))
+    # PCA 主轴矩阵(3x3, 列=长/中/短轴, 相机系单位向量)。供 6D 抓取姿态构建。
+    axes: np.ndarray = field(default_factory=lambda: np.eye(3))
     curvature: float = 0.5          # 平均曲率
     volume_m3: float = 0.0
     n_points: int = 0
@@ -174,6 +176,12 @@ def analyze_object(points: np.ndarray, config: FeaturesConfig,
     axis = eigvecs[:, 0]
     if axis[2] < 0:
         axis = -axis
+    # 主轴矩阵：列分别对应 长/中/短 轴(由协方差特征值降序)。
+    # 全部约定 z 分量非负, 与 short 轴的方向轴对齐。
+    _axes = eigvecs.copy()
+    for _i in range(3):
+        if _axes[_i, 2] < 0:
+            _axes[:, _i] = -_axes[:, _i]
 
     # 包围盒尺寸(沿主轴)
     proj = centered @ eigvecs
@@ -228,6 +236,7 @@ def analyze_object(points: np.ndarray, config: FeaturesConfig,
         dimensions_m=dims,
         center_m=tuple(center),
         principal_axis=axis,
+        axes=_axes,
         curvature=float(curvature),
         volume_m3=float(volume),
         n_points=n,

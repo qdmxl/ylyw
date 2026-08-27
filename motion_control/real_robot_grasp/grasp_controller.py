@@ -26,6 +26,8 @@ from .config import RobotConfig, YlywGraspConfig
 from .robot_arm import RobotArm
 from .ylyw_grasp_planner import GraspPlan
 from .coordinate_transform import CameraToRobot
+from .object_features import ObjectFeatures
+from . import grasp_pose
 
 LOGGER = logging.getLogger(__name__)
 
@@ -52,10 +54,14 @@ class GraspController:
         LOGGER.info("归位")
         self.arm.move_to_angles(self.home_angles)
 
-    def pick(self, plan: GraspPlan, force_height_mm: Optional[float] = None) -> bool:
+    def pick(self, plan: GraspPlan, force_height_mm: Optional[float] = None,
+             obj: Optional[ObjectFeatures] = None) -> bool:
         """对给定抓取方案执行一次抓取。
 
         plan.grasp_xyz 是相机坐标系(米)下的质心。这里把它变换到基座并执行。
+        若传入 obj(物体特征)，则用 6D 姿态生成器构建完整末端位姿
+        [x,y,z,rx,ry,rz](基座mm+欧拉角)，让夹爪朝向跟随物体长轴/短轴(不再固定朝下)；
+        否则退回旧版固定朝下位姿(仅改俯仰)。
 
         Z 方向约定（基座系，Z 朝上为正，mm）：
           桌面/抓取在较低处，安全接近点在该处上方偏移处。
@@ -86,15 +92,37 @@ class GraspController:
         # 抓取后抬升到本目标上方更高处
         lift_z_mm = max(approach_z_mm, grasp_z_mm + float(self.config.lift_height_mm))
 
-        target = [base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm,
-                  plan.approach_angle_deg, -90.0, 0.0]
-        above = [base_xyz_mm[0], base_xyz_mm[1], approach_z_mm,
-                 plan.approach_angle_deg, -90.0, 0.0]
-        lift = [base_xyz_mm[0], base_xyz_mm[1], lift_z_mm,
-                plan.approach_angle_deg, -90.0, 0.0]
+        # —— 6D 姿态生成：夹爪朝向跟随物体几何 ——
+        if obj is not None and plan.use_6d:
+            best, pose6d, _cands = grasp_pose.best_6d(
+                obj, plan, self.tfr.R,
+                np.array([base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm]),
+                grip_half_open_mm=float(self.grasp_cfg.force_range_mm[1] / 2.0))
+            gx, gy, gz, rx, ry, rz = pose6d
+            # 用 6D 位姿作为抓取目标姿态；高位/抬升位保持同一姿态但抬高
+            target = [float(gx), float(gy), float(gz), float(rx), float(ry), float(rz)]
+            above = [float(gx), float(gy), float(approach_z_mm), float(rx), float(ry), float(rz)]
+            lift = [float(gx), float(gy), float(lift_z_mm), float(rx), float(ry), float(rz)]
+            # 回写 6D 信息供实验记录
+            plan.grasp_pose_6d = np.array(pose6d, dtype=float)
+            plan.grasp_pose_name = best.name
+            plan.approach_axis = np.asarray(best.approach_axis, dtype=float)
+            plan.open_axis = np.asarray(best.x_axis, dtype=float)
+            LOGGER.info("→ 6D抓取位姿=%s 候选=%s (rx,ry,rz=[%.0f,%.0f,%.0f]°)",
+                        np.round(pose6d[:3], 1), best.name, rx, ry, rz)
+            LOGGER.info("→ 接近方向=%s 开合方向=%s",
+                        np.round(best.approach_axis, 2), np.round(best.x_axis, 2))
+        else:
+            # 旧版行为：夹爪固定"朝下"，仅用 YLYW 接近角改俯仰(pitch)
+            target = [base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm,
+                      plan.approach_angle_deg, -90.0, 0.0]
+            above = [base_xyz_mm[0], base_xyz_mm[1], approach_z_mm,
+                     plan.approach_angle_deg, -90.0, 0.0]
+            lift = [base_xyz_mm[0], base_xyz_mm[1], lift_z_mm,
+                    plan.approach_angle_deg, -90.0, 0.0]
 
         LOGGER.info("→ 目标基座坐标(mm): x=%0.1f y=%0.1f z=%0.1f(抓取)",
-                    base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm)
+                    target[0], target[1], target[2])
         LOGGER.info("→ 接近/抬升 z(mm): %.1f / %.1f", approach_z_mm, lift_z_mm)
         LOGGER.info("→ YLYW 策略=%s 夹爪闭合度=%d 速度档=%s",
                     plan.strategy_type, plan.close_value, plan.speed_level)

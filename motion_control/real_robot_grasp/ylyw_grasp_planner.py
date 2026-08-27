@@ -64,6 +64,12 @@ class GraspPlan:
     cautions: list = field(default_factory=list)
     # — 目标位姿(相机系, 米) —
     grasp_xyz: np.ndarray = field(default_factory=lambda: np.zeros(3))
+    # — 6D 抓取位姿(基座系, mm + 欧拉角度) [x,y,z,rx,ry,rz] —— 由 GraspController 填充 —
+    grasp_pose_6d: np.ndarray = field(default_factory=lambda: np.zeros(6))
+    grasp_pose_name: str = ""       # 最优候选名(top_down/side_grip/side_grip_short/...)
+    approach_axis: np.ndarray = field(default_factory=lambda: np.zeros(3))
+    open_axis: np.ndarray = field(default_factory=lambda: np.zeros(3))
+    use_6d: bool = True             # True: 用6D位姿(含rx,ry,rz)；False: 旧版全差下
     # — 特征快照 —
     features: dict = field(default_factory=dict)
 
@@ -88,6 +94,13 @@ class GraspPlan:
             "speed_level": self.speed_level,
             "close_value": self.close_value,
             "cautions": self.cautions,
+            "grasp_pose_6d": [round(v, 3) for v in self.grasp_pose_6d.tolist()]
+            if hasattr(self.grasp_pose_6d, "tolist") else None,
+            "grasp_pose_name": self.grasp_pose_name,
+            "approach_axis": [round(v, 3) for v in self.approach_axis.tolist()]
+            if hasattr(self.approach_axis, "tolist") else None,
+            "open_axis": [round(v, 3) for v in self.open_axis.tolist()]
+            if hasattr(self.open_axis, "tolist") else None,
         }
 
 

@@ -31,6 +31,8 @@ CSV_FIELDS = [
     "round", "timestamp", "label", "success",
     "dim_l_mm", "dim_w_mm", "dim_h_mm", "curvature", "volume_cm3",
     "grasp_x_mm", "grasp_y_mm", "grasp_z_mm",
+    "pose_name", "pose_rx_deg", "pose_ry_deg", "pose_rz_deg",
+    "approach_axis", "open_axis",
     "dominant_trigram", "hexagram", "hexagram_cn", "hexagram_score",
     "yin_yang", "yao_quality", "caution_level", "strategy_type",
     "force", "approach_angle_deg", "speed_level", "close_value",
@@ -80,6 +82,15 @@ class ExperimentRecorder:
             "volume_cm3": round(self._vol_cm3(dims), 1) if dims else "",
             "grasp_x_mm": round(gx, 1), "grasp_y_mm": round(gy, 1),
             "grasp_z_mm": round(gz, 1),
+            "pose_name": plan.grasp_pose_name,
+            "pose_rx_deg": round(plan.grasp_pose_6d[3], 1)
+            if len(getattr(plan, "grasp_pose_6d", ())) == 6 else "",
+            "pose_ry_deg": round(plan.grasp_pose_6d[4], 1)
+            if len(getattr(plan, "grasp_pose_6d", ())) == 6 else "",
+            "pose_rz_deg": round(plan.grasp_pose_6d[5], 1)
+            if len(getattr(plan, "grasp_pose_6d", ())) == 6 else "",
+            "approach_axis": self._fmt_axis(plan.approach_axis),
+            "open_axis": self._fmt_axis(plan.open_axis),
             "dominant_trigram": plan.dominant_trigram,
             "hexagram": plan.hexagram,
             "hexagram_cn": plan.hexagram_cn,
@@ -114,6 +125,16 @@ class ExperimentRecorder:
             plan.hexagram, plan.hexagram_score, plan.yin_yang,
             plan.strategy_type, plan.force, success, duration_s,
         )
+
+    @staticmethod
+    def _fmt_axis(v) -> str:
+        try:
+            arr = np.asarray(v, dtype=float).reshape(-1)
+            if arr.size == 3:
+                return "[" + ",".join(f"{x:.2f}" for x in arr) + "]"
+        except Exception:
+            pass
+        return ""
 
     @staticmethod
     def _vol_cm3(dims) -> float:

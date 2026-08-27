@@ -34,8 +34,18 @@ from .object_features import (ObjectFeatures, analyze_object,
                               segment_objects)
 from .robot_arm import RobotArm
 from .ylyw_grasp_planner import (YlywGraspPlanner, format_plan)
+from . import grasp_pose
 
 LOGGER = logging.getLogger(__name__)
+
+
+def _build_pose(obj: ObjectFeatures, plan, tfr: CameraToRobot,
+                grasp_cfg: YlywGraspConfig):
+    """由物体特征 + YLYW方案 → 完整 6D 抓取位姿(基座mm+欧拉°)。"""
+    base_xyz_mm = tfr.to_base(obj.center_m, out_mm=True)[:3]
+    grip_half = float(grasp_cfg.force_range_mm[1] / 2.0)
+    return grasp_pose.best_6d(obj, plan, tfr.R, base_xyz_mm,
+                              grip_half_open_mm=grip_half)
 
 
 def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
@@ -162,6 +172,17 @@ def run_app(args: argparse.Namespace) -> int:
             # 4. YLYW 规划
             plan = planner.plan(target_obj)
             attach_geometry(plan, target_obj.dimensions_m, target_obj.curvature)
+            # 规划阶段即计算 6D 抓取位姿(基座系 mm+欧拉角) —— 供实验记录/复现
+            if plan.use_6d:
+                best, pose6d, _cands = _build_pose(target_obj, plan, tfr, grasp_cfg)
+                plan.grasp_pose_6d = np.asarray(pose6d, dtype=float)
+                plan.grasp_pose_name = best.name
+                plan.approach_axis = np.asarray(best.approach_axis, dtype=float)
+                plan.open_axis = np.asarray(best.x_axis, dtype=float)
+                if args.verbose or args.dryrun:
+                    print(f"  ── 6D抓取位姿(基座mm+欧拉°) ── {np.round(pose6d,1)}")
+                    print(f"  候选={best.name} 接近方向={np.round(best.approach_axis,2)} "
+                          f"开合方向={np.round(best.x_axis,2)}")
             if args.verbose or args.dryrun:
                 print(format_plan(plan))
 
@@ -169,7 +190,7 @@ def run_app(args: argparse.Namespace) -> int:
             success = False
             if not args.dryrun:
                 assert controller is not None
-                success = controller.pick(plan)
+                success = controller.pick(plan, obj=target_obj)
                 if success:
                     success &= controller.place(app_cfg.place_pose)
                 if success:
