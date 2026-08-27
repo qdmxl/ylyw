@@ -59,11 +59,12 @@ class YaoEncoder:
             },
             YaoPosition.SECOND: {
                 'name': '抓取点可达性',
-                'description': '夹爪能否无碰撞地到达最佳抓取点',
+                'description': '夹爪能否无碰撞地到达最佳抓取点(含可见性)',
                 'formula': lambda f: (
-                    0.5 * f.get('reachability', 0.5) +
-                    0.3 * (1.0 - f.get('occlusion', 0.5)) +
-                    0.2 * f.get('grasp_surface_quality', 0.5)
+                    0.4 * f.get('reachability', 0.5) +
+                    0.25 * (1.0 - f.get('occlusion', 0.5)) +
+                    0.20 * f.get('grasp_surface_quality', 0.5) +
+                    0.15 * f.get('visibility', 0.5)      # 2026-08: 可见性并入二爻
                 )
             },
             YaoPosition.THIRD: {
@@ -76,9 +77,13 @@ class YaoEncoder:
             },
             YaoPosition.FOURTH: {
                 'name': '物体脆弱性',
-                'description': '物体是否易碎、易变形。爻值高=不易碎（阳），爻值低=易碎（阴）',
-                # 注意：脆弱性反向编码——越脆弱，爻值越低（阴爻，不利）
-                'formula': lambda f: 1.0 - f.get('fragility', 0.5)
+                'description': '物体是否易碎、易变形。爻值高=不易碎且刚(阳)，爻值低=易碎/易变形(阴)',
+                # 注意：脆弱性反向编码——越脆弱，爻值越低(阴爻，不利)。
+                # 2026-08: deformability(越柔韧越易变)并入，与 fragility 共同表达"易伤害/易变"。
+                'formula': lambda f: (
+                    0.7 * (1.0 - f.get('fragility', 0.5)) +
+                    0.3 * (1.0 - f.get('deformability', 0.5))
+                )
             },
             YaoPosition.FIFTH: {
                 'name': '任务优先级',
@@ -102,9 +107,9 @@ class YaoEncoder:
         Args:
             object_features: dict, 包含所有需要的特征：
                 - stability, roll_tendency, support_area (初爻)
-                - reachability, occlusion, grasp_surface_quality (二爻)
+                - reachability, occlusion, grasp_surface_quality, visibility (二爻)
                 - strength_needed, weight_ratio (三爻)
-                - fragility (四爻)
+                - fragility, deformability (四爻)
                 - task_priority (五爻)
                 - obstacle_density (上爻)
 
