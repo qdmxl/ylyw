@@ -129,6 +129,20 @@ def run_experiments(args):
                 continue
             plan = planner.plan(obj)
             attach_geometry(plan, obj.dimensions_m, obj.curvature)
+            # 2026-08-27：为论文数据补算表面多候选 6D 位姿(如运行流水线)。
+            # 合成物体位于固定局部坐标，这里用单位变换记录抓取点/平整度/候选名。
+            try:
+                from real_robot_grasp import grasp_pose as _gp
+                best, pose6d, cands = _gp.best_surface_6d(
+                    obj, plan, np.eye(3), np.zeros(3),
+                    grip_half_open_mm=60.0)
+                plan.grasp_pose_6d = np.asarray(pose6d, dtype=float)
+                plan.grasp_pose_name = str(best.name)
+                plan.grasp_surface_planarity = float(best.local_planarity)
+                plan.grasp_xyz = np.asarray(best.contact_base_mm, dtype=float) / 1000.0
+            except Exception as exc:  # noqa: BLE001
+                pose6d = np.zeros(6)
+                print(f"[warn] 表面6D位姿计算跳过: {exc}")
             total += 1
             ok = bool(rng.random() < args.success_rate)  # 模拟实际成功不确定性
             if ok:
@@ -145,6 +159,12 @@ def run_experiments(args):
                 "strategy": plan.strategy_type,
                 "force": plan.force, "close": plan.close_value,
                 "speed": plan.speed_level, "success": ok,
+                "grasp_point_mm": [round(v, 1) for v in pose6d[:3]]
+                if len(pose6d) == 6 else None,
+                "grasp_rpy_deg": [round(v, 1) for v in pose6d[3:]]
+                if len(pose6d) == 6 else None,
+                "pose_name": plan.grasp_pose_name,
+                "planarity": round(plan.grasp_surface_planarity, 3),
             })
         print(f"[{rnd}] 场景完成，本场景成功 {successes_in_scene}/{len(clouds)}")
 

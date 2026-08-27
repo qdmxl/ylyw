@@ -37,6 +37,9 @@ class ObjectFeatures:
     curvature: float = 0.5          # 平均曲率
     volume_m3: float = 0.0
     n_points: int = 0
+    # 2026-08: 点云本身(下采样到 <=max_points, 相机系, Nx3)。
+    # 用于在物体表面采样多个候选抓取接触点，而非仅用质心。
+    points_m: np.ndarray = field(default_factory=lambda: np.zeros((0, 3)))
 
     # —— YLYW 13 维特征 ——
     features: dict = field(default_factory=dict)
@@ -263,9 +266,18 @@ def analyze_object(points: np.ndarray, config: FeaturesConfig,
         curvature=float(curvature),
         volume_m3=float(volume),
         n_points=n,
+        points_m=_downsample(pts, config.max_object_points),
         features=features,
         label=label,
     )
+
+
+def _downsample(points: np.ndarray, max_pts: int) -> np.ndarray:
+    """点云下采样到最多 max_pts 点(保持类型; 太少则原样返回)。"""
+    if max_pts <= 0 or len(points) <= max_pts:
+        return points.astype(np.float64, copy=True)
+    idx = np.linspace(0, len(points) - 1, max_pts).astype(int)
+    return points[idx].astype(np.float64, copy=True)
 
 
 def _estimate_curvature(points: np.ndarray, k: int) -> float:

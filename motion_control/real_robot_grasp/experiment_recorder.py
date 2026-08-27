@@ -32,6 +32,7 @@ CSV_FIELDS = [
     "dim_l_mm", "dim_w_mm", "dim_h_mm", "curvature", "volume_cm3",
     "grasp_x_mm", "grasp_y_mm", "grasp_z_mm",
     "pose_name", "pose_rx_deg", "pose_ry_deg", "pose_rz_deg",
+    "pose_x_mm", "pose_y_mm", "pose_z_mm", "surface_planarity",
     "approach_axis", "open_axis",
     "dominant_trigram", "hexagram", "hexagram_cn", "hexagram_score",
     "yin_yang", "yao_quality", "caution_level", "strategy_type",
@@ -89,6 +90,14 @@ class ExperimentRecorder:
             if len(getattr(plan, "grasp_pose_6d", ())) == 6 else "",
             "pose_rz_deg": round(plan.grasp_pose_6d[5], 1)
             if len(getattr(plan, "grasp_pose_6d", ())) == 6 else "",
+            "pose_x_mm": round(plan.grasp_pose_6d[0], 1)
+            if len(getattr(plan, "grasp_pose_6d", ())) == 6 else "",
+            "pose_y_mm": round(plan.grasp_pose_6d[1], 1)
+            if len(getattr(plan, "grasp_pose_6d", ())) == 6 else "",
+            "pose_z_mm": round(plan.grasp_pose_6d[2], 1)
+            if len(getattr(plan, "grasp_pose_6d", ())) == 6 else "",
+            "surface_planarity": round(plan.grasp_surface_planarity, 3)
+            if getattr(plan, "grasp_surface_planarity", 0) else "",
             "approach_axis": self._fmt_axis(plan.approach_axis),
             "open_axis": self._fmt_axis(plan.open_axis),
             "dominant_trigram": plan.dominant_trigram,

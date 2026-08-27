@@ -70,6 +70,8 @@ class GraspPlan:
     approach_axis: np.ndarray = field(default_factory=lambda: np.zeros(3))
     open_axis: np.ndarray = field(default_factory=lambda: np.zeros(3))
     use_6d: bool = True             # True: 用6D位姿(含rx,ry,rz)；False: 旧版全差下
+    # 2026-08-27：最优抓取接触点的局部表面平整度(供论文“抓取点质量”)
+    grasp_surface_planarity: float = 0.0
     # — 特征快照 —
     features: dict = field(default_factory=dict)
 

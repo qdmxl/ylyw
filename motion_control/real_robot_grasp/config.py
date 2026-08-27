@@ -44,6 +44,8 @@ class FeaturesConfig:
     ground_tolerance: float = 0.015       # 地面拟合容忍（米）
     # 曲率估计
     curvature_neighbors: int = 8          # 局部 PCA 邻域点数
+    # 采样抓取接触点时保留的最大点数(下采样边界)
+    max_object_points: int = 6000
     # 质量/力估计：由包围盒体积 + 密度估算
     default_density_kg_m3: float = 800.0  # 常见塑料/木块密度近似
 

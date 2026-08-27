@@ -120,6 +120,10 @@ class GraspCandidate:
     x_axis: np.ndarray            # 夹爪开合轴(基座系)
     # 接近点相对质心的偏移(基座系,mm)——用于把夹爪中心对准接触点而非仅质心
     offset_mm: np.ndarray = None
+    # 2026-08-27：物体表面实际抓取接触点(基座系,mm)——非质心时由它定位
+    contact_base_mm: np.ndarray = None
+    # 2026-08-27：接触点局部表面平整度 [0,1]，供评分降权边缘/曲面
+    local_planarity: float = 0.0
     score: float = 0.0            # 综合得分
     fit: float = 0.0              # 几何贴合度(夹爪开合宽度 vs 抓取维度)
     reach: float = 0.0            # 可达性
@@ -257,4 +261,211 @@ def best_6d(obj: ObjectFeatures, plan: GraspPlan, tfr_R: np.ndarray,
     if best.offset_mm is not None:
         z = float(z) + float(best.offset_mm[2])
     pose6d = np.array([float(x), float(y), float(z), rx, ry, rz])
+    return best, pose6d, cands
+
+
+# =====================================================================
+# 2026-08-27：表面多候选抓取点 + 各自完整 6D 位姿 + 统一评分
+# 目标：不再只用质心，而是从物体表面采样多个抓取接触点(如沿长轴两端、
+# 中段、侧翼)，每个接触点×每个方向候选构成一个完整 6D 位姿并打分，
+# 用“几何贴合×可达×YLYW谨慎×接触面局部平整度”统一选优。
+# =====================================================================
+
+def _local_planarity(points: np.ndarray, query: np.ndarray, k: int = 16)\
+        -> Tuple[float, np.ndarray]:
+    """在点云中 query 附近点的局部平面度与法向。
+
+    返回 (planarity, normal)：
+      planarity ∈[0,1]，1=局部完全平坦(适合夹取)，0=附近很散(边缘/弯曲)。
+      normal 为该邻域最小特征值对应方向(局部法向)。
+    """
+    if len(points) < 3:
+        return 0.5, np.array([0.0, 0.0, 1.0])
+    d2 = np.sum((points - query) ** 2, axis=1)
+    idx = np.argsort(d2)[:k]
+    nbr = points[idx]
+    c = nbr.mean(axis=0)
+    cov = np.cov((nbr - c).T)
+    try:
+        evals, evecs = np.linalg.eigh(cov)
+    except np.linalg.LinAlgError:
+        return 0.5, np.array([0.0, 0.0, 1.0])
+    evals = np.clip(evals, 0, None)
+    total = evals.sum() + 1e-9
+    planarity = 1.0 - evals.min() / total          # 1-最扁特征值占比
+    normal = evecs[:, 0]
+    if normal[2] < 0:
+        normal = -normal
+    return float(min(1.0, max(planarity, 0.0))), normal
+
+
+@dataclass
+class SurfacePoint:
+    """一个物体表面抓取接触点候选。"""
+    name: str
+    xyz_cam_m: np.ndarray       # 接触点(相机系, 米)
+    normal: np.ndarray          # 局部表面法向(相机系, 单位向量)
+    planarity: float            # 局部平整度 [0,1]
+    along_frac: float           # 沿长轴采样位置 [-1,1]，1=长轴正向端
+
+
+def sample_surface_contacts(obj: ObjectFeatures,
+                            n_per_end: int = 2) -> List[SurfacePoint]:
+    """从物体表面采样多个候选抓取接触点(相机系)。
+
+    思路：沿 PCA 长轴 [-1,+1] 取若干位置(两端、中段)，在每个位置取
+    “该位置的表面点”。表面点 = 沿该位置法向/主轴投影到点云最近邻。
+    同时配合局部法向与平整度，供评分把“边缘/曲面”的接触点降权。
+    """
+    pts = np.asarray(obj.points_m, dtype=np.float64)
+    out: List[SurfacePoint] = []
+    if len(pts) < 4:
+        # 无点云时退回到质心单点
+        return [SurfacePoint("centroid", np.asarray(obj.center_m, dtype=float),
+                             np.array([0.0, 0.0, 1.0]), 0.5, 0.0)]
+
+    axes = np.asarray(obj.axes, dtype=np.float64).reshape(3, 3)
+    long_ax = axes[:, 0]
+    center = np.asarray(obj.center_m, dtype=float)
+    dims = np.asarray(obj.dimensions_m)
+    proj = (pts - center) @ long_ax                 # 沿长轴的一维位置
+    lo, hi = proj.min(), proj.max()
+    span = max(hi - lo, 1e-6)
+
+    # 采样位置：两端 + 中段（沿长轴分数）
+    fracs = [-1.0, 1.0]
+    if n_per_end >= 2:
+        fracs = [-1.0, -0.5, 0.5, 1.0]
+
+    def take_at(pos: float, tag: str) -> None:
+        # 与目标一维位置最近的点作为接触点
+        i = int(np.argmin(np.abs(proj - pos)))
+        surf_pt = pts[i]
+        # 沿法向(支撑面法向或长轴方向)投影到“表面”：取该柱内离质心最远的点
+        planarity, normal = _local_planarity(pts, surf_pt)
+        out.append(SurfacePoint(
+            name=f"{tag}", xyz_cam_m=surf_pt.astype(float),
+            normal=normal, planarity=planarity,
+            along_frac=float(np.clip((pos - lo) / span * 2.0 - 1.0, -1, 1))))
+
+    # 左右两端 + 中段共 3~5 个接触点
+    seen = set()
+    for f in fracs:
+        pos = (lo + hi) / 2 + f * (hi - lo) / 2
+        key = round(pos / max(span, 1e-6), 2)
+        if key in seen:
+            continue
+        seen.add(key)
+        take_at(pos, f"surf_{('L' if f < -0.25 else 'R' if f > 0.25 else 'M')}")
+    # 沿中轴/短轴各取一个侧翼点，增加候选多样性
+    for _axis_idx, tag in ((1, "midW"), (2, "shortW")):
+        ax = axes[:, _axis_idx]
+        ap = (pts - center) @ ax
+        pos = ap.max() if (ax @ np.array([0, 0, 1.0])) >= 0 else ap.min()
+        i = int(np.argmax(np.abs(ap)))
+        surf_pt = pts[i]
+        planarity, normal = _local_planarity(pts, surf_pt)
+        out.append(SurfacePoint(name=f"{tag}", xyz_cam_m=surf_pt.astype(float),
+                                normal=normal, planarity=planarity, along_frac=0.0))
+    return out
+
+
+def build_surface_candidates(obj: ObjectFeatures, plan: GraspPlan,
+                             tfr_R: np.ndarray, tfr_t: Optional[np.ndarray] = None,
+                             grip_half_open_mm: float = 60.0,
+                             n_per_end: int = 2) -> List[GraspCandidate]:
+    """从表面多个接触点 × 多个方向候选，构建带位置的完整 6D 抓取候选。
+
+    每个候选的抓取位置来自物体表面实际点(不是质心)，方向来自 PCA 主轴形状
+    策略。评分 = 0.40×几何贴合 + 0.20×局部平整 + 0.20×可达 + 0.20×YLYW。
+
+    参数:
+      tfr_R : 相机→基座 旋转(3x3)，用于方向(主轴/法向)
+      tfr_t : 相机→基座 平移(3,)，用于位置；缺省按 0(仅旋转)
+    """
+    tfr_t = np.zeros(3) if tfr_t is None else np.asarray(tfr_t, dtype=np.float64)
+    dims = np.asarray(obj.dimensions_m) * 1000.0
+    dl = np.sort(dims)[::-1]
+    frame = _Frame(obj, tfr_R)
+    shape = classify_shape(obj.dimensions_m)
+    ylyw_cautious = plan.yao_quality if plan.yao_quality > 0 else 0.5
+
+    # 1) 方向子候选(不带位置，只取接近轴/开合轴/几何贴合分)
+    def orientations():
+        # (name, z_axis, x_axis, fit)
+        list_o = []
+        fit_top = min(1.0, grip_half_open_mm / max(dl[0], 1e-3))
+        list_o.append(("top_down", -frame.up, frame.long_h, fit_top))
+        contact_mm = max(dl[1], dl[2] * 1.1)
+        fit_side = min(1.0, grip_half_open_mm / max(contact_mm, 1e-3))
+        list_o.append(("side_grip", -frame.up, frame.long_h, fit_side))
+        if shape.approach_type == "side_grip" or shape.name == "rod":
+            list_o.append(("side_grip_short", -frame.up, frame.short_h,
+                           min(1.0, grip_half_open_mm / max(dl[2], dl[2] * 0.5 + 1e-3))))
+            list_o.append(("side_grip_long", -frame.up, frame.long_h,
+                           min(1.0, grip_half_open_mm / max(dl[1], dl[1] * 0.5 + 1e-3))))
+        return list_o
+
+    # 2) 表面接触点(相机系)
+    surf_pts = sample_surface_contacts(obj, n_per_end)
+    tfr_R_inv = np.linalg.inv(tfr_R)
+
+    cands: List[GraspCandidate] = []
+    for sp in surf_pts:
+        # 把表面点的局部法向变换到基座系，作为该点的接近方向依据
+        normal_base = tfr_R @ sp.normal
+        n2 = np.linalg.norm(normal_base)
+        normal_base = normal_base / n2 if n2 > 1e-9 else np.array([0.0, 0.0, 1.0])
+        for (oname, z_c, x_c, fit) in orientations():
+            z_axis = np.asarray(z_c, dtype=float); x_axis = np.asarray(x_c, dtype=float)
+            zn = np.linalg.norm(z_axis); z_axis = z_axis / (zn if zn > 1e-9 else 1.0)
+            x_axis = x_axis - np.dot(x_axis, z_axis) * z_axis
+            xn = np.linalg.norm(x_axis)
+            if xn < 1e-6:
+                ref = np.array([0.0, 1.0, 0.0]) if abs(z_axis[2]) < 0.9 \
+                    else np.array([1.0, 0.0, 0.0])
+                x_axis = ref - np.dot(ref, z_axis) * z_axis
+                xn = np.linalg.norm(x_axis) + 1e-9
+            x_axis /= xn
+            y_axis = np.cross(z_axis, x_axis); y_axis /= (np.linalg.norm(y_axis) + 1e-9)
+            reach = 0.4 + abs(z_axis[2]) * 0.6
+            score = (0.40 * fit + 0.20 * sp.planarity
+                     + 0.20 * reach + 0.20 * ylyw_cautious)
+            # 位置：表面点(相机系,m) → 基座系(mm)，需 R@p + t 全变换
+            pos_base = tfr_R @ sp.xyz_cam_m + tfr_t
+            cands.append(GraspCandidate(
+                name=f"{oname}@{sp.name}",
+                approach_axis=z_axis, x_axis=x_axis,
+                offset_mm=None,       # 位置由接触点直接给出，不再用质心偏移
+                contact_base_mm=pos_base * 1000.0,
+                score=float(score), fit=float(fit), reach=float(reach),
+                cautious=float(ylyw_cautious),
+                local_planarity=float(sp.planarity),
+            ))
+    if not cands:
+        return build_candidates(obj, plan, tfr_R, grip_half_open_mm)
+    cands.sort(key=lambda c: c.score, reverse=True)
+    return cands
+
+
+def best_surface_6d(obj: ObjectFeatures, plan: GraspPlan, tfr_R: np.ndarray,
+                    tfr_t: Optional[np.ndarray] = None,
+                    grip_half_open_mm: float = 60.0,
+                    n_per_end: int = 2):
+    """便捷入口：返回 (最优候选, 完整6D位姿, 候选列表)。
+
+    位置来自物体表面实际抓取接触点(基座系 mm)，不再用质心。
+    tfr_R 与 tfr_t 为 相机→基座 旋转/平移(R@p+t)。
+    """
+    cands = build_surface_candidates(obj, plan, tfr_R, tfr_t,
+                                     grip_half_open_mm, n_per_end)
+    best = cands[0]
+    rx, ry, rz = to_rpy(best)
+    if best.contact_base_mm is None:
+        # 兜底：无表面点时退回质心
+        xyz = best.offset_mm if best.offset_mm is not None else np.zeros(3)
+        best6 = np.array([float(xyz[0]), float(xyz[1]), float(xyz[2]), rx, ry, rz])
+        return best, best6, cands
+    pos = best.contact_base_mm
+    pose6d = np.array([float(pos[0]), float(pos[1]), float(pos[2]), rx, ry, rz])
     return best, pose6d, cands

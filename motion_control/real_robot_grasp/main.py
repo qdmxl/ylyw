@@ -41,9 +41,16 @@ LOGGER = logging.getLogger(__name__)
 
 def _build_pose(obj: ObjectFeatures, plan, tfr: CameraToRobot,
                 grasp_cfg: YlywGraspConfig):
-    """由物体特征 + YLYW方案 → 完整 6D 抓取位姿(基座mm+欧拉°)。"""
-    base_xyz_mm = tfr.to_base(obj.center_m, out_mm=True)[:3]
+    """由物体特征 + YLYW方案 → 完整 6D 抓取位姿(基座mm+欧拉°)。
+
+    2026-08-27：改用表面多候选抓取点(best_surface_6d)，抓取位置来自物体
+    表面实际接触点而非质心；若物体无点云则回退到质心(best_6d)。
+    """
     grip_half = float(grasp_cfg.force_range_mm[1] / 2.0)
+    if obj.n_points >= 4:
+        return grasp_pose.best_surface_6d(obj, plan, tfr.R, tfr.t,
+                                          grip_half_open_mm=grip_half)
+    base_xyz_mm = tfr.to_base(obj.center_m, out_mm=True)[:3]
     return grasp_pose.best_6d(obj, plan, tfr.R, base_xyz_mm,
                               grip_half_open_mm=grip_half)
 

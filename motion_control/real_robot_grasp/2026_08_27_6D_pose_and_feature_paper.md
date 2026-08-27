@@ -25,6 +25,8 @@
    - 上游输入信息量不足，会继续限制 L1/L2/L3 的实际判别能力；
    - "13维视觉特征"表述不准确（含人工先验与任务信息），且人工常数缺少数据支撑。
 
+**今日(2026-08-27)又补上第 3 块**：抓取位置仍依赖质心（见第五节 4D→表面点）。
+
 ---
 
 ## 二、问题一解决：完整 6D 抓取位姿生成器
@@ -145,17 +147,51 @@ L1/L2/L3 判别与决策差异化。**
 
 ---
 
+## 五、2026-08-27 补充：表面多候选抓取点（真正闭环"抓哪里"）
+
+前四节解决的 6D 姿态主要改变了**夹爪朝向/接近方向**，但抓取**位置**仍以质心为主。
+本次把位置也真正落到**物体表面实际抓取接触点**：
+
+### 5.1 新增能力
+
+- **`ObjectFeatures.points_m`**：保存（下采样后的）物体点云，供表面采样。
+- **`sample_surface_contacts`**：沿 PCA 长轴两端/中段，以及中轴/短轴侧翼，采样多个表面接触点；
+  每个点用 K 邻域 PCA 求**局部法向 + 局部平整度(planarity)**。
+- **`build_surface_candidates` / `best_surface_6d`**：每个接触点 × 每个方向候选 → 完整 6D 位姿，
+  评分 = 几何贴合 + 局部平整 + 可达 + YLYW谨慎。位置来自表面点（`R@p+t` 全变换，不再只旋转）。
+
+### 5.2 验证（多形状，35 物体）
+
+所选的候选名分布（不再都是同一种）：
+`side_grip@surf_L`, `side_grip@midW`, `top_down@midW`, `side_grip@shortW`,
+`side_grip@surf_R`, `side_grip_short@midW/L/R`, `top_down@surf_R` 等 **9 种**。
+
+不同形状倾向不同的表面抓取点/方式（位置范围覆盖物体尺寸，非单点）：
+
+| 类别 | 抓取位置 x 范围 | 主要候选 |
+|---|---|---|
+| sphere | -100~-3 | top_down@midW/surf_R |
+| cube_large | -114~117 | side_grip_short@midW/surf_L |
+| cylinder_tall | -95~95 | side_grip@surf_L/shortW |
+| bottle | -105~97 | side_grip@surf_L/midW |
+| flat_box | -19~21 | side_grip@midW |
+
+CSV/JSONL 新增 `pose_x/y/z_mm`（表面抓取点基座坐标）、`surface_planarity`（接触面平整度）、
+`pose_name`（形如 `side_grip@surf_L`）。
+
+---
+
 ## 五、关键文件
 
 | 文件 | 改动 |
 |---|---|
-| `grasp_pose.py` | **新增** 6D 位姿生成器（形状分类/候选/评分/欧拉角） |
-| `object_features.py` | 保存 PCA 主轴矩阵；新增 6 个感知估计器；`_mass_kg` |
-| `ylyw_grasp_planner.py` | `GraspPlan` 加 6D 字段；`build_features` 感知优先 |
-| `grasp_controller.py` | `pick` 用 6D 位姿驱动机械臂 |
-| `main.py` | 规划阶段算 6D 并注入；传入场景点云 |
-| `experiment_recorder.py` | CSV/JSONL 记录 6D 位姿与接近/开合轴 |
-| `run_paper_experiments.py` | 修 `_cube` 缩放；传场景点云 |
+| `grasp_pose.py` | **新增** 6D 位姿生成器；**表面多候选抓取点**（`sample_surface_contacts`/`best_surface_6d`）+ 局部平整度评分 |
+| `object_features.py` | 保存 PCA 主轴矩阵；新增 6 个感知估计器；`_mass_kg`；`points_m` 点云字段 |
+| `ylyw_grasp_planner.py` | `GraspPlan` 加 6D 字段/表面平整度；`build_features` 感知优先 |
+| `grasp_controller.py` | `pick` 用表面多候选 6D 位姿驱动机械臂（含平移变换） |
+| `main.py` | 规划阶段算表面 6D 并注入；传入场景点云 |
+| `experiment_recorder.py` | CSV/JSONL 记录 6D 位姿、接近/开合轴、表面平整度 |
+| `run_paper_experiments.py` | 修 `_cube` 缩放；传场景点云；补算表面 6D 位姿 |
 
 验证脚本：同目录 `scripts/` 已有 L3 判别性脚本；6D/特征判别性可直接
 `python -m real_robot_grasp.main --camera-backend synthetic --simulate --rounds N` 复现。

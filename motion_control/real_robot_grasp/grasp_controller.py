@@ -92,18 +92,40 @@ class GraspController:
         # 抓取后抬升到本目标上方更高处
         lift_z_mm = max(approach_z_mm, grasp_z_mm + float(self.config.lift_height_mm))
 
-        # —— 6D 姿态生成：夹爪朝向跟随物体几何 ——
-        if obj is not None and plan.use_6d:
-            best, pose6d, _cands = grasp_pose.best_6d(
-                obj, plan, self.tfr.R,
-                np.array([base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm]),
+        # —— 6D 姿态生成：夹爪朝向跟随物体几何 + 表面多候选抓取点 ——
+        if obj is not None and plan.use_6d and obj.n_points >= 4:
+            best, pose6d, _cands = grasp_pose.best_surface_6d(
+                obj, plan, self.tfr.R, self.tfr.t,
                 grip_half_open_mm=float(self.config.force_range_mm[1] / 2.0))
             gx, gy, gz, rx, ry, rz = pose6d
+            # 表面候选的安全校验(位置来自接触点，仍须在安全桌高区间)
+            if not (z_min <= gz <= z_max):
+                raise ValueError(
+                    f"表面抓取点高度异常 z={gz:.1f}mm 不在安全区间；请检查手-眼标定")
             # 用 6D 位姿作为抓取目标姿态；高位/抬升位保持同一姿态但抬高
             target = [float(gx), float(gy), float(gz), float(rx), float(ry), float(rz)]
             above = [float(gx), float(gy), float(approach_z_mm), float(rx), float(ry), float(rz)]
             lift = [float(gx), float(gy), float(lift_z_mm), float(rx), float(ry), float(rz)]
             # 回写 6D 信息供实验记录
+            plan.grasp_pose_6d = np.array(pose6d, dtype=float)
+            plan.grasp_pose_name = best.name
+            plan.approach_axis = np.asarray(best.approach_axis, dtype=float)
+            plan.open_axis = np.asarray(best.x_axis, dtype=float)
+            plan.grasp_surface_planarity = float(getattr(best, "local_planarity", 0.0))
+            LOGGER.info("→ 6D抓取位姿=%s 候选=%s 接触平整度=%.2f (rx,ry,rz=[%.0f,%.0f,%.0f]°)",
+                        np.round(pose6d[:3], 1), best.name,
+                        getattr(best, "local_planarity", 0.0), rx, ry, rz)
+            LOGGER.info("→ 接近方向=%s 开合方向=%s",
+                        np.round(best.approach_axis, 2), np.round(best.x_axis, 2))
+        elif obj is not None and plan.use_6d:
+            best, pose6d, _cands = grasp_pose.best_6d(
+                obj, plan, self.tfr.R,
+                np.array([base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm]),
+                grip_half_open_mm=float(self.config.force_range_mm[1] / 2.0))
+            gx, gy, gz, rx, ry, rz = pose6d
+            target = [float(gx), float(gy), float(gz), float(rx), float(ry), float(rz)]
+            above = [float(gx), float(gy), float(approach_z_mm), float(rx), float(ry), float(rz)]
+            lift = [float(gx), float(gy), float(lift_z_mm), float(rx), float(ry), float(rz)]
             plan.grasp_pose_6d = np.array(pose6d, dtype=float)
             plan.grasp_pose_name = best.name
             plan.approach_axis = np.asarray(best.approach_axis, dtype=float)
