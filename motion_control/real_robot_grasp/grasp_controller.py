@@ -97,7 +97,7 @@ class GraspController:
             best, pose6d, _cands = grasp_pose.best_6d(
                 obj, plan, self.tfr.R,
                 np.array([base_xyz_mm[0], base_xyz_mm[1], grasp_z_mm]),
-                grip_half_open_mm=float(self.grasp_cfg.force_range_mm[1] / 2.0))
+                grip_half_open_mm=float(self.config.force_range_mm[1] / 2.0))
             gx, gy, gz, rx, ry, rz = pose6d
             # 用 6D 位姿作为抓取目标姿态；高位/抬升位保持同一姿态但抬高
             target = [float(gx), float(gy), float(gz), float(rx), float(ry), float(rz)]

@@ -181,9 +181,15 @@ experiment_phase1` 五处副本）：
   正式论文须用真机实测。
 - **`--simulate` 是软件流程模拟**：内部 IK 返回 seed，不验证可达性/轨迹安全/是否真移动；
   仅验证调用顺序与数据结构。真机前以真实逆解 + 限位校验为准。
-- **13维特征部分为常数占位**：`fragility/occlusion/obstacle_density/task_priority/
-  visibility/deformability` 目前取固定值用于联调；接入 YOLO 类别/材质先验后才是“真实感知”。
-  （`object_features.py` 已注释标注。）
+- **13维特征已真实化**（2026-08）：`fragility/occlusion/obstacle_density/
+  visibility/deformability/task_priority` 由点云+几何+场景真实计算（见
+  `object_features.py` 的估计器），不再取固定占位值；`build_features` 感知值
+  优先，仅具体类别时叠加材质先验。多形状下各特征按类可判别（跨度 2~20 倍）。
+- **完整 6D 抓取位姿**（2026-08）：新增 `grasp_pose.py`，把 PCA 主轴转化为
+  末端位姿 `[x,y,z,rx,ry,rz]`（基座 mm + 欧拉角，MyCobot RPY 内旋 XYZ 约定）。
+  按形状(平板/长条/柱体/块)生成多个候选(top_down/side_grip/side_grip_short/
+  long/top_down_ylyw)并打分比较，夹爪朝向跟随物体几何，不再固定朝下。
+  实机前仍需按实际标定确认姿态坐标系方向。
 
 ---
 
