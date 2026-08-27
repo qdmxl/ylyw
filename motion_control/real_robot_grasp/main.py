@@ -150,7 +150,10 @@ def run_app(args: argparse.Namespace) -> int:
             pointclouds = segment_objects(cloud, feat_cfg)
             objects: List[ObjectFeatures] = []
             for i, pts in enumerate(pointclouds):
-                obj = analyze_object(pts, feat_cfg, label=args.target or "object")
+                obj = analyze_object(pts, feat_cfg, label=args.target or "object",
+                                     all_clouds=[c for j, c in enumerate(pointclouds)
+                                                 if j != i],
+                                     num_clouds=len(pointclouds))
                 if obj is not None:
                     objects.append(obj)
             if not objects:

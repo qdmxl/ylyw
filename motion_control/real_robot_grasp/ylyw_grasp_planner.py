@@ -153,14 +153,26 @@ class YlywGraspPlanner:
         """构造喂给 YLYW 的 13 维特征(可叠加类别先验)。"""
         feats = dict(obj.features)
         meta = self._strategy_maps.get(obj.label, self._strategy_maps["object"])
-        if fragility is None:
-            fragility = meta["fragility"]
+        is_specific = obj.label in self._strategy_maps and obj.label != "object"
+        # --- 质量/力(感知优先，缺失回退类别默认) ---
         if mass_kg is None:
-            mass_kg = meta["default_mass"]
-        feats["fragility"] = float(fragility)
-        feats["deformability"] = float(meta["deformability"])
-        feats["strength_needed"] = min(1.0, mass_kg / 2.0 + 0.1)
-        feats["weight_ratio"] = mass_kg / 2.0
+            mass_kg = feats.get("_mass_kg") or meta["default_mass"]
+        feats["strength_needed"] = min(1.0, float(mass_kg) / 2.0 + 0.1)
+        feats["weight_ratio"] = float(mass_kg) / 2.0
+        # --- 脆弱性：感知值优先，具体类别叠加材质先验 ---
+        perc_frag = float(feats.get("fragility", 0.5))
+        if fragility is not None:
+            feats["fragility"] = float(fragility)
+        elif is_specific:
+            feats["fragility"] = 0.4 * perc_frag + 0.6 * float(meta["fragility"])
+        else:
+            feats["fragility"] = perc_frag
+        # --- 可变形性：同上 ---
+        perc_def = float(feats.get("deformability", 0.1))
+        if is_specific:
+            feats["deformability"] = 0.4 * perc_def + 0.6 * float(meta["deformability"])
+        else:
+            feats["deformability"] = perc_def
         return feats
 
     # ---- 主入口 ----

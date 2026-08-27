@@ -42,13 +42,15 @@ SHAPE_GENERATORS = {
 
 def _cube(r, L, W, H):
     nside = 2000
+    sizes = np.array([L, W, H])
     pts = r.uniform(-1, 1, (nside, 3)) * 0.5
     all_pts = []
     for axis in range(3):
         for s in (-1, 1):
             p = np.copy(pts)
+            # 该面固定在 ±0.5*对应尺寸，其余两维在自身尺寸内散布
             p[:, axis] = s * 0.5
-            p[0] *= L; p[1] *= W; p[2] *= H
+            p = p * sizes
             all_pts.append(p)
     cloud = np.vstack(all_pts)
     cloud[:, 2] = cloud[:, 2] - cloud[:, 2].min()
@@ -111,12 +113,17 @@ def run_experiments(args):
     for rnd in range(1, args.rounds + 1):
         clouds, labels = gen_scene(rng)
         successes_in_scene = 0
-        for cloud, label in zip(clouds, labels):
+        # 为场景级特征(障碍密度/显著度)准备全部物体点云
+        for objidx, (cloud, label) in enumerate(zip(clouds, labels)):
             objs = segment_objects(cloud, feat_cfg)
             if not objs:
                 recorder.log_result(_empty(label), False, 0.0)
                 continue
-            obj = analyze_object(objs[0], feat_cfg, label=label)
+            obj = analyze_object(
+                objs[0], feat_cfg, label=label,
+                all_clouds=[c for j, (c, _) in enumerate(zip(clouds, labels))
+                            if j != objidx and c is not None],
+                num_clouds=len(clouds))
             if obj is None:
                 recorder.log_result(_empty(label), False, 0.0)
                 continue
