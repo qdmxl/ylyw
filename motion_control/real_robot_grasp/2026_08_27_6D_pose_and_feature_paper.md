@@ -240,6 +240,55 @@ support_area` 可直接翻转策略或卦象，是大权重决策特征；
 | `main.py` | 规划阶段算表面 6D 并注入；传入场景点云 |
 | `experiment_recorder.py` | CSV/JSONL 记录 6D 位姿、接近/开合轴、表面平整度 |
 | `run_paper_experiments.py` | 修 `_cube` 缩放；传场景点云；补算表面 6D 位姿 |
+| `ylyw_grasp_planner.py` | (7.1) `GraspPlan` 加 8 个安全字段、`load_safety`+`_safety_arbitrate` 接入双八卦 |
+| `experiment_recorder.py` | (7.1) CSV/JSONL 新增安全等级/力修正/中止等 6 列 |
+| `safety_bagua/verify_against_real_robot_grasp.py` | (7.1) 最小接入验证脚本 |
 
 验证脚本：同目录 `scripts/` 已有 L3 判别性脚本；6D/特征判别性可直接
 `python -m real_robot_grasp.main --camera-backend synthetic --simulate --rounds N` 复现。
+
+---
+
+## 七、2026-08-28 补充：双八卦安全仲裁正式接入实验线
+
+**背景**：YLYW 模型原生机制（专著第5章/论文第6章）是**双八卦并行仲裁**——
+策略八卦决定"应该怎么做"，安全八卦用 6 条物理解析式（力充足/破坏阈值/摩擦锥/
+关节力矩/稳定裕度/穿透）做安全六爻编码→64卦匹配，给出 SAFE/CAUTION/WARNING/
+DANGER/CRITICAL 五级物理合规等级，并对力/速度/策略施加修正，安全拥有最终否决权。
+此前该机制独立存在于 `safety_bagua/` 与 `x2/ylyw_full_pipeline/`，**但未接入
+本次 real_robot_grasp 实验线**——本轮完成正式接入。
+
+### 7.1 接入方式（最小侵入、向后兼容）
+
+- **`ylyw_grasp_planner.py`**：
+  - `GraspPlan` 新增安全字段（`safety_level / safety_hexagram / safety_force_modifier /
+    safety_risk_tags / safety_yao_str / safety_needs_change / safety_aborted / force_origin`）；
+    `reasoning_chain()` 同步输出。
+  - `YlywGraspPlanner.load_safety()` 懒加载 `DualBaguaArbiter`（从 `ylyw.safety_bagua` 导入）；
+    不可用时不阻塞主流程（退化为仅策略八卦，`force_origin=policy`）。
+  - `plan()` 末尾调用 `_safety_arbitrate()`：**最终力 = 策略力 × 安全等级修正**，
+    重算 `close_value`；CAUTION 降速、WARNING/DANGER 用慢速；
+    **CRITICAL 一票否决 → `safety_aborted=True` 终止抓取**。
+- **`experiment_recorder.py`**：CSV 新增 `force_origin / safety_level / safety_hexagram /
+  safety_force_modifier / safety_risk_tags / safety_aborted` 六列；JSONL 通过
+  `reasoning_chain()` 同步记录，复现论文所需三层数据。
+- **`run_paper_experiments.py` / `main.py`** 无需改动（经 `plan()` 自动生效）。
+
+### 7.2 效果（实验线真实数据，20 轮多形状混合，49 样本）
+
+- **87.8% 样本被安全八卦降力**（`force_origin=safety`），平均力修正 **0.818**；
+- 安全等级分布：WARNING 25 / SAFE 11 / CAUTION 12；
+- 按物体类型（符合物理直觉）：
+  - `sphere`：全 WARNING（易滚落/稳定裕度低），平均修正 **0.735**（最保守）；
+  - `flat_box`：多 WARNING（薄壁脆裂），平均修正 0.780；
+  - `bottle`：CAUTION（滑移风险），平均修正 0.855；
+  - `cube_* / cylinder_tall`：多 SAFE（支撑面大/稳定），修正 0.88~0.90。
+
+产物：`experiments/paper_safety_final/`（CSV+JSONL+`safety_bagua_impact.png` 分析图）。
+
+### 7.3 说明与后续
+
+- 安全八卦的物性（质量/破坏力/摩擦）暂由 13 维归一化特征经 `estimate_*` 函数粗推；
+  真机标定时应把 `object_features._mass_kg` 真实质量与几何破坏力传入，触发更高等级
+  （DANGER/CRITICAL）会更灵敏。
+- 本轮实验为合成点云 + 模拟机械臂；真机需按实际机械臂标定安全八卦的物性参数。

@@ -74,6 +74,15 @@ class GraspPlan:
     grasp_surface_planarity: float = 0.0
     # — 特征快照 —
     features: dict = field(default_factory=dict)
+    # — 双八卦安全仲裁(2026-08-28)：安全八卦对策略八卦的输出施加物理合规修正 —
+    safety_level: str = ""            # SAFE/CAUTION/WARNING/DANGER/CRITICAL
+    safety_hexagram: str = ""         # 安全卦象名
+    safety_force_modifier: float = 1.0  # 安全等级力修正(×0.30~×1.00)
+    safety_risk_tags: list = field(default_factory=list)   # 风险标记
+    safety_yao_str: str = ""           # 安全六爻阴阳串
+    safety_needs_change: bool = False  # 是否需要变卦/重选
+    safety_aborted: bool = False       # CRITICAL：强制终止本次抓取
+    force_origin: str = "policy"      # 最终力的来源: policy(仅策略)|safety(经安全八卦)
 
     def reasoning_chain(self) -> Dict:
         """返回完整推理链(供论文可视化/记录)。"""
@@ -103,6 +112,15 @@ class GraspPlan:
             if hasattr(self.approach_axis, "tolist") else None,
             "open_axis": [round(v, 3) for v in self.open_axis.tolist()]
             if hasattr(self.open_axis, "tolist") else None,
+            # 双八卦安全
+            "safety_level": self.safety_level,
+            "safety_hexagram": self.safety_hexagram,
+            "safety_force_modifier": round(self.safety_force_modifier, 3),
+            "safety_risk_tags": list(self.safety_risk_tags),
+            "safety_yao_str": self.safety_yao_str,
+            "safety_needs_change": self.safety_needs_change,
+            "safety_aborted": self.safety_aborted,
+            "force_origin": self.force_origin,
         }
 
 
@@ -114,6 +132,7 @@ class YlywGraspPlanner:
         self.config = config or YlywConfig()
         self.grasp_cfg = grasp or YlywGraspConfig()
         self._manual = None
+        self._arbiter = None
         self._strategy_maps = self._build_class_maps()
 
     def load(self) -> None:
@@ -135,6 +154,86 @@ class YlywGraspPlanner:
             ) from exc
         self._manual = PriorManual(verbose=self.config.verbose)
         LOGGER.info("YLYW 先验手册已加载")
+
+    def load_safety(self) -> None:
+        """懒加载双八卦安全仲裁器(safety_bagua)。
+
+        safety_bagua 是 YLYW 原生机制(专著第5章/论文第6章)：策略八卦决定
+        "应该怎么做"，安全八卦用 6 条物理解析式(力充足/破坏阈值/摩擦锥/力矩/
+        稳定/穿透)做六爻编码→64卦匹配，给出物理合规等级并施加力/速度/策略修正。
+        """
+        if self._arbiter is not None:
+            return
+        try:
+            # ylyw.safety_bagua 的包名是 ylyw → 需要把项目根的父目录(ylyw 的宿主)入 path，
+            # 因为打包模块路径是 <宿主>/ylyw/safety_bagua/...
+            core_dir = Path(self.config.ylyw_core_path)      # e.g. .../ylyw/api_docs
+            proj_root = core_dir.parent                       # .../ylyw （ylyw 包根）
+            host_dir = proj_root.parent                       # .../科研 （ylyw 的宿主目录）
+            if str(host_dir) not in sys.path:
+                sys.path.insert(0, str(host_dir))
+            from ylyw.safety_bagua.dual_bagua_arbiter import DualBaguaArbiter
+            from ylyw.safety_bagua.safety_hexagram_rules import SafetyLevel
+            self._SafetyLevel = SafetyLevel
+            self._arbiter = DualBaguaArbiter(robot_tau_max=5.0)
+            LOGGER.info("双八卦安全仲裁器已加载")
+        except ImportError as exc:
+            # 安全八卦不可用时不阻塞主流程：退化为仅策略八卦(force_origin=policy)
+            LOGGER.warning(f"安全八卦不可用，本次仅策略八卦: {exc}")
+            self._arbiter = False
+
+    def _safety_arbitrate(self, obj, feats, strategy, plan) -> GraspPlan:
+        """用双八卦安全仲裁器对策略输出施加物理合规修正。"""
+        self.load_safety()
+        # 安全八卦不可用 → 保持策略原始输出
+        if not self._arbiter:
+            plan.force_origin = "policy"
+            return plan
+        strategy_out = {
+            "type": strategy.get("type", "generic"),
+            "force": plan.force,
+            "approach_angle": plan.approach_angle_deg,
+            "speed": str(strategy.get("speed", "normal")).lower(),
+            "force_modifier": plan.force_modifier,
+        }
+        try:
+            safe = self._arbiter.arbitrate(
+                features=feats, strategy_output=strategy_out, perception={})
+        except Exception as exc:  # 安全仲裁失败不阻塞抓取，但记录
+            LOGGER.warning(f"安全八卦仲裁失败，按策略输出执行: {exc}")
+            plan.force_origin = "policy"
+            return plan
+
+        # 回写安全信息
+        plan.safety_level = safe.safety_level.value
+        plan.safety_hexagram = safe.safety_hexagram
+        plan.safety_force_modifier = float(safe.force_modifier_total)
+        plan.safety_risk_tags = list(safe.risk_tags)
+        plan.safety_yao_str = safe.safety_yao.yin_yang if safe.safety_yao else ""
+        plan.safety_needs_change = bool(safe.needs_hexagram_change)
+        plan.force_origin = "safety"
+
+        if plan.safety_level == "CRITICAL":
+            # 一票否决：物理上不可执行，强制终止(应拒绝/终止抓取)
+            plan.safety_aborted = True
+            plan.cautions.append("CRITICAL:安全八卦判定物理不可执行，终止抓取")
+            return plan
+        if plan.safety_level == "DANGER":
+            plan.cautions.append("DANGER:物理高风险，需人工确认")
+
+        # 施加力修正：最终力 = 策略力 × 爻位修正 × 安全等级修正
+        # (arbiter 已把 force_modifier_total 记为 爻位×安全 的乘积；这里按安全修正重算)
+        safe_mod = float(safe.force_modifier_total) / max(plan.force_modifier, 1e-9)
+        plan.force = float(np.clip(plan.force * safe_mod, 0.05, 1.0))
+        plan.close_value = self._force_to_close(plan.force)
+        # 速度修正：CAUTION 降一档，WARNING+ 用慢速
+        if plan.safety_level in ("WARNING", "DANGER"):
+            plan.speed_level = self.grasp_cfg.speed_map.get("slow", 20)
+        elif plan.safety_level == "CAUTION":
+            plan.speed_level = min(
+                plan.speed_level,
+                self.grasp_cfg.speed_map.get("normal", 35))
+        return plan
 
     # ---- 类别缺省覆盖(可由 YOLO 类别更新 fragility/质量等) ----
     def _build_class_maps(self) -> dict:
@@ -229,6 +328,9 @@ class YlywGraspPlanner:
         plan.speed_level = self.grasp_cfg.speed_map.get(
             str(strategy.get("speed", "normal")).lower(), 35)
         plan.close_value = self._force_to_close(plan.force)
+
+        # —— 双八卦安全仲裁：安全八卦对策略输出施加物理合规修正(2026-08-28) ——
+        self._safety_arbitrate(obj, feats, strategy, plan)
 
         return plan
 

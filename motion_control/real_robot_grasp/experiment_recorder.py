@@ -37,6 +37,8 @@ CSV_FIELDS = [
     "dominant_trigram", "hexagram", "hexagram_cn", "hexagram_score",
     "yin_yang", "yao_quality", "caution_level", "strategy_type",
     "force", "approach_angle_deg", "speed_level", "close_value",
+    "force_origin", "safety_level", "safety_hexagram", "safety_force_modifier",
+    "safety_risk_tags", "safety_aborted",
     "duration_s",
 ]
 
@@ -112,6 +114,12 @@ class ExperimentRecorder:
             "approach_angle_deg": round(plan.approach_angle_deg, 1),
             "speed_level": plan.speed_level,
             "close_value": plan.close_value,
+            "force_origin": getattr(plan, "force_origin", "policy"),
+            "safety_level": getattr(plan, "safety_level", ""),
+            "safety_hexagram": getattr(plan, "safety_hexagram", ""),
+            "safety_force_modifier": round(getattr(plan, "safety_force_modifier", 1.0), 3),
+            "safety_risk_tags": ";".join(getattr(plan, "safety_risk_tags", [])),
+            "safety_aborted": int(getattr(plan, "safety_aborted", False)),
             "duration_s": round(duration_s, 2),
         }
         self._csv_writer.writerow(row)
