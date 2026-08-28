@@ -292,3 +292,59 @@ DANGER/CRITICAL 五级物理合规等级，并对力/速度/策略施加修正�
   真机标定时应把 `object_features._mass_kg` 真实质量与几何破坏力传入，触发更高等级
   （DANGER/CRITICAL）会更灵敏。
 - 本轮实验为合成点云 + 模拟机械臂；真机需按实际机械臂标定安全八卦的物性参数。
+
+---
+
+## 八、2026-08-28 补充：修复"算了但没用"——表面局部几何真正驱动 6D 抓取 (A+B)
+
+**背景诊断**（马老师逐条核查 `grasp_pose.py` 主流程后指出）：表面抓取主流程
+`sample_surface_contacts → build_surface_candidates → best_surface_6d` 里，多个中间量
+被计算却未真正参与决定最终 `[x,y,z,rx,ry,rz]`：
+- `normal_base`（表面法向→基座系）算出来但从未进入接近轴（姿态仍由 PCA 主轴决定）；
+- `plan.approach_angle_deg`（YLYW 接近角，旧版能改姿态）在新版 `build_surface_candidates`
+  中彻底丢失；
+- `ylyw_cautious` 对同一物体所有候选是同一常数，只改变 score 数值、不改变候选排名；
+- `shape.grip_dim`（夹爪应夹哪条边）定义了却未使用，`fit` 盲目取最长轴；
+- PCA 主轴 180° 翻转未处理（帧间 yaw 跳变）；球/高对称物体无 sphere 分支；
+- `best_surface_6d` 无表面点时 fallback 给 `[0,0,0]`；标定平移无 米/mm 单位守护。
+
+### 8.1 安全类修复 (A: A1+A2+A3)
+
+- **A1** `best_surface_6d` fallback：无表面接触点时退回**真实质心**
+  （`tfr_R @ center_m + tfr_t → *1000`），并将物体质心变换为基座 mm；
+  质心变换失败返回 `None` 让上层拒绝执行，**绝不再给 `[0,0,0]`**。
+- **A2** `CameraToRobot.from_json` 加单位守护：标定平移量若被误存为毫米
+  （如 `[240.95,-44.25,403.24]`，最大分量>10）则抛异常拒绝加载，
+  杜绝后续 `*1000` 变成 24 万 mm 打飞机械臂。
+- **A3** `_Frame` PCA 主轴符号稳定：钉扎 `long_h`（开合轴水平投影）符号
+  （`x<0 → 取反`），消除 PCA 特征向量 ± 等价导致的帧间 yaw 突变
+  （如 20°→-160°）。
+
+### 8.2 抓取质量类修复 (B: B1+B2+B3+B4)
+
+- **B1 法向驱动接近**：每个表面点新增 `surf_normal` 候选，`z_axis = -normal_base`
+  （沿当前表面点法向垂直接近），夹爪真正“贴合局部表面”而非仅用物体整体 PCA。
+- **B2 恢复 YLYW 接近角**：`top_down_ylyw` 候选回归——用 `plan.approach_angle_deg`
+  绕开合轴旋转 top_down 接近方向，恢复 ``YLYW→姿态变化`` 这条被丢弃的因果链。
+- **B3 ylyw 分量差异化**：YLYW 推荐姿态（`surf_normal`/`top_down_ylyw`）获得更高
+  ylyw 分量（`ylyw_boost=1.0` vs 普通候选 `ylyw_cautious`），使 ylyw 从"常量偏置"
+  变为**真正影响候选排序**的项。
+- **B4 grip_dim 语义**：`fit` 改用 `shape.grip_dim` 对应的物体宽度（夹爪开合方向
+  应夹的边），不再盲目用最长轴——长条物体按短边拟合，判定更合理。
+
+### 8.3 回归验证（合成点云 + 模拟机械臂）
+
+- 单元回归：`sphere/rod/plate/cube` 均能生成 `surf_normal`（贴合法向）候选，
+  `top_down_ylyw` 在 YLYW 接近角非零时出现并被选为最优（sphere/cube）；
+  `long_h` 符号全部钉扎为正；`grip_dim` 形状→轴映射正确。
+- A1：无点云物体质心 fallback 输出与手算一致 `[340.95,155.75,548.24]`（非 `[0,0,0]`）。
+- A2：米单位 `to_base` 输出 503mm 量级正确，不触发单位炸机。
+- 整线回归（8 轮）：成功率 19/22≈86%，安全八卦正常（CAUTION/WARNING/SAFE），
+  `surf_normal`/`top_down_ylyw` 大量成为最优候选，姿态 rpy 多样化
+  （-169/-173/174/180…），位置全部非零。
+
+### 8.4 说明
+
+- `surf_normal`/`side_grip` 会把抓取点带到物体侧面/较低高度（贴合表面语义），
+  真机需配合既有 `robot_arm` 关节限位 + 安全高度(Z)检查拦截超工作区值。
+- 本次为 `grasp_pose.py` 核心逻辑重构（A+B 共 7 条），未改动执行层/安全八卦/recorder 接口。

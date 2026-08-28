@@ -36,8 +36,20 @@ class CameraToRobot:
     @classmethod
     def from_json(cls, path: Path) -> "CameraToRobot":
         data = json.loads(Path(path).read_text(encoding="utf-8"))
-        return cls(np.asarray(data["R"], dtype=np.float64),
-                   np.asarray(data["t"], dtype=np.float64))
+        R = np.asarray(data["R"], dtype=np.float64)
+        t = np.asarray(data["t"], dtype=np.float64)
+        # ⚠️ 单位守护：本模块统一采用**米**（p_base = R@p(米) + t(米)，由调用方 *1000→mm）。
+        # 若标定文件里的平移被误存为毫米（如 [240.95,-44.25,403.24]），
+        # 后续 *1000 会变成 24 万 mm 直接把机械臂打飞。这里检测并明确报错，
+        # 宁可拒绝加载也不做隐含换算（避免掩盖实际标定配置错误）。
+        if t.ndim == 1 and t.shape[0] >= 3:
+            mag = float(np.abs(t[:3]).max())
+            if mag > 10.0:  # 若最大分量 >10，几乎必然不是米（臂工作区仅 ~0.4 米）
+                raise ValueError(
+                    f"标定平移量 t={t.tolist()} 疑似为毫米而非米(最大分量 {mag:.1f}>10)。"
+                    "本模块统一用米；请将 t 除以 1000 改为米，或修正标定文件。"
+                )
+        return cls(R, t)
 
     @classmethod
     def from_overhead(cls, cam_pos_m=(0.0, 0.0, 0.45),

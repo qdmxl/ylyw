@@ -149,6 +149,12 @@ class _Frame:
         lh = self.long.copy(); lh[2] = 0.0
         self.long_h = lh / (np.linalg.norm(lh) + 1e-9) if np.linalg.norm(lh) > 1e-6 \
             else np.array([1.0, 0.0, 0.0])
+        # ⚠️ PCA 主轴符号稳定：特征向量 ± 等价，PCA 可能 180° 翻转导致连续两帧
+        #    long_h 反向 → yaw 突变(如 20°→-160°)。钉扎符号使 open-close 轴(长轴
+        #    水平投影)方向连续：优先让非零分量最大者为正，消除帧间大跳变。
+        if self.long_h[0] < 0 or (abs(self.long_h[0]) < 1e-6 and self.long_h[1] < 0):
+            self.long_h = -self.long_h
+            self.long = -self.long      # 长轴整体反向，保持与 long_h 同号
         # 短轴在水平面投影
         sh = self.short.copy(); sh[2] = 0.0
         self.short_h = sh / (np.linalg.norm(sh) + 1e-9) if np.linalg.norm(sh) > 1e-6 \
@@ -389,34 +395,60 @@ def build_surface_candidates(obj: ObjectFeatures, plan: GraspPlan,
     frame = _Frame(obj, tfr_R)
     shape = classify_shape(obj.dimensions_m)
     ylyw_cautious = plan.yao_quality if plan.yao_quality > 0 else 0.5
+    ylyw_angle = float(plan.approach_angle_deg if plan.approach_angle_deg else 0.0)
 
-    # 1) 方向子候选(不带位置，只取接近轴/开合轴/几何贴合分)
-    def orientations():
-        # (name, z_axis, x_axis, fit)
+    # 夹爪开合方向应夹的宽度：按形状的 grip_dim 决定，而不是盲目用长轴 dl[0]。
+    # grip_dim: 0=长轴,1=中轴,2=短轴(见 classify_shape)。拟合度定义为
+    #   fit = 夹爪有效半开 / 开合方向的物体宽度( clamp 到 [0,1])。
+    dl_grip = max(dl[shape.grip_dim], 1e-3)
+
+    # ylyw 分量：YLYW 推荐姿态(贴合法向 / 随卦接近角)获得更高分量，从而真正影响排序；
+    # 普通 top_down/side 基础分量 = ylyw_cautious。这样 ylyw 不再是同物体常量项。
+    ylyw_boost = 1.0                # 对 YLYW 推荐姿态的 ylyw 分量
+    ylyw_base = ylyw_cautious        # 对普通候选
+
+    def _fit_for(width_mm: float) -> float:
+        return float(min(1.0, grip_half_open_mm / max(width_mm, 1e-3)))
+
+    # 1) 方向子候选(不带位置)。z=接近轴(夹爪 -Z 指向), x=开合轴。
+    #    B1: 传入表面点法向 → 额外生成“贴合法向接近”参考姿态。
+    def orientations(surface_normal_base: np.ndarray):
+        # (name, z_axis, x_axis, fit, ylyw_component)
         list_o = []
-        fit_top = min(1.0, grip_half_open_mm / max(dl[0], 1e-3))
-        list_o.append(("top_down", -frame.up, frame.long_h, fit_top))
+        fit_top = _fit_for(dl_grip)                 # B4: 用开合轴方向宽度
+        list_o.append(("top_down", -frame.up, frame.long_h, fit_top, ylyw_base))
         contact_mm = max(dl[1], dl[2] * 1.1)
-        fit_side = min(1.0, grip_half_open_mm / max(contact_mm, 1e-3))
-        list_o.append(("side_grip", -frame.up, frame.long_h, fit_side))
+        fit_side = _fit_for(contact_mm)
+        list_o.append(("side_grip", -frame.up, frame.long_h, fit_side, ylyw_base))
         if shape.approach_type == "side_grip" or shape.name == "rod":
             list_o.append(("side_grip_short", -frame.up, frame.short_h,
-                           min(1.0, grip_half_open_mm / max(dl[2], dl[2] * 0.5 + 1e-3))))
+                           _fit_for(max(dl[2], dl[2] * 0.5 + 1e-3)), ylyw_base))
             list_o.append(("side_grip_long", -frame.up, frame.long_h,
-                           min(1.0, grip_half_open_mm / max(dl[1], dl[1] * 0.5 + 1e-3))))
+                           _fit_for(max(dl[1], dl[1] * 0.5 + 1e-3)), ylyw_base))
+        # B1: 贴合法向接近 —— 夹爪沿当前表面点法向垂直接近(真正“贴合表面”)
+        if np.linalg.norm(surface_normal_base) > 1e-6:
+            list_o.append(("surf_normal", -surface_normal_base, frame.long_h,
+                           fit_top, ylyw_boost))
+        # B2: 恢复 YLYW 接近角对 top_down 的侧倾调制(随卦变接近姿态)
+        if abs(ylyw_angle) > 1e-6:
+            rot_m = _R.from_rotvec(frame.long_h * np.deg2rad(ylyw_angle)).as_matrix()
+            z_mod = rot_m @ (-frame.up)
+            nrm = np.linalg.norm(z_mod)
+            if nrm > 1e-9:
+                list_o.append(("top_down_ylyw", z_mod / nrm, frame.long_h,
+                               fit_top, ylyw_boost))
         return list_o
 
     # 2) 表面接触点(相机系)
     surf_pts = sample_surface_contacts(obj, n_per_end)
-    tfr_R_inv = np.linalg.inv(tfr_R)
 
     cands: List[GraspCandidate] = []
     for sp in surf_pts:
-        # 把表面点的局部法向变换到基座系，作为该点的接近方向依据
+        # 把表面点的局部法向变换到基座系，作为该点接近方向依据(B1 真正使用)
         normal_base = tfr_R @ sp.normal
         n2 = np.linalg.norm(normal_base)
         normal_base = normal_base / n2 if n2 > 1e-9 else np.array([0.0, 0.0, 1.0])
-        for (oname, z_c, x_c, fit) in orientations():
+        for (oname, z_c, x_c, fit, ylyw_c) in orientations(normal_base):
             z_axis = np.asarray(z_c, dtype=float); x_axis = np.asarray(x_c, dtype=float)
             zn = np.linalg.norm(z_axis); z_axis = z_axis / (zn if zn > 1e-9 else 1.0)
             x_axis = x_axis - np.dot(x_axis, z_axis) * z_axis
@@ -430,7 +462,7 @@ def build_surface_candidates(obj: ObjectFeatures, plan: GraspPlan,
             y_axis = np.cross(z_axis, x_axis); y_axis /= (np.linalg.norm(y_axis) + 1e-9)
             reach = 0.4 + abs(z_axis[2]) * 0.6
             score = (0.40 * fit + 0.20 * sp.planarity
-                     + 0.20 * reach + 0.20 * ylyw_cautious)
+                     + 0.20 * reach + 0.20 * ylyw_c)
             # 位置：表面点(相机系,m) → 基座系(mm)，需 R@p + t 全变换
             pos_base = tfr_R @ sp.xyz_cam_m + tfr_t
             cands.append(GraspCandidate(
@@ -439,7 +471,7 @@ def build_surface_candidates(obj: ObjectFeatures, plan: GraspPlan,
                 offset_mm=None,       # 位置由接触点直接给出，不再用质心偏移
                 contact_base_mm=pos_base * 1000.0,
                 score=float(score), fit=float(fit), reach=float(reach),
-                cautious=float(ylyw_cautious),
+                cautious=float(ylyw_c),
                 local_planarity=float(sp.planarity),
             ))
     if not cands:
@@ -462,10 +494,18 @@ def best_surface_6d(obj: ObjectFeatures, plan: GraspPlan, tfr_R: np.ndarray,
     best = cands[0]
     rx, ry, rz = to_rpy(best)
     if best.contact_base_mm is None:
-        # 兜底：无表面点时退回质心
-        xyz = best.offset_mm if best.offset_mm is not None else np.zeros(3)
-        best6 = np.array([float(xyz[0]), float(xyz[1]), float(xyz[2]), rx, ry, rz])
-        return best, best6, cands
+        # 兜底：无表面接触点时退回真实质心（基座系 mm），绝不允许给 [0,0,0]。
+        # 质心 = R @ center_m(米) + t(米) → *1000 得 mm。若无 tfr_t(tfr_t=None 时内部已置 0)则退化为 R@c。
+        center_m = np.asarray(obj.center_m, dtype=np.float64).reshape(-1)
+        t_base = np.zeros(3) if tfr_t is None else np.asarray(tfr_t, dtype=np.float64)
+        center_base_mm = (tfr_R @ center_m + t_base) * 1000.0
+        # 若质心变换失败/非有限，返回 None 以让上层拒绝执行（宁可中止不送危险位姿）
+        if not np.all(np.isfinite(center_base_mm)):
+            LOGGER.error("无法计算真实质心基座坐标，返回 None 拒绝执行")
+            return best, None, cands
+        pose6d = np.array([float(center_base_mm[0]), float(center_base_mm[1]),
+                           float(center_base_mm[2]), rx, ry, rz])
+        return best, pose6d, cands
     pos = best.contact_base_mm
     pose6d = np.array([float(pos[0]), float(pos[1]), float(pos[2]), rx, ry, rz])
     return best, pose6d, cands
