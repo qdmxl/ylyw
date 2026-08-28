@@ -61,7 +61,8 @@ def parse_args(argv: Optional[List[str]] = None) -> argparse.Namespace:
                    help="模拟机械臂(不驱动硬件)，用于无硬件联调")
     p.add_argument("--rounds", type=int, default=5, help="连续抓取轮数")
     p.add_argument("--port", default="COM3", help="机械臂串口")
-    p.add_argument("--baudrate", type=int, default=1000000)
+    p.add_argument("--baudrate", type=int, default=115200,
+                  help="机械臂波特率(真机 280-M5 用 115200；280-Arduino 则用 1000000)")
     p.add_argument("--camera-backend", choices=("realsense", "opencv", "synthetic"),
                    default="realsense")
     p.add_argument("--target", default=None,

@@ -97,12 +97,19 @@ class YlywGraspConfig:
 # ============ 机械臂执行器 ============
 @dataclass(slots=True)
 class RobotConfig:
-    """MyCobot 280 执行器配置。"""
+    """MyCobot 280 执行器配置。(真机: 280-M5)
+
+    ⚠️ 波特率/型号两者必须配套：280-Arduino 用 1_000_000；280-M5 用 115200。
+    本项目真机为 280-M5，默认已按 M5 配置。
+    """
     port: str = "COM3"                    # Windows 例；Linux 用 /dev/ttyUSB0
-    baudrate: int = 1000000               # 280-Arduino 用 1_000_000；280-M5 用 115200
-    model: str = "280-arduino"            # 280-arduino | 280-m5
+    baudrate: int = 115200                # 280-M5 默认波特率(真机)；280-Arduino 需改 1_000_000
+    model: str = "280-m5"                 # 280-arduino | 280-m5（真机为 280-m5）
     timeout: float = 2.0
-    # 关节限位(度)，与参考实例一致
+    # 关节限位(度)：直接取自参考实例(elephant/…/auto_grasp_once.py 的 LIMITS)，
+    # 该参考实例各脚本均标注为 MyCobot 280-M5 真机验证过的安全限位。
+    # 说明: 比官方出厂范围(M5 官方约 J1±170/J2±130/J3±150/J4±145/J5±165/J6±180)
+    #       更保守 —— 是对真机实测的修正，尤其 J5 上限/下限受夹爪连接与限位报警影响。
     joint_limits: list = field(default_factory=lambda: [
         (-168.0, 168.0), (-140.0, 140.0), (-150.0, 150.0),
         (-150.0, 150.0), (-155.0, 160.0), (-180.0, 180.0),
