@@ -68,10 +68,9 @@ python scripts/demo_stand.py
 # 2) 抗扰评估:施加前向冲量 0.4 m/s,观察 hold-stand 控制器能否恢复
 python scripts/demo_balance.py --push 0.4 --horizon 3.0
 
-# 3) headless 渲染姿态帧(无 GUI 也能出图)
-python scripts/draw_state.py --precache          # 一次性生成低模缓存
-python scripts/draw_state.py --key STAND --out data/stand.png
-python scripts/draw_state.py --key SIT   --out data/sit.png
+# 3) headless 渲染: 本机有 Wayland GL → 真 MuJoCo 渲染(不再用点云)
+python scripts/render_frames.py --key STAND --out data/gl_stand.png
+python scripts/render_frames.py --key STAND --anim --horizon 2.0 --out data/duck.gif
 ```
 
 ## 在你代码(ylyw)里怎么用
@@ -106,6 +105,21 @@ joint_pos(14), joint_vel(14), foot_l, foot_r]`。
   (这是真实双足动力学;证明环境忠实,也说明*行走必须靠 ylyw 的主动平衡控制器来做*)。
 - ℹ️ 足底碰撞 geom 略高于地面(~2.8mm),`foot_l/r` 触地标志会抖动;判断“站地/腾空”
   更稳妥的指标是 `trunk z` 与 CoM(见 `observe`/is_upright)。低模可视化为点云,仅示意结构。
+
+### True MuJoCo 真渲染(本机可用!别再用点云)
+
+这台 Ubuntu(Wayland/GNOME + VirtualBox)其实有 OpenGL(Xwayland :0),MuJoCo
+的 `Renderer` 能出**真彩色真效果**。`scripts/gl_env.py` 会自动找到 X 显示与授权
+cookie(不必手输环境变量),`scripts/render_frames.py` 优先用它、无 GL 才回退点云:
+
+```bash
+python scripts/render_frames.py --key STAND --out data/gl_stand.png
+python scripts/render_frames.py --key SIT   --out data/gl_sit.png
+python scripts/render_frames.py --key FOLD  --out data/gl_fold.png
+python scripts/render_frames.py --key STAND --anim --horizon 2.0 --out data/duck_anim.gif
+```
+
+> 旧点云可视化 `scripts/draw_state.py` 保留作唯一无 GL 环境的回退。
 
 ## 关于官方观测量(给想对齐 RL 的人)
 
