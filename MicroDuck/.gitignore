@@ -1,0 +1,11 @@
+# generated control models (regenerable)
+sim/models/microduck/_ylyw_control_*.xml
+# official training repo clone — 只读参考,不进 ylyw 版本库
+microduck_rl/
+# low-poly visual cache (regenerable)
+sim/cache/
+# render outputs / experiment data
+sim/data/*.png
+sim/data/*.csv
+__pycache__/
+*.pyc
