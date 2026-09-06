@@ -106,6 +106,23 @@ joint_pos(14), joint_vel(14), foot_l, foot_r]`。
 - ℹ️ 足底碰撞 geom 略高于地面(~2.8mm),`foot_l/r` 触地标志会抖动;判断“站地/腾空”
   更稳妥的指标是 `trunk z` 与 CoM(见 `observe`/is_upright)。低模可视化为点云,仅示意结构。
 
+### 用 ylyw 步态真走一段(demo)
+
+`ylyw_algos/gait.py` 里给了一个“相位步态”控制器(ylyw 易理相位思路:左右腿互为阴/阳、
+相位差 π,由单一相位 φ 驱动 + 躯干俯仰闭环抗栽)。已扫描出一组在 CPU 上**能直立前移**的参数并固化:
+无 GPU、无需学习,即可走出:
+
+```bash
+python scripts/demo_walk.py --secs 3         # 评估: upright=1.0, final_x≈+0.115 m
+python scripts/demo_walk.py --secs 2.5 \
+    --out data/duck_walk.gif                 # 渲染成动图看腿交替迈步
+```
+
+> 定稿参数 `make_walk_ctrl()`(freq 1.8 Hz, amp~0.05, lift 0.06, bal 0.10)在 CPU 仿真是**确定性的**:
+> 3 s 全程直立、净前进 +0.12 m、接触以单足交替为主(single_frac≈0.6, 双离地<15%)。
+> 说明:这是“稳定小步走”的种子策略,不是大步行走;想走更快/更久需要更强的协调(ylyw 自适应
+> 或接入学习)。参数再调/验证见 `scripts/search_gait.py --strict`,诊断足相用 `diag_gait.py`。
+
 ### True MuJoCo 真渲染(本机可用!别再用点云)
 
 这台 Ubuntu(Wayland/GNOME + VirtualBox)其实有 OpenGL(Xwayland :0),MuJoCo

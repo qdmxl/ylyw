@@ -21,6 +21,25 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import mujoco  # noqa:E402
 from gl_env import configure_opengl_env  # noqa:E402
 from env.microduck_env import ensure_control_model, SERVO_JOINTS, _HOME  # noqa:E402
+from draw_state import draw_state  # noqa:E402
+
+
+_ALGOS = {}  # 注册动图控制器选择器(可选导入)
+
+
+def _resolve_controllers(name):
+    if not name:
+        return ()
+    if name == "walk":
+        try:
+            from ylyw_algos.gait import make_walk_ctrl
+            return (make_walk_ctrl(speed_ramp=0.0),)
+        except Exception as e:
+            print("[warn] walk algo unavailable:", e)
+            return ()
+    if name == "hold":
+        return (hold_stand,)
+    raise SystemExit(f"未知 --algo {name}(可用: walk / hold)")
 
 
 def gl_probe() -> bool:
@@ -94,7 +113,9 @@ def render_frames(xml_path=None, out=None, keyframe=None,
             for _ in range(int(env.control_dt / env.dt)):
                 mujoco.mj_step(env.model, env.data)
             if i % every == 0:
-                _set_camera(ren, env.model, env.data)
+                # 相机跟随躯干水平位移
+                cam = dict(lookat=(float(env.data.qpos[0]), 0.008, 0.09))
+                _set_camera(ren, env.model, env.data, **cam)
                 imgs.append(snap())
             if i % 200 == 0 and i:
                 print(f"  渲染进度 {i}/{n}")
@@ -138,8 +159,11 @@ def main():
     ap.add_argument("--horizon", type=float, default=2.0)
     ap.add_argument("--step", type=float, default=0.05)
     ap.add_argument("--fps", type=int, default=12)
+    ap.add_argument("--algo", default=None, help="动图控制器选择: walk / hold (默认 hold)")
     a = ap.parse_args()
-    ctrls = (hold_stand,) if a.anim else ()
+    if a.anim and not a.algo:
+        a.algo = "hold"
+    ctrls = _resolve_controllers(a.algo)
     ext_ok = a.out.lower().endswith((".gif", ".png", ".jpg", ".jpeg"))
     out = a.out if ext_ok else (a.out + (".gif" if a.anim else ".png"))
     render_frames(keyframe=a.key, out=out, controllers=ctrls,
