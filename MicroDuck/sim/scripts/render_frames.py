@@ -113,35 +113,41 @@ def render_frames(xml_path=None, out=None, keyframe=None,
 
     if controllers:
         from env.microduck_env import StandingEnv
-        env = StandingEnv(xml_path=xml, control_dt=0.02)
+        # 以控制/dt 时钟跑仿真,控制与快照用同一只钟:直接跑 control_dt 周期,
+        # 每攒够 step_s 的仿真时间截一帧(与无渲染验证 harness 同源,免除之前
+        # “控制t超前物理2.5x→双脚同步/秒倒”的 bug)。
+        control = 0.02
+        env = StandingEnv(xml_path=xml, control_dt=control)
         env.reset(keyframe or "STAND")
-        n = int(horizon_s / max(step_s, 1e-6))
-        every = max(1, int(round(1.0 / step_s / fps)))
         imgs = []
-        for i in range(n):
+        sim_t = 0.0
+        dt_disp = max(step_s, control)
+        last_disp_ix = -1
+        while sim_t < horizon_s - 1e-9:
             obs = env.observe()
             for ctrl in controllers:
-                t = ctrl(env, obs, i * step_s)
-                if t is not None:
-                    env.set_target(np.asarray(t, dtype=float))
+                tg = ctrl(env, obs, sim_t)     # 真实仿真秒(与无渲染 harness 同源)
+                if tg is not None:
+                    env.set_target(np.asarray(tg, dtype=float))
             for _ in range(int(env.control_dt / env.dt)):
                 mujoco.mj_step(env.model, env.data)
-            if i % every == 0:
-                # 相机跟随躯干水平位移
+            disp_ix = int(round(sim_t / dt_disp, 6))
+            if disp_ix != last_disp_ix and sim_t >= dt_disp * disp_ix - 1e-6:
                 cam = dict(lookat=(float(env.data.qpos[0]), 0.008, 0.09))
                 _set_camera(ren, env.model, env.data, **cam)
                 imgs.append(snap())
-            if i % 200 == 0 and i:
-                print(f"  渲染进度 {i}/{n}")
+                last_disp_ix = disp_ix
+            sim_t += env.control_dt
         ren.close()
         if not out.lower().endswith(".gif"):
             out = os.path.splitext(out)[0] + ".gif"
-        imgs[0].save(out, save_all=True, append_images=imgs[1:],
-                     duration=int(1000 / fps), loop=0)
-        fp = os.path.splitext(out)[0] + "_frame0.png"
-        imgs[0].save(fp)
-        print(f"已渲染动图 -> {out}  ({len(imgs)} 帧, {W}x{H})")
-        print(f"首帧另存: {fp}")
+        if imgs:
+            imgs[0].save(out, save_all=True, append_images=imgs[1:],
+                         duration=int(1000 / fps), loop=0)
+            fp = os.path.splitext(out)[0] + "_frame0.png"
+            imgs[0].save(fp)
+            print(f"已渲染动图 -> {out}  ({len(imgs)} 帧, {W}x{H})")
+            print(f"首帧另存: {fp}")
         return out
     else:
         d = mujoco.MjData(m)
