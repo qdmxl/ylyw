@@ -150,3 +150,16 @@ python scripts/render_frames.py --key STAND --anim --horizon 2.0 --out data/duck
 - Python 3.14(实测)、mujoco 3.9、numpy、lxml;可视化另需 trimesh+matplotlib。
 - 训练执行器(BAM/Warp)走官方 `microduck_rl`;本基座 CPU 全程可跑,无需 GPU。
 - 许可证:模型/代码源自 Apache-2.0 官方项目(3D 模型 CC BY-SA-NC)。
+
+### ylyw 步态 v2：参照宇树G1那套(八卦→六爻→卦 → 相位振荡器)
+
+`ylyw_algos/ylyw_gait_v2.py` 把 **motion_control/launch_mujoco_g1.py**(宇树人形那套 ylyw
+运动控制)port 到 14 DoF 小鸭：六十四卦推理(ylyw/motion_control 真实 L1L2L3)给步态参数
+{speed,freq,step_height,force}，再由**相位振荡器**(左右腿反相驱动)输出 14 关节目标；带
+“知己”式摔倒抑制(实时倾角大就收力)。零样本·无 RL —— 模板为 body-agnostic 相对量。
+
+运行/渲染：
+```bash
+python -c "import sys;sys.path.insert(0,'ylyw_algos');from env.microduck_env import StandingEnv;from ylyw_algos import ylyw_gait_v2 as v2;env=StandingEnv();print(env.run_gait_record(v2.YLYWMicroDuckGait(intent='walk',lean=0.012),seconds=3.0)[1])"
+python scripts/render_frames.py --anim --algo ylyw2 --horizon 2.8 --out data/duck_ylyw2.gif
+```

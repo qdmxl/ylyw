@@ -39,7 +39,14 @@ def _resolve_controllers(name):
             return ()
     if name == "hold":
         return (hold_stand,)
-    raise SystemExit(f"未知 --algo {name}(可用: walk / hold)")
+    if name in ("ylyw2", "ylyw", "zhiji", "v2"):
+        try:
+            from ylyw_algos.ylyw_gait_v2 import YLYWMicroDuckGait
+            return (YLYWMicroDuckGait(intent="walk", lean=0.012),)
+        except Exception as e:
+            print("[warn] ylyw-v2 algo unavailable:", e)
+            return ()
+    raise SystemExit(f"未知 --algo {name}(可用: walk / hold / ylyw2)")
 
 
 def gl_probe() -> bool:
