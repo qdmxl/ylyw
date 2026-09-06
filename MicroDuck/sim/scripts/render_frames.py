@@ -46,7 +46,14 @@ def _resolve_controllers(name):
         except Exception as e:
             print("[warn] ylyw-v2 algo unavailable:", e)
             return ()
-    raise SystemExit(f"未知 --algo {name}(可用: walk / hold / ylyw2)")
+    if name in ("waddle", "ylyww", "duck"):
+        try:
+            from ylyw_algos.ylyw_gait_v2 import YLYWMicroDuckGait
+            return (YLYWMicroDuckGait(intent="waddle"),)
+        except Exception as e:
+            print("[warn] waddle algo unavailable:", e)
+            return ()
+    raise SystemExit(f"未知 --algo {name}(可用: walk / hold / ylyw2 / waddle)")
 
 
 def gl_probe() -> bool:

@@ -163,3 +163,15 @@ python scripts/render_frames.py --key STAND --anim --horizon 2.0 --out data/duck
 python -c "import sys;sys.path.insert(0,'ylyw_algos');from env.microduck_env import StandingEnv;from ylyw_algos import ylyw_gait_v2 as v2;env=StandingEnv();print(env.run_gait_record(v2.YLYWMicroDuckGait(intent='walk',lean=0.012),seconds=3.0)[1])"
 python scripts/render_frames.py --anim --algo ylyw2 --horizon 2.8 --out data/duck_ylyw2.gif
 ```
+
+
+### 鸭子摇摆步 waddle(看得出的交替+前进)
+
+`ylyw_gait_v2.YLYWMicroDuckGait(intent='waddle')`:对这只短腿、头重、脚小的 MicroDuck,
+物理上开环"高抬腿单足交替"必倒(见探讨),但**摇摆步**稳定:髋滚左右滚重心(身体随步摆)
++ 两腿各半周期交替前放,保持近双撑。确定性: upright=1.0、4s 稳定前移 +0.12m。
+
+```bash
+python scripts/render_frames.py --anim --algo waddle --horizon 3.6 --out data/duck_waddle.gif
+python scripts/live_viewer.py --algo waddle
+```

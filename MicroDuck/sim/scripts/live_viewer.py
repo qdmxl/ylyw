@@ -41,6 +41,10 @@ def build_controller(algo, args_cmd=None):
         from ylyw_algos.ylyw_gait_v2 import YLYWMicroDuckGait
         c = YLYWMicroDuckGait(intent="walk", lean=0.012)
         return c, lambda: getattr(c, "_state", None)
+    if algo in ("waddle", "ylyww", "duck"):
+        from ylyw_algos.ylyw_gait_v2 import YLYWMicroDuckGait
+        c = YLYWMicroDuckGait(intent="waddle")
+        return c, lambda: getattr(c, "_state", None)
     if algo == "walk":
         from ylyw_algos.gait import make_walk_ctrl
         from ylyw_algos.gait import SERVO_JOINTS as _  # noqa:F401  (确保存在)

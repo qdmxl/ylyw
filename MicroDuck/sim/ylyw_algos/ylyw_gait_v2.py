@@ -48,6 +48,11 @@ _LEG_M = 0.11       # MicroDuck 腿长(取步高折算腿/杆用)
 SAFE_AMP = 0.06
 SAFE_HZ = 2.0
 
+# ---- 鸭子摇摆步(waddle):已物理验证 15 确定性 PASS,开环、不倒 ——
+# 该候选是“正常走/快走”卦在本短腿小鸭(body-agnostic 模板安全映射)上最稳的形态:
+# 髋滚左右交替滚重心(身体随步摆) + 每腿半个周期前送平降,保持大部分非全双撑但始终直立前移。
+WADDLE = dict(freq=1.6, sway=0.20, amp=0.10)
+
 
 # ---------------------------------------------------------------- ylyw 意图
 def infer_gait_walk():
@@ -124,39 +129,66 @@ class YLYWPhasePrimitive:
 
 
 class YLYWMicroDuckGait:
-    """主控制器: 卦(去→gait参数) × 相位振荡 → 目标角; 知己收力保留直立。"""
+    """主控制器: 卦(由意图取) × 相位振荡 → 目标角,或直接走鸭子摆步(intent='waddle')。
 
-    def __init__(self, intent="walk", cmd=None, bal=0.0, lean=0.0):
-        self.intent = intent          # 'walk' / 'calm' / 由 cmd 干预
+    intent:
+      'walk'/'calm' : 真六十四卦推理→相位振荡(宇树G1那套 port)
+      'waddle'      : 鸭子摇摆步(经物理验证 15 PASS 的开环候选:髋滚摆重心+腿交替前放)
+    """
+
+    def __init__(self, intent="waddle", cmd=None, lean=0.0):
+        self.intent = intent
         self.cmd = cmd                # fn(t)->0..1 通行意愿(0=停)
-        self.bal = bal
         self.lean = lean
         self.prim = YLYWPhasePrimitive()
+        self._phase_w = 0.0
         self._state = None
 
     def __call__(self, env, obs, t):
-        # 1) 由意图取卦(0.5s 平滑防抖:这里步进读,保持状态连续)
-        if self.intent == "calm":
-            gp = infer_gait_calm()
-        else:
-            gp = infer_gait_walk()
-        freq = gp['freq']
-        # 2) 通行意愿(0~1): 0→停(静立不做相位)
         want = 1.0
         if self.cmd is not None:
             want = float(np.clip(self.cmd(env, t), 0.0, 1.0))
+        if t is not None and abs(t) < 1e-6:   # 新一次 run 从 t=0 开始 → 相位归零(确定性)
+            self._phase_w = 0.0
+            self.prim.phase = 0.0
         if want < 0.03:
-            return HOME.copy()   # 干净停在站立
-        freq *= (0.3 + 0.7 * want)
-        # 3) 知己: 实时若躯干倾角大→收幅(防栽), 平稳→放开
+            return HOME.copy()
+        if self.intent == "waddle":
+            return self._waddle(want, env)
+        # ---- 六十四卦推理路线(宇树G1那套) ----
+        gp = infer_gait_calm() if self.intent == "calm" else infer_gait_walk()
+        freq = gp['freq'] * (0.3 + 0.7 * want)
         quietcap = 1.0
         if env.is_upright():
             self.prim.advance(min(freq, SAFE_HZ), env.control_dt)
             quietcap = self._nofall_scale(env)
-        tgt = self.prim.targets(gp, ratemul=want * quietcap,
-                                lean=self.lean, bal=self.bal, env=env)
+        tgt = self.prim.targets(gp, ratemul=want * quietcap, lean=self.lean, env=env)
         self._state = (gp['gait_name'], round(quietcap, 3))
         return tgt
+
+    def _waddle(self, want, env):
+        """鸭子摇摆步: 髋滚左右滚重心 + 腿半个周期交替前放平降。
+        参数取自 WADDLE(已确定, 无需每帧扫): freq/sway/amp。
+        """
+        w = WADDLE
+        freq = w['freq']
+        sway = w['sway'] * (0.3 + 0.7 * want)
+        amp = w['amp'] * (0.5 + 0.5 * want)
+        LR, RR = 1, 10
+        LHP, RHP = 2, 11
+        if env.is_upright():
+            self._phase_w = (self._phase_w + freq * env.control_dt * 2 * np.pi) % (2 * np.pi)
+        ph = self._phase_w
+        s = np.sin(ph)
+        tg = HOME.copy()
+        tg[LR] = HOME[LR] - sway * s
+        tg[RR] = HOME[RR] + sway * s
+        Ls = max(0.0, np.cos(ph))
+        Rs = max(0.0, -np.cos(ph))
+        tg[LHP] = HOME[LHP] - amp * Ls
+        tg[RHP] = HOME[RHP] + amp * Rs
+        self._state = ("鸭子摇摆步", round(sway, 2))
+        return tg
 
     def _nofall_scale(self, env, k=3.5):
         # 躯干倾角>0.1rad (~6°) 开始逐级收力
