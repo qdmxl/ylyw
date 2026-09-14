@@ -23,3 +23,7 @@ __pycache__/
 # 操作系统
 .DS_Store
 Thumbs.db
+
+# 投稿 PDF 与论文草稿产物入库
+!paper/**/*.pdf
+!paper/**/*.docx

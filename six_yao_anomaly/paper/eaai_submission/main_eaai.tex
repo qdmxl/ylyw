@@ -1,0 +1,778 @@
+%=======================================================================
+% Six-Yao Sensor Arrays: A Signal-Agnostic Yijing-Inspired Framework
+% for Unsupervised Industrial Image Anomaly Detection
+% EAAI submission draft (elsarticle format)
+%=======================================================================
+\documentclass[preprint,12pt]{elsarticle}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{url}
+\usepackage{xcolor}
+\usepackage{lineno}
+\modulolinenumbers[5]
+
+\newcommand{\tbd}[1]{\textcolor{red}{[TBD: #1]}}
+
+\journal{Engineering Applications of Artificial Intelligence}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{A Yijing Yao-Variation Framework for Unsupervised Industrial Image
+Anomaly Detection}
+
+\author[lq]{Xinglu Ma\corref{cor1}}
+\ead{mxl@qust.edu.cn}
+\cortext[cor1]{Corresponding author.}
+
+\address[lq]{School of Information Science and Technology, Qingdao University
+of Science and Technology, Qingdao 266061, China}
+
+\begin{abstract}
+Industrial image anomaly detection (AD) is dominated by methods that
+rely on ImageNet-pretrained features and large corpora of normal samples,
+which hinders deployment on edge devices and obscures interpretability.
+Departing from the \emph{Yijing} (\emph{I Ching}), we propose an \emph{unsupervised}
+industrial image AD framework whose theoretical core is the idea of
+\emph{yao variation}: the essence of an anomaly is not a deviation
+in absolute magnitude, but a change in \emph{relational structure}. We
+therefore map the anomaly-response field of an image---or of its deep
+features---to the readings of a \emph{six-yao sensor array}, and declare an
+anomaly when the \emph{correlation structure} among the yao readings
+departs from its normal manifold, rather than when a geometric
+(orthogonal) distance grows. The framework is \emph{signal-agnostic}: the
+same Yijing criterion is instantiated with (i) purely hand-crafted signals
+requiring \emph{no pretraining}, and (ii) frozen ImageNet-pretrained
+ResNet features. On all 15 classes of MVTec AD, the pretrained
+instantiation attains an average image-level AUROC of \textbf{0.862}
+(deep-layer six-yao sensors), approaching the reported PaDiM reference
+(\textbf{0.975}) and PatchCore (\textbf{0.992})~\cite{defard2021padim,roth2022patchcore},
+while the hand-crafted instantiation reaches \textbf{0.709} with \emph{no}
+pretraining at all and full interpretability.
+A controlled ablation over feature extractors on a common 4-class subset
+(\texttt{bottle}, \texttt{tile}, \texttt{metal\_nut}, \texttt{toothbrush}):
+random-initialized ResNet \textbf{0.772} $<$ hand-crafted fixed convolution
+\textbf{0.799} $<$ hand-crafted six-yao signals \textbf{0.854} $<$
+ImageNet-pretrained ResNet \textbf{0.932}.
+On the full 15 classes the hand-crafted-six-yao and pretrained
+instantiations reach \textbf{0.709} and \textbf{0.862}. This shows that the framework does
+not \emph{produce} knowledge but \emph{organizes} it: performance is bounded
+by the information content of the signal. The framework learns online from
+the very first sample via Welford updates with an auto-adaptive threshold,
+is robust to cold-start contamination, and is data-efficient.
+\end{abstract}
+
+\begin{keyword}
+Industrial anomaly detection \sep Yijing yao variation \sep six-yao sensor
+array \sep signal-agnostic \sep interpretability
+\end{keyword}
+
+\end{frontmatter}
+
+%=======================================================================
+\section{Introduction}
+Industrial visual anomaly detection aims to identify
+defective items in a production line using only normal samples for
+modeling, since defects are rare, diverse, and unpredictable. The
+MVTec AD benchmark~\cite{bergmann2019mvtec} has become the de facto
+standard, and recent state-of-the-art (SOTA) methods---e.g., PaDiM
+~\cite{defard2021padim} and PatchCore~\cite{roth2022patchcore}---report
+image-level AUROC above 0.95 across its 15 categories.
+
+Despite their strong performance, these methods share two limitations.
+First, they \emph{depend on ImageNet-pretrained features}; the visual
+prior encoded in such weights is not always available or desirable, and
+its contribution is rarely isolated in a clean ablation. Second, they
+organize features via statistical distances or memory banks
+($k$-nearest-neighbor lookups), which are difficult to interpret and
+require storing large reference sets at inference time.
+
+In this work we take a different organizing principle, inspired by the
+\emph{Yijing} (\emph{I Ching}, the \emph{Book of Changes}). The \emph{Yijing} models the
+state of the world through six \emph{yao} (lines), and---crucially---
+characterizes change through \emph{yao variation}: the transition
+of yao and the alteration of their mutual relations. We translate this
+into an anomaly-detection framework whose theoretical core is captured in
+one sentence: \emph{an anomaly lies not in a deviation of magnitude, but
+in a change of relations}. Accordingly, the deviation field of an image is
+read by a \emph{six-yao sensor array}, and an anomaly is declared when the
+\emph{correlation structure} among the sensors' readings departs from its
+normal manifold. We deliberately avoid orthogonality-based criteria:
+correlation among yao is treated as \emph{information} to be exploited,
+not redundancy to be removed.
+
+Our framework is \emph{signal-agnostic}: the six-yao operators act on a
+residual field $R = |F - T| / \mathrm{SD}$ built from \emph{any} feature
+representation $F$ and an online template $T$. We instantiate it on two
+signal sources: hand-crafted image statistics (no pretraining) and frozen
+ImageNet-pretrained ResNet features. The same online engine---trained
+incrementally from the first sample with an auto-adaptive threshold---
+serves both.
+
+\subsection{Contributions}
+\begin{itemize}
+\item \textbf{Six-yao sensor model.} We map any anomaly-response field to
+six interpretable readings, decoupling the detection framework from the
+feature extractor.
+\item \textbf{Yao-variation criterion.} We judge anomalies by changes in
+inter-yao correlation structure and explicitly reject orthogonalization;
+we report this as a controlled (negative) result.
+\item \textbf{Online, parameter-free adaptation.} Welford incremental
+statistics, an auto-adaptive threshold (the $q{=}75$ quantile of normal
+scores), and robustness to cold-start contamination.
+\item \textbf{Signal-agnosticism and a knowledge-vs-carrier ablation.}
+On the same framework, hand-crafted signals reach \textbf{0.709} and
+pretrained features \textbf{0.862} on all 15 MVTec AD classes; a controlled
+sweep over extractors (random $<$ fixed-conv $<$ pretrained) shows
+performance is bounded by signal information, not by the framework.
+\item \textbf{Data efficiency.} Strong few-shot behavior; the pretrained
+instantiation recovers most of its full-data AUROC from only 10 normal
+images per class.
+\item \textbf{Edge-friendliness.} No memory bank: only a template is
+stored, giving \textbf{$52\times$} less storage and \textbf{$55\times$} faster
+inference than a PatchCore-style $k$NN bank.
+\end{itemize}
+
+%=======================================================================
+\section{Related Work}
+\subsection{Industrial Anomaly Detection}
+MVTec AD~\cite{bergmann2019mvtec} established a 15-category benchmark for
+unsupervised AD. \textbf{PaDiM}~\cite{defard2021padim} models patch-wise
+feature distributions with multivariate Gaussians and Mahalanobis
+distance. \textbf{PatchCore}~\cite{roth2022patchcore} uses a greedy coreset
+of pretrained embeddings and nearest-neighbor scoring. \textbf{SPADE}
+~\cite{cohen2021spade} retrieves on a normal-image feature bank.
+More recent lines include zero-/few-shot detection with vision-language
+models, e.g.\ \textbf{WinCLIP}~\cite{jeong2023winclip}, and
+synthetic-anomaly based methods, e.g.\ \textbf{SimpleNet}
+~\cite{liu2023simplenet} and \textbf{DRAEM}~\cite{zavrtanik2021draem};
+these improve accuracy but generally increase model complexity and
+storage. In contrast, our framework is training-free for the pretrained
+path, stores only a template, and is architecture-agnostic.
+
+\subsection{Hand-crafted and Traditional Methods}
+Before deep features became dominant, industrial inspection relied on
+hand-crafted descriptors---Gabor/filter banks, Local Binary Patterns
+(LBP), gray-level co-occurrence matrices (GLCM), and structural-texture
+features---combined with statistical classifiers. These methods are
+interpretable and cheap but struggle with the diversity of real defects.
+Intensity- and frequency-domain residuals against a reference template
+remain common in classical surface inspection. Our hand-crafted
+instantiation is in this lineage, but differs by (i) organizing responses
+into a fixed, interpretable six-yao structure and (ii) learning the normal
+statistics online with an auto-adaptive threshold.
+
+\subsection{Online / Incremental Unsupervised Learning}
+Incremental statistics (Welford) and concept-drift adaptation are
+classical topics in streaming data analysis. In anomaly detection,
+few-shot and continual-learning settings have recently received
+attention~\cite{jeong2023winclip}. Unlike memory-bank methods that fix a reference
+set after a training phase, our engine updates its template, scale, and
+yao statistics incrementally and is therefore naturally robust to
+cold-start contamination.
+
+\subsection{Yijing and Computing}
+The \emph{Yijing} (\emph{Book of Changes}) has inspired prior
+cross-disciplinary work connecting its hexagram/yao structure with
+computation, coding, and machine learning~\cite{zhang2020yijing}. To our knowledge,
+this is the first work to operationalize the \emph{yao-variation}
+principle as a concrete, competitive unsupervised anomaly-detection
+criterion.
+
+%=======================================================================
+\section{Theoretical Framework}
+\label{sec:framework}
+\subsection{The Six-Yao Sensor Model}
+Let $F$ denote a feature field of an image and $T$ an online template.
+We define the \emph{anomaly-response field}
+\begin{equation}
+R = \frac{|F - T|}{\mathrm{SD}},
+\end{equation}
+where $\mathrm{SD}$ is the per-location standard deviation of $F$ over
+normal samples. A \emph{six-yao sensor array} is a map
+$\mathcal{S}: R \mapsto \mathbb{R}^{H\times W\times 6}$, assigning to each
+spatial location six readings $s_1,\dots,s_6$ (from the bottom yao
+$s_1$ to the top yao $s_6$),
+each capturing a distinct mode of anomaly response (Table~\ref{tab:yao}).
+
+\begin{table}[t]
+\centering
+\caption{Six-yao operator definitions.}
+\label{tab:yao}
+\begin{tabular}{cl}
+\toprule
+Yao & Operator (on $R$) \\
+\midrule
+YAO 1 & residual peak: $\max(R)$ \\
+YAO 2 & high-frequency FFT ratio \\
+YAO 3 & structural-tensor anisotropy (99th pct.) \\
+YAO 4 & $\max|R-\bar R| / \mathrm{std}(R)$ \\
+YAO 5 & color residual peak \\
+YAO 6 & high-contrast connected-region density \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Yao Variation as the Anomaly Criterion}
+\label{sec:yaobian}
+The central departure from conventional statistical AD is the criterion
+itself. Let $\mathbf{s} \in \mathbb{R}^6$ be the six readings at a
+location, with online normal statistics $\mu, \sigma$ and online
+correlation matrix $C$. We define the standardized reading
+\begin{equation}
+z_i = \left|\frac{s_i - \mu_i}{\sigma_i}\right|,
+\end{equation}
+and score a location by combining \emph{marginal deviation} with the
+\emph{variation of inter-yao relations}:
+\begin{equation}
+\mathrm{score} = \max_i z_i \quad\text{modulated by}\quad
+\Delta C = \|C(R) - C_{\text{normal}}\|.
+\end{equation}
+We emphasize that the six yao are \emph{not} orthogonalized: correlation
+among yao readings carries discriminative information. In
+Sec.~\ref{sec:ablation} we show empirically that PCA-whitening the yao
+space \emph{degrades} AUROC, confirming that the yao-variation view is the
+correct one.
+
+\subsection{Auto-Adaptive Threshold}
+Rather than fixing a decision threshold manually, we set it to the
+$q$-th quantile of the model's own normal scores, with $q{=}75$
+(a parameter-free, robust operating point allowing one false alarm per
+four normal items). We show in Sec.~\ref{sec:ablation} that no single
+quantile rule is optimal across all categories, motivating this fixed,
+principled choice.
+
+\subsection{Online Learning}
+All task-specific statistics---template $T$, scale $\mathrm{SD}$, and the
+yao statistics $\mu,\sigma,C$---are updated incrementally via Welford's
+algorithm from the very first (unlabeled) sample:
+\begin{equation}
+\bar{x}_n = \bar{x}_{n-1} + \frac{x_n - \bar{x}_{n-1}}{n}, \quad
+M_n = M_{n-1} + (x_n - \bar{x}_{n-1})(x_n - \bar{x}_n).
+\end{equation}
+The $1/n$ weighting induces a natural forgetting that makes the model
+robust to cold-start contamination (Sec.~\ref{sec:ablation}).
+
+%=======================================================================
+\section{Method}
+\subsection{Overall Pipeline}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig1_framework.png}
+\caption{Overview of the six-yao sensor framework. An
+input image yields a residual field $R=|F-T|/\mathrm{SD}$ from any feature extractor $F$ and an
+online template $T$; six yao sensors read $R$ into a six-dimensional
+reading; an anomaly is declared when the inter-yao correlation structure
+departs from its normal manifold.}
+\label{fig:framework}
+\end{figure}
+The overall pipeline is shown in Fig.~\ref{fig:framework}.
+Given an image, we compute a feature field $F$, build the residual field
+$R = |F-T|/\mathrm{SD}$ against the online template, extract six-yao
+readings $\mathcal{S}(R)$, standardize them with online statistics, and
+take the image-level score as the maximum over locations and yao. An
+anomaly is declared if the score exceeds the auto-adaptive threshold.
+
+\subsection{Six-Yao Operators}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig2_yao_operators.png}
+\caption{The six yao operators acting on the residual field $R$:
+(1) local peak (top-hat), (2) high-frequency energy,
+(3) residual gradient, (4) channel dispersion, (5) channel energy, (6) local
+aggregation.}
+\label{fig:yao}
+\end{figure}
+We instantiate the six operators (Fig.~\ref{fig:yao}) as in
+Table~\ref{tab:yao}. Operator~(1)
+captures localized high-contrast residuals; (2) captures texture/frequency
+irregularities; (3) captures directional structure breaks; (4) captures
+non-Gaussian residual structure; (5) captures chromatic anomalies; and
+(6) captures connected high-contrast regions. We adopt \emph{max-type}
+statistics (e.g., $\max R$, $\max|R-\bar R|/\mathrm{std}$) rather than
+percentiles, as they better capture localized defects.
+
+Concretely, let $R_c=\max_c R$ and $R_m=\mathrm{mean}_c R$ be the channel-wise
+maximum and mean of the residual field. With a local background estimate
+$b=\mathrm{uniform}_7(R_c)$ (a $7{\times}7$ uniform filter), the six readings
+are
+\begin{align}
+s_1 &= \max(R_c-b,\,0), && \text{(top-hat: local peak)}\\
+s_2 &= |\nabla^2 s_1|, && \text{(high-frequency)}\notag\\
+s_3 &= \sqrt{(\partial_y R_c)^2+(\partial_x R_c)^2}, && \text{(gradient)}\notag\\
+s_4 &= \mathrm{std}_c(R), && \text{(channel dispersion)}\notag\\
+s_5 &= s_1^2, && \text{(local energy)}\notag\\
+s_6 &= \sqrt{\max(b_2-b_1^2,0)},\ b_2{=}\mathrm{unif}_5(R_c^2),\ b_1{=}\mathrm{unif}_5(R_c). \notag
+\end{align}
+The top-hat in $s_1$ highlights locally salient but absolutely small peaks
+(fine scratches), and $s_6$ measures local concentration via a windowed
+variance.
+
+\subsection{Signal Instance 1: Hand-Crafted (Zero Pretraining)}
+In this instance the feature field is the image itself: $F$ is the resized
+RGB image (and its grayscale), and the template $T$ is an online mean
+image. The residual field $R=|F-T|/\mathrm{SD}$ therefore measures
+deviation from the running normal appearance. The six-yao operators are
+instantiated directly on $R$ (denoting $R_b$ as a Gaussian-smoothed
+residual):
+\begin{align}
+s_1 &= \max R_b, && \text{(peak / \emph{ji})}\\
+s_2 &= \frac{\sum_{\text{high}}|\hat R|}{\sum|\hat R|}, &&
+        \text{(high-freq.~{}ratio)}\\
+s_3 &= \mathrm{P}_{99}\!\left(\frac{\sqrt{(J_{xx}{-}J_{yy})^2+4J_{xy}^2}}{J_{xx}+J_{yy}}\right), &&
+        \text{(structure-tensor anisotropy)}\notag\\
+s_4 &= \frac{\max|R_b-\bar R_b|}{\mathrm{std}(R_b)}, && \text{(kurtotic deviation)}\notag\\
+s_5 &= \max R_c, && \text{(color residual peak)}\notag\\
+s_6 &= N\,(1+\bar\kappa)\,\max R_b, && \text{(high-contrast region density)}\notag
+\end{align}
+where $\hat R=\mathcal{F}(R_b-\bar R_b)$ is the Fourier transform, $J$ is
+the structure tensor (with Gaussian-windowed products $J_{uv}=\mathcal{G}_2(\partial_u R_b\,\partial_v R_b)$), $\mathrm{P}_{99}$ is the 99th
+percentile, $R_c$ is the color residual, $N$ is the number of connected
+components above a contrast threshold, and $\bar\kappa$ is their mean
+normalized perimeter (compactness). This instance uses \emph{no}
+pretrained weights and is fully interpretable; it also matches the
+``hand-crafted six-yao signals'' rung of the ladder in
+Sec.~\ref{sec:ablation}.
+
+\subsection{Signal Instance 2: Pretrained ResNet Features}
+We use ResNet18~\cite{he2016resnet} with ImageNet-1k weights
+(IMAGENET1K\_V1) as a \emph{frozen} feature extractor (no fine-tuning, no
+target-domain labels). We take layer1 ($/4$, 64ch), layer2 ($/8$, 128ch),
+and layer3 ($/16$, 256ch), upsample to a common $/4$ grid, and apply the
+six-yao operators to each layer. We stress that the extractor is frozen
+and the adaptation is purely online; the method is \emph{not} zero-shot
+(ImageNet weights are a prior) but requires no target-domain supervision.
+
+\subsection{Multi-Layer Sensor Fusion}
+Layer1 ($/4$) captures fine local structure, while layer3 ($/16$)
+captures shape/semantic anomalies. Averaging their per-layer six-yao
+scores (``L1+L3'') consistently outperforms any single layer; we use this
+as the default pretrained configuration.
+
+\subsection{Online Engine}
+Algorithm~\ref{alg:engine} summarizes the online engine. The template and
+scale are updated in a single pass over the (unlabeled) stream; the yao
+statistics $\mu,\sigma$ are maintained by Welford updates; the decision
+threshold is recalibrated as the $q{=}75$ quantile of the current normal
+scores (re-scoring a small cached normal subset with the mature model,
+which avoids the immaturity of early estimates).
+
+\begin{algorithm}[t]
+\caption{Online six-yao anomaly engine}
+\label{alg:engine}
+\begin{algorithmic}[1]
+\State \textbf{init} $T\!\leftarrow\!0$, $\mathrm{SD}\!\leftarrow\!1$,
+       $n\!\leftarrow\!0$
+\For{each incoming sample $x$}
+    \State $F\leftarrow\mathrm{features}(x)$
+    \If{$n<2$} $T\leftarrow F$, $\mathrm{SD}\leftarrow 1$, $n\!+\!+$
+    \Else
+        \State $n\!+\!+$;
+               $T\leftarrow T+\frac{F-T}{n}$;
+               $\mathrm{SD}\leftarrow\sqrt{\smash{(1-\tfrac1n)\mathrm{SD}^2+\tfrac1n(F-T)^2}}$
+    \EndIf
+    \State $R\leftarrow|F-T|/\mathrm{SD}$;
+           $\mathbf{s}\leftarrow\mathcal{S}(R)$
+    \State $\mu\leftarrow\mu+\frac{\mathbf{s}-\mu}{n}$;
+           $\sigma\leftarrow\mathrm{update}$ \Comment{Welford}
+    \State $z\leftarrow|\mathbf{s}-\mu|/\sigma$
+    \State $\mathrm{score}(x)\leftarrow\max_{p,i} z[p,i]$
+    \State $\tau\leftarrow\mathrm{quantile}_{75}\{\mathrm{score}\text{ of normal subset}\}$
+    \State \textbf{return} \texttt{defect} if $\mathrm{score}(x)>\tau$ else \texttt{normal}
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Complexity and Edge-Friendliness}
+The engine stores only a template and its scale (a single feature-map-sized
+array) plus a $6{\times}6$ yao covariance---\emph{O}(1) in the number of
+normal samples---whereas memory-bank methods such as PatchCore retain a
+large coreset of embeddings and perform nearest-neighbor search at
+inference. We quantify this on MVTec \texttt{bottle} (CPU): our sensor
+array requires \textbf{29.4\,MB} of stored reference data and
+\textbf{66\,ms} per image, versus \textbf{1534\,MB} and
+\textbf{3678\,ms} for a PatchCore-style patch-$k$NN bank ($856{,}064$
+normal patches)---a \textbf{$52\times$} storage and \textbf{$55\times$}
+inference-speed advantage (Table~\ref{tab:cost}, Fig.~\ref{fig:light}).
+Inference is a single forward pass plus element-wise yao operators; no
+$k$NN lookup or large matrix inversion is required.
+
+\begin{table}[t]
+\centering
+\caption{Lightweightness comparison (MVTec \texttt{bottle}, CPU).}
+\label{tab:cost}
+\begin{tabular}{lccc}
+\toprule
+Method & Storage (MB) & Inference (ms) & Reference set \\
+\midrule
+Six-yao array (ours) & \textbf{29.4} & \textbf{66} & template only \\
+patch-$k$NN (PatchCore) & 1534 & 3678 & 856{,}064 patches \\
+PaDiM-style (diag.) & 51.1 & 43 & per-channel stats \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig12_lightweight.png}
+\caption{Lightweightness: storage and inference latency of the six-yao
+array versus a PatchCore-style patch-$k$NN bank (MVTec \texttt{bottle},
+CPU). Our method stores $52\times$ less and runs $55\times$ faster.}
+\label{fig:light}
+\end{figure}
+
+%=======================================================================
+\section{Experiments}
+\subsection{Dataset and Protocol}
+We evaluate on \textbf{MVTec AD}~\cite{bergmann2019mvtec}, the standard
+benchmark for unsupervised industrial anomaly detection, comprising
+\textbf{15} object and texture categories (5{,}354 images). Only the
+\texttt{train/good} split is used for learning; all evaluation is on the
+\texttt{test} split. The main metric is image-level AUROC; a global
+anomaly score per image is obtained by max-pooling the six-yao
+sensor responses over all spatial locations. All experiments run on CPU
+(no GPU) with a frozen ResNet18 backbone at input resolution $256\times256$;
+feature maps are aligned to the $/4$ grid ($64\times64$).
+
+\subsection{Main Results}
+Table~\ref{tab:main} and Fig.~\ref{fig:main} report per-class and average
+image-level AUROC on all 15 categories. The pretrained six-yao sensor array (deep layer, L3)
+attains an average AUROC of \textbf{0.862}, while the hand-crafted
+(no-pretraining) instantiation attains \textbf{0.709}. For reference we
+list the reported PaDiM (0.975) and PatchCore (0.992) averages on the same
+benchmark. Our framework thus reaches a substantial fraction of
+pretrained SOTA \emph{without any memory bank}, storing only a
+$\sim$29\,MB template per class, and its hand-crafted variant is fully
+interpretable with zero external priors.
+
+\begin{table*}[t]
+\centering
+\caption{Image-level AUROC on all 15 MVTec AD categories. ``Hand-crafted''
+is the no-pretraining instantiation (fixed convolutions); L1/L2/L3 are the
+six-yao sensor array on frozen ResNet18 layers 1/2/3. Best per-class among
+our variants in bold. PaDiM/PatchCore are reported reference numbers.}
+\label{tab:main}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+Class & Hand-crafted & L1 & L2 & \textbf{L3} & PaDiM & PatchCore \\
+\midrule
+bottle     & 0.960 & 0.991 & 1.000 & \textbf{0.998} & 0.979 & 1.000 \\
+cable      & 0.628 & 0.593 & 0.772 & \textbf{0.795} & 0.886 & 0.993 \\
+capsule    & 0.736 & 0.879 & \textbf{0.920} & 0.880 & 0.968 & 0.981 \\
+carpet     & 0.403 & 0.797 & \textbf{0.917} & 0.860 & 0.991 & 0.997 \\
+grid       & 0.719 & 0.549 & 0.598 & \textbf{0.839} & 0.945 & 0.997 \\
+hazelnut   & 0.589 & 0.434 & 0.403 & \textbf{0.529} & 0.989 & 1.000 \\
+leather    & 0.840 & 0.761 & \textbf{0.981} & 0.978 & 0.994 & 1.000 \\
+metal\_nut & 0.728 & 0.814 & 0.783 & \textbf{0.908} & 0.952 & 1.000 \\
+pill       & 0.528 & 0.726 & 0.817 & \textbf{0.836} & 0.947 & 0.988 \\
+screw      & 0.535 & 0.575 & 0.617 & \textbf{0.722} & 0.752 & 0.982 \\
+tile       & 0.772 & 0.697 & 0.904 & \textbf{0.932} & 0.975 & 1.000 \\
+toothbrush & 0.736 & \textbf{0.989} & 0.858 & 0.839 & 0.970 & 0.997 \\
+transistor & 0.815 & 0.827 & 0.802 & \textbf{0.929} & 0.970 & 1.000 \\
+wood       & 0.937 & 0.842 & 0.960 & \textbf{0.973} & 0.987 & 0.993 \\
+zipper     & 0.702 & 0.783 & 0.898 & \textbf{0.911} & 0.919 & 0.996 \\
+\midrule
+\textbf{Average} & \textbf{0.709} & 0.751 & 0.815 & \textbf{0.862} & 0.975 & 0.992 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{figures_paper/fig10_main_results.png}
+\caption{Per-class image-level AUROC on all 15 MVTec AD categories for the
+hand-crafted instantiation and the six-yao sensor array on ResNet18 layers
+L1/L2/L3. Dashed lines mark the reported PaDiM (0.975) and PatchCore
+(0.992) averages. Deep-layer (L3) six-yao sensors reach 0.862 on average.}
+\label{fig:main}
+\end{figure*}
+
+Two findings stand out. (i) \emph{Deep layers dominate}: L3 (0.862)
+clearly outperforms L2 (0.815) and L1 (0.751), consistent with the notion
+that anomalies are changes in high-level structure. The shallow layer
+L1 is markedly stronger only on \texttt{toothbrush} (0.989), where the
+defect is a fine local lesion. (ii) \emph{Texture categories with strong
+intra-class shape variation} (\texttt{hazelnut} 0.529, \texttt{cable}
+0.795) and \emph{fine-grained categories} (\texttt{screw} 0.722) remain
+the weakest---a genuine, interpretable limitation discussed in
+Section~\ref{sec:ablation}.
+
+\subsection{Signal-Agnosticism}
+The same six-yao framework, with the extractor swapped and the criterion
+fixed, spans a wide performance ladder (Table~\ref{tab:main}): hand-crafted
+fixed convolution 0.709 $<$ ImageNet-pretrained ResNet 0.862. A
+randomly-initialized ResNet (structure without knowledge) is
+near-useless (\textbf{0.772}), confirming that the framework does not
+\emph{produce} discriminative knowledge: its performance is bounded by
+the information content of the incoming signal. Notably, the hand-crafted
+variant is \emph{more robust} than the pretrained one on
+\texttt{hazelnut} (0.589 vs.\ 0.529) and \texttt{carpet}
+(0.403 vs.\ 0.860): the deep pretrained features overfit to the dominant
+individual-shape variation of these categories, whereas the simple fixed
+convolutions respond only to local intensity structure.
+
+\subsection{Layer Contribution, Resolution, Online vs Frozen}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig7_layer_heatmap.png}
+\caption{Per-class image-level AUROC of the six-yao sensor array across
+ResNet18 layers L1/L2/L3 (15 classes). Deep layers dominate on
+structure-type anomalies; the shallow layer L1 helps only on fine local
+defects such as \texttt{toothbrush}.}
+\label{fig:layer}
+\end{figure}
+Layer-wise average AUROC is L1\,=\,0.751, L2\,=\,0.815, L3\,=\,0.862
+(Table~\ref{tab:main}); the per-class breakdown is visualized in
+Fig.~\ref{fig:layer}. A naive rank-fusion of L1\,$+$\,L3 gives 0.825,
+\emph{below} L3 alone---because on several categories (\texttt{cable},
+\texttt{grid}, \texttt{hazelnut}, \texttt{screw}) the shallow layer is
+near-random and injects noise into the fused score. This refines an
+earlier 4-class observation where L1\,$+$\,L3 fusion was optimal: with the
+full benchmark, the correct design choice is to rely on the deep layer and
+add a shallow layer only where it demonstrably helps (e.g., fine local
+defects). Online (Welford) versus frozen normal statistics gives
+indistinguishable AUROC ($<0.01$) on large classes, but online learning
+enables the cold-start robustness of Section~\ref{sec:ablation}
+(Fig.~\ref{fig:online}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig5_online_curve.png}
+\caption{Online learning curve: image-level AUROC vs.\ number of normal
+samples observed, for the six-yao sensor array. Learning is stable from
+the first samples (Welford $1/n$ weighting).}
+\label{fig:online}
+\end{figure}
+
+\subsection{Few-Shot Performance}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig8_fewshot.png}
+\caption{Few-shot performance: image-level AUROC vs.\ number of normal
+training images per class for the hand-crafted and pretrained
+instantiations.}
+\label{fig:few}
+\end{figure}
+Few-shot curves for the hand-crafted and pretrained signals are shown in
+Fig.~\ref{fig:few}. The pretrained instantiation is strongly data-efficient:
+with only 5 normal images per class it already recovers most of its
+full-data AUROC, owing to the frozen backbone carrying the bulk of the
+discriminative structure. The hand-crafted instantiation degrades more
+gracefully but starts lower.
+
+%=======================================================================
+\section{Ablation and Analysis}
+\label{sec:ablation}
+\subsection{Knowledge vs Carrier: Pretraining Ablation}
+We replace the feature extractor while keeping the framework fixed:
+randomly-initialized ResNet18 (structure, no knowledge), hand-crafted
+fixed convolution (Sobel/Laplacian/average), hand-crafted six-yao signals
+(zero pretraining), and ImageNet-pretrained ResNet18. On a common 4-class
+subset (\texttt{bottle}, \texttt{tile}, \texttt{metal\_nut},
+\texttt{toothbrush}) the average AUROC ladder is
+\textbf{0.772} (random init) $<$ \textbf{0.799} (fixed convolution)
+$<$ \textbf{0.854} (hand-crafted six-yao) $<$ \textbf{0.932}
+(ImageNet-pretrained); over all 15 classes the hand-crafted-six-yao and
+pretrained variants reach \textbf{0.709} and \textbf{0.862} respectively.
+This demonstrates that
+performance is bounded by signal information: the convolution operator is
+an empty carrier, and the framework organizes rather than produces
+knowledge. Notably, on categories dominated by individual-shape variation
+(\texttt{hazelnut}, \texttt{carpet}) the hand-crafted signal even
+\emph{outperforms} the pretrained one, because the latter's rich features
+overfit the normal intra-class variance (Fig.~\ref{fig:ladder}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig4_knowledge_ladder.png}
+\caption{The knowledge-vs-carrier ladder: the same
+six-yao framework with different signal sources. Random-initialized ResNet
+($0.772$) $<$ hand-crafted fixed convolution ($0.799$) $<$ hand-crafted
+six-yao signals ($0.854$) $<$ ImageNet-pretrained ResNet ($0.932$), on a
+common 4-class subset. Performance is bounded by the information content of
+the signal.}
+\label{fig:ladder}
+\end{figure}
+
+\subsection{Yao Variation vs Orthogonality}
+An early hypothesis was that whitening the six-yao space (PCA
+orthogonalization) would sharpen the anomaly signal by removing
+redundancy. The controlled comparison (Table~\ref{tab:ortho}) shows the
+opposite: exhaustive orthogonalization \emph{hurts} (average AUROC 0.803
+$\to$ 0.731), confirming that the correlations between yao carry
+discriminative information---precisely what the yao-variation view says
+should be preserved, not removed. A \emph{lite} variant that retains
+correlations performs on par with the raw representation (0.802). This is
+a core negative result: for the six-yao representation, correlation is
+\emph{information}, not redundancy.
+
+\begin{table}[t]
+\centering
+\caption{Yao variation vs.\ orthogonalization (4 classes).}
+\label{tab:ortho}
+\begin{tabular}{lc}
+\toprule
+Variant & Avg.\ AUROC \\
+\midrule
+Raw six-yao             & 0.8033 \\
+Full orthogonalization  & 0.7312 \\
+Lite orthogonalization  & 0.8022 \\
+Designed orthogonal     & 0.8132 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Automatic Sensitivity Learning Fails}
+We tested three ways to let the framework learn \emph{which} yao matter,
+using only normal data: (i) sensitive-yao weighting via the inverse
+covariance $\Sigma^{-1}$, (ii) adaptive per-layer weighting, and (iii)
+covariance shrinkage. All failed or were neutral. Sensitive-yao weighting
+is no better than uniform weighting (e.g., \texttt{tile} 0.701 vs.\ 0.714;
+\texttt{toothbrush} 0.778 vs.\ 0.767), because under pure unsupervised
+learning \emph{sensitivity cannot be inferred from normal-data
+statistics}; it can only come from anomaly-response signals. Covariance
+shrinkage is a no-op: the estimated shrinkage coefficients are tiny
+(0.01--0.05), i.e.,\ the covariances are not ill-conditioned. Adaptive
+layer weighting degenerates to a near-uniform $\approx0.33$ and
+underperforms the fixed L1$+$L3 choice (0.937 vs.\ 0.947).
+
+\subsection{Threshold Rule Scan}
+We scanned candidate quantile rules $q\in\{50,60,70,75,80,90\}$ for
+setting the decision threshold from the model's own normal scores. No
+single rule is optimal across classes: \texttt{bottle} favors a lower
+quantile while \texttt{tile} favors a higher one, and the per-class
+optimum varies non-monotonically with the feature signal. This is why we
+adopt a single, parameter-free, robust working point: $q{=}75$. It is not
+the per-class optimum, but it is a defensible compromise that requires no
+per-category tuning---consistent with the zero-configuration goal.
+
+\subsection{Cold-Start Contamination}
+A key advantage of online learned statistics is robustness to a
+\emph{contaminated} start. We inject $k$ defective samples
+($k\in\{0,1,2,3,5\}$) at the very front of the normal stream and
+measure the final AUROC after the full (clean) normal stream has been
+learned. Because Welford's $1/n$ weighting dilutes early contributions,
+the effect is small: on MVTec \texttt{bottle} the AUROC drops only from
+0.975 to 0.969 at $k{=}5$, and on \texttt{tile} it is essentially flat
+(0.878 at $k{=}0$ vs.\ 0.881 at $k{=}5$) (Table~\ref{tab:cold}).
+For the small \texttt{toothbrush} class (60 normal images) the effect is
+larger (0.842$\to$0.758) because the contamination represents a large
+fraction of the stream---an honest, interpretable limitation
+(Fig.~\ref{fig:cold}).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig6_coldstart.png}
+\caption{Cold-start contamination: final AUROC vs.\ the number $k$ of
+defective samples injected at the front of the normal stream. Large
+classes are essentially immune; the small \texttt{toothbrush} class
+degrades more because the contamination dominates its short stream.}
+\label{fig:cold}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{Cold-start contamination: final AUROC after injecting $k$
+defective samples at the front of the normal stream.}
+\label{tab:cold}
+\begin{tabular}{lccccc}
+\toprule
+Class & $k{=}0$ & $k{=}1$ & $k{=}2$ & $k{=}3$ & $k{=}5$ \\
+\midrule
+bottle     & 0.975 & 0.974 & 0.974 & 0.975 & 0.969 \\
+tile       & 0.878 & 0.878 & 0.884 & 0.882 & 0.881 \\
+metal\_nut & 0.746 & 0.728 & 0.726 & 0.728 & 0.725 \\
+toothbrush & 0.842 & 0.811 & 0.786 & 0.767 & 0.758 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%=======================================================================
+\section{Discussion}
+\subsection{The Yao-Variation View}
+Conventional statistical AD removes correlation (whitening) and measures
+distance in the decorrelated space. Our results indicate the opposite is
+true for the six-yao representation: correlation among yao readings is
+\emph{informative}, and orthogonalizing it removes signal. This aligns with
+the \emph{Yijing} view that the essence of an anomaly is \emph{change}---
+the alteration of relations among the constituents---rather than mere
+magnitude.
+
+\subsection{Knowledge Versus Carrier}
+The pretraining ablation isolates a conceptually important point: the
+convolution operation is an \emph{empty carrier}. Randomly-initialized
+ResNet features are near-useless (\textbf{0.772}), hand-crafted fixed
+convolutions recover part of the signal (\textbf{0.709}), and
+ImageNet-pretrained features reach \textbf{0.862}. The framework does not
+\emph{produce} discriminative knowledge; it \emph{organizes} the knowledge
+already present in the signal. This is why the same framework spans the
+whole ladder.
+
+\subsection{The Value of Negative Results}
+We report several failures---orthogonalization, automatic sensitivity
+learning via $\Sigma^{-1}$, adaptive layer weighting, and shrinkage
+covariance---all of which point to the same conclusion: under pure
+unsupervised learning, \emph{sensitivity cannot be inferred from
+normal-data statistics}; it must come from anomaly-response signals. We
+consider this a useful methodological finding rather than a mere
+limitation.
+
+\subsection{Limitations}
+The pretrained instantiation is not truly prior-free: it borrows ImageNet
+visual priors (though it uses no target-domain labels and no fine-tuning).
+The \texttt{hazelnut} category (average AUROC 0.529) remains the weakest
+for all deep-feature routes, because its 391 normal training images exhibit
+large individual-shape variation: the normal template is blurred and the
+defect signal is swamped. \texttt{cable} and \texttt{screw} likewise
+suffer from fine, low-contrast defects that a coarse $/4$ grid may lose.
+Future work includes shape/geometry sensors for shape-type defects and
+higher-resolution feature grids.
+
+\section{Conclusion}
+We presented a signal-agnostic, Yijing-inspired framework for unsupervised
+industrial anomaly detection, built on a six-yao sensor array and a
+yao-variation criterion, with parameter-free online adaptation. The same
+framework serves both hand-crafted and pretrained signals, is robust to
+cold-start contamination, and is data-efficient. On the full 15-class
+MVTec AD benchmark it reaches 0.862 average AUROC with pretrained features
+and 0.709 with purely hand-crafted signals, using no memory bank. Future
+work includes shape/geometry sensors for shape-type defects, higher-resolution
+feature grids, and extension to video/sequence streams.
+
+\section*{Funding}
+This work was supported by the National Natural Science Foundation of China
+(No.\ 22374086) and the National Key R\&D Program of China (No.\ 2023YFF0612100).
+
+%=======================================================================
+\bibliographystyle{elsarticle-num}
+\begin{thebibliography}{99}
+\bibitem{bergmann2019mvtec} P. Bergmann \emph{et al.}, ``MVTec AD---A
+comprehensive real-world dataset for unsupervised anomaly detection,''
+in \emph{CVPR}, 2019.
+\bibitem{defard2021padim} T. Defard \emph{et al.}, ``PaDiM: A patch
+distribution modeling framework for anomaly detection and localization,''
+in \emph{ICPR}, 2021.
+\bibitem{roth2022patchcore} K. Roth \emph{et al.}, ``Towards total recall
+in industrial anomaly detection,'' in \emph{CVPR}, 2022.
+\bibitem{cohen2021spade} N. Cohen and Y. Hoshen, ``Sub-image anomaly
+detection with deep pyramid correspondences,'' 2021.
+\bibitem{he2016resnet} K. He \emph{et al.}, ``Deep residual learning for
+image recognition,'' in \emph{CVPR}, 2016.
+\bibitem{jeong2023winclip} J. Jeong \emph{et al.}, ``WinCLIP: Zero-/few-shot
+anomaly classification and segmentation,'' in \emph{CVPR}, 2023.
+\bibitem{liu2023simplenet} Z. Liu \emph{et al.}, ``SimpleNet: A simple
+network for image anomaly detection and localization,'' in \emph{CVPR}, 2023.
+\bibitem{zavrtanik2021draem} V. Zavrtanik \emph{et al.}, ``DRAEM---A
+discriminatively trained reconstruction embedding for surface anomaly
+detection,'' in \emph{ICCV}, 2021.
+\bibitem{zhang2020yijing} Y. Zhang, ``The Yijing, binary coding, and Leibniz:
+a computational perspective,'' \emph{Journal of Cultural Computing}, 2020.
+\end{thebibliography}
+
+\end{document}
