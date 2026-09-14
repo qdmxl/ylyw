@@ -1,0 +1,402 @@
+{
+  "bottle": [
+    {
+      "n_train": 1,
+      "auroc_rawpeak": 0.8119047619047619,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 2,
+      "auroc_rawpeak": 0.8841269841269841,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 3,
+      "auroc_rawpeak": 0.8603174603174604,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 5,
+      "auroc_rawpeak": 0.8976190476190476,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 8,
+      "auroc_rawpeak": 0.9063492063492062,
+      "auroc_low": 0.525,
+      "auroc_eq": 0.525,
+      "auroc_high": 0.525,
+      "auroc_low_mag": 0.525
+    },
+    {
+      "n_train": 12,
+      "auroc_rawpeak": 0.9682539682539681,
+      "auroc_low": 0.6944444444444444,
+      "auroc_eq": 0.696031746031746,
+      "auroc_high": 0.696031746031746,
+      "auroc_low_mag": 0.6944444444444444
+    },
+    {
+      "n_train": 20,
+      "auroc_rawpeak": 0.9682539682539683,
+      "auroc_low": 0.8333333333333334,
+      "auroc_eq": 0.8325396825396826,
+      "auroc_high": 0.8309523809523809,
+      "auroc_low_mag": 0.8333333333333334
+    },
+    {
+      "n_train": 30,
+      "auroc_rawpeak": 0.9706349206349206,
+      "auroc_low": 0.9035714285714285,
+      "auroc_eq": 0.9043650793650794,
+      "auroc_high": 0.901984126984127,
+      "auroc_low_mag": 0.9035714285714285
+    },
+    {
+      "n_train": 50,
+      "auroc_rawpeak": 0.9714285714285713,
+      "auroc_low": 0.9253968253968253,
+      "auroc_eq": 0.9238095238095237,
+      "auroc_high": 0.9214285714285714,
+      "auroc_low_mag": 0.9253968253968253
+    },
+    {
+      "n_train": 80,
+      "auroc_rawpeak": 0.9706349206349206,
+      "auroc_low": 0.9261904761904762,
+      "auroc_eq": 0.9238095238095237,
+      "auroc_high": 0.9158730158730158,
+      "auroc_low_mag": 0.9261904761904762
+    },
+    {
+      "n_train": 120,
+      "auroc_rawpeak": 0.973015873015873,
+      "auroc_low": 0.95,
+      "auroc_eq": 0.9492063492063492,
+      "auroc_high": 0.9436507936507936,
+      "auroc_low_mag": 0.95
+    },
+    {
+      "n_train": 200,
+      "auroc_rawpeak": 0.973015873015873,
+      "auroc_low": 0.9678571428571427,
+      "auroc_eq": 0.9694444444444443,
+      "auroc_high": 0.9623015873015872,
+      "auroc_low_mag": 0.9678571428571427
+    },
+    {
+      "n_train": 209,
+      "auroc_rawpeak": 0.973015873015873,
+      "auroc_low": 0.9678571428571427,
+      "auroc_eq": 0.9702380952380951,
+      "auroc_high": 0.9630952380952381,
+      "auroc_low_mag": 0.9678571428571427
+    }
+  ],
+  "metal_nut": [
+    {
+      "n_train": 1,
+      "auroc_rawpeak": 0.42521994134897356,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 2,
+      "auroc_rawpeak": 0.3758553274682307,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 3,
+      "auroc_rawpeak": 0.39638318670576733,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 5,
+      "auroc_rawpeak": 0.6290322580645161,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 8,
+      "auroc_rawpeak": 0.6197458455522972,
+      "auroc_low": 0.5063538611925709,
+      "auroc_eq": 0.5063538611925709,
+      "auroc_high": 0.5171065493646139,
+      "auroc_low_mag": 0.5063538611925709
+    },
+    {
+      "n_train": 12,
+      "auroc_rawpeak": 0.6217008797653959,
+      "auroc_low": 0.5669599217986314,
+      "auroc_eq": 0.5669599217986314,
+      "auroc_high": 0.5664711632453567,
+      "auroc_low_mag": 0.5669599217986314
+    },
+    {
+      "n_train": 20,
+      "auroc_rawpeak": 0.6617790811339198,
+      "auroc_low": 0.5901759530791789,
+      "auroc_eq": 0.5891984359726296,
+      "auroc_high": 0.5310361681329423,
+      "auroc_low_mag": 0.5901759530791789
+    },
+    {
+      "n_train": 30,
+      "auroc_rawpeak": 0.6197458455522972,
+      "auroc_low": 0.5755131964809385,
+      "auroc_eq": 0.5510752688172043,
+      "auroc_high": 0.5163734115347018,
+      "auroc_low_mag": 0.5755131964809385
+    },
+    {
+      "n_train": 50,
+      "auroc_rawpeak": 0.5855327468230693,
+      "auroc_low": 0.5254154447702835,
+      "auroc_eq": 0.521505376344086,
+      "auroc_high": 0.5185728250244379,
+      "auroc_low_mag": 0.5254154447702835
+    },
+    {
+      "n_train": 80,
+      "auroc_rawpeak": 0.6490713587487781,
+      "auroc_low": 0.6598240469208211,
+      "auroc_eq": 0.6588465298142717,
+      "auroc_high": 0.6285434995112414,
+      "auroc_low_mag": 0.6598240469208211
+    },
+    {
+      "n_train": 120,
+      "auroc_rawpeak": 0.6348973607038123,
+      "auroc_low": 0.6818181818181818,
+      "auroc_eq": 0.6959921798631475,
+      "auroc_high": 0.6730205278592375,
+      "auroc_low_mag": 0.6818181818181818
+    },
+    {
+      "n_train": 200,
+      "auroc_rawpeak": 0.6373411534701857,
+      "auroc_low": 0.7245845552297165,
+      "auroc_eq": 0.7157869012707723,
+      "auroc_high": 0.6854838709677419,
+      "auroc_low_mag": 0.7245845552297165
+    },
+    {
+      "n_train": 220,
+      "auroc_rawpeak": 0.6402737047898339,
+      "auroc_low": 0.7155425219941348,
+      "auroc_eq": 0.6959921798631477,
+      "auroc_high": 0.656891495601173,
+      "auroc_low_mag": 0.7155425219941348
+    }
+  ],
+  "tile": [
+    {
+      "n_train": 1,
+      "auroc_rawpeak": 0.44372294372294374,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 2,
+      "auroc_rawpeak": 0.5764790764790765,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 3,
+      "auroc_rawpeak": 0.46248196248196244,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 5,
+      "auroc_rawpeak": 0.4563492063492063,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 8,
+      "auroc_rawpeak": 0.5104617604617605,
+      "auroc_low": 0.6145382395382396,
+      "auroc_eq": 0.6231962481962481,
+      "auroc_high": 0.6347402597402597,
+      "auroc_low_mag": 0.6145382395382396
+    },
+    {
+      "n_train": 12,
+      "auroc_rawpeak": 0.5241702741702742,
+      "auroc_low": 0.5743145743145743,
+      "auroc_eq": 0.5898268398268398,
+      "auroc_high": 0.63997113997114,
+      "auroc_low_mag": 0.5743145743145743
+    },
+    {
+      "n_train": 20,
+      "auroc_rawpeak": 0.5443722943722944,
+      "auroc_low": 0.5532106782106782,
+      "auroc_eq": 0.5957792207792207,
+      "auroc_high": 0.6746031746031746,
+      "auroc_low_mag": 0.5532106782106782
+    },
+    {
+      "n_train": 30,
+      "auroc_rawpeak": 0.536075036075036,
+      "auroc_low": 0.6197691197691197,
+      "auroc_eq": 0.6753246753246753,
+      "auroc_high": 0.7601010101010102,
+      "auroc_low_mag": 0.6197691197691197
+    },
+    {
+      "n_train": 50,
+      "auroc_rawpeak": 0.5544733044733046,
+      "auroc_low": 0.7126623376623377,
+      "auroc_eq": 0.7667748917748918,
+      "auroc_high": 0.8315295815295815,
+      "auroc_low_mag": 0.7126623376623377
+    },
+    {
+      "n_train": 80,
+      "auroc_rawpeak": 0.5566378066378066,
+      "auroc_low": 0.7471139971139971,
+      "auroc_eq": 0.8127705627705629,
+      "auroc_high": 0.8520923520923521,
+      "auroc_low_mag": 0.7471139971139971
+    },
+    {
+      "n_train": 120,
+      "auroc_rawpeak": 0.553030303030303,
+      "auroc_low": 0.7757936507936508,
+      "auroc_eq": 0.8466810966810967,
+      "auroc_high": 0.8742784992784992,
+      "auroc_low_mag": 0.7757936507936508
+    },
+    {
+      "n_train": 200,
+      "auroc_rawpeak": 0.5606060606060607,
+      "auroc_low": 0.8217893217893217,
+      "auroc_eq": 0.8777056277056277,
+      "auroc_high": 0.8863636363636364,
+      "auroc_low_mag": 0.8217893217893217
+    },
+    {
+      "n_train": 230,
+      "auroc_rawpeak": 0.5588023088023089,
+      "auroc_low": 0.8207070707070707,
+      "auroc_eq": 0.8737373737373737,
+      "auroc_high": 0.8849206349206349,
+      "auroc_low_mag": 0.8207070707070707
+    }
+  ],
+  "toothbrush": [
+    {
+      "n_train": 1,
+      "auroc_rawpeak": 0.6722222222222223,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 2,
+      "auroc_rawpeak": 0.7333333333333333,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 3,
+      "auroc_rawpeak": 0.7722222222222223,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 5,
+      "auroc_rawpeak": 0.7833333333333333,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 8,
+      "auroc_rawpeak": 0.7638888888888888,
+      "auroc_low": 0.4583333333333333,
+      "auroc_eq": 0.4583333333333333,
+      "auroc_high": 0.4583333333333333,
+      "auroc_low_mag": 0.4583333333333333
+    },
+    {
+      "n_train": 12,
+      "auroc_rawpeak": 0.7583333333333333,
+      "auroc_low": 0.5,
+      "auroc_eq": 0.5,
+      "auroc_high": 0.5,
+      "auroc_low_mag": 0.5
+    },
+    {
+      "n_train": 20,
+      "auroc_rawpeak": 0.7722222222222223,
+      "auroc_low": 0.6666666666666667,
+      "auroc_eq": 0.6666666666666667,
+      "auroc_high": 0.6666666666666667,
+      "auroc_low_mag": 0.6666666666666667
+    },
+    {
+      "n_train": 30,
+      "auroc_rawpeak": 0.8527777777777777,
+      "auroc_low": 0.8166666666666667,
+      "auroc_eq": 0.8166666666666667,
+      "auroc_high": 0.8083333333333333,
+      "auroc_low_mag": 0.8166666666666667
+    },
+    {
+      "n_train": 50,
+      "auroc_rawpeak": 0.9333333333333333,
+      "auroc_low": 0.9222222222222223,
+      "auroc_eq": 0.9166666666666667,
+      "auroc_high": 0.8916666666666668,
+      "auroc_low_mag": 0.9222222222222223
+    },
+    {
+      "n_train": 60,
+      "auroc_rawpeak": 0.9388888888888889,
+      "auroc_low": 0.9472222222222222,
+      "auroc_eq": 0.9527777777777778,
+      "auroc_high": 0.95,
+      "auroc_low_mag": 0.9472222222222222
+    }
+  ]
+}

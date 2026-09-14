@@ -1,0 +1,8 @@
+{
+  "build_ms": 11196.315288543701,
+  "infer_ms": 66.45909547805786,
+  "store_MB": 29.360128,
+  "matrix_mul": null,
+  "note": "仅模板T/SD",
+  "peak_rss_MB": 501.60546875
+}

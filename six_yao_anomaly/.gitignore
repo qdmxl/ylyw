@@ -1,0 +1,25 @@
+# 六爻传感器阵列 — 子项目忽略规则
+# 本文件用 ! 覆盖仓库根 .gitignore 对论文产物的全局排除
+
+# 数据（体积大，不入库；README 有复现说明）
+data/
+*.tar.xz
+*.tar
+*.zip
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# 大型模型/中间产物
+*.npz
+*.log
+
+# 论文产物必须入库（覆盖根 .gitignore 的 *.docx / *.pdf）
+!paper/*.docx
+!*.docx
+
+# 操作系统
+.DS_Store
+Thumbs.db
