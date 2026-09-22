@@ -214,6 +214,77 @@ class Arm6Env:
     def lift_mm(self):
         return float((self.obj_pos()[2] - TABLE_TOP) * 1000)
 
+    # ---- 下垂补偿伺服（A3）：迭代修正关节目标，使实际 tip_mid 收敛到几何目标 ----
+    def _tipmid(self):
+        return self._fk_full()[0]
+
+    def _settle(self, q, steps, grip):
+        for _ in range(steps):
+            for jn, v in zip(ARM_JOINTS, q):
+                self.data.ctrl[self.a[jn]] = v
+            self.data.ctrl[self.a["fl_motor"]] = grip
+            self.data.ctrl[self.a["fr_motor"]] = grip
+            mujoco.mj_step(self.model, self.data)
+
+    def trim(self, q, target, grip, rounds=16, steps=120, tol=0.0015):
+        """把关节目标迭代修正，使实际 tip_mid 收敛到 target（补偿重力下垂）。"""
+        qd = np.asarray(q, dtype=float).copy()
+        target = np.asarray(target, dtype=float)
+        for _ in range(rounds):
+            self._settle(qd, steps, grip)
+            cur = self._tipmid()
+            err = target - cur
+            if float(np.linalg.norm(err)) < tol:
+                break
+            J = np.zeros((3, 6))
+            for k, a in enumerate(self.qadr):
+                old = self.data.qpos[a]; self.data.qpos[a] = old + 1e-6
+                m2, _ = self._fk_full(); J[:, k] = (m2 - cur) / 1e-6
+                self.data.qpos[a] = old
+            qd = np.clip(qd + np.linalg.solve(J.T @ J + 0.01 * np.eye(6), J.T @ err), self.lo, self.hi)
+        return qd
+
+    def grasp_and_lift(self, o, h, grip_close=0.019, grip_open=-0.06, yaw=np.pi,
+                       lift_z=None, steps_scale=1.0):
+        """完整真实抓取：yaw 约束 IK + 下垂补偿到位 + 正确手指定宽闭合 + 抬升。
+        返回 dict（max_lift_mm, final_lift_mm, tip_err, success）。"""
+        if lift_z is None:
+            lift_z = o[2] + 0.05
+        seed = self.find_seed(o[1], goal=np.array([o[0], o[1], o[2] + h + 0.15]), yaw_target=yaw)
+        if seed is None:
+            seed = self.find_seed(o[1], goal=np.array([o[0], o[1], o[2] + h + 0.15]))
+        qa, _, _ = self.ik6(np.array([o[0], o[1], o[2] + h + 0.12]), seed, yaw_target=yaw)
+        # 张开手指置于 qa
+        for a, v in zip(self.qadr, qa):
+            self.data.qpos[a] = v
+        self.data.qpos[self.model.jnt_qposadr[self.j["fl_j"]]] = 0.0
+        self.data.qpos[self.model.jnt_qposadr[self.j["fr_j"]]] = 0.0
+        self.data.qvel[:] = 0
+        mujoco.mj_forward(self.model, self.data)
+        # 下垂补偿下降到物体高度
+        qd = self.trim(qa, np.array([o[0], o[1], o[2]]), grip=grip_open,
+                       rounds=16, steps=int(120 * steps_scale))
+        tip_err = float(np.linalg.norm(self._tipmid() - np.array([o[0], o[1], o[2]])))
+        # 闭合手指（正确符号：正=闭合）
+        self._settle(qd, int(300 * steps_scale), grip_close)
+        rest = self.obj_pos()[2]
+        # 抬升：一次 IK 求抬升目标，关节空间线性插值（不反复动手指）
+        qh = self.trim(qd, np.array([o[0], o[1], lift_z]), grip=grip_close, rounds=10,
+                       steps=int(80 * steps_scale))
+        max_lift = 0.0
+        for t in range(int(400 * steps_scale)):
+            al = min(1.0, (t + 1) / (400 * steps_scale))
+            qt = (1 - al) * qd + al * qh
+            self._settle(qt, 1, grip_close)
+            max_lift = max(max_lift, self.obj_pos()[2] - rest)
+        self._settle(qh, int(200 * steps_scale), grip_close)
+        max_lift = max(max_lift, self.obj_pos()[2] - rest)
+        final_lift = self.obj_pos()[2] - rest
+        return {"max_lift_mm": max_lift * 1000, "final_lift_mm": final_lift * 1000,
+                "tip_err_mm": tip_err * 1000, "rest_z": float(rest),
+                "final_z": float(self.obj_pos()[2]),
+                "success": bool(max_lift > 0.005 and final_lift > 0.005)}
+
 
 def run_episode(obj_desc, task, inference, obj_xy=OBJ_XY, seed_rng=None):
     env = Arm6Env()

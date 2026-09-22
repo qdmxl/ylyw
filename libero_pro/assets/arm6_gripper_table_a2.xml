@@ -19,7 +19,7 @@
   </asset>
 
   <default>
-    <geom condim="4" friction="1.5 0.01 0.001"/>
+    <geom condim="6" friction="4.0 0.5 0.5"/>
     <joint damping="1.0" armature="0.01"/>
     <position kp="100" kv="15"/>
   </default>
@@ -91,7 +91,7 @@
     <position name="j5" joint="j5" kp="100" kv="10"/>
     <position name="j6" joint="j6" kp="50" kv="5"/>
     <!-- A2: 手指改为位置伺服 + 高 kp，提供足够的夹持力（原 gear=1 电机太弱，抓不住） -->
-    <position name="fl_motor" joint="fl_j" kp="300" kv="15" ctrlrange="-0.08 0.08"/>
-    <position name="fr_motor" joint="fr_j" kp="300" kv="15" ctrlrange="-0.08 0.08"/>
+    <position name="fl_motor" joint="fl_j" kp="2000" kv="30" ctrlrange="-0.08 0.08"/>
+    <position name="fr_motor" joint="fr_j" kp="2000" kv="30" ctrlrange="-0.08 0.08"/>
   </actuator>
 </mujoco>
