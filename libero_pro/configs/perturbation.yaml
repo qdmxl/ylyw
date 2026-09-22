@@ -1,0 +1,47 @@
+# LIBERO-PRO 四类扰动参数配置
+# 对应官方定义：Object / Position / Semantic / Task Perturbation
+# 本机阶段一用轻量仿真复刻，幅度可调。
+
+version: 1
+seed: 42
+
+object_perturbation:
+  enabled: true
+  # 改变目标物体外观/颜色/尺寸（对应 LIBERO-PRO Object Perturbation）
+  scale_range: [0.6, 1.4]      # 尺寸缩放倍率
+  color_pool: ["red", "green", "blue", "yellow", "gray"]
+  # 关键点：只改"外观"，不改物体的物理类别语义
+  keep_shape: true
+
+position_perturbation:
+  enabled: true
+  # 改变物体初始空间位置（对应 Position Perturbation）
+  xy_offset_range: [-0.12, 0.12]   # 桌面平面偏移 (m)
+  z_offset_range: [0.0, 0.02]      # 垂直扰动 (m)
+  rotate_range_deg: [-180, 180]    # 绕 z 轴旋转
+
+semantic_perturbation:
+  enabled: true
+  # 指令语义改写（对应 Semantic Perturbation）
+  # 语义等价改写 → YLYW 隶属度应近似 → 卦象保持一致
+  paraphrase_map:
+    "pick up the block":   ["grab the block", "lift the block", "take the block"]
+    "put the block in the box": ["place the block into the box", "drop the block in the box"]
+    "push the cylinder":   ["nudge the cylinder", "shove the cylinder"]
+
+task_perturbation:
+  enabled: true
+  # 重新定义任务逻辑（对应 Task Perturbation）
+  # 例：把"抓取放到A"改成"抓取放到B"，或增加避障约束
+  variants:
+    - name: "swap_target"
+      desc: "目标容器被替换/位置交换"
+    - name: "add_obstacle"
+      desc: "路径上增加障碍物"
+    - name: "reverse_order"
+      desc: "先放再取（顺序颠倒）"
+
+eval:
+  episodes_per_condition: 20
+  max_steps: 400
+  success_threshold_cm: 3.0   # 末端到目标的成功判定距离
