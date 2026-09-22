@@ -1,0 +1,182 @@
+[
+  {
+    "gi": 0,
+    "won": false,
+    "steps": 50,
+    "task": "Put a clean large metal spoon on the round white table."
+  },
+  {
+    "gi": 1,
+    "won": false,
+    "steps": 50,
+    "task": "Turn on a light with a box in hand."
+  },
+  {
+    "gi": 2,
+    "won": false,
+    "steps": 50,
+    "task": "Warm a plate and place it on the table."
+  },
+  {
+    "gi": 3,
+    "won": false,
+    "steps": 50,
+    "task": "Place a chilled cup on the table."
+  },
+  {
+    "gi": 4,
+    "won": true,
+    "steps": 11,
+    "task": "To move two bars of soap to the black bin. "
+  },
+  {
+    "gi": 5,
+    "won": true,
+    "steps": 11,
+    "task": "Put two bars of soap into the trash can."
+  },
+  {
+    "gi": 6,
+    "won": true,
+    "steps": 7,
+    "task": "Move two CDs to the bottom drawer of the desk."
+  },
+  {
+    "gi": 7,
+    "won": false,
+    "steps": 50,
+    "task": "Move mug from coffee maker to microwave and heat, move to cabinet."
+  },
+  {
+    "gi": 8,
+    "won": false,
+    "steps": 50,
+    "task": "Put a heated mug down on a table."
+  },
+  {
+    "gi": 9,
+    "won": false,
+    "steps": 50,
+    "task": "place a knife on the microwave oven table"
+  },
+  {
+    "gi": 10,
+    "won": true,
+    "steps": 10,
+    "task": "move a box from the couch to the dresser"
+  },
+  {
+    "gi": 11,
+    "won": false,
+    "steps": 50,
+    "task": "Put one watch on the end tale. "
+  },
+  {
+    "gi": 12,
+    "won": true,
+    "steps": 8,
+    "task": "Move a book from a desk to a sofa."
+  },
+  {
+    "gi": 13,
+    "won": false,
+    "steps": 50,
+    "task": "Retrieve green vegetable from table, wash it in the sink, put it on the right side counter"
+  },
+  {
+    "gi": 14,
+    "won": false,
+    "steps": 50,
+    "task": "Place a chilled head of lettuce on a counter."
+  },
+  {
+    "gi": 15,
+    "won": false,
+    "steps": 50,
+    "task": "Place a chilled frying pan on the stove."
+  },
+  {
+    "gi": 16,
+    "won": true,
+    "steps": 8,
+    "task": "Put a wet sponge on the metal rack. "
+  },
+  {
+    "gi": 17,
+    "won": false,
+    "steps": 50,
+    "task": "Get wash rag wet and put it away in drawer."
+  },
+  {
+    "gi": 18,
+    "won": false,
+    "steps": 50,
+    "task": "Place the two newsletters in a tv drawer."
+  },
+  {
+    "gi": 19,
+    "won": false,
+    "steps": 50,
+    "task": "wash a tomato and put it on the counter"
+  },
+  {
+    "gi": 20,
+    "won": true,
+    "steps": 11,
+    "task": "Move two alarm clocks from the desk to the night stand. "
+  },
+  {
+    "gi": 21,
+    "won": true,
+    "steps": 17,
+    "task": "Move two spray bottles into a small grey bin."
+  },
+  {
+    "gi": 22,
+    "won": false,
+    "steps": 50,
+    "task": "Put a clean plate on the counter."
+  },
+  {
+    "gi": 23,
+    "won": false,
+    "steps": 50,
+    "task": "Heat and chill a potato."
+  },
+  {
+    "gi": 24,
+    "won": false,
+    "steps": 50,
+    "task": "Move a bottle from the counter to the drawer."
+  },
+  {
+    "gi": 25,
+    "won": false,
+    "steps": 50,
+    "task": "Put a cold pot on a table."
+  },
+  {
+    "gi": 26,
+    "won": false,
+    "steps": 50,
+    "task": "Put the credit card in the drawer."
+  },
+  {
+    "gi": 27,
+    "won": false,
+    "steps": 50,
+    "task": "Set a chilled bottle of wine on the table."
+  },
+  {
+    "gi": 28,
+    "won": true,
+    "steps": 12,
+    "task": "Place spray bottles on the back of a toilet"
+  },
+  {
+    "gi": 29,
+    "won": false,
+    "steps": 50,
+    "task": "move a magazine from the bed to the table"
+  }
+]

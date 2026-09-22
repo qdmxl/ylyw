@@ -1,0 +1,3 @@
+[submodule "QYUF"]
+	path = QYUF
+	url = git@github.com:qdmxl/qyuf.git

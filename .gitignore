@@ -60,3 +60,6 @@ Thumbs.db
 motion_control/mvp_screenshots/
 experiment_phase1/output/
 experiment_phase1/mujoco_eval/output/
+
+# Temp scratch
+.work/

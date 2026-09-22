@@ -64,6 +64,23 @@ from hanzi_decomposition import HANZI_DECOMPOSITION
 from decomp_to_fuzzy_map import DECOMP_TO_FUZZY_RADICAL
 from ylyw_core import HexagramRuleBase, Hexagram
 
+# ── 卦序修正工具 ────────────────────────────────────────────
+# 隐患修正(2026-09-12): 原代码用 `bagua[i // 8]` 假设"文王序每8个连续卦
+# 对应一个八卦位", 该假设错误(文王序第0-7卦=乾/坤/屯/蒙/需/讼/师/比)。
+# 正确做法: 按卦的【上卦】归类到八卦。
+for _p in (
+    os.path.dirname(os.path.abspath(__file__)),
+    os.path.expanduser("~/.openclaw/workspace-quantum/quantum_ylyw"),
+):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+try:
+    from gua_order import hex64_to_bagua8 as _hex64_to_bagua8_correct
+    _HAS_GUA_ORDER = True
+except Exception:
+    _HAS_GUA_ORDER = False
+    _hex64_to_bagua8_correct = None
+
 _HRULE = HexagramRuleBase()
 
 RADICAL_DATA = _load_json('radical_fuzzy_base.json')
@@ -162,18 +179,12 @@ class YLYWLayer:
         """
         n = len(baguas)
         # 如果是64维输入（句层接收词层的hex64），先降维到8维
-        # 8维 = 将8个卦各8个细分卦的匹配度求和
+        # 8维 = 按【上卦】归类到八卦（修正: 原先错误的 i//8 分组）
         if baguas and len(baguas[0]) == 64:
             reduced = []
             for b64 in baguas:
-                # 每个卦位映射到其对应八卦：
-                # 64卦分为8组，每组8个
-                b8 = [0.0]*8
-                for i in range(64):
-                    b8[i // 8] += b64[i]
-                # 归一化
-                mx = max(b8) if max(b8) > 0 else 1.0
-                reduced.append([v / mx for v in b8])
+                b8 = _hex64_to_bagua8_correct(list(b64), mode="upper", normalize=True)
+                reduced.append(b8)
             baguas = reduced
         doms = [BAGUA[b.index(max(b))] for b in baguas]
         relations = []
@@ -238,11 +249,9 @@ class YLYWLayer:
         # 支持64维和8维输入
         def _ensure_8d(vec):
             if len(vec) == 64:
-                b8 = [0.0]*8
-                for i in range(64):
-                    b8[i // 8] += vec[i]
-                mx = max(b8) if max(b8) > 0 else 1.0
-                return [v / mx for v in b8]
+                # 修正: 按上卦归类, 而非错误的 i//8 分组
+                return _hex64_to_bagua8_correct(list(vec), mode="upper",
+                                                normalize=True)
             return vec
 
         baguas8 = [_ensure_8d(b) for b in baguas]
@@ -348,11 +357,9 @@ class YLYWLayer:
         """64/6维 → 8维卦象（反向投影）"""
         bagua = [0.15] * 8
         if len(yao) >= 64:
-            # 64维: 8组求和
-            for i, v in enumerate(yao[:64]):
-                bagua[i // 8] += v
-            mx = max(bagua) if max(bagua) > 0 else 1.0
-            return [v / mx for v in bagua]
+            # 64维: 按上卦归类(修正: 原先错误的 i//8 分组)
+            return _hex64_to_bagua8_correct(list(yao[:64]), mode="upper",
+                                            normalize=True)
         # 6维兼容
         for bg_idx, y_idx in enumerate([0, 1, 5, 2, 3, 4]):
             if y_idx < len(yao):

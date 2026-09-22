@@ -1,0 +1,23 @@
+{
+  "bottle": {
+    "broken_large": 1.0,
+    "broken_small": 1.0,
+    "contamination": 0.9928571428571429
+  },
+  "tile": {
+    "crack": 1.0,
+    "glue_strip": 0.9915824915824916,
+    "gray_stroke": 0.8200757575757576,
+    "oil": 0.9882154882154882,
+    "rough": 0.9515151515151515
+  },
+  "metal_nut": {
+    "bent": 1.0,
+    "color": 1.0,
+    "flip": 1.0,
+    "scratch": 0.9565217391304348
+  },
+  "toothbrush": {
+    "defective": 0.9027777777777777
+  }
+}

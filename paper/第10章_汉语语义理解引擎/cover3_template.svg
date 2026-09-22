@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbfaf6"/>
+      <stop offset="1" stop-color="#e9eef1"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#16283a"/>
+      <stop offset="1" stop-color="#3a5d70"/>
+    </linearGradient>
+    <linearGradient id="tree" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4f7d99"/>
+      <stop offset="0.55" stop-color="#2f5570"/>
+      <stop offset="1" stop-color="#1b3446"/>
+    </linearGradient>
+    <radialGradient id="seed" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#d8b25e"/>
+      <stop offset="1" stop-color="#9a7428"/>
+    </radialGradient>
+  </defs>
+  <rect width="1240" height="1754" fill="url(#bg)"/>
+
+  <!-- 书名 -->
+  <text x="620" y="270" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="130"
+        font-weight="bold" fill="url(#title)" letter-spacing="26">易理研物</text>
+  <text x="620" y="332" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="37"
+        fill="#42606f" letter-spacing="5">从符号先验到通用智能的工程研究</text>
+  <line x1="360" y1="368" x2="880" y2="368" stroke="#c9b98e" stroke-width="1.2"/>
+
+  <!-- ================= 主视觉：楔形生长（先验→涌现） ================= -->
+  <!-- 自下而上的实心大树剪影 -->
+  <g>
+    <!-- 树冠：由多个重叠圆构成实心冠盖 -->
+    <g fill="url(#tree)" opacity="0.92">
+      <circle cx="500" cy="640" r="120"/>
+      <circle cx="740" cy="640" r="120"/>
+      <circle cx="620" cy="520" r="138"/>
+      <circle cx="420" cy="720" r="95"/>
+      <circle cx="820" cy="720" r="95"/>
+      <circle cx="560" cy="700" r="110"/>
+      <circle cx="680" cy="700" r="110"/>
+      <circle cx="620" cy="640" r="150"/>
+    </g>
+    <!-- 冠内网络（自组织涌现）：浅色节点连线 -->
+    __CROWN__
+
+    <!-- 主干（实心渐细） -->
+    <path d="M620 1180 C 600 1080, 640 980, 620 880 C 606 800, 634 740, 620 680 L 600 680
+             C 590 740, 566 800, 580 880 C 596 980, 556 1080, 580 1180 Z" fill="url(#tree)"/>
+    <!-- 分枝 -->
+    <g stroke="url(#tree)" stroke-width="9" fill="none" stroke-linecap="round">
+      <path d="M610 940 C 540 890, 490 860, 450 820"/>
+      <path d="M630 940 C 700 890, 750 860, 790 820"/>
+      <path d="M612 800 C 560 770, 520 750, 490 720"/>
+      <path d="M628 800 C 680 770, 720 750, 750 720"/>
+    </g>
+  </g>
+
+  <!-- 三阶段节点（实心圆，垂直排列于树内） -->
+  <g font-family="Noto Serif CJK SC" font-size="21" fill="#ffffff">
+    <circle cx="620" cy="1130" r="22" fill="#1b3446"/>
+    <text x="620" y="1138" text-anchor="middle">元</text>
+    <circle cx="620" cy="930" r="22" fill="#2f5570"/>
+    <text x="620" y="938" text-anchor="middle">组</text>
+    <circle cx="620" cy="730" r="22" fill="#3f6a86"/>
+    <text x="620" y="738" text-anchor="middle">生</text>
+  </g>
+
+  <!-- 侧栏说明 -->
+  <g font-family="Noto Sans CJK SC" font-size="19" fill="#5a7686">
+    <text x="908" y="1130">元胞：单一推理基元</text>
+    <text x="908" y="930">组织：元胞协同涌现</text>
+    <text x="908" y="730">生态：开放世界生长</text>
+  </g>
+
+  <!-- 根部：种子 + 64卦根系 -->
+  <g stroke="#3f6883" stroke-width="2.2" opacity="0.9">
+    <line x1="620" y1="1195" x2="455" y2="1275"/>
+    <line x1="620" y1="1195" x2="540" y2="1290"/>
+    <line x1="620" y1="1195" x2="620" y2="1295"/>
+    <line x1="620" y1="1195" x2="700" y2="1290"/>
+    <line x1="620" y1="1195" x2="785" y2="1275"/>
+  </g>
+  __ROOTS__
+  <circle cx="620" cy="1170" r="34" fill="url(#seed)"/>
+  <text x="620" y="1178" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="25"
+        fill="#fff8e6">要</text>
+  <text x="620" y="1348" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="25"
+        fill="#6b5a2e" letter-spacing="3">符号先验 · 六十四卦</text>
+
+  <!-- 顶部理念 -->
+  <text x="620" y="425" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="27"
+        fill="#2b4a63" letter-spacing="5">通用智能 · 自组织生态</text>
+
+  <!-- 作者信息 -->
+  <line x1="400" y1="1420" x2="840" y2="1420" stroke="#c9b98e" stroke-width="1"/>
+  <text x="620" y="1500" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="46"
+        fill="#22384a" letter-spacing="14">马兴录　马圣洁　李诚　著</text>
+  <text x="620" y="1564" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="26"
+        fill="#5a6b7a">青岛科技大学　信息科学技术学院</text>
+  <text x="620" y="1624" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="22"
+        fill="#8a7a55">2026</text>
+</svg>

@@ -1,0 +1,38 @@
+{
+  "A": {
+    "bottle": 0.9825,
+    "tile": 0.851,
+    "metal_nut": 0.7537,
+    "toothbrush": 0.8278
+  },
+  "B": {
+    "bottle": 1.0,
+    "tile": 0.8885,
+    "metal_nut": 0.8074,
+    "toothbrush": 0.8444
+  },
+  "F": {
+    "bottle": 1.0,
+    "tile": 0.9226,
+    "metal_nut": 0.8099,
+    "toothbrush": 0.8611
+  },
+  "C": {
+    "bottle": 1.0,
+    "tile": 0.934,
+    "metal_nut": 0.9814,
+    "toothbrush": 0.9417
+  },
+  "PaDiM": {
+    "bottle": 0.98,
+    "tile": 0.94,
+    "metal_nut": 0.97,
+    "toothbrush": 0.93
+  },
+  "PatchCore": {
+    "bottle": 1.0,
+    "tile": 0.99,
+    "metal_nut": 1.0,
+    "toothbrush": 1.0
+  }
+}

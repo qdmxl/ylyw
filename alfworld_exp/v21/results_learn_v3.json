@@ -1,0 +1,211 @@
+{
+  "pure": [
+    {
+      "gi": 0,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 1,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "gi": 2,
+      "won": true,
+      "steps": 33
+    },
+    {
+      "gi": 3,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 4,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 5,
+      "won": true,
+      "steps": 25
+    },
+    {
+      "gi": 6,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "gi": 7,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 8,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 9,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 10,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "gi": 11,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "gi": 12,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "gi": 13,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 14,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 15,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "gi": 16,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "gi": 17,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 18,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 19,
+      "won": true,
+      "steps": 9
+    }
+  ],
+  "learn3": [
+    {
+      "gi": 0,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 1,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "gi": 2,
+      "won": true,
+      "steps": 33
+    },
+    {
+      "gi": 3,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 4,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 5,
+      "won": true,
+      "steps": 25
+    },
+    {
+      "gi": 6,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "gi": 7,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 8,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 9,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 10,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "gi": 11,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "gi": 12,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "gi": 13,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 14,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 15,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "gi": 16,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "gi": 17,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 18,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 19,
+      "won": true,
+      "steps": 9
+    }
+  ],
+  "exp_stats": {
+    "proto": 52,
+    "valid": 24,
+    "dec": 414
+  }
+}

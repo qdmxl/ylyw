@@ -1,0 +1,50 @@
+[
+  {
+    "category": "bottle",
+    "n_test": 83,
+    "n_normal": 20,
+    "n_anomaly": 63,
+    "fanben": "101010",
+    "C0_max_residual": 0.9769841269841271,
+    "C1_misfit_mean(no-position)": 0.919047619047619,
+    "equal_weight": 0.919047619047619,
+    "low_weight(zhi-ji)": 0.938095238095238,
+    "high_weight": 0.8365079365079365
+  },
+  {
+    "category": "metal_nut",
+    "n_test": 115,
+    "n_normal": 22,
+    "n_anomaly": 93,
+    "fanben": "101010",
+    "C0_max_residual": 0.6803519061583577,
+    "C1_misfit_mean(no-position)": 0.7101661779081133,
+    "equal_weight": 0.7101661779081133,
+    "low_weight(zhi-ji)": 0.7194525904203324,
+    "high_weight": 0.6612903225806452
+  },
+  {
+    "category": "tile",
+    "n_test": 117,
+    "n_normal": 33,
+    "n_anomaly": 84,
+    "fanben": "101010",
+    "C0_max_residual": 0.5678210678210678,
+    "C1_misfit_mean(no-position)": 0.6421356421356421,
+    "equal_weight": 0.6421356421356421,
+    "low_weight(zhi-ji)": 0.6634199134199134,
+    "high_weight": 0.6572871572871573
+  },
+  {
+    "category": "toothbrush",
+    "n_test": 42,
+    "n_normal": 12,
+    "n_anomaly": 30,
+    "fanben": "101010",
+    "C0_max_residual": 0.8527777777777779,
+    "C1_misfit_mean(no-position)": 0.7583333333333333,
+    "equal_weight": 0.7583333333333333,
+    "low_weight(zhi-ji)": 0.7583333333333333,
+    "high_weight": 0.7083333333333333
+  }
+]

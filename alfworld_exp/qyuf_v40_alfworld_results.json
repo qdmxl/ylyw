@@ -1,0 +1,86 @@
+{
+  "config": {
+    "v40_tau": 0.6,
+    "split": "valid_unseen",
+    "total": 134
+  },
+  "classic": {
+    "avg_top1_score": 3.985074626865672,
+    "good_rate": 0.9626865671641791
+  },
+  "v35_grover": {
+    "avg_top1_score": -6.373134328358209,
+    "good_rate": 0.0
+  },
+  "v40_strict_unitary": {
+    "avg_top1_score": 8.522388059701493,
+    "good_rate": 1.0,
+    "avg_good_gain_pp": -3.516115824210154,
+    "avg_upper_diff": 1.3146364512672746,
+    "avg_lower_diff": 1.3994756031599664
+  },
+  "consistency": {
+    "classic_vs_v35": 0.0,
+    "classic_vs_v40": 0.14925373134328357,
+    "v35_vs_v40": 0.0,
+    "all_same": 0.0
+  },
+  "object_stats": {
+    "plate": {
+      "count": 3,
+      "gain_pp": -13.305719434556579
+    },
+    "bowl": {
+      "count": 7,
+      "gain_pp": -12.405319406321425
+    },
+    "soap": {
+      "count": 13,
+      "gain_pp": -2.9210914400294143
+    },
+    "mug": {
+      "count": 9,
+      "gain_pp": -11.67960942702696
+    },
+    "food": {
+      "count": 53,
+      "gain_pp": 0.38644818371614065
+    },
+    "coffee": {
+      "count": 12,
+      "gain_pp": -7.037258606983329
+    },
+    "pencil": {
+      "count": 6,
+      "gain_pp": 6.995891781611078
+    },
+    "knife": {
+      "count": 2,
+      "gain_pp": -0.24979579143204944
+    },
+    "cup": {
+      "count": 3,
+      "gain_pp": -10.79699105238808
+    },
+    "potato": {
+      "count": 5,
+      "gain_pp": 12.998809438302786
+    },
+    "apple": {
+      "count": 6,
+      "gain_pp": -9.83394186337999
+    },
+    "tomato": {
+      "count": 6,
+      "gain_pp": -9.659039811149697
+    },
+    "egg": {
+      "count": 6,
+      "gain_pp": -13.105678836820445
+    },
+    "bread": {
+      "count": 3,
+      "gain_pp": -5.278657752940887
+    }
+  }
+}

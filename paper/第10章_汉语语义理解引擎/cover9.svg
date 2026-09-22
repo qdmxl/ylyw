@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1e3a"/>
+      <stop offset="0.5" stop-color="#061f45"/>
+      <stop offset="1" stop-color="#04152e"/>
+    </linearGradient>
+    <linearGradient id="titleG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eaf6ff"/>
+      <stop offset="1" stop-color="#8fd0f0"/>
+    </linearGradient>
+    <!-- 皮肤：真人质感的蓝白冷调 -->
+    <linearGradient id="skin" x1="0.2" y1="0" x2="0.9" y2="1">
+      <stop offset="0" stop-color="#eef7fd"/>
+      <stop offset="0.45" stop-color="#cbe0ee"/>
+      <stop offset="0.75" stop-color="#8fb2cc"/>
+      <stop offset="1" stop-color="#5b7f9c"/>
+    </linearGradient>
+    <linearGradient id="skinShade" x1="0" y1="0" x2="1" y2="0.5">
+      <stop offset="0" stop-color="#a7c4d8"/>
+      <stop offset="1" stop-color="#5a7d9a"/>
+    </linearGradient>
+    <linearGradient id="visor" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#03121f"/>
+      <stop offset="0.5" stop-color="#0e3a56"/>
+      <stop offset="1" stop-color="#020a12"/>
+    </linearGradient>
+    <radialGradient id="core" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f4fdff"/>
+      <stop offset="0.35" stop-color="#7fe3ff"/>
+      <stop offset="1" stop-color="#1d9ccc"/>
+    </radialGradient>
+    <radialGradient id="coreGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7fe3ff" stop-opacity="0.75"/>
+      <stop offset="0.5" stop-color="#38b6e6" stop-opacity="0.3"/>
+      <stop offset="1" stop-color="#38b6e6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="eyeG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dff2ff"/>
+      <stop offset="0.4" stop-color="#9fd8f2"/>
+      <stop offset="1" stop-color="#3d7fa8"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="glowS"><feGaussianBlur stdDeviation="2.4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <rect width="1240" height="1754" fill="url(#bg)"/>
+
+  <!-- ===== 书名 ===== -->
+  <text x="620" y="220" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="112"
+        font-weight="bold" fill="url(#titleG)" letter-spacing="20">易理研物</text>
+  <text x="620" y="270" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="31"
+        fill="#8fc3e0" letter-spacing="4">从符号先验到通用智能的工程研究</text>
+  <text x="620" y="336" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="36"
+        fill="#dcecf6" letter-spacing="11">马兴录　马圣洁　李诚　著</text>
+  <text x="620" y="378" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="21"
+        fill="#7ea8c4">青岛科技大学　信息科学技术学院</text>
+
+  <!-- ================= 机器人侧脸（拟真）================= -->
+  <g transform="translate(1280,0) scale(-1,1)"><g transform="translate(640,1000)">
+    <!-- 颈（后倾侧颈）-->
+    <path d="M-40 96 q-4 -46 16 -70 l 96 -6 q-30 40 -30 92 Z" fill="url(#skinShade)"/>
+    <path d="M-28 30 l 92 -8 M-34 62 l 96 -6" stroke="#4a6d8a" stroke-width="3" opacity="0.5" fill="none"/>
+
+    <!-- 颅骨后部（后脑）-->
+    <path d="M-58 -30 q-70 -34 -46 -110 q22 -70 96 -84 q74 -12 118 44 q28 36 22 86
+             q-6 46 -40 74 Z" fill="url(#skin)"/>
+    <!-- 面部轮廓（额头→眉骨→鼻梁→鼻尖→唇→下巴→下颌）-->
+    <path d="M-46 -188 q46 -42 104 -30
+             q22 5 36 22
+             q10 12 4 22 q-4 8 -18 16
+             q10 4 20 14 q8 8 2 16 q-6 8 -22 14
+             q6 6 14 18 q6 10 -2 18 q-8 10 -24 16
+             q-14 6 -22 16 q-8 12 -22 16
+             q-24 8 -44 -6 q-26 -18 -30 -58 q-4 -40 4 -90 Z"
+          fill="url(#skin)"/>
+
+    <!-- 眉 -->
+    <path d="M-6 -104 q40 -16 74 -4" fill="none" stroke="#6f93b0" stroke-width="9" stroke-linecap="round"/>
+    <!-- 眼睛（写实：上睑+眼球+睫毛）-->
+    <g>
+      <path d="M-4 -74 q34 -18 66 -2 q-30 20 -66 2 Z" fill="#dcecf6"/>
+      <circle cx="30" cy="-72" r="13" fill="url(#eyeG)"/>
+      <circle cx="33" cy="-72" r="6.5" fill="#0a1e3a"/>
+      <circle cx="29" cy="-75" r="2.6" fill="#ffffff"/>
+      <path d="M-6 -78 q36 -20 70 -2" fill="none" stroke="#4a6d8a" stroke-width="3.4" stroke-linecap="round"/>
+      <path d="M-2 -66 q32 12 64 2" fill="none" stroke="#5b7f9c" stroke-width="2.2" stroke-linecap="round"/>
+    </g>
+    <!-- 鼻（鼻梁+鼻头+鼻孔）-->
+    <path d="M-6 -60 q-10 24 -24 40 q-12 14 -2 20 q10 6 24 -2 q6 8 14 2" fill="none"
+          stroke="#7c9db7" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M-32 -4 q12 8 26 2" fill="none" stroke="#4a6d8a" stroke-width="3.4" stroke-linecap="round"/>
+    <path d="M-18 -14 q-14 2 -18 12" fill="none" stroke="#4a6d8a" stroke-width="3" stroke-linecap="round"/>
+    <!-- 嘴（上唇+下唇）-->
+    <path d="M-30 22 q16 12 34 4" fill="none" stroke="#5a7d9a" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M-30 22 q14 -8 30 -2" fill="none" stroke="#7c9db7" stroke-width="2.6" stroke-linecap="round"/>
+    <!-- 下颌线 -->
+    <path d="M4 40 q-30 22 -58 6" fill="none" stroke="#6f93b0" stroke-width="2.4" opacity="0.7" stroke-linecap="round"/>
+    <!-- 耳 -->
+    <path d="M-48 -46 q-26 -6 -30 -40 q-4 -34 22 -44 q12 -4 20 4 l -4 16 q-16 2 -14 24 q2 22 20 26 Z"
+          fill="url(#skinShade)"/>
+    <path d="M-52 -76 q12 -8 22 2" fill="none" stroke="#5b7f9c" stroke-width="3" stroke-linecap="round"/>
+
+    <!-- ===== 头发区：发光的电子器件（电路/芯片/光点）===== -->
+    <g>
+      <!-- 电路板基底发型 -->
+      <path d="M-58 -30 q-70 -34 -46 -110 q22 -70 96 -84 q74 -12 118 44 q28 36 22 86
+               q-6 46 -40 74 q-20 -140 -150 -10 Z"
+            fill="#0a2740" opacity="0.55"/>
+      <circle cx="50.3" cy="-60.9" r="4.7" fill="#7fe3ff" opacity="0.95"/><circle cx="58.6" cy="-86.5" r="3.0" fill="#7fe3ff" opacity="0.95"/><circle cx="69.8" cy="-188.6" r="3.8" fill="#a9ecff" opacity="0.95"/><circle cx="-71.7" cy="-56.3" r="2.2" fill="#a9ecff" opacity="0.95"/><circle cx="80.7" cy="-180.5" r="2.8" fill="#5fc8ea" opacity="0.95"/><circle cx="80.9" cy="-123.0" r="4.5" fill="#a9ecff" opacity="0.95"/><circle cx="-62.6" cy="-56.8" r="2.9" fill="#e8fbff" opacity="0.95"/><circle cx="-39.0" cy="-79.9" r="3.8" fill="#5fc8ea" opacity="0.95"/><circle cx="76.8" cy="-59.8" r="3.4" fill="#e8fbff" opacity="0.95"/><circle cx="-92.7" cy="-84.7" r="3.4" fill="#7fe3ff" opacity="0.95"/><circle cx="18.8" cy="-59.0" r="2.6" fill="#a9ecff" opacity="0.95"/><circle cx="75.1" cy="-60.9" r="3.4" fill="#5fc8ea" opacity="0.95"/><circle cx="84.0" cy="-173.9" r="3.9" fill="#5fc8ea" opacity="0.95"/><circle cx="74.1" cy="-122.0" r="3.3" fill="#5fc8ea" opacity="0.95"/><circle cx="-39.7" cy="-83.0" r="4.3" fill="#5fc8ea" opacity="0.95"/><circle cx="87.4" cy="-181.1" r="2.4" fill="#e8fbff" opacity="0.95"/><circle cx="-90.1" cy="-92.0" r="3.4" fill="#5fc8ea" opacity="0.95"/><circle cx="-85.7" cy="-64.9" r="2.3" fill="#e8fbff" opacity="0.95"/><circle cx="84.6" cy="-119.1" r="2.7" fill="#e8fbff" opacity="0.95"/><circle cx="-68.5" cy="-75.9" r="3.2" fill="#e8fbff" opacity="0.95"/><circle cx="73.6" cy="-110.5" r="2.8" fill="#e8fbff" opacity="0.95"/><circle cx="80.7" cy="-99.9" r="3.3" fill="#5fc8ea" opacity="0.95"/><path d="M-67.9 -147.2 L-92.0 -125.1 L-107.4 -107.9 L-92.4 -88.1" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M24.2 -93.7 L47.1 -72.0 L73.5 -48.6 L97.9 -65.2" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M43.7 -154.4 L65.1 -139.5 L90.9 -124.6 L63.0 -100.9" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M76.3 -127.5 L59.1 -104.3 L77.6 -124.4 L94.4 -110.2" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M4.5 -78.6 L30.0 -91.3 L54.0 -104.4 L29.9 -128.2" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M80.4 -176.8 L64.6 -193.6 L44.0 -178.2 L20.5 -198.3" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M-27.4 -150.9 L0.3 -170.6 L29.7 -159.2 L58.9 -135.8" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M51.7 -141.3 L73.2 -159.7 L102.5 -178.2 L129.6 -193.5" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M-36.0 -71.7 L-55.2 -55.7 L-77.1 -32.1 L-56.9 -50.4" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M-47.8 -62.7 L-29.7 -77.1 L-7.9 -65.1 L-23.8 -51.7" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M-86.9 -180.9 L-72.7 -167.5 L-46.2 -184.4 L-71.7 -170.2" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M14.2 -133.6 L-0.0 -147.8 L23.8 -164.3 L48.7 -174.8" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M-49.1 -136.2 L-77.3 -146.4 L-53.8 -124.4 L-32.1 -147.0" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><path d="M-11.2 -93.9 L16.2 -75.7 L44.7 -88.0 L74.3 -104.0" fill="none" stroke="#4fb6dd" stroke-width="1.2" opacity="0.6"/><rect x="3.0" y="-191.6" width="11.4" height="11.4" transform="rotate(45 3.0 -191.6)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><rect x="49.7" y="-93.5" width="11.0" height="11.0" transform="rotate(0 49.7 -93.5)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><rect x="-32.0" y="-141.3" width="7.4" height="7.4" transform="rotate(45 -32.0 -141.3)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><rect x="29.8" y="-191.5" width="12.1" height="12.1" transform="rotate(0 29.8 -191.5)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><rect x="15.2" y="-89.2" width="7.7" height="7.7" transform="rotate(0 15.2 -89.2)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><rect x="79.0" y="-104.8" width="9.6" height="9.6" transform="rotate(0 79.0 -104.8)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><rect x="14.6" y="-143.4" width="8.0" height="8.0" transform="rotate(0 14.6 -143.4)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><rect x="-80.7" y="-183.7" width="9.3" height="9.3" transform="rotate(0 -80.7 -183.7)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><rect x="-41.0" y="-122.6" width="7.7" height="7.7" transform="rotate(45 -41.0 -122.6)" fill="none" stroke="#8fe6ff" stroke-width="1.4" opacity="0.75"/><line x1="-66.7" y1="-196.0" x2="-23.9" y2="-196.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-70.5" y1="-189.0" x2="-47.1" y2="-189.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-74.4" y1="-182.0" x2="-43.2" y2="-182.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-78.2" y1="-175.0" x2="-50.1" y2="-175.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-82.1" y1="-168.0" x2="-46.5" y2="-168.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-86.0" y1="-161.0" x2="-53.2" y2="-161.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-89.8" y1="-154.0" x2="-45.4" y2="-154.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-90.3" y1="-147.0" x2="-60.6" y2="-147.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-86.5" y1="-140.0" x2="-65.1" y2="-140.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-82.7" y1="-133.0" x2="-44.5" y2="-133.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-78.8" y1="-126.0" x2="-54.9" y2="-126.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-75.0" y1="-119.0" x2="-38.5" y2="-119.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-71.1" y1="-112.0" x2="-37.9" y2="-112.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-67.2" y1="-105.0" x2="-23.6" y2="-105.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-63.4" y1="-98.0" x2="-29.0" y2="-98.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-59.5" y1="-91.0" x2="-23.4" y2="-91.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-55.7" y1="-84.0" x2="-28.9" y2="-84.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-51.8" y1="-77.0" x2="-17.5" y2="-77.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-48.0" y1="-70.0" x2="-21.4" y2="-70.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/><line x1="-44.1" y1="-63.0" x2="-4.6" y2="-63.0" stroke="#7fd4f0" stroke-width="1.3" opacity="0.5"/>
+    </g>
+  </g>
+
+  </g>
+  <!-- 大脑光晕（从后脑散发）-->
+  <circle cx="680" cy="830" r="160" fill="url(#coreGlow)"/>
+
+  <!-- 八卦神经核（后脑内）-->
+  <g transform="translate(684,820) scale(0.9)" opacity="0.96">
+    <line x1="0.0" y1="-128.0" x2="90.5" y2="-90.5" stroke="#7fe3ff" stroke-width="1.1" opacity="0.45"/><line x1="0.0" y1="-128.0" x2="0" y2="0" stroke="#a9ecff" stroke-width="0.8" opacity="0.3"/><line x1="90.5" y1="-90.5" x2="128.0" y2="0.0" stroke="#7fe3ff" stroke-width="1.1" opacity="0.45"/><line x1="90.5" y1="-90.5" x2="0" y2="0" stroke="#a9ecff" stroke-width="0.8" opacity="0.3"/><line x1="128.0" y1="0.0" x2="90.5" y2="90.5" stroke="#7fe3ff" stroke-width="1.1" opacity="0.45"/><line x1="128.0" y1="0.0" x2="0" y2="0" stroke="#a9ecff" stroke-width="0.8" opacity="0.3"/><line x1="90.5" y1="90.5" x2="0.0" y2="128.0" stroke="#7fe3ff" stroke-width="1.1" opacity="0.45"/><line x1="90.5" y1="90.5" x2="0" y2="0" stroke="#a9ecff" stroke-width="0.8" opacity="0.3"/><line x1="0.0" y1="128.0" x2="-90.5" y2="90.5" stroke="#7fe3ff" stroke-width="1.1" opacity="0.45"/><line x1="0.0" y1="128.0" x2="0" y2="0" stroke="#a9ecff" stroke-width="0.8" opacity="0.3"/><line x1="-90.5" y1="90.5" x2="-128.0" y2="0.0" stroke="#7fe3ff" stroke-width="1.1" opacity="0.45"/><line x1="-90.5" y1="90.5" x2="0" y2="0" stroke="#a9ecff" stroke-width="0.8" opacity="0.3"/><line x1="-128.0" y1="0.0" x2="-90.5" y2="-90.5" stroke="#7fe3ff" stroke-width="1.1" opacity="0.45"/><line x1="-128.0" y1="0.0" x2="0" y2="0" stroke="#a9ecff" stroke-width="0.8" opacity="0.3"/><line x1="-90.5" y1="-90.5" x2="0.0" y2="-128.0" stroke="#7fe3ff" stroke-width="1.1" opacity="0.45"/><line x1="-90.5" y1="-90.5" x2="0" y2="0" stroke="#a9ecff" stroke-width="0.8" opacity="0.3"/><g transform="translate(0.0,-128.0) rotate(-0.0)" stroke="#a9ecff" stroke-width="2.6" stroke-linecap="round" opacity="0.98"><line x1="-15.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(90.5,-90.5) rotate(-45.0)" stroke="#a9ecff" stroke-width="2.6" stroke-linecap="round" opacity="0.98"><line x1="-15.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="-3.8" y2="-3.0"/><line x1="3.8" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(128.0,0.0) rotate(-90.0)" stroke="#a9ecff" stroke-width="2.6" stroke-linecap="round" opacity="0.98"><line x1="-15.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="-3.8" y2="-9.0"/><line x1="3.8" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(90.5,90.5) rotate(-135.0)" stroke="#a9ecff" stroke-width="2.6" stroke-linecap="round" opacity="0.98"><line x1="-15.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="-3.8" y2="-9.0"/><line x1="3.8" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="-3.8" y2="-3.0"/><line x1="3.8" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(0.0,128.0) rotate(-180.0)" stroke="#a9ecff" stroke-width="2.6" stroke-linecap="round" opacity="0.98"><line x1="-15.0" y1="-15.0" x2="-3.8" y2="-15.0"/><line x1="3.8" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(-90.5,90.5) rotate(-225.0)" stroke="#a9ecff" stroke-width="2.6" stroke-linecap="round" opacity="0.98"><line x1="-15.0" y1="-15.0" x2="-3.8" y2="-15.0"/><line x1="3.8" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="-3.8" y2="-3.0"/><line x1="3.8" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(-128.0,0.0) rotate(-270.0)" stroke="#a9ecff" stroke-width="2.6" stroke-linecap="round" opacity="0.98"><line x1="-15.0" y1="-15.0" x2="-3.8" y2="-15.0"/><line x1="3.8" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="-3.8" y2="-9.0"/><line x1="3.8" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(-90.5,-90.5) rotate(-315.0)" stroke="#a9ecff" stroke-width="2.6" stroke-linecap="round" opacity="0.98"><line x1="-15.0" y1="-15.0" x2="-3.8" y2="-15.0"/><line x1="3.8" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="-3.8" y2="-9.0"/><line x1="3.8" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="-3.8" y2="-3.0"/><line x1="3.8" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(32.8,-164.8) rotate(-11.2)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="-2.0" y2="-1.6"/><line x1="2.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="-2.0" y2="1.6"/><line x1="2.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="-2.0" y2="4.8"/><line x1="2.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="-2.0" y2="8.0"/><line x1="2.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(93.3,-139.7) rotate(-33.8)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="-2.0" y2="-1.6"/><line x1="2.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="-2.0" y2="1.6"/><line x1="2.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="-2.0" y2="4.8"/><line x1="2.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(139.7,-93.3) rotate(-56.2)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="-2.0" y2="-1.6"/><line x1="2.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="-2.0" y2="1.6"/><line x1="2.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="-2.0" y2="8.0"/><line x1="2.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(164.8,-32.8) rotate(-78.8)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="-2.0" y2="-1.6"/><line x1="2.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="-2.0" y2="1.6"/><line x1="2.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(164.8,32.8) rotate(-101.2)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="-2.0" y2="-1.6"/><line x1="2.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="-2.0" y2="4.8"/><line x1="2.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="-2.0" y2="8.0"/><line x1="2.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(139.7,93.3) rotate(-123.8)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="-2.0" y2="-1.6"/><line x1="2.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="-2.0" y2="4.8"/><line x1="2.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(93.3,139.7) rotate(-146.2)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="-2.0" y2="-1.6"/><line x1="2.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="-2.0" y2="8.0"/><line x1="2.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(32.8,164.8) rotate(-168.8)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="-2.0" y2="-1.6"/><line x1="2.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(-32.8,164.8) rotate(-191.2)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="-2.0" y2="1.6"/><line x1="2.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="-2.0" y2="4.8"/><line x1="2.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="-2.0" y2="8.0"/><line x1="2.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(-93.3,139.7) rotate(-213.8)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="-2.0" y2="1.6"/><line x1="2.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="-2.0" y2="4.8"/><line x1="2.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(-139.7,93.3) rotate(-236.2)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="-2.0" y2="1.6"/><line x1="2.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="-2.0" y2="8.0"/><line x1="2.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(-164.8,32.8) rotate(-258.8)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="-2.0" y2="1.6"/><line x1="2.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(-164.8,-32.8) rotate(-281.2)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="-2.0" y2="4.8"/><line x1="2.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="-2.0" y2="8.0"/><line x1="2.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(-139.7,-93.3) rotate(-303.8)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="-2.0" y2="4.8"/><line x1="2.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(-93.3,-139.7) rotate(-326.2)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="-2.0" y2="8.0"/><line x1="2.0" y1="8.0" x2="8.0" y2="8.0"/></g><g transform="translate(-32.8,-164.8) rotate(-348.8)" stroke="#7fd4f0" stroke-width="1.4" stroke-linecap="round" opacity="0.55"><line x1="-8.0" y1="-8.0" x2="-2.0" y2="-8.0"/><line x1="2.0" y1="-8.0" x2="8.0" y2="-8.0"/><line x1="-8.0" y1="-4.8" x2="-2.0" y2="-4.8"/><line x1="2.0" y1="-4.8" x2="8.0" y2="-4.8"/><line x1="-8.0" y1="-1.6" x2="8.0" y2="-1.6"/><line x1="-8.0" y1="1.6" x2="8.0" y2="1.6"/><line x1="-8.0" y1="4.8" x2="8.0" y2="4.8"/><line x1="-8.0" y1="8.0" x2="8.0" y2="8.0"/></g>
+    <circle r="58" fill="#04121f"/>
+    <circle r="58" fill="none" stroke="#7fe3ff" stroke-width="3" filter="url(#glowS)"/>
+    <circle r="48" fill="url(#core)"/>
+    <path d="M0 -48 a48 48 0 0 1 0 96 a24 24 0 0 1 0 -48 a24 24 0 0 0 0 -48 z" fill="#04121f"/>
+    <circle cx="0" cy="-24" r="7" fill="#7fe3ff"/>
+    <circle cx="0" cy="24" r="7" fill="#04121f"/>
+  </g>
+
+  <!-- 标注 -->
+  <text x="620" y="1300" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="30"
+        fill="#7fe3ff" letter-spacing="6">易理系统 · 作为智能之脑</text>
+  <text x="620" y="1340" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="19"
+        fill="#6b93b0" letter-spacing="1.5">符号先验（64卦） → 元胞 → 组织 → 生态 → 通用智能</text>
+  <line x1="420" y1="1470" x2="820" y2="1470" stroke="#2b5578" stroke-width="1"/>
+  <text x="620" y="1520" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="19"
+        fill="#5b7f99">https://github.com/qdmxl/ylyw</text>
+</svg>

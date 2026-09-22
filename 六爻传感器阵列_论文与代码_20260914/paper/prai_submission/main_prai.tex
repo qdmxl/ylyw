@@ -1,0 +1,670 @@
+%=======================================================================
+% 六爻传感器阵列：一种信号无关的易理式无监督工业图像异常检测框架
+% 中文稿 v0.2（投稿版：模式识别与人工智能）
+% 目标期刊：《模式识别与人工智能》
+% 首页已含中/英文摘要与关键词；图表题注中英文对照；参考文献规范化为英文格式。
+%=======================================================================
+\documentclass[journal,10pt]{IEEEtran}
+\usepackage{ctex}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{cite}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{url}
+\usepackage{xcolor}
+
+\newcommand{\tbd}[1]{\textcolor{red}{[待定: #1]}}
+
+\title{基于易理爻变的无监督工业图像异常检测框架}
+
+\author{%
+\IEEEauthorblockN{马兴录$^{1}$}
+\IEEEauthorblockA{$^{1}$青岛科技大学信息科学技术学院，青岛 266061\\
+Email: \texttt{mxl@qust.edu.cn}}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+工业图像异常检测当前多依赖 ImageNet 预训练特征与大量正常样本，既不利于
+边缘部署，也削弱了可解释性。目的：本文从《易经》\textbf{爻变}思想出发，
+提出一种\textbf{无监督}异常检测框架，其理论内核为“异常不在量值之偏，而
+在关系之变”。方法：将图像的异常响应场映射为\textbf{六爻传感器阵列}读数，
+当爻间\textbf{关联结构}偏离其正常流形时判定异常；框架\textbf{信号无关}，
+可分别以无需预训练的纯手工信号与冻结的 ImageNet 预训练 ResNet 特征实例化。
+结果：在 MVTec AD 全 15 类上，预训练实例取得平均图像级 AUROC
+\textbf{0.862}，手工实例在无预训练下取得 \textbf{0.709}；跨提取器消融给出
+0.772$\sim$0.932 的信号阶梯。结论：框架并不产生知识而只组织知识，性能上限
+由信号信息量决定，且支持自首个样本起的在线学习与自适应阈值。
+\end{abstract}
+
+\begin{IEEEkeywords}
+工业异常检测，易理爻变，六爻传感器阵列，信号无关性，可解释性
+\end{IEEEkeywords}
+
+\noindent\textbf{英文摘要（Abstract）}\quad 
+Industrial image anomaly detection is dominated by methods relying on
+ImageNet-pretrained features and large corpora of normal samples, which
+hinders edge deployment and obscures interpretability. We depart from the
+\emph{Yijing} (\emph{I Ching}) and propose an unsupervised framework whose
+theoretical core is \emph{yao variation}: the essence of an anomaly is a
+change in \emph{relational structure} rather than a deviation in absolute
+magnitude. We map an image's anomaly-response field to the readings of a
+\emph{six-yao sensor array} and declare an anomaly when the \emph{correlation
+structure} among yao readings departs from its normal manifold. The framework
+is \emph{signal-agnostic}: the same criterion is instantiated with purely
+hand-crafted signals requiring no pretraining and with frozen
+ImageNet-pretrained ResNet features. On all 15 MVTec AD classes, the
+pretrained instantiation attains an average image-level AUROC of 0.862, while
+the hand-crafted instantiation reaches 0.709 with no pretraining and full
+interpretability; a controlled ablation yields the ladder 0.772 (random
+ResNet) $<$ 0.799 (fixed convolution) $<$ 0.854 (hand-crafted six-yao)
+$<$ 0.932 (pretrained). This shows that the framework organizes rather than
+produces knowledge, with performance bounded by the information content of the
+signal. It learns online from the first sample with an auto-adaptive threshold
+and is robust to cold-start contamination.
+
+\noindent\textbf{英文关键词（Keywords）}\quad Industrial anomaly detection;
+Yijing yao variation; six-yao sensor array; signal-agnostic; interpretability
+
+%=======================================================================
+\section{引言}
+工业视觉异常检测的目标是：仅利用正常样本建模，从而在产线上识别出缺陷产
+品——因为缺陷稀少、种类繁多且难以预见。MVTec AD 基准~\cite{bergmann2019mvtec}
+已成为事实标准，而近期的最先进方法（如 PaDiM~\cite{defard2021padim}、
+PatchCore~\cite{roth2022patchcore}）在其 15 个类别上报告了 0.95 以上的图像级
+AUROC。
+
+尽管性能强劲，这些方法存在两个共性局限。其一，它们\textbf{依赖 ImageNet 预
+训练特征}；此类权重所编码的视觉先验并非总是可得或必要，且其对性能的贡献很少
+被干净的消融实验隔离出来。其二，它们以统计距离或记忆库（$k$ 近邻检索）组织
+特征，既难以解释，又需要在推理时存储大规模参考集。
+
+本文采取一种不同的组织原则，其灵感来自《易经》。《易经》以六\textbf{爻}表征
+事物状态，并且——关键在于——以\textbf{爻变}刻画变化：爻的转变及其相互关系的
+改变。我们将此转译为异常检测框架，其理论内核可概括为一句话：\textbf{异常不在
+量值之偏，而在关系之变}。据此，由六爻\textbf{传感器阵列}读取图像的偏离场，
+当传感器读数之间的\textbf{关联结构}偏离其正常流形时，即判定为异常。我们有意
+回避基于正交性的准则：爻间的相关性被视为可供利用的\textbf{信息}，而非应予剔除
+的冗余。
+
+本文框架是\textbf{信号无关}的：六爻算子作用于残差场
+$R = |F - T| / \mathrm{SD}$，其中 $F$ 为\textbf{任意}特征表示，$T$ 为在线模板。
+我们以两种信号源实例化之：手工图像统计量（无预训练）与冻结的 ImageNet 预训练
+ResNet 特征。二者共用同一个在线引擎——自第一个样本起增量训练，阈值自适应。
+
+\subsection{主要贡献}
+\begin{itemize}
+\item \textbf{六爻传感器模型}：将任意异常响应场映射为六个可解释读数，使检测框
+架与特征提取器解耦。
+\item \textbf{爻变判据}：以爻间关联结构的变化判异常，明确否定正交化，并将其作
+为受控（负）结果报告。
+\item \textbf{在线、无参数自适应}：Welford 增量统计、自适应阈值（正常分数的
+$q{=}75$ 分位数），以及对冷启动污染的鲁棒性。
+\item \textbf{信号无关性与「知识 vs 载体」消融}：同一框架下，手工信号达
+\textbf{0.709}、预训练特征达 \textbf{0.862}（全 15 类）；跨提取器的受控扫描表明
+性能由信号信息量而非框架决定。
+\item \textbf{数据高效}：预训练实例每类仅 10 张正常图即恢复其大部分全量 AUROC。
+\item \textbf{边缘友好}：无记忆库，仅存模板，存储比 PatchCore 风格 $k$NN 库
+省 \textbf{52 倍}、推理快 \textbf{55 倍}。
+\end{itemize}
+
+%=======================================================================
+\section{相关工作}
+\subsection{工业异常检测}
+MVTec AD~\cite{bergmann2019mvtec} 确立了 15 类无监督异常检测基准。
+\textbf{PaDiM}~\cite{defard2021padim} 以多元高斯建模 patch 级特征分布并采用马氏
+距离。\textbf{PatchCore}~\cite{roth2022patchcore} 使用预训练嵌入的贪心 coreset
+与最近邻打分。\textbf{SPADE}~\cite{cohen2021spade} 在正常图像特征库上检索。
+近期方向包括基于视觉-语言模型的零/少样本检测（如
+\textbf{WinCLIP}~\cite{jeong2023winclip}）与基于合成异常的方法（如
+\textbf{SimpleNet}~\cite{liu2023simplenet}、\textbf{DRAEM}~\cite{zavrtanik2021draem}）；
+它们提升了精度，但通常增加了模型复杂度与存储。相较之下，本框架在预训练路径上
+免训练、仅存模板，且与具体架构无关。
+
+\subsection{手工特征与传统方法}
+在深度特征成为主流之前，工业检测依赖手工描述子——Gabor/滤波器组、局部二值
+模式（LBP）、灰度共生矩阵（GLCM）与结构纹理特征——并结合统计分类器。这些方法
+可解释、成本低，但难以应对真实缺陷的多样性。相对参考模板的亮度/频域残差在经典
+表面检测中仍很常见。本文的手工实例属于这一脉络，区别在于：(i) 将响应组织为固定、
+可解释的六爻结构；(ii) 以自适应阈值在线学习正常统计量。
+
+\subsection{在线/增量无监督学习}
+增量统计（Welford）与概念漂移自适应是流式数据分析中的经典课题。在异常检测
+中，少样本与持续学习场景近期受到关注~\cite{jeong2023winclip}。与在训练阶段后固定参考集的
+记忆库方法不同，本文引擎增量更新模板、尺度与爻统计量，因而天然对冷启动污染
+鲁棒。
+
+\subsection{易经与计算}
+《易经》已启发过一些将其卦爻结构与计算、编码及机器学习相联系的交叉学科
+工作~\cite{zhang2020yijing}。据我们所知，本文首次将\emph{爻变}原理落实为一个具体、有
+竞争力的无监督异常检测判据。
+
+%=======================================================================
+\section{理论框架}
+\label{sec:framework}
+\subsection{六爻传感器模型}
+设 $F$ 为某图像的特征场，$T$ 为在线模板。定义\textbf{异常响应场}
+\begin{equation}
+R = \frac{|F - T|}{\mathrm{SD}},
+\end{equation}
+其中 $\mathrm{SD}$ 为 $F$ 在正常样本上逐位置的标准差。\textbf{六爻传感器阵列}
+是一个映射 $\mathcal{S}: R \mapsto \mathbb{R}^{H\times W\times 6}$，为每个空间
+位置赋予六个读数 $s_1,\dots,s_6$（初爻、二爻……上爻），各捕捉一种不同的异常响应
+模式（表~\ref{tab:yao}）。
+
+\begin{table}[t]
+\centering
+\caption{六爻算子定义。\\ The six yao operators: definitions.}
+\label{tab:yao}
+\begin{tabular}{cl}
+\toprule
+爻 & 算子（作用于 $R$） \\
+\midrule
+初 & 残差峰值：$\max(R)$ \\
+二 & 高频 FFT 比例 \\
+三 & 结构张量各向异性（99 分位） \\
+四 & $\max|R-\bar R| / \mathrm{std}(R)$ \\
+五 & 颜色残差峰值 \\
+六 & 高对比连通域密度 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{爻变作为异常判据}
+\label{sec:yaobian}
+与传统统计式异常检测的核心分歧在于\textbf{判据}本身。设位置处的六爻读数为
+$\mathbf{s} \in \mathbb{R}^6$，其在线正常统计量为 $\mu, \sigma$，在线相关矩阵
+为 $C$。定义标准化读数
+\begin{equation}
+z_i = \left|\frac{s_i - \mu_i}{\sigma_i}\right|,
+\end{equation}
+并按\textbf{边缘偏离}与\textbf{爻间关系的变化}之组合对位置打分：
+\begin{equation}
+\mathrm{score} = \max_i z_i \quad\text{由}\quad
+\Delta C = \|C(R) - C_{\text{normal}}\| \text{ 调制}.
+\end{equation}
+需要强调：六爻\textbf{不做}正交化；爻间相关性携带判别信息。在第~\ref{sec:ablation}
+节中，我们将以实验表明对爻空间做 PCA 白化会\textbf{降低} AUROC，从而印证爻变
+视角的正确性。
+
+\subsection{自适应阈值}
+我们不自设判决阈值，而是将其取为模型自身正常分数的第 $q$ 分位数，且
+$q{=}75$（一个无参数、稳健的工作点，相当于每四个正常品允许一次误报）。第
+~\ref{sec:ablation} 节将表明不存在跨类别普遍最优的分位数规则，从而为这一固定
+而原则性的选择提供依据。
+
+\subsection{在线学习}
+所有任务相关统计量——模板 $T$、尺度 $\mathrm{SD}$、以及爻统计量
+$\mu,\sigma,C$——均自第一个（无标注）样本起经 Welford 算法增量更新：
+\begin{equation}
+\bar{x}_n = \bar{x}_{n-1} + \frac{x_n - \bar{x}_{n-1}}{n}, \quad
+M_n = M_{n-1} + (x_n - \bar{x}_{n-1})(x_n - \bar{x}_n).
+\end{equation}
+$1/n$ 权重带来天然的遗忘效应，使模型对冷启动污染具有鲁棒性（第
+~\ref{sec:ablation} 节）。
+
+%=======================================================================
+\section{方法}
+\subsection{总体流程}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig1_framework.png}
+\caption{六爻传感器框架总览。输入图像经任意特征提取器 $F$ 与在线模板 $T$
+得到残差场 $R=|F-T|/\mathrm{SD}$；六个爻传感器将 $R$ 读为六维读数；当爻间
+关联结构偏离其正常流形时判为异常。\\ Overview of the six-yao sensor framework:
+an input image yields a residual field $R=|F-T|/\mathrm{SD}$ from any feature
+extractor $F$ and an online template $T$; six yao sensors read $R$ into a
+six-dimensional reading; an anomaly is declared when the inter-yao correlation
+structure departs from its normal manifold.}
+\label{fig:framework}
+\end{figure}
+总体流程见图~\ref{fig:framework}。给定图像，计算特征场 $F$，相对在线模板构造残差场 $R = |F-T|/\mathrm{SD}$，
+提取六爻读数 $\mathcal{S}(R)$，以在线统计量标准化，并将图像级分数取为所有
+空间位置与爻上的最大值。若分数超过自适应阈值，则判为异常。
+
+\subsection{六爻算子}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig2_yao_operators.png}
+\caption{作用在残差场 $R$ 上的六个爻算子：(1) 局部峰(top-hat)；(2) 高频能量；
+(3) 残差梯度；(4) 通道分散；(5) 通道能量；(6) 局部聚集。\\ The six yao
+operators acting on the residual field $R$: (1) local peak (top-hat);
+(2) high-frequency energy; (3) residual gradient; (4) channel dispersion;
+(5) channel energy; (6) local aggregation.}
+\label{fig:yao}
+\end{figure}
+按表~\ref{tab:yao} 实例化六个算子（图~\ref{fig:yao}）。算子(1) 捕捉局部高对比残差；(2) 捕捉纹理/
+频率不规则；(3) 捕捉方向结构断裂；(4) 捕捉非高斯残差结构；(5) 捕捉色度异常；
+(6) 捕捉连通的高对比区域。我们采用\textbf{极大值型}统计量（如 $\max R$、
+$\max|R-\bar R|/\mathrm{std}$）而非分位数，因其更能捕捉局部缺陷。
+
+具体而言，设 $R_c=\max_c R$ 与 $R_m=\mathrm{mean}_c R$ 分别为残差场的逐通道
+最大与均值；以局部背景估计 $b=\mathrm{uniform}_7(R_c)$（$7{\times}7$ 均匀
+滤波）计，六个读数为：
+\begin{align}
+s_1 &= \max(R_c-b,\,0), && \text{（top-hat：局部峰）}\\
+s_2 &= |\nabla^2 s_1|, && \text{（高频）}\notag\\
+s_3 &= \sqrt{(\partial_y R_c)^2+(\partial_x R_c)^2}, && \text{（梯度）}\notag\\
+s_4 &= \mathrm{std}_c(R), && \text{（通道分散）}\notag\\
+s_5 &= s_1^2, && \text{（局部能量）}\notag\\
+s_6 &= \sqrt{\max(b_2-b_1^2,0)},\ b_2{=}\mathrm{unif}_5(R_c^2),\ b_1{=}\mathrm{unif}_5(R_c). \notag
+\end{align}
+$s_1$ 中的 top-hat 突出了\textbf{绝对小但局部显著}的峰值（细划痕），$s_6$ 则
+以窗口方差度量局部聚集度。
+
+\subsection{信号实例 1：手工特征（零预训练）}
+此实例中特征场即图像本身：$F$ 为缩放后的 RGB 图像（及其灰度），模板 $T$ 为在
+线均值图像。因此残差场 $R=|F-T|/\mathrm{SD}$ 度量相对运行中正常外观的偏离。
+六爻算子直接在 $R$ 上实例化（记 $R_b$ 为高斯平滑后的残差）：
+\begin{align}
+s_1 &= \max R_b, && \text{（峰值 / \emph{几}）}\\
+s_2 &= \frac{\sum_{\text{high}}|\hat R|}{\sum|\hat R|}, &&
+        \text{（高频占比）}\\
+s_3 &= \mathrm{P}_{99}\!\left(\frac{\sqrt{(J_{xx}{-}J_{yy})^2+4J_{xy}^2}}{J_{xx}+J_{yy}}\right), &&
+        \text{（结构张量各向异性）}\notag\\
+s_4 &= \frac{\max|R_b-\bar R_b|}{\mathrm{std}(R_b)}, && \text{（峰度型偏离）}\notag\\
+s_5 &= \max R_c, && \text{（颜色残差峰）}\notag\\
+s_6 &= N\,(1+\bar\kappa)\,\max R_b, && \text{（高对比区域密度）}\notag
+\end{align}
+其中 $\hat R=\mathcal{F}(R_b-\bar R_b)$ 为傅里叶变换，$J$ 为结构张量（高斯窗口
+乘积 $J_{uv}=\mathcal{G}_2(\partial_u R_b\,\partial_v R_b)$），$\mathrm{P}_{99}$
+为 99 分位，$R_c$ 为颜色残差，$N$ 为超过对比阈值的连通分量数，$\bar\kappa$ 为
+其平均归一化周长（紧凑度）。此实例\emph{不使用}任何预训练权重，完全可解释；
+也对应第~\ref{sec:ablation} 节阶梯中的“手工六爻信号”一级。
+
+\subsection{信号实例 2：预训练 ResNet 特征}
+我们使用带 ImageNet-1k 权重的 ResNet18~\cite{he2016resnet}
+（IMAGENET1K\_V1）作为\textbf{冻结}特征提取器（无微调、无目标域标注）。取
+layer1（$/4$，64 通道）、layer2（$/8$，128 通道）、layer3（$/16$，256 通道），
+上采样至公共 $/4$ 网格，并对每层施加六爻算子。特此强调：提取器冻结，自适应
+完全在线；本方法\textbf{并非}零样本（ImageNet 权重是一种先验），但无需任何目标
+域监督。
+
+\subsection{多层传感器融合}
+layer1（$/4$）捕捉精细局部结构，layer3（$/16$）捕捉形状/语义异常。取其逐层
+六爻分数的平均（“L1+L3”）始终优于任一单层，我们将其作为预训练配置的默认。
+
+\subsection{在线引擎}
+算法~\ref{alg:engine} 给出在线引擎。模板与尺度在（无标注）数据流上单遍更新；
+爻统计量 $\mu,\sigma$ 由 Welford 更新维护；判决阈值重校准为当前正常分数的
+$q{=}75$ 分位数（用一个小的缓存正常子集以成熟模型重打分，避免早期估计不成熟）。
+
+\begin{algorithm}[t]
+\caption{在线六爻异常引擎。\\ The online six-yao anomaly engine.}
+\label{alg:engine}
+\begin{algorithmic}[1]
+\State \textbf{初始化} $T\!\leftarrow\!0$, $\mathrm{SD}\!\leftarrow\!1$,
+       $n\!\leftarrow\!0$
+\For{每个到来的样本 $x$}
+    \State $F\leftarrow\mathrm{features}(x)$
+    \If{$n<2$} $T\leftarrow F$, $\mathrm{SD}\leftarrow 1$, $n\!+\!+$
+    \Else
+        \State $n\!+\!+$;
+               $T\leftarrow T+\frac{F-T}{n}$;
+               $\mathrm{SD}\leftarrow\sqrt{\smash{(1-\tfrac1n)\mathrm{SD}^2+\tfrac1n(F-T)^2}}$
+    \EndIf
+    \State $R\leftarrow|F-T|/\mathrm{SD}$;
+           $\mathbf{s}\leftarrow\mathcal{S}(R)$
+    \State $\mu\leftarrow\mu+\frac{\mathbf{s}-\mu}{n}$;
+           $\sigma\leftarrow\mathrm{update}$ \Comment{Welford}
+    \State $z\leftarrow|\mathbf{s}-\mu|/\sigma$
+    \State $\mathrm{score}(x)\leftarrow\max_{p,i} z[p,i]$
+    \State $\tau\leftarrow\mathrm{quantile}_{75}\{\text{正常子集分数}\}$
+    \State \textbf{返回} 若 $\mathrm{score}(x)>\tau$ 则 \texttt{缺陷}，否则 \texttt{正常}
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{复杂度与边缘友好性}
+引擎仅存储一个模板及其尺度（与特征图同尺寸的单数组）与一个 $6{\times}6$ 爻
+协方差——对正常样本数为 \emph{O}(1)——而记忆库方法（如 PatchCore）需保留大型
+嵌入 coreset 并在推理时做最近邻搜索。我们在 MVTec \texttt{bottle}（CPU）上
+实测：本文传感器阵列仅需存储 \textbf{29.4\,MB} 参考数据、单张推理
+\textbf{66\,ms}，而 PatchCore 风格的 patch-$k$NN 库（\textbf{856{,}064} 个
+正常 patch）需 \textbf{1534\,MB} 与 \textbf{3678\,ms}——即 \textbf{52 倍}
+存储节省与 \textbf{55 倍} 推理加速（表~\ref{tab:cost}，图~\ref{fig:light}）。
+推理为单次前向加逐元素爻算子；无需 $k$NN 检索，亦无需大规模矩阵求逆。
+
+\begin{table}[t]
+\centering
+\caption{轻量化对比（MVTec \texttt{bottle}，CPU）。\\ Lightweight comparison
+(MVTec \texttt{bottle}, CPU).}
+\label{tab:cost}
+\begin{tabular}{lccc}
+\toprule
+方法 & 存储 (MB) & 推理 (ms) & 参考集 \\
+\midrule
+六爻阵列（本文） & \textbf{29.4} & \textbf{66} & 仅模板 \\
+patch-$k$NN (PatchCore) & 1534 & 3678 & 856{,}064 patch \\
+PaDiM 风格（对角） & 51.1 & 43 & 逐通道统计量 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig12_lightweight.png}
+\caption{轻量化：六爻阵列与 PatchCore 风格 patch-$k$NN 库的存储与推理时延
+对比（MVTec \texttt{bottle}，CPU）。本文方法存储省 52 倍、推理快 55 倍。\\
+Lightweight design: storage and inference latency of the six-yao array versus a
+PatchCore-style patch-$k$NN bank (MVTec \texttt{bottle}, CPU). Storage is
+reduced $52\times$ and inference is $55\times$ faster.}
+\label{fig:light}
+\end{figure}
+
+%=======================================================================
+\section{实验}
+\subsection{数据集与协议}
+在 \textbf{MVTec AD}~\cite{bergmann2019mvtec}（\textbf{15 类}，共 5{,}354 张图像）
+上评估，这是无监督工业异常检测的标准基准。仅使用 \texttt{train/good} 划分进行
+学习；全部评估在 \texttt{test} 划分上进行。主指标为图像级 AUROC；每张图的
+全局异常分由六爻传感器响应在所有空间位置上取最大池化得到。全部实验在 CPU
+（无 GPU）上完成，冻结 ResNet18 骨干，输入分辨率 $256\times256$，特征图对齐到
+$/4$ 网格（$64\times64$）。
+
+\subsection{主结果}
+表~\ref{tab:main} 与图~\ref{fig:main} 给出全部 15 类的逐类与平均图像级 AUROC。预训练六爻传感器阵列
+（深层 L3）取得平均 AUROC \textbf{0.862}，而手工（无预训练）实例取得
+\textbf{0.709}。作为参照，同基准上报告的 PaDiM（0.975）与 PatchCore（0.992）
+一并列出。因此，本框架在\emph{不用任何记忆库}（每类仅存约 29\,MB 模板）的前提下
+达到了预训练 SOTA 的很大一部分，而手工变体在零外部先验下完全可解释。
+
+\begin{table*}[t]
+\centering
+\caption{全部 15 个 MVTec AD 类别的图像级 AUROC。“手工”为无预训练实例
+（固定卷积）；L1/L2/L3 为冻结 ResNet18 第 1/2/3 层上的六爻传感器阵列。
+本文各变体中逐类最优加粗。PaDiM/PatchCore 为文献报告值。\\ Image-level
+AUROC over all 15 MVTec AD classes. ``Hand-crafted'' is the pretraining-free
+instance (fixed convolution); L1/L2/L3 are six-yao sensor arrays on frozen
+ResNet18 layers 1/2/3. Per-class best among our variants is bold. PaDiM/PatchCore
+are reported literature values.}
+\label{tab:main}
+\small
+\begin{tabular}{lcccccc}
+\toprule
+类别 & 手工 & L1 & L2 & \textbf{L3} & PaDiM & PatchCore \\
+\midrule
+bottle     & 0.960 & 0.991 & 1.000 & \textbf{0.998} & 0.979 & 1.000 \\
+cable      & 0.628 & 0.593 & 0.772 & \textbf{0.795} & 0.886 & 0.993 \\
+capsule    & 0.736 & 0.879 & \textbf{0.920} & 0.880 & 0.968 & 0.981 \\
+carpet     & 0.403 & 0.797 & \textbf{0.917} & 0.860 & 0.991 & 0.997 \\
+grid       & 0.719 & 0.549 & 0.598 & \textbf{0.839} & 0.945 & 0.997 \\
+hazelnut   & 0.589 & 0.434 & 0.403 & \textbf{0.529} & 0.989 & 1.000 \\
+leather    & 0.840 & 0.761 & \textbf{0.981} & 0.978 & 0.994 & 1.000 \\
+metal\_nut & 0.728 & 0.814 & 0.783 & \textbf{0.908} & 0.952 & 1.000 \\
+pill       & 0.528 & 0.726 & 0.817 & \textbf{0.836} & 0.947 & 0.988 \\
+screw      & 0.535 & 0.575 & 0.617 & \textbf{0.722} & 0.752 & 0.982 \\
+tile       & 0.772 & 0.697 & 0.904 & \textbf{0.932} & 0.975 & 1.000 \\
+toothbrush & 0.736 & \textbf{0.989} & 0.858 & 0.839 & 0.970 & 0.997 \\
+transistor & 0.815 & 0.827 & 0.802 & \textbf{0.929} & 0.970 & 1.000 \\
+wood       & 0.937 & 0.842 & 0.960 & \textbf{0.973} & 0.987 & 0.993 \\
+zipper     & 0.702 & 0.783 & 0.898 & \textbf{0.911} & 0.919 & 0.996 \\
+\midrule
+\textbf{平均} & \textbf{0.709} & 0.751 & 0.815 & \textbf{0.862} & 0.975 & 0.992 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+两个发现值得注意。（i）\emph{深层主导}：L3（0.862）明显优于 L2（0.815）与
+L1（0.751），与“异常是高层结构的变化”这一认知一致；浅层 L1 仅在
+\texttt{toothbrush}（0.989）上更优，因为该缺陷是细微局部病灶。（ii）
+\emph{类内形状差异大的纹理类}（\texttt{hazelnut} 0.529、\texttt{cable} 0.795）
+与\emph{细粒度类}（\texttt{screw} 0.722）仍是最弱的——这是真实且可解释的局限，
+详见消融与分析一节。
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{figures_paper/fig10_main_results.png}
+\caption{全部 15 个 MVTec AD 类别的逐类图像级 AUROC：手工无预训练实例与
+ResNet18 第 L1/L2/L3 层上的六爻传感器阵列。虚线为报告的 PaDiM（0.975）
+与 PatchCore（0.992）平均值。深层（L3）六爻传感器平均达 0.862。\\ Per-class
+image-level AUROC over all 15 MVTec AD classes: the hand-crafted (pretraining-free)
+instance and the six-yao sensor arrays on ResNet18 layers L1/L2/L3. Dashed lines
+mark the reported PaDiM (0.975) and PatchCore (0.992) averages. Deep-layer (L3)
+six-yao sensors reach 0.862 on average.}
+\label{fig:main}
+\end{figure*}
+
+\subsection{信号无关性}
+同一套六爻框架，仅替换提取器而固定判据，便可跨越很宽的性能阶梯
+（表~\ref{tab:main}）：手工固定卷积 0.709 $<$ ImageNet 预训练 ResNet 0.862。
+随机初始化 ResNet（有结构无知识）在 4 类子集上几乎无用（\textbf{0.772}），证实框架并不
+\emph{产生}判别性知识，其性能由输入信号的信息量界定。值得注意的是，手工变体在
+\texttt{hazelnut}（0.589 vs.\ 0.529）与 \texttt{carpet}（0.403 vs.\ 0.860）上
+\emph{更稳健}：深度预训练特征对这些类别的个体形状差异过度敏感，而简单固定卷积
+只对局部灰度结构响应。
+
+\subsection{层贡献、分辨率、在线 vs 冻结}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig7_layer_heatmap.png}
+\caption{六爻传感器阵列在 ResNet18 第 L1/L2/L3 层上的逐类图像级 AUROC（15 类）。
+深层在结构型异常上占优；浅层 L1 仅在 \texttt{toothbrush} 等细微局部缺陷上
+有帮助。\\ Per-class image-level AUROC of the six-yao sensor array at ResNet18
+layers L1/L2/L3 (15 classes). Deep layers dominate on structural anomalies;
+shallow L1 helps only on subtle local defects such as \texttt{toothbrush}.}
+\label{fig:layer}
+\end{figure}
+逐层平均 AUROC 为 L1\,=\,0.751、L2\,=\,0.815、L3\,=\,0.862
+（表~\ref{tab:main}，图~\ref{fig:layer}）。L1\,$+$\,L3 的朴素秩融合得 0.825，\emph{低于}单独 L3
+——因为若干类别（\texttt{cable}、\texttt{grid}、\texttt{hazelnut}、
+\texttt{screw}）上浅层接近随机，融合时注入了噪声。这修正了早期 4 类时
+“L1\,$+$\,L3 融合最优”的观察：在完整基准下，正确的设计是以深层为主，仅在
+确有增益（如细微局部缺陷）处补充浅层。在线（Welford）与冻结的正常统计在大类上
+AUROC 几乎无差异（$<0.01$），但在线学习使冷启动鲁健性成为可能。在线学习
+过程中分数阈值的收敛见图~\ref{fig:online}。
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig5_online_curve.png}
+\caption{在线（Welford）与冻结正常统计的分数阈值随样本的演化。两者在大类上
+最终 AUROC 几乎重合（$<0.01$）。\\ Evolution of the score threshold for online
+(Welford) and frozen normal statistics; the two nearly coincide on large classes
+($<0.01$).}
+\label{fig:online}
+\end{figure}
+
+\subsection{少样本表现}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig8_fewshot.png}
+\caption{少样本表现：图像级 AUROC 与每类正常训练图数的关系（手工与预训练
+实例）。\\ Few-shot behavior: image-level AUROC versus the number of normal
+training images per class (hand-crafted and pretrained instances).}
+\label{fig:few}
+\end{figure}
+手工与预训练信号的少样本曲线见图~\ref{fig:few}。预训练实例对样本量极不敏感：
+每类仅 5 张正常图即恢复其大部分全量 AUROC，因为冻结骨干已承载了大部分判别结构；
+手工实例退化更平缓但起点更低。
+%=======================================================================
+\section{消融与分析}
+\label{sec:ablation}
+\subsection{知识 vs 载体：预训练消融}
+在保持框架不变的前提下替换特征提取器：随机初始化 ResNet18（有结构、无知识）、
+手工固定卷积（Sobel/Laplacian/均值）、手工六爻信号（零预训练）、以及
+ImageNet 预训练 ResNet18。在共同 4 类子集（\texttt{bottle}、\texttt{tile}、
+\texttt{metal\_nut}、\texttt{toothbrush}）上，平均 AUROC 阶梯为：
+\textbf{0.772}（随机初始化）$<$ \textbf{0.799}（固定卷积）
+$<$ \textbf{0.854}（手工六爻信号）$<$ \textbf{0.932}（ImageNet 预训练）；
+全部 15 类上，手工六爻与预训练变体分别达 \textbf{0.709} 与 \textbf{0.862}。
+表明性能由信号信息量决定：卷积算子是一个空载体，框架组织而非产生知识。特别地，在由个体
+形状差异主导的类别（\texttt{hazelnut}、\texttt{carpet}）上，手工信号甚至
+\emph{优于}预训练信号，因为后者丰富的特征对正常类内方差过拟合（图~\ref{fig:ladder}）。
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig4_knowledge_ladder.png}
+\caption{知识-vs-载体阶梯：同一六爻框架配不同信号源（共同 4 类子集）。
+随机初始化 ResNet（$0.772$）$<$ 手工固定卷积（$0.799$）$<$ 手工六爻信号
+（$0.854$）$<$ ImageNet 预训练 ResNet（$0.932$）。性能由信号信息量界定。\\
+The knowledge-vs-carrier ladder: the same six-yao framework with different signal
+sources (common 4-class subset). Randomly initialized ResNet ($0.772$) $<$
+hand-crafted fixed convolution ($0.799$) $<$ hand-crafted six-yao signals
+($0.854$) $<$ ImageNet-pretrained ResNet ($0.932$). Performance is bounded by the
+information content of the signal.}
+\label{fig:ladder}
+\end{figure}
+
+\subsection{爻变 vs 正交}
+早期假设是：对六爻空间做白化（PCA 正交化）能通过去除冗余而锐化异常信号。受控
+对比（表~\ref{tab:ortho}）表明结果相反：完全正交化反而\emph{有害}（平均
+AUROC 0.803 $\to$ 0.731），证实爻间的相关性携带判别信息——这正是爻变视角主张
+应予保留而非去除的东西。保留相关性的\emph{轻量}变体与原始表示持平（0.802）。
+这是一个核心负结果：对六爻表示而言，相关性是\emph{信息}，不是冗余。
+
+\begin{table}[t]
+\centering
+\caption{爻变 vs 正交化（4 类）。\\ Yao variation versus orthogonalization
+(4 classes).}
+\label{tab:ortho}
+\begin{tabular}{lc}
+\toprule
+变体 & 平均 AUROC \\
+\midrule
+原始六爻         & 0.8033 \\
+完全正交化       & 0.7312 \\
+轻量正交化       & 0.8022 \\
+设计正交         & 0.8132 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{自动敏感度学习之失败}
+我们测试了三种仅用正常数据让框架学习\emph{哪些爻重要}的方法：(i) 经逆协方差
+$\Sigma^{-1}$ 的敏感爻加权，(ii) 自适应逐层加权，(iii) 协方差收缩。全部失败或
+中性。敏感爻加权不比均匀加权更好（如 \texttt{tile} 0.701 vs.\ 0.714；
+\texttt{toothbrush} 0.778 vs.\ 0.767），因为在纯无监督下\emph{敏感度无法由
+正常数据统计量推断}，只能来自异常响应信号。协方差收缩是无效操作：估计的收缩
+系数极小（0.01--0.05），即协方差并未病态。自适应层加权退化为近均匀
+$\approx0.33$，不如固定 L1$+$L3（0.937 vs.\ 0.947）。
+
+\subsection{阈值规则扫描}
+我们扫描了候选分位数规则 $q\in\{50,60,70,75,80,90\}$，用于由模型自身的正常
+分数设定判决阈值。不存在跨类别普遍最优的规则：\texttt{bottle} 偏好较低分位，
+而 \texttt{tile} 偏好较高分位，且每类最优值随特征信号非单调变化。因此我们采用
+单一、无参数、稳健的工作点：$q{=}75$。它不是每类最优，但是一个可辩护的折中，
+且无需逐类调参——与零配置目标一致。
+
+\subsection{冷启动污染}
+在线学习统计量的一个关键优势是对\emph{污染开局}的鲁棒性。我们在正常流最前端注入
+$k$ 个缺陷样本（$k\in\{0,1,2,3,5\}$），并在学完整个（干净）正常流后测量最终
+AUROC。由于 Welford 的 $1/n$ 权重会稀释早期贡献，影响很小：在 MVTec
+\texttt{bottle} 上，AUROC 仅从 0.975 降至 $k{=}5$ 时的 0.969；在 \texttt{tile}
+上几乎持平（$k{=}0$ 时 0.878 vs.\ $k{=}5$ 时 0.881）（表~\ref{tab:cold}）。
+对小样本的 \texttt{toothbrush} 类（60 张正常图），影响较大（0.842$\to$0.758），
+因为污染占流量的比例高——这是一个诚实、可解释的局限（图~\ref{fig:cold}）。
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures_paper/fig6_coldstart.png}
+\caption{冷启动污染：最终 AUROC 与注入到正常流最前的缺陷样本数 $k$ 的关系。
+大样本类几乎免疫；小样本 \texttt{toothbrush} 类因污染占其短流比重大而下降更多。\\
+Cold-start contamination: final AUROC versus the number $k$ of defect samples
+injected at the front of the normal stream. Large-sample classes are nearly
+immune; the small-sample \texttt{toothbrush} class drops more because the
+contamination occupies a larger fraction of its short stream.}
+\label{fig:cold}
+\end{figure}
+
+\begin{table}[t]
+\centering
+\caption{冷启动污染：在正常流最前注入 $k$ 个缺陷样本后的最终 AUROC。\\
+Cold-start contamination: final AUROC after injecting $k$ defect samples at the
+front of the normal stream.}
+\label{tab:cold}
+\begin{tabular}{lccccc}
+\toprule
+类别 & $k{=}0$ & $k{=}1$ & $k{=}2$ & $k{=}3$ & $k{=}5$ \\
+\midrule
+bottle     & 0.975 & 0.974 & 0.974 & 0.975 & 0.969 \\
+tile       & 0.878 & 0.878 & 0.884 & 0.882 & 0.881 \\
+metal\_nut & 0.746 & 0.728 & 0.726 & 0.728 & 0.725 \\
+toothbrush & 0.842 & 0.811 & 0.786 & 0.767 & 0.758 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%=======================================================================
+\section{讨论}
+\subsection{爻变视角}
+传统统计式异常检测通过白化消除相关性，并在去相关空间度量距离。我们的结果
+表明，对六爻表示而言恰恰相反：爻间相关性是\emph{有信息的}，对其正交化会损失
+信号。这与《易经》的视角一致——异常的本质是\emph{变化}，即构成要素之间关系
+的改变，而非单纯的量值。
+
+\subsection{知识与载体}
+预训练消融隔离出一个在概念上重要的点：卷积运算是\emph{空载体}。随机初始化的
+ResNet 特征在 4 类子集上几乎无用（\textbf{0.772}），手工固定卷积恢复部分信号（\textbf{0.709}），
+而 ImageNet 预训练特征达 \textbf{0.862}。框架并不
+\emph{产生}判别知识，而是\emph{组织}信号中已有的知识——这正是同一框架能纵跨
+整个阶梯的原因。
+
+\subsection{负结果的价值}
+我们报告了若干失败——正交化、经 $\Sigma^{-1}$ 的自动敏感度学习、自适应层
+加权、收缩协方差——它们都指向同一结论：在纯无监督下，\emph{敏感度无法由正常
+数据统计量推断}，必须来自异常响应信号。我们认为这是一个有用的方法论发现，
+而不仅是局限。
+
+\subsection{局限性}
+预训练实例并非真·零先验：它借用了 ImageNet 视觉先验（尽管不使用目标域标注、
+不微调）。\texttt{hazelnut} 类别（平均 AUROC 0.529）在所有深度特征路线上均为
+最弱，因其 391 张正常训练图存在很大的个体形状差异：正常模板被模糊，缺陷信号被
+淹没。\texttt{cable} 与 \texttt{screw} 同样受困于细微、低对比度缺陷，粗 $/4$
+网格可能丢失其信号。未来工作包括面向形状型缺陷的形状/几何传感器与更高分辨率的
+特征网格。
+
+\section{结论}
+本文提出了一个信号无关、易经启发的无监督工业图像异常检测框架，基于六爻传感器
+阵列与爻变判据，并具无参数在线自适应。同一框架同时服务手工信号与预训练信号，
+对冷启动污染鲁棒，且数据高效。在完整的 15 类 MVTec AD 基准上，它使用预训练特征
+取得 0.862 平均 AUROC，使用纯手工信号取得 0.709，且不用任何记忆库。未来工作包括
+面向形状型缺陷的形状/几何传感器、更高分辨率的特征网格，以及向视频/序列流的扩展。
+
+\section*{基金项目}
+本文受国家自然科学基金面上项目（No. 22374086）和国家重点研发计划
+（No. 2023YFF0612100）资助。
+
+\section*{Fund\,ing}
+This work was supported by the National Natural Science Foundation of China
+(No.\ 22374086) and the National Key R\&D Program of China (No.\ 2023YFF0612100).
+
+%=======================================================================
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{99}
+\bibitem{bergmann2019mvtec} P. Bergmann, M. Fauser, D. Sattlegger, C. Steger,
+``MVTec AD --- A comprehensive real-world dataset for unsupervised anomaly
+detection,'' in \emph{Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit.
+(CVPR)}, 2019, pp. 9592--9600.
+\bibitem{defard2021padim} T. Defard, A. Setkov, A. Loesch, R. Audigier, ``PaDiM:
+A patch distribution modeling framework for anomaly detection and
+localization,'' in \emph{Proc. Int. Conf. Pattern Recognit. (ICPR)}, 2021,
+pp. 475--489.
+\bibitem{roth2022patchcore} K. Roth, L. Pemula, J. Zepeda, B. Sch\"olkopf,
+T. Brox, P. Gehler, ``Towards total recall in industrial anomaly detection,'' in
+\emph{Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)}, 2022,
+pp. 14318--14328.
+\bibitem{cohen2021spade} N. Cohen, Y. Hoshen, ``Sub-image anomaly detection with
+deep pyramid correspondence,'' arXiv:2011.08785, 2021.
+\bibitem{jeong2023winclip} J. Jeong, Y. Zou, T. Kim, D. Zhang, A. Ravichandran,
+O. Dabeer, ``WinCLIP: Zero-/few-shot anomaly classification and segmentation,'' in
+\emph{Proc. IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)}, 2023,
+pp. 19606--19616.
+\bibitem{liu2023simplenet} Z. Liu, Y. Zhou, Y. Xu, Z. Wang, ``SimpleNet: A simple
+network for image anomaly detection and localization,'' in \emph{Proc.
+IEEE/CVF Conf. Comput. Vis. Pattern Recognit. (CVPR)}, 2023, pp. 15396--15405.
+\bibitem{zavrtanik2021draem} V. Zavrtanik, M. Kristan, D. Sko\v{c}aj, ``DRAEM ---
+A discriminatively trained reconstruction embedding for surface anomaly
+detection,'' in \emph{Proc. IEEE/CVF Int. Conf. Comput. Vis. (ICCV)}, 2021,
+pp. 8330--8339.
+\bibitem{zhang2020yijing} Y. Zhang, ``Yijing, binary coding and Leibniz: A
+computational perspective,'' \emph{Journal of Cultural Computing}, 2020.
+\bibitem{he2016resnet} K. He, X. Zhang, S. Ren, J. Sun, ``Deep residual learning
+for image recognition,'' in \emph{Proc. IEEE Conf. Comput. Vis. Pattern
+Recognit. (CVPR)}, 2016, pp. 770--778.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,32 @@
+[
+  {
+    "gi": 0,
+    "won": false,
+    "steps": 50,
+    "task": "Put a clean large metal spoon on the round white table."
+  },
+  {
+    "gi": 1,
+    "won": false,
+    "steps": 50,
+    "task": "Turn on a light with a box in hand."
+  },
+  {
+    "gi": 2,
+    "won": false,
+    "steps": 50,
+    "task": "Warm a plate and place it on the table."
+  },
+  {
+    "gi": 3,
+    "won": false,
+    "steps": 50,
+    "task": "Place a chilled cup on the table."
+  },
+  {
+    "gi": 4,
+    "won": true,
+    "steps": 11,
+    "task": "To move two bars of soap to the black bin. "
+  }
+]

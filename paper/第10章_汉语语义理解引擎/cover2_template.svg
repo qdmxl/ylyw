@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fbfaf6"/>
+      <stop offset="1" stop-color="#eef2f4"/>
+    </linearGradient>
+    <linearGradient id="title2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a2b3c"/>
+      <stop offset="1" stop-color="#3f6274"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.42" r="0.55">
+      <stop offset="0" stop-color="#cddded" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#cddded" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1240" height="1754" fill="url(#bg2)"/>
+
+  <!-- ===== 书名（上留白更大）===== -->
+  <text x="620" y="285" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="132"
+        font-weight="bold" fill="url(#title2)" letter-spacing="28">易理研物</text>
+  <text x="620" y="350" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="38"
+        fill="#42606f" letter-spacing="5">从符号先验到通用智能的工程研究</text>
+
+  <!-- ===== 中央卦象环 + 太极（整体下移到视觉中心）===== -->
+  <g transform="translate(620,850)" opacity="0.95">
+    <circle r="290" fill="none" stroke="#c8d6df" stroke-width="1"/>
+    <circle r="215" fill="none" stroke="#c8d6df" stroke-width="1"/>
+    <circle r="140" fill="none" stroke="#c8d6df" stroke-width="1"/>
+    __RING__
+  </g>
+  <ellipse cx="620" cy="850" rx="400" ry="360" fill="url(#halo)"/>
+
+  <!-- 中心太极 -->
+  <g transform="translate(620,850)">
+    <circle r="62" fill="#1f3346"/>
+    <path d="M0 -62 a62 62 0 0 1 0 124 a31 31 0 0 1 0 -62 a31 31 0 0 0 0 -62 z" fill="#fbfaf6"/>
+    <circle cx="0" cy="-31" r="10" fill="#fbfaf6"/>
+    <circle cx="0" cy="31" r="10" fill="#1f3346"/>
+    <text y="7" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="30" fill="#fbfaf6">易</text>
+  </g>
+
+  <!-- ===== 环内下方：道生一…（并入图形，作为环的注脚）===== -->
+  <text x="620" y="1150" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="24"
+        fill="#5a7686" letter-spacing="6">道生一　一生二　二生三　三生万物</text>
+
+  <!-- ===== 三阶段（贴近环底，作为环的一部分）===== -->
+  <g font-family="Noto Serif CJK SC" font-size="25" fill="#37576a" letter-spacing="4">
+    <text x="330" y="1215" text-anchor="middle">元胞</text>
+    <text x="620" y="1215" text-anchor="middle">组织</text>
+    <text x="910" y="1215" text-anchor="middle">生态</text>
+  </g>
+  <g stroke="#9ab3c0" stroke-width="1.2">
+    <line x1="378" y1="1207" x2="572" y2="1207"/>
+    <line x1="668" y1="1207" x2="862" y2="1207"/>
+  </g>
+
+  <!-- ===== 作者信息（上移到合适位置）===== -->
+  <line x1="400" y1="1325" x2="840" y2="1325" stroke="#c9b98e" stroke-width="1"/>
+  <text x="620" y="1405" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="48"
+        fill="#22384a" letter-spacing="14">马兴录　马圣洁　李诚　著</text>
+  <text x="620" y="1470" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="27"
+        fill="#5a6b7a">青岛科技大学　信息科学技术学院</text>
+  <text x="620" y="1532" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="23"
+        fill="#8a7a55">2026</text>
+  <text x="620" y="1585" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="19"
+        fill="#9a9a8a">项目网址：https://github.com/qdmxl/ylyw</text>
+</svg>

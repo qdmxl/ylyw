@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1e3a"/>
+      <stop offset="0.5" stop-color="#061f45"/>
+      <stop offset="1" stop-color="#04152e"/>
+    </linearGradient>
+    <linearGradient id="titleG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eaf6ff"/>
+      <stop offset="1" stop-color="#8fd0f0"/>
+    </linearGradient>
+    <!-- 皮肤：左脸受光更亮，向右渐深 -->
+    <linearGradient id="skin" x1="0.12" y1="0.15" x2="0.95" y2="0.9">
+      <stop offset="0" stop-color="#f2f9fe"/>
+      <stop offset="0.32" stop-color="#d7e9f4"/>
+      <stop offset="0.62" stop-color="#a3c2d8"/>
+      <stop offset="0.85" stop-color="#6d90ad"/>
+      <stop offset="1" stop-color="#42637f"/>
+    </linearGradient>
+    <linearGradient id="skinCheek" x1="0.1" y1="0.2" x2="0.9" y2="0.8">
+      <stop offset="0" stop-color="#cfe3f0" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#7e9fb9" stop-opacity="0.5"/>
+    </linearGradient>
+    <radialGradient id="cheekGlow" cx="0.35" cy="0.5" r="0.6">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hairBase" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#123456"/>
+      <stop offset="1" stop-color="#081f38"/>
+    </linearGradient>
+    <linearGradient id="eyeG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#eaf7ff"/>
+      <stop offset="0.45" stop-color="#9fd8f2"/>
+      <stop offset="1" stop-color="#356f96"/>
+    </linearGradient>
+    <radialGradient id="core" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#f4fdff"/>
+      <stop offset="0.35" stop-color="#7fe3ff"/>
+      <stop offset="1" stop-color="#1d9ccc"/>
+    </radialGradient>
+    <radialGradient id="coreGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7fe3ff" stop-opacity="0.7"/>
+      <stop offset="0.5" stop-color="#38b6e6" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#38b6e6" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="soft"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="glowS"><feGaussianBlur stdDeviation="2.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+
+  <rect width="1240" height="1754" fill="url(#bg)"/>
+
+  <!-- ===== 书名 ===== -->
+  <text x="620" y="212" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="108"
+        font-weight="bold" fill="url(#titleG)" letter-spacing="20">易理研物</text>
+  <text x="620" y="260" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="30"
+        fill="#8fc3e0" letter-spacing="4">从符号先验到通用智能的工程研究</text>
+  <text x="620" y="326" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="35"
+        fill="#dcecf6" letter-spacing="11">马兴录　马圣洁　李诚　著</text>
+  <text x="620" y="366" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="20"
+        fill="#7ea8c4">青岛科技大学　信息科学技术学院</text>
+
+  <!-- ================= 机器人侧脸（朝左·写实）================= -->
+  <!-- 面部在局部坐标：以脸颊中心为原点。朝左。 -->
+  <g transform="translate(700,900)">
+    <!-- 头部整体剪影（颈+颅+脸），单一路径确保轮廓连续平滑 -->
+    <path d="
+      M -18 300
+      L -20 236
+      C -22 214 -30 200 -44 190
+      C -70 172 -86 138 -90 96
+      C -95 44 -74 -6 -40 -44
+      C -6 -82 46 -104 104 -104
+      C 160 -104 206 -78 232 -32
+      C 258 14 258 70 236 112
+      C 222 140 200 156 176 162
+      C 168 164 166 180 170 196
+      C 174 214 170 228 156 236
+      L 120 252
+      L 118 300
+      Z" fill="url(#skin)"/>
+
+    <!-- 后脑/发根阴影 -->
+    <path d="M120 -100 C 176 -96 214 -66 230 -20 C 240 20 236 66 216 104
+             C 186 30 150 -6 96 -24 C 60 -36 30 -40 6 -34
+             C 40 -84 78 -104 120 -100 Z" fill="url(#hairBase)" opacity="0.9"/>
+
+    <!-- ============ 侧面轮廓线（额→眉→鼻→唇→颏）============ -->
+    <!-- 额头 -->
+    <path d="M -40 -44 C -60 -22 -70 6 -68 40" fill="none" stroke="#5f83a0" stroke-width="1.4" opacity="0.5"/>
+    <!-- 眉骨上缘 -->
+    <path d="M -70 24 C -60 12 -44 6 -26 8" fill="none" stroke="#567b99" stroke-width="2.6" stroke-linecap="round" opacity="0.55"/>
+    <!-- 鼻梁 -->
+    <path d="M -68 40 C -74 62 -82 86 -92 108" fill="none" stroke="#4f7391" stroke-width="2" opacity="0.5"/>
+    <!-- 鼻尖-鼻底-鼻小柱 -->
+    <path d="M -92 108 C -96 116 -92 124 -82 126 C -74 128 -70 124 -68 118"
+          fill="none" stroke="#4f7391" stroke-width="2.4" stroke-linecap="round" opacity="0.6"/>
+    <!-- 人中-上唇 -->
+    <path d="M -66 122 C -70 138 -68 150 -60 158" fill="none" stroke="#547896" stroke-width="2" opacity="0.5"/>
+    <!-- 下唇-颏唇沟-下巴 -->
+    <path d="M -60 158 C -52 168 -46 180 -50 194 C -54 208 -66 214 -80 210"
+          fill="none" stroke="#547896" stroke-width="2.2" stroke-linecap="round" opacity="0.5"/>
+    <!-- 下颌线 -->
+    <path d="M -80 210 C -96 200 -100 178 -90 160" fill="none" stroke="#5f83a0" stroke-width="2" opacity="0.4"/>
+
+    <!-- ============ 眼睛（写实】 ============ -->
+    <g>
+      <!-- 眉 -->
+      <path d="M -74 4 C -56 -6 -30 -8 -10 2" fill="none" stroke="#4b6f8d" stroke-width="7"
+            stroke-linecap="round" opacity="0.9"/>
+      <!-- 上眼睑（双层） -->
+      <path d="M -72 30 C -54 18 -24 18 -4 32" fill="none" stroke="#3f637f" stroke-width="4"
+            stroke-linecap="round"/>
+      <!-- 眼球 -->
+      <circle cx="-38" cy="38" r="15" fill="url(#eyeG)"/>
+      <circle cx="-40" cy="38" r="7.5" fill="#07121f"/>
+      <circle cx="-43" cy="34" r="3" fill="#ffffff"/>
+      <!-- 上睑覆盖 -->
+      <path d="M -72 30 C -54 18 -24 18 -4 32 C -26 36 -54 36 -72 30 Z" fill="url(#skin)"/>
+      <path d="M -72 30 C -54 18 -24 18 -4 32" fill="none" stroke="#3f637f" stroke-width="3.2" stroke-linecap="round"/>
+      <!-- 下睑 -->
+      <path d="M -66 48 C -48 54 -24 52 -6 44" fill="none" stroke="#5b7f9c" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- 眼窝阴影 -->
+      <ellipse cx="-38" cy="34" rx="30" ry="24" fill="#4a6d8a" opacity="0.12" filter="url(#soft)"/>
+    </g>
+
+    <!-- ============ 鼻（鼻头/鼻翼/鼻孔）============ -->
+    <g>
+      <path d="M -92 108 C -96 116 -92 124 -82 126 C -74 128 -70 124 -68 118"
+            fill="none" stroke="#4f7391" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M -84 126 C -78 132 -70 131 -66 127" fill="none" stroke="#42637f" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+      <ellipse cx="-78" cy="124" rx="8" ry="5" fill="#42637f" opacity="0.35"/>
+    </g>
+
+    <!-- ============ 嘴（上唇/下唇/口缝）============ -->
+    <g>
+      <path d="M -60 158 C -48 156 -32 154 -20 158" fill="none" stroke="#4f7391" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M -60 158 C -46 164 -30 164 -18 159" fill="none" stroke="#6b8fb0" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+      <path d="M -60 158 C -45 160 -28 160 -18 158" fill="none" stroke="#42637f" stroke-width="1.6" opacity="0.7"/>
+    </g>
+
+    <!-- ============ 耳 ============ -->
+    <g>
+      <path d="M 40 26 C 22 18 14 -6 20 -32 C 26 -58 46 -70 64 -62 C 76 -56 80 -42 74 -32
+               C 68 -22 54 -24 50 -12 C 46 0 52 12 60 16 C 52 30 48 30 40 26 Z"
+            fill="url(#skinCheek)"/>
+      <path d="M 34 -18 C 44 -30 60 -30 66 -18 C 70 -10 64 0 56 -2 C 48 -4 42 -10 34 -18 Z"
+            fill="none" stroke="#5b7f9c" stroke-width="2.4" opacity="0.7"/>
+      <path d="M 46 -30 C 42 -18 42 -2 46 8" fill="none" stroke="#5b7f9c" stroke-width="2" opacity="0.5"/>
+    </g>
+
+    <!-- 面部高光/阴影（立体感）-->
+    <ellipse cx="-46" cy="70" rx="46" ry="70" fill="url(#cheekGlow)"/>
+    <path d="M -30 90 C -50 120 -60 160 -54 200 C -30 190 0 180 20 190
+             C 30 150 26 110 12 84 Z" fill="url(#skinCheek)" opacity="0.5"/>
+
+    <!-- ============ 头发 = 发光电子器件 ============ -->
+    <g>
+      <!-- 颅顶弧面上的元件 -->
+      __HAIR__
+    </g>
+  </g>
+
+  <!-- 后脑光晕 + 八卦神经核 -->
+  <circle cx="880" cy="760" r="170" fill="url(#coreGlow)"/>
+  <g transform="translate(876,748) scale(0.92)" opacity="0.97">
+    __BRAIN_RING__
+    <circle r="58" fill="#04121f"/>
+    <circle r="58" fill="none" stroke="#7fe3ff" stroke-width="3" filter="url(#glowS)"/>
+    <circle r="48" fill="url(#core)"/>
+    <path d="M0 -48 a48 48 0 0 1 0 96 a24 24 0 0 1 0 -48 a24 24 0 0 0 0 -48 z" fill="#04121f"/>
+    <circle cx="0" cy="-24" r="7" fill="#7fe3ff"/>
+    <circle cx="0" cy="24" r="7" fill="#04121f"/>
+  </g>
+
+  <!-- 标注 -->
+  <text x="620" y="1300" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="30"
+        fill="#7fe3ff" letter-spacing="6">易理系统 · 作为智能之脑</text>
+  <text x="620" y="1340" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="19"
+        fill="#6b93b0" letter-spacing="1.5">符号先验（64卦） → 元胞 → 组织 → 生态 → 通用智能</text>
+  <line x1="420" y1="1470" x2="820" y2="1470" stroke="#2b5578" stroke-width="1"/>
+  <text x="620" y="1520" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="19"
+        fill="#5b7f99">https://github.com/qdmxl/ylyw</text>
+</svg>

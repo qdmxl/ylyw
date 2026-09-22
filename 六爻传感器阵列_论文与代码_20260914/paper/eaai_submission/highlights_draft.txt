@@ -1,0 +1,26 @@
+Highlights (Engineering Applications of Artificial Intelligence)
+
+Draft — each ≤ 85 characters including spaces
+
+1. A Yijing "yao-variation" criterion detects anomalies via relational
+   structure, not geometric distance.
+
+2. A six-yao sensor array is signal-agnostic: hand-crafted or pretrained
+   features plug in unchanged.
+
+3. On all 15 MVTec AD classes, deep-layer six-yao sensors reach 0.862
+   average AUROC.
+
+4. A purely hand-crafted, pretraining-free instantiation reaches 0.709
+   with full interpretability.
+
+5. The engine learns online from the first sample with an auto-adaptive
+   threshold and is robust to cold-start contamination.
+
+
+Character counts (verify before submission):
+1. "A Yijing "yao-variation" criterion detects anomalies via relational structure, not geometric distance." = 111  -> TOO LONG, trim
+2. "A six-yao sensor array is signal-agnostic: hand-crafted or pretrained features plug in unchanged." = 100 -> TOO LONG
+3. "On all 15 MVTec AD classes, deep-layer six-yao sensors reach 0.862 average AUROC." = 83 -> OK
+4. "A purely hand-crafted, pretraining-free instantiation reaches 0.709 with full interpretability." = 98 -> TOO LONG
+5. "The engine learns online from the first sample with an auto-adaptive threshold." = 79 -> OK

@@ -1,0 +1,12 @@
+{
+  "category": "bottle",
+  "n_train": 209,
+  "n_test": 83,
+  "n_normal": 20,
+  "n_anomaly": 63,
+  "auroc": {
+    "B1_observation": 0.42817460317460315,
+    "B3_ylyw_weighted": 0.37896825396825395,
+    "B2_maxblock_dev": 0.65
+  }
+}

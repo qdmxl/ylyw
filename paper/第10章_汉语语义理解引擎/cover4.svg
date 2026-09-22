@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8f9f7"/>
+      <stop offset="0.55" stop-color="#eef3f5"/>
+      <stop offset="1" stop-color="#e2eaef"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#14283a"/>
+      <stop offset="1" stop-color="#39607a"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5d86a2"/>
+      <stop offset="0.5" stop-color="#33566f"/>
+      <stop offset="1" stop-color="#1c3346"/>
+    </linearGradient>
+    <linearGradient id="bodyL" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6f97b2"/>
+      <stop offset="1" stop-color="#3a5f79"/>
+    </linearGradient>
+    <!-- 大脑光晕 -->
+    <radialGradient id="brainGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffe9a8" stop-opacity="0.95"/>
+      <stop offset="0.45" stop-color="#f2c65a" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#f2c65a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#9fc4dc" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#9fc4dc" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1240" height="1754" fill="url(#bg)"/>
+
+  <!-- ===== 书名 ===== -->
+  <text x="620" y="262" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="124"
+        font-weight="bold" fill="url(#title)" letter-spacing="24">易理研物</text>
+  <text x="620" y="322" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="36"
+        fill="#436473" letter-spacing="4">从符号先验到通用智能的工程研究</text>
+  <line x1="380" y1="356" x2="860" y2="356" stroke="#c9b98e" stroke-width="1.2"/>
+
+  <!-- ===== 大脑光晕（机器人头部周围）===== -->
+  <ellipse cx="620" cy="600" rx="300" ry="270" fill="url(#halo)"/>
+  <circle cx="620" cy="560" r="175" fill="url(#brainGlow)"/>
+
+  <!-- ===== 大脑：八卦/六爻神经核 ===== -->
+  <g transform="translate(620,560)">
+    <!-- 六爻环（每爻一线，构成一个重卦环） -->
+    <line x1="0.0" y1="-132.0" x2="93.3" y2="-93.3" stroke="#f2c65a" stroke-width="1.2" opacity="0.5"/><line x1="0.0" y1="-132.0" x2="0" y2="0" stroke="#ffd979" stroke-width="0.9" opacity="0.35"/><line x1="93.3" y1="-93.3" x2="132.0" y2="0.0" stroke="#f2c65a" stroke-width="1.2" opacity="0.5"/><line x1="93.3" y1="-93.3" x2="0" y2="0" stroke="#ffd979" stroke-width="0.9" opacity="0.35"/><line x1="132.0" y1="0.0" x2="93.3" y2="93.3" stroke="#f2c65a" stroke-width="1.2" opacity="0.5"/><line x1="132.0" y1="0.0" x2="0" y2="0" stroke="#ffd979" stroke-width="0.9" opacity="0.35"/><line x1="93.3" y1="93.3" x2="0.0" y2="132.0" stroke="#f2c65a" stroke-width="1.2" opacity="0.5"/><line x1="93.3" y1="93.3" x2="0" y2="0" stroke="#ffd979" stroke-width="0.9" opacity="0.35"/><line x1="0.0" y1="132.0" x2="-93.3" y2="93.3" stroke="#f2c65a" stroke-width="1.2" opacity="0.5"/><line x1="0.0" y1="132.0" x2="0" y2="0" stroke="#ffd979" stroke-width="0.9" opacity="0.35"/><line x1="-93.3" y1="93.3" x2="-132.0" y2="0.0" stroke="#f2c65a" stroke-width="1.2" opacity="0.5"/><line x1="-93.3" y1="93.3" x2="0" y2="0" stroke="#ffd979" stroke-width="0.9" opacity="0.35"/><line x1="-132.0" y1="0.0" x2="-93.3" y2="-93.3" stroke="#f2c65a" stroke-width="1.2" opacity="0.5"/><line x1="-132.0" y1="0.0" x2="0" y2="0" stroke="#ffd979" stroke-width="0.9" opacity="0.35"/><line x1="-93.3" y1="-93.3" x2="0.0" y2="-132.0" stroke="#f2c65a" stroke-width="1.2" opacity="0.5"/><line x1="-93.3" y1="-93.3" x2="0" y2="0" stroke="#ffd979" stroke-width="0.9" opacity="0.35"/><g transform="translate(0.0,-132.0) rotate(-0.0)" stroke="#ffd979" stroke-width="2.6" stroke-linecap="round" opacity="0.95"><line x1="-15.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(93.3,-93.3) rotate(-45.0)" stroke="#ffd979" stroke-width="2.6" stroke-linecap="round" opacity="0.95"><line x1="-15.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="-3.0" y2="-3.0"/><line x1="3.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(132.0,0.0) rotate(-90.0)" stroke="#ffd979" stroke-width="2.6" stroke-linecap="round" opacity="0.95"><line x1="-15.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="-3.0" y2="-9.0"/><line x1="3.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(93.3,93.3) rotate(-135.0)" stroke="#ffd979" stroke-width="2.6" stroke-linecap="round" opacity="0.95"><line x1="-15.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="-3.0" y2="-9.0"/><line x1="3.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="-3.0" y2="-3.0"/><line x1="3.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(0.0,132.0) rotate(-180.0)" stroke="#ffd979" stroke-width="2.6" stroke-linecap="round" opacity="0.95"><line x1="-15.0" y1="-15.0" x2="-3.0" y2="-15.0"/><line x1="3.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(-93.3,93.3) rotate(-225.0)" stroke="#ffd979" stroke-width="2.6" stroke-linecap="round" opacity="0.95"><line x1="-15.0" y1="-15.0" x2="-3.0" y2="-15.0"/><line x1="3.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="-3.0" y2="-3.0"/><line x1="3.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(-132.0,0.0) rotate(-270.0)" stroke="#ffd979" stroke-width="2.6" stroke-linecap="round" opacity="0.95"><line x1="-15.0" y1="-15.0" x2="-3.0" y2="-15.0"/><line x1="3.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="-3.0" y2="-9.0"/><line x1="3.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="15.0" y2="-3.0"/></g><g transform="translate(-93.3,-93.3) rotate(-315.0)" stroke="#ffd979" stroke-width="2.6" stroke-linecap="round" opacity="0.95"><line x1="-15.0" y1="-15.0" x2="-3.0" y2="-15.0"/><line x1="3.0" y1="-15.0" x2="15.0" y2="-15.0"/><line x1="-15.0" y1="-9.0" x2="-3.0" y2="-9.0"/><line x1="3.0" y1="-9.0" x2="15.0" y2="-9.0"/><line x1="-15.0" y1="-3.0" x2="-3.0" y2="-3.0"/><line x1="3.0" y1="-3.0" x2="15.0" y2="-3.0"/></g>
+    <!-- 中心：易字 + 太极 -->
+    <circle r="46" fill="#1c3346"/>
+    <path d="M0 -46 a46 46 0 0 1 0 92 a23 23 0 0 1 0 -46 a23 23 0 0 0 0 -46 z" fill="#f8f9f7"/>
+    <circle cx="0" cy="-23" r="7.5" fill="#f8f9f7"/>
+    <circle cx="0" cy="23" r="7.5" fill="#1c3346"/>
+    <!-- 大脑向身体发射的信号线 -->
+    <g stroke="#f2c65a" stroke-width="2" opacity="0.6">
+      <line x1="0" y1="60" x2="0" y2="185"/>
+      <line x1="-40" y1="52" x2="-64" y2="180"/>
+      <line x1="40" y1="52" x2="64" y2="180"/>
+    </g>
+  </g>
+
+  <!-- ===== 机器人身体（半身，具身智能）===== -->
+  <g transform="translate(620,0)">
+    <!-- 头 -->
+    <rect x="-58" y="742" width="116" height="96" rx="30" fill="url(#body)"/>
+    <!-- 颈 -->
+    <rect x="-20" y="834" width="40" height="28" fill="#243f52"/>
+    <!-- 肩/胸（躯干） -->
+    <path d="M-118 872 q118 -34 236 0 L 128 1052 q-10 46 -46 52 L -82 1104 q-36 -6 -46 -52 Z"
+          fill="url(#body)"/>
+    <!-- 胸口核心：小太极/易徽 -->
+    <circle cx="0" cy="972" r="34" fill="#12283a"/>
+    <path d="M0 -34 a34 34 0 0 1 0 68 a17 17 0 0 1 0 -34 a17 17 0 0 0 0 -34 z" fill="#f2c65a"/>
+    <!-- 手臂 -->
+    <path d="M-118 880 q-58 30 -70 96 q-6 40 26 44 q30 4 34 -30 l 20 -74 l 30 -6 Z" fill="url(#bodyL)"/>
+    <path d="M118 880 q58 30 70 96 q6 40 -26 44 q-30 4 -34 -30 l -20 -74 l -30 -6 Z" fill="url(#bodyL)"/>
+    <!-- 腹部亮线（能量/生长）-->
+    <g stroke="#7fb0cd" stroke-width="3" opacity="0.8">
+      <line x1="-60" y1="1042" x2="60" y2="1042"/>
+      <line x1="-52" y1="1058" x2="52" y2="1058"/>
+    </g>
+    <!-- 头两侧小天线（感知）-->
+    <line x1="-58" y1="768" x2="-86" y2="742" stroke="#33566f" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="-88" cy="740" r="7" fill="#f2c65a"/>
+    <line x1="58" y1="768" x2="86" y2="742" stroke="#33566f" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="88" cy="740" r="7" fill="#f2c65a"/>
+  </g>
+
+  <!-- 标注：易理系统 = 大脑 -->
+  <text x="620" y="1205" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="30"
+        fill="#8a6a25" letter-spacing="6">易理系统 · 作为智能之脑</text>
+  <text x="620" y="1245" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="20"
+        fill="#6b8698" letter-spacing="2">符号先验（64卦） → 元胞 → 组织 → 生态 → 通用智能</text>
+
+  <!-- ===== 作者信息 ===== -->
+  <line x1="400" y1="1345" x2="840" y2="1345" stroke="#c9b98e" stroke-width="1"/>
+  <text x="620" y="1425" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="46"
+        fill="#22384a" letter-spacing="14">马兴录　马圣洁　李诚　著</text>
+  <text x="620" y="1491" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="26"
+        fill="#5a6b7a">青岛科技大学　信息科学技术学院</text>
+  <text x="620" y="1551" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="22"
+        fill="#8a7a55">2026</text>
+</svg>

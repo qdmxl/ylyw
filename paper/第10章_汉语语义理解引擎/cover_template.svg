@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7f4ec"/>
+      <stop offset="1" stop-color="#eae3d2"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b3a4a"/>
+      <stop offset="1" stop-color="#5a6b7a"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b2a38" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#7b98a8" stop-opacity="0.55"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#8fb0c4" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#8fb0c4" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1240" height="1754" fill="url(#bg)"/>
+  <rect x="34" y="34" width="1172" height="1686" fill="none" stroke="#b9a77e" stroke-width="2"/>
+  <rect x="46" y="46" width="1148" height="1662" fill="none" stroke="#b9a77e" stroke-width="0.8" opacity="0.6"/>
+
+  <!-- ===== 书名 ===== -->
+  <text x="620" y="230" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="150"
+        font-weight="bold" fill="url(#ink)" letter-spacing="34">易理研物</text>
+  <line x1="360" y1="280" x2="880" y2="280" stroke="#b9a77e" stroke-width="1.5"/>
+  <text x="620" y="340" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="42"
+        fill="#4a5b68" letter-spacing="6">从符号先验到通用智能的工程研究</text>
+  <text x="620" y="395" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="26"
+        fill="#8a7a55" letter-spacing="3">—— 道器合一的智能之道 ——</text>
+
+  <!-- ===== 道生一（太极）===== -->
+  <ellipse cx="620" cy="700" rx="330" ry="230" fill="url(#glow)"/>
+  <circle cx="620" cy="565" r="32" fill="url(#flow)"/>
+  <path d="M620 533 a32 32 0 0 1 0 64 a16 16 0 0 1 0 -32 a16 16 0 0 0 0 -32 z"
+        fill="#f7f4ec" opacity="0.9"/>
+
+  <!-- ===== 一生二（阴阳）===== -->
+  <line x1="620" y1="600" x2="548" y2="668" stroke="#3d5a6c" stroke-width="2.4" opacity="0.85"/>
+  <line x1="620" y1="600" x2="692" y2="668" stroke="#7b98a8" stroke-width="2.4" opacity="0.85"/>
+  <circle cx="548" cy="668" r="15" fill="#2b3a4a"/>
+  <circle cx="692" cy="668" r="15" fill="#9ab3c0"/>
+
+  <!-- ===== 二生三（三才）===== -->
+  <g stroke="#4a6572" stroke-width="1.8" opacity="0.8">
+    <line x1="548" y1="683" x2="486" y2="748"/>
+    <line x1="548" y1="683" x2="568" y2="748"/>
+    <line x1="692" y1="683" x2="672" y2="748"/>
+    <line x1="692" y1="683" x2="754" y2="748"/>
+    <line x1="568" y1="683" x2="620" y2="748"/>
+    <line x1="672" y1="683" x2="620" y2="748"/>
+  </g>
+  <circle cx="486" cy="748" r="9.5" fill="#38505f"/>
+  <circle cx="568" cy="748" r="9.5" fill="#4a6572"/>
+  <circle cx="620" cy="748" r="9.5" fill="#5f7d8c"/>
+  <circle cx="672" cy="748" r="9.5" fill="#4a6572"/>
+  <circle cx="754" cy="748" r="9.5" fill="#38505f"/>
+
+  <!-- 三 → 万物：向下汇聚线 -->
+  <g stroke="#7b98a8" stroke-width="1.4" opacity="0.6">
+    <line x1="486" y1="756" x2="430" y2="820"/>
+    <line x1="568" y1="756" x2="540" y2="820"/>
+    <line x1="620" y1="756" x2="620" y2="820"/>
+    <line x1="672" y1="756" x2="700" y2="820"/>
+    <line x1="754" y1="756" x2="810" y2="820"/>
+  </g>
+
+  <!-- ===== 三生万物（64卦阵）===== -->
+  <g transform="translate(430,825)">
+    __HEXGRID__
+  </g>
+
+  <!-- ===== 从卦阵流向 元胞/组织/生态 网络 ===== -->
+  <g stroke="#6d8a99" stroke-width="1" opacity="0.45">__NETLINKS__</g>
+  <g fill="#3d5a6c">__NODES__</g>
+
+  <g font-family="Noto Serif CJK SC" font-size="27" fill="#4a5b68">
+    <text x="255" y="1180" text-anchor="middle">元 胞</text>
+    <text x="620" y="1180" text-anchor="middle">组 织</text>
+    <text x="985" y="1180" text-anchor="middle">生 态</text>
+  </g>
+  <text x="620" y="1235" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="22"
+        fill="#8a7a55" letter-spacing="2">自组织的层次化嵌套 · 从元胞到生态的涌现之路</text>
+
+  <!-- ===== 著者信息 ===== -->
+  <line x1="300" y1="1350" x2="940" y2="1350" stroke="#c9b98e" stroke-width="1"/>
+  <text x="620" y="1440" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="54"
+        fill="#2b3a4a" letter-spacing="16">马 兴 录　马 圣 洁　李 诚　著</text>
+  <text x="620" y="1520" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="30"
+        fill="#5a6b7a" letter-spacing="2">青岛科技大学　信息科学技术学院</text>
+  <text x="620" y="1580" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="26"
+        fill="#8a7a55">2026</text>
+  <text x="620" y="1665" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="20"
+        fill="#9a9a8a">项目网址：https://github.com/qdmxl/ylyw</text>
+</svg>

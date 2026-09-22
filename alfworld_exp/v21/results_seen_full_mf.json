@@ -1,0 +1,742 @@
+{
+  "results": [
+    {
+      "gi": 0,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 1,
+      "won": true,
+      "steps": 16
+    },
+    {
+      "gi": 2,
+      "won": true,
+      "steps": 33
+    },
+    {
+      "gi": 3,
+      "won": true,
+      "steps": 25
+    },
+    {
+      "gi": 4,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 5,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 6,
+      "won": true,
+      "steps": 6
+    },
+    {
+      "gi": 7,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 8,
+      "won": true,
+      "steps": 16
+    },
+    {
+      "gi": 9,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 10,
+      "won": true,
+      "steps": 27
+    },
+    {
+      "gi": 11,
+      "won": true,
+      "steps": 22
+    },
+    {
+      "gi": 12,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "gi": 13,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 14,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 15,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "gi": 16,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 17,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 18,
+      "won": true,
+      "steps": 37
+    },
+    {
+      "gi": 19,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 20,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 21,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 22,
+      "won": true,
+      "steps": 44
+    },
+    {
+      "gi": 23,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 24,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 25,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 26,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 27,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 28,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 29,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 30,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 31,
+      "won": true,
+      "steps": 25
+    },
+    {
+      "gi": 32,
+      "won": true,
+      "steps": 18
+    },
+    {
+      "gi": 33,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 34,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "gi": 35,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 36,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "gi": 37,
+      "won": true,
+      "steps": 21
+    },
+    {
+      "gi": 38,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "gi": 39,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "gi": 40,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 41,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "gi": 42,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 43,
+      "won": true,
+      "steps": 16
+    },
+    {
+      "gi": 44,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 45,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 46,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 47,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 48,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "gi": 49,
+      "won": true,
+      "steps": 17
+    },
+    {
+      "gi": 50,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "gi": 51,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 52,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 53,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 54,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "gi": 55,
+      "won": true,
+      "steps": 22
+    },
+    {
+      "gi": 56,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "gi": 57,
+      "won": true,
+      "steps": 23
+    },
+    {
+      "gi": 58,
+      "won": true,
+      "steps": 25
+    },
+    {
+      "gi": 59,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "gi": 60,
+      "won": true,
+      "steps": 16
+    },
+    {
+      "gi": 61,
+      "won": true,
+      "steps": 10
+    },
+    {
+      "gi": 62,
+      "won": true,
+      "steps": 46
+    },
+    {
+      "gi": 63,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 64,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 65,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 66,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 67,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 68,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 69,
+      "won": true,
+      "steps": 22
+    },
+    {
+      "gi": 70,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 71,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 72,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 73,
+      "won": true,
+      "steps": 15
+    },
+    {
+      "gi": 74,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 75,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 76,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 77,
+      "won": true,
+      "steps": 33
+    },
+    {
+      "gi": 78,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 79,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "gi": 80,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 81,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 82,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 83,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "gi": 84,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 85,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 86,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 87,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "gi": 88,
+      "won": true,
+      "steps": 23
+    },
+    {
+      "gi": 89,
+      "won": true,
+      "steps": 19
+    },
+    {
+      "gi": 90,
+      "won": true,
+      "steps": 10
+    },
+    {
+      "gi": 91,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 92,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 93,
+      "won": true,
+      "steps": 4
+    },
+    {
+      "gi": 94,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 95,
+      "won": true,
+      "steps": 12
+    },
+    {
+      "gi": 96,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 97,
+      "won": true,
+      "steps": 28
+    },
+    {
+      "gi": 98,
+      "won": true,
+      "steps": 19
+    },
+    {
+      "gi": 99,
+      "won": true,
+      "steps": 16
+    },
+    {
+      "gi": 100,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "gi": 101,
+      "won": true,
+      "steps": 24
+    },
+    {
+      "gi": 102,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 103,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "gi": 104,
+      "won": true,
+      "steps": 35
+    },
+    {
+      "gi": 105,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 106,
+      "won": true,
+      "steps": 16
+    },
+    {
+      "gi": 107,
+      "won": true,
+      "steps": 17
+    },
+    {
+      "gi": 108,
+      "won": true,
+      "steps": 42
+    },
+    {
+      "gi": 109,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 110,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 111,
+      "won": true,
+      "steps": 13
+    },
+    {
+      "gi": 112,
+      "won": true,
+      "steps": 25
+    },
+    {
+      "gi": 113,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 114,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 115,
+      "won": true,
+      "steps": 16
+    },
+    {
+      "gi": 116,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 117,
+      "won": true,
+      "steps": 38
+    },
+    {
+      "gi": 118,
+      "won": true,
+      "steps": 29
+    },
+    {
+      "gi": 119,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 120,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 121,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 122,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 123,
+      "won": true,
+      "steps": 28
+    },
+    {
+      "gi": 124,
+      "won": true,
+      "steps": 9
+    },
+    {
+      "gi": 125,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 126,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 127,
+      "won": true,
+      "steps": 31
+    },
+    {
+      "gi": 128,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 129,
+      "won": true,
+      "steps": 20
+    },
+    {
+      "gi": 130,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 131,
+      "won": true,
+      "steps": 11
+    },
+    {
+      "gi": 132,
+      "won": true,
+      "steps": 5
+    },
+    {
+      "gi": 133,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 134,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 135,
+      "won": true,
+      "steps": 8
+    },
+    {
+      "gi": 136,
+      "won": false,
+      "steps": 50
+    },
+    {
+      "gi": 137,
+      "won": true,
+      "steps": 14
+    },
+    {
+      "gi": 138,
+      "won": true,
+      "steps": 7
+    },
+    {
+      "gi": 139,
+      "won": false,
+      "steps": 50
+    }
+  ],
+  "n_wins": 107,
+  "total": 140,
+  "rate": "76.4",
+  "lost": [
+    0,
+    23,
+    24,
+    27,
+    29,
+    33,
+    40,
+    51,
+    66,
+    67,
+    70,
+    71,
+    74,
+    75,
+    78,
+    80,
+    81,
+    102,
+    105,
+    110,
+    113,
+    116,
+    119,
+    120,
+    121,
+    122,
+    125,
+    128,
+    130,
+    133,
+    134,
+    136,
+    139
+  ]
+}

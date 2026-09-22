@@ -1,0 +1,8 @@
+Highlights
+(Engineering Applications of Artificial Intelligence — each item <= 85 characters)
+
+• Anomalies are detected via relational structure, not geometric distance.
+• A six-yao sensor array is signal-agnostic across feature extractors.
+• Deep-layer six-yao sensors reach 0.862 average AUROC on 15 MVTec classes.
+• A pretraining-free hand-crafted instantiation reaches 0.709 AUROC.
+• The engine learns online with an auto-adaptive threshold from sample one.

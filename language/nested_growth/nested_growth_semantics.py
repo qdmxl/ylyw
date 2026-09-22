@@ -41,7 +41,8 @@ class SemanticCell:
     __slots__ = ("word", "parents", "children", "theta", "lh_buf",
                  "encounters", "wins", "losses", "last_step", "born_step",
                  "born_from", "state", "id", "cache_key",
-                 "level", "sem_yao", "is_entity")
+                 "level", "sem_yao", "is_entity", "learned_sem",
+                 "sem_yaos")
 
     def __init__(self, word: str, theta: Optional[List[float]] = None,
                  parents: Optional[List["SemanticCell"]] = None,
@@ -66,6 +67,8 @@ class SemanticCell:
         self.level = level                 # char | word | sentence
         self.sem_yao = sem_yao             # 该元胞的语义六爻（None=未定）
         self.is_entity = is_entity         # 命名实体（人名词等）标记
+        self.learned_sem = None            # 分布学习持久语义（学习器写入，None=未学）
+        self.sem_yaos = []                 # 义项列表：每个元素一个语义六爻（多义）
 
     # ---------- 六爻聚合：轻量"可学习H规则引擎" ----------
     def compose(self, yao: List[float]) -> float:
@@ -288,29 +291,76 @@ class NestedGrowthSemantics:
                 i += max(plen, 1)
         return hit_cells, records
 
-    # ---------- [词胞/句胞] 以词为主处理 + 聚合句胞 ----------
+    # ---------- [词胞/句胞] 嵌套自生成：以词为主处理 + 聚合句胞 ----------
+    # 马老师原则：词从字嵌套自生成、句从词嵌套自生成，语义逐级继承繁殖。
+    # 修复核心（2026-08-21）：此前 process_sentence_words 直接对切分词建胞，
+    #   从未先建字胞 → 词胞无父、深度0、不构成嵌套；且 sem_yao 全部短路到
+    #   静态 word_sem_yao，不走繁殖继承。现改为真正的三级嵌套自生成：
+    #   先确保词之组成字胞存在(grow), 再以字胞为父繁殖/复用词胞(词继承字语义),
+    #   最后句胞以词胞为父繁殖(句继承词语义)。保留部首先验与实体/时间消歧。
+    #   若词是单字：则字胞即词胞（自为根，语义=字部首/消歧爻）。
+    def ensure_char_cells(self, w: str) -> List[SemanticCell]:
+        """确保词 w 的每个组成字符都有字胞（无则繁殖），返回字胞列表。"""
+        outs = []
+        for ch in w:
+            if ch not in self.cells:
+                c = self.grow(ch, None)   # 新字胞（根，born_from='root' 默认）
+                c.level = "char"
+                c.sem_yao = self._stable_yao(ch)
+                c.is_entity = ch in self.ENTITY_WORDS
+            else:
+                c = self.cells[ch]
+                if c.level not in ("char",) :
+                    c.level = "char"
+            outs.append(c)
+        return outs
+
     def ensure_word_cell(self, w: str) -> SemanticCell:
-        """确保词胞存在（父=组成字胞），并赋词级语义爻（消歧后）。"""
+        """[嵌套自生成] 确保词胞存在，父=组成字胞；词胞语义从字胞父辈继承。
+
+        单字词：字胞即词胞（语义=字部首/消歧爻）。
+        多字词：先建字胞，再以其为父繁殖/复用词胞，词义=字父辈语义聚合。
+        持久化：若词胞已有学得语义(learned_sem)，则保留不走静态部首表；
+        （分布学习器可将 learned_sem 写入词胞，供后续 process 继承）
+        """
+        cells = self.ensure_char_cells(w)
         if w not in self.cells:
-            char_father = None
-            for ch in w:
-                if ch in self.cells:
-                    char_father = self.cells[ch]; break
-            c = self.grow(w, char_father)
-            c.level = "word"
+            # 词胞：父 = 组成字胞（多字才有父链；单字词父=None→自为根字胞）
+            if len(w) > 1:
+                c = self.grow(w, cells[0])   # 父=首个字胞，词嵌套在字之上
+                c.level = "word"
+            else:
+                c = cells[0]                 # 单字：字胞即词胞
+                c.level = "word"             # 字层同时视为词层（自为根）
         else:
             c = self.cells[w]
-        # 词级语义爻（命名实体/时间词消歧，否则词义聚合）
-        c.sem_yao = self.word_sem_yao(w)
-        c.is_entity = self.is_entity_word(w)
+            if c.level not in ("word",):
+                c.level = "word"
+        # 词级语义爻：嵌套继承（聚合字父辈语义）+ 部首先验/消歧
+        c.is_entity = self.is_entity_word(w) or any(p.is_entity for p in c.parents)
+        if hasattr(c, "learned_sem") and c.learned_sem:
+            # 已通过分布学习获得持久语义 → 继承学习成果（真学习路径优先）
+            c.sem_yao = list(c.learned_sem)
+        elif self.is_entity_word(w) or w in self.TIME_WORDS:
+            # 实体/时间词：不按字面归因（消歧）
+            c.sem_yao = list(self.word_sem_yao(w)) if self.word_sem_yao(w) else list(self.NEUTRAL_YAO)
+        else:
+            # 嵌套继承：词 = 其字胞父辈语义均值（保留部首先验字义）
+            py = self._radical_yao(w)          # 整词部首先验（若词本身命中部首）
+            if py is not None:
+                c.sem_yao = list(py)
+            else:
+                char_yaos = [p.sem_yao for p in c.parents if p.sem_yao is not None]
+                c.sem_yao = self._mean_yao(char_yaos) if char_yaos else self.word_sem_yao(w)
         c.last_step = self.step
         return c
 
-    def process_sentence_words(self, words: List[str]):
-        """[以词为主] 处理一句：保证字胞→词胞嵌套，聚合词胞生成句胞语义。
+    def process_sentence_words(self, words: List[str], poly: bool = False):
+        """[嵌套自生成·以句为主] 处理一句：字胞→词胞→句胞 三级繁殖生长。
 
+        poly=True 时启用多义/择义：同一词在不同句语境中选择/学习不同义项。
         返回 dict:
-          word_cells : 参与词胞列表
+          word_cells : 参与词胞列表（词胞已以字胞为父）
           sent_yao   : 句胞语义（词胞语义爻均值），无则 None
           sent_cell  : 句胞对象（父=参与词胞）
           records    : 每词记录
@@ -323,14 +373,36 @@ class NestedGrowthSemantics:
             c = self.ensure_word_cell(w)
             word_cells.append(c)
             records.append({"tok": w, "level": "word",
-                            "entity": c.is_entity,
-                            "new": c.born_step == self.step})
-        # 句胞：聚合词胞语义爻（命名实体/虚词不稀释语义主流）
-        sem_yaos = [c.sem_yao for c in word_cells if c.sem_yao is not None]
-        sent_yao = self._mean_yao(sem_yaos) if sem_yaos else None
+                            "entity": c.is_entity, "new": True,
+                            "parents": [p.word for p in c.parents]})
+        # 多义择义（poly）——两遍：先按字面聚语境，再按语境择/学义项
+        if poly and len(word_cells) > 1:
+            # 第一遍：句语境 = 各词当前语义爻均值（含除自身语境）
+            base = [c.sem_yao for c in word_cells if c.sem_yao is not None]
+            ctx_all = self._mean_yao(base) if base else None
+            second = []
+            for c in word_cells:
+                if c.is_entity:
+                    second.append(c.sem_yao); continue
+                # 除自己外的语境（其他词构成上下文）
+                others = [cc.sem_yao for cc in word_cells
+                          if cc is not c and cc.sem_yao is not None]
+                ctx_others = self._mean_yao(others) if others else ctx_all
+                # 择义：用 H 从现有义项选；再观测学习新语境义
+                chosen = self.sense_select(c, ctx_others)
+                if chosen:
+                    c.sem_yao = list(chosen)
+                # 观测量：若语境明显不同，学习出新义项
+                self.observe_sense(c, ctx_all, merge_thr=0.5)
+                second.append(c.sem_yao)
+            # 用择义后的词语义重算句胞
+            sent_yao = self._mean_yao([s for s in second if s is not None])
+        else:
+            sem_yaos = [c.sem_yao for c in word_cells if c.sem_yao is not None]
+            sent_yao = self._mean_yao(sem_yaos) if sem_yaos else None
         sent_cell = SemanticCell(
             "<s>" + str(self.step), theta=list(DEFAULT_THETA),
-            parents=word_cells, born_step=self.step,
+            parents=list(word_cells), born_step=self.step,
             born_from="sentence", cid=self._cid, level="sentence",
             sem_yao=sent_yao, is_entity=False)
         self._cid += 1
@@ -482,6 +554,129 @@ class NestedGrowthSemantics:
         if not yaos:
             return None
         return [sum(y[i] for y in yaos) / len(yaos) for i in range(6)]
+
+    # ═══════════ 多义性支持（马老师：同一词在不同语境含义不同） ═══════════
+    # 设计：词胞内保留 **义项列表** sem_yaos（多个语义六爻），
+    #      词胞的 H(θ) 兼任“择义器”：给定语境，从义项中选出应激活的一个。
+    #      含义由 sem_yaos 承担（多义不挤进单个 H），H 只学“怎么择义”。
+    # 方法：
+    #  - sense_select(cell, context_yao)  : 用 H 调制的匹配度求择义注意力
+    #  - observe_sense(cell, context_yao) : 学习时观测新义，收敛或新增义项
+    # 统一度量 YAO_SIM：同时正确处理平值向量(乾/坤,语义在中位偏)与
+    # 非平值向量(六卦,语义在方向)。A1验证：乾坤不能用方向余弦(≡0失真)。
+    @staticmethod
+    def _flat(v):
+        """平值度：六爻分量离散步长(标准差)。0=完全平值(乾111111/坤000000)。"""
+        if not v: return 0.0
+        m=sum(v)/len(v)
+        return math.sqrt(sum((x-m)**2 for x in v)/len(v))
+
+    @staticmethod
+    def _dir_match(a: List[float], b: List[float]) -> float:
+        """两语义向量匹配度[-1,1]。
+        平值向量(乾/坤)→中位偏匹配；非平值→方向余弦。
+        这是判别/择义/多义合并的**统一度量**，避免对乾坤失真。"""
+        if not a or not b: return 0.0
+        fa, fb = NestedGrowthSemantics._flat(a), NestedGrowthSemantics._flat(b)
+        if fa < 0.20 and fb < 0.20:
+            # 双方都平值主导 → 用中位偏(mean差)：乾高坤低
+            ma, mb = sum(a)/len(a), sum(b)/len(b)
+            return 1.0 - 2.0*abs(ma-mb)
+        # 非平值 → 方向余弦(去均值)
+        ma, mb = sum(a)/len(a), sum(b)/len(b)
+        da, db = [x-ma for x in a], [x-mb for x in b]
+        na, nb = math.sqrt(sum(x*x for x in da)) or 1e-9, \
+                 math.sqrt(sum(x*x for x in db)) or 1e-9
+        return sum(x*y for x, y in zip(da, db))/(na*nb)
+
+    @classmethod
+    def bscore(cls, v: List[float], bg: str) -> float:
+        """六爻向量→某卦的判别得分（**统一度量**）。
+        核心（坍缩根因）：**平值向量先判满空轴，结构向量再判方向**。
+          - 平值向量（六爻分量几乎相同，std≈0，如 乾[1]*6/坤[0]*6）
+            → 用中位偏判乾/坤（满→乾、空→坤），六卦方向得分=0
+            （否则方向余弦≈0被噪声误判进六卦，这是分类坍缩根因）
+          - 结构向量（std 足够大，六爻有阴有阳）→ 用方向余弦判六卦
+        返回 b 卦对应得分。"""
+        if not v: return 0.0
+        m = sum(v)/len(v)
+        std = math.sqrt(sum((x-m)**2 for x in v)/len(v))
+        if bg == "乾":
+            return 0.0 if std > 0.15 else (m-0.5)      # 平值→乾用中位偏
+        if bg == "坤":
+            return 0.0 if std > 0.15 else (0.5-m)      # 平值→坤用中位偏
+        if std < 0.15:
+            return 0.0      # 平值向量不属于六卦方向(归乾/坤)
+        dv = [x-m for x in v]
+        nv = math.sqrt(sum(x*x for x in dv)) or 1e-9
+        bg_y = cls.YAO_BY_BAGUA[bg]
+        mb = sum(bg_y)/len(bg_y)
+        db = [x-mb for x in bg_y]
+        nb = math.sqrt(sum(x*x for x in db)) or 1e-9
+        return sum(x*y for x, y in zip(dv, db))/(nv*nb)
+
+    def sense_select(self, cell: SemanticCell, context_yao: Optional[List[float]]
+                    ) -> Optional[List[float]]:
+        """择义器：给定语境(当前句/邻词的语义爻)，从词胞的义项中选出
+        该激活的语义六爻。返回选中的义项(非 None)。
+        **保护基础义**：首义项 sem_yaos[0] 是部首基础义，语境弱(匹配不足)
+        时返回基础义，不强行切义（防语境把部首语义洗成中性，A1坤/乾崩根因）。
+        H 在这里作为择义权重（义项与语境的匹配经 H 调制）。"""
+        if not cell.sem_yaos:
+            return list(cell.sem_yao) if cell.sem_yao is not None else None
+        if not context_yao:
+            return list(cell.sem_yaos[0])
+        scores = [self._dir_match(s, context_yao) for s in cell.sem_yaos]
+        best_i = max(range(len(scores)), key=lambda i: scores[i])
+        best_s, base_s = scores[best_i], scores[0]
+        if best_i == 0:
+            return list(cell.sem_yaos[0])
+        # 语境须明显指向另一义项才切换；否则留基础义(部首)
+        if best_s > base_s + 0.15:
+            return list(cell.sem_yaos[best_i])
+        return list(cell.sem_yaos[0])
+
+    def observe_sense(self, cell: SemanticCell, context_yao: Optional[List[float]],
+                      merge_thr: float = 0.55, max_senses: int = 6):
+        """多义学习：观测到一个新语境，把语境所代表的义项纳入词胞义项库。
+        **基础义保护**：首义项 sem_yaos[0] 始终保留词胞的部首基础义
+        （先验），语境义只新增/收敛为备用义项，绝不无脑覆盖基础部首义
+        （否则部首语义会被中性整句语境洗白，A1坤/乾崩根因）。
+        当前激活 sem_yao 由 sense_select 依语境决定，不在此强切。"""
+        if context_yao is None:
+            return cell
+        # **中性语境不触发多义学习**：只有语境带真实结构(六爻有阴阳、std>0.15)
+        # 才新增/收敛义项。整句中性聚合(std≈0,均值≈0.5)不产生有意义义项——
+        # 否则会累积一堆低离散中性义项，把词义洗向中性→分类坍缩(Kun/蜂/艮)。
+        cm = sum(context_yao)/len(context_yao)
+        cstd = math.sqrt(sum((x-cm)**2 for x in context_yao)/len(context_yao))
+        if cstd < 0.15:
+            return cell
+        if not cell.sem_yaos:
+            # 首义项=部首基础义；无基础义才用语境
+            base = list(cell.sem_yao) if cell.sem_yao is not None \
+                else list(context_yao)
+            cell.sem_yaos = [base]
+            return cell
+        # 与最接近义项比较
+        best_i = max(range(len(cell.sem_yaos)),
+                     key=lambda i: self._dir_match(cell.sem_yaos[i], context_yao))
+        best_m = self._dir_match(cell.sem_yaos[best_i], context_yao)
+        if best_m >= merge_thr:
+            # 并入既有义项（基础义更保守，微调幅度小）
+            old = cell.sem_yaos[best_i]
+            alpha = 0.3 if best_i == 0 else 0.5
+            cell.sem_yaos[best_i] = [a*(1-alpha)+b*alpha
+                                     for a, b in zip(old, context_yao)]
+        else:
+            if len(cell.sem_yaos) < max_senses:
+                cell.sem_yaos.append(list(context_yao))
+            else:
+                worst = min(range(len(cell.sem_yaos)),
+                            key=lambda i: self._dir_match(cell.sem_yaos[i], context_yao))
+                cell.sem_yaos[worst] = list(context_yao)
+        # 当前激活义：由 sense_select 依语境决定（此处不改 cell.sem_yao）
+        return cell
 
     # ---------- 系统复杂度指标 ----------
     def complexity(self) -> Dict:

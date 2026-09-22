@@ -1,0 +1,15 @@
+{
+  "category": "bottle",
+  "n_train": 209,
+  "n_test": 83,
+  "n_normal": 20,
+  "n_anomaly": 63,
+  "auroc": {
+    "C0_max_residual": 0.9769841269841271,
+    "C1_change_count(equal-weight)": 0.7634920634920634,
+    "C2_change_pos_weighted": 0.7634920634920634,
+    "C3_change_mag_weighted": 0.938095238095238,
+    "C4_low_yao_only(zhi-ji)": 0.7857142857142857
+  },
+  "fanben": "010101"
+}

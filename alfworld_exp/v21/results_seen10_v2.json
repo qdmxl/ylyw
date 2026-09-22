@@ -1,0 +1,62 @@
+[
+  {
+    "gi": 0,
+    "won": false,
+    "steps": 50,
+    "task": "Put a clean large metal spoon on the round white table."
+  },
+  {
+    "gi": 1,
+    "won": true,
+    "steps": 24,
+    "task": "Turn on a light with a box in hand."
+  },
+  {
+    "gi": 2,
+    "won": true,
+    "steps": 33,
+    "task": "Warm a plate and place it on the table."
+  },
+  {
+    "gi": 3,
+    "won": true,
+    "steps": 13,
+    "task": "Place a chilled cup on the table."
+  },
+  {
+    "gi": 4,
+    "won": true,
+    "steps": 12,
+    "task": "To move two bars of soap to the black bin. "
+  },
+  {
+    "gi": 5,
+    "won": true,
+    "steps": 25,
+    "task": "Put two bars of soap into the trash can."
+  },
+  {
+    "gi": 6,
+    "won": true,
+    "steps": 5,
+    "task": "Move two CDs to the bottom drawer of the desk."
+  },
+  {
+    "gi": 7,
+    "won": true,
+    "steps": 11,
+    "task": "Move mug from coffee maker to microwave and heat, move to cabinet."
+  },
+  {
+    "gi": 8,
+    "won": true,
+    "steps": 14,
+    "task": "Put a heated mug down on a table."
+  },
+  {
+    "gi": 9,
+    "won": false,
+    "steps": 50,
+    "task": "place a knife on the microwave oven table"
+  }
+]

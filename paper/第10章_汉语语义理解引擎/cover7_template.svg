@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="1754" viewBox="0 0 1240 1754">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7fafc"/>
+      <stop offset="0.5" stop-color="#ecf3f8"/>
+      <stop offset="1" stop-color="#dae6ee"/>
+    </linearGradient>
+    <linearGradient id="title" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#12263a"/>
+      <stop offset="1" stop-color="#3c6480"/>
+    </linearGradient>
+    <!-- 机甲装甲：冷白金属 + 深蓝描边 -->
+    <linearGradient id="armor" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6b8ba3"/>
+      <stop offset="0.3" stop-color="#dce9f1"/>
+      <stop offset="0.5" stop-color="#f6fbfe"/>
+      <stop offset="0.7" stop-color="#c6d8e4"/>
+      <stop offset="1" stop-color="#5c7f99"/>
+    </linearGradient>
+    <linearGradient id="armorV" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f2f8fc"/>
+      <stop offset="0.5" stop-color="#bfd3e0"/>
+      <stop offset="1" stop-color="#577b95"/>
+    </linearGradient>
+    <linearGradient id="armorD" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7f9fb6"/>
+      <stop offset="1" stop-color="#33566f"/>
+    </linearGradient>
+    <linearGradient id="dark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2d4b63"/>
+      <stop offset="1" stop-color="#13293b"/>
+    </linearGradient>
+    <linearGradient id="visor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c1f30"/>
+      <stop offset="0.5" stop-color="#1b3d54"/>
+      <stop offset="1" stop-color="#08151f"/>
+    </linearGradient>
+    <!-- 易理核：高对比金+青玉 -->
+    <radialGradient id="jade" cx="0.5" cy="0.35" r="0.75">
+      <stop offset="0" stop-color="#7ff0d8"/>
+      <stop offset="0.5" stop-color="#22b39a"/>
+      <stop offset="1" stop-color="#0c6a5c"/>
+    </radialGradient>
+    <radialGradient id="brainGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff2c0" stop-opacity="1"/>
+      <stop offset="0.4" stop-color="#f7c94a" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#f7c94a" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#a9cee4" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#a9cee4" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="eye" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#eafffb"/>
+      <stop offset="0.5" stop-color="#43e0c2"/>
+      <stop offset="1" stop-color="#0f9c86"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1240" height="1754" fill="url(#bg)"/>
+
+  <!-- ===== 书名 ===== -->
+  <text x="620" y="214" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="112"
+        font-weight="bold" fill="url(#title)" letter-spacing="22">易理研物</text>
+  <text x="620" y="264" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="32"
+        fill="#436473" letter-spacing="4">从符号先验到通用智能的工程研究</text>
+
+  <!-- ===== 作者信息（移到副标题下方、图上方）===== -->
+  <text x="620" y="330" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="38"
+        fill="#22384a" letter-spacing="12">马兴录　马圣洁　李诚　著</text>
+  <text x="620" y="372" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="22"
+        fill="#5a6b7a">青岛科技大学　信息科学技术学院</text>
+
+  <!-- ================= 易理核（大脑，视觉主角）================= -->
+  <ellipse cx="620" cy="660" rx="290" ry="255" fill="url(#halo)"/>
+  <circle cx="620" cy="640" r="205" fill="url(#brainGlow)"/>
+  <g transform="translate(620,640)">
+    __BRAIN_RING__
+    <!-- 中心：青玉太极易核 -->
+    <circle r="62" fill="#0b2333"/>
+    <circle r="62" fill="none" stroke="#f7c94a" stroke-width="3"/>
+    <circle r="53" fill="url(#jade)"/>
+    <path d="M0 -53 a53 53 0 0 1 0 106 a26.5 26.5 0 0 1 0 -53 a26.5 26.5 0 0 0 0 -53 z" fill="#eafffb"/>
+    <circle cx="0" cy="-26.5" r="8" fill="#eafffb"/>
+    <circle cx="0" cy="26.5" r="8" fill="#0c6a5c"/>
+  </g>
+  <g stroke="#f7c94a" stroke-width="1.5" opacity="0.55">__RAYS__</g>
+
+  <!-- ================= 机器人（拟人 · 机甲风 · 半身）================= -->
+  <g transform="translate(620,0)">
+    <!-- 颈 -->
+    <rect x="-13" y="756" width="26" height="34" rx="6" fill="url(#dark)"/>
+    <rect x="-19" y="782" width="38" height="10" rx="4" fill="#2d4b63"/>
+
+    <!-- 头（机甲头：窄长颅 + 面甲 + 头盔侧板）-->
+    <path d="M-42 700 q0 -50 26 -64 q16 -8 32 0 q26 14 26 64
+             q0 48 -20 70 q-17 19 -22 19 q-5 0 -22 -19 q-20 -22 -20 -70 Z"
+          fill="url(#armorV)"/>
+    <!-- 顶部中央装甲脊 -->
+    <path d="M-6 638 q6 -10 12 0 l 4 60 l -20 0 Z" fill="url(#armorD)" opacity="0.9"/>
+    <!-- 面甲（深色屏）-->
+    <path d="M-34 694 q0 -34 17 -43 q17 -8 34 0 q17 9 17 43 q0 8 -6 8 L -28 702 q-6 0 -6 -8 Z"
+          fill="url(#visor)"/>
+    <!-- 青色发光双眼 -->
+    <ellipse cx="-13" cy="688" rx="8.5" ry="7.5" fill="url(#eye)"/>
+    <ellipse cx="13" cy="688" rx="8.5" ry="7.5" fill="url(#eye)"/>
+    <!-- 头侧装甲板 + 传感器 -->
+    <path d="M-42 686 q-15 3 -15 20 q0 17 15 20 Z" fill="url(#armor)"/>
+    <path d="M42 686 q15 3 15 20 q0 17 -15 20 Z" fill="url(#armor)"/>
+    <circle cx="-54" cy="706" r="4.5" fill="#43e0c2"/>
+    <circle cx="54" cy="706" r="4.5" fill="#43e0c2"/>
+    <!-- 头后天线 -->
+    <line x1="40" y1="664" x2="60" y2="630" stroke="#33566f" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="61" cy="628" r="4" fill="#f7c94a"/>
+
+    <!-- 斜方肌/肩装甲 -->
+    <path d="M-100 872 q54 -34 100 -24 L 0 872 L -100 896 Z" fill="url(#armorD)"/>
+    <path d="M100 872 q-54 -34 -100 -24 L 0 872 L 100 896 Z" fill="url(#armorD)"/>
+    <!-- 肩关节球 -->
+    <circle cx="-102" cy="894" r="17" fill="url(#dark)"/>
+    <circle cx="102" cy="894" r="17" fill="url(#dark)"/>
+    <circle cx="-102" cy="894" r="7" fill="#577b95"/>
+    <circle cx="102" cy="894" r="7" fill="#577b95"/>
+
+    <!-- 躯干（机甲胸甲：收腰 + 中缝 + 腹板）-->
+    <path d="M-62 858 q62 -20 124 0 L 90 1010 q0 26 -20 32 L -70 1042 q-20 -6 -20 -32 Z"
+          fill="url(#armorV)"/>
+    <!-- 胸甲左/右板分缝 -->
+    <path d="M0 852 L 0 1040" stroke="#4f7391" stroke-width="2" opacity="0.7"/>
+    <!-- 胸甲上沿高光 -->
+    <path d="M-52 872 q52 -16 104 0" fill="none" stroke="#f6fbfe" stroke-width="2" opacity="0.8"/>
+    <!-- 胸口易徽（太极·青金）-->
+    <circle cx="0" cy="924" r="30" fill="#0b2333"/>
+    <circle cx="0" cy="924" r="30" fill="none" stroke="#f7c94a" stroke-width="2.4"/>
+    <path d="M0 -25 a25 25 0 0 1 0 50 a12.5 12.5 0 0 1 0 -25 a12.5 12.5 0 0 0 0 -25 z" fill="#43e0c2"/>
+    <circle cx="0" cy="-12.5" r="4" fill="#43e0c2"/>
+    <circle cx="0" cy="12.5" r="4" fill="#0b2333"/>
+    <!-- 腹部能量条 -->
+    <g fill="#43e0c2" opacity="0.85">
+      <rect x="-30" y="1004" width="60" height="4" rx="2"/>
+      <rect x="-24" y="1014" width="48" height="4" rx="2"/>
+    </g>
+
+    <!-- 上臂（机甲分段）-->
+    <path d="M-96 884 q-38 28 -44 96 q-3 32 22 34 q22 2 24 -26 l 12 -80 l 20 -12 Z" fill="url(#armorV)"/>
+    <path d="M96 884 q38 28 44 96 q3 32 -22 34 q-22 2 -24 -26 l -12 -80 l -20 -12 Z" fill="url(#armorV)"/>
+    <!-- 上臂装甲缝 -->
+    <path d="M-110 930 q-14 26 -12 62" fill="none" stroke="#4f7391" stroke-width="1.6" opacity="0.6"/>
+    <path d="M110 930 q14 26 12 62" fill="none" stroke="#4f7391" stroke-width="1.6" opacity="0.6"/>
+    <!-- 肘关节 -->
+    <circle cx="-116" cy="1016" r="13" fill="url(#dark)"/>
+    <circle cx="116" cy="1016" r="13" fill="url(#dark)"/>
+    <circle cx="-116" cy="1016" r="5" fill="#43e0c2" opacity="0.8"/>
+    <circle cx="116" cy="1016" r="5" fill="#43e0c2" opacity="0.8"/>
+    <!-- 前臂 -->
+    <path d="M-112 1026 q-14 30 -8 62 q4 24 22 20 q15 -4 11 -24 l -6 -50 Z" fill="url(#armor)"/>
+    <path d="M112 1026 q14 30 8 62 q-4 24 -22 20 q-15 -4 -11 -24 l 6 -50 Z" fill="url(#armor)"/>
+    <!-- 手（机甲细指）-->
+    <g stroke="#2d4b63" stroke-width="3.2" stroke-linecap="round">
+      <line x1="-106" y1="1112" x2="-108" y2="1140"/>
+      <line x1="-98" y1="1114" x2="-99" y2="1144"/>
+      <line x1="-90" y1="1114" x2="-91" y2="1142"/>
+      <line x1="106" y1="1112" x2="108" y2="1140"/>
+      <line x1="98" y1="1114" x2="99" y2="1144"/>
+      <line x1="90" y1="1114" x2="91" y2="1142"/>
+    </g>
+  </g>
+
+  <!-- 大脑→身体 信号 -->
+  <g stroke="#f7c94a" stroke-width="1.8" opacity="0.6">
+    <line x1="620" y1="706" x2="620" y2="762"/>
+    <line x1="590" y1="700" x2="572" y2="752"/>
+    <line x1="650" y1="700" x2="668" y2="752"/>
+  </g>
+
+  <!-- 标注 -->
+  <text x="620" y="1245" text-anchor="middle" font-family="Noto Serif CJK SC" font-size="30"
+        fill="#0f7a68" letter-spacing="6">易理系统 · 作为智能之脑</text>
+  <text x="620" y="1285" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="19"
+        fill="#5a7285" letter-spacing="1.5">符号先验（64卦） → 元胞 → 组织 → 生态 → 通用智能</text>
+
+  <!-- 底部 -->
+  <line x1="420" y1="1330" x2="820" y2="1330" stroke="#c9b98e" stroke-width="1"/>
+  <text x="620" y="1560" text-anchor="middle" font-family="Noto Sans CJK SC" font-size="20"
+        fill="#8a94a0">https://github.com/qdmxl/ylyw</text>
+</svg>

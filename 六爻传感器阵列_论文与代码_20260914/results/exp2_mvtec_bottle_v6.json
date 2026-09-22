@@ -1,0 +1,12 @@
+{
+  "category": "bottle",
+  "best_weight_auroc": 0.9396825396825397,
+  "best_weight": [
+    2.0,
+    1.5,
+    1.0,
+    1.0,
+    0.5,
+    0.5
+  ]
+}
