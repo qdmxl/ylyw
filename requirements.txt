@@ -1,0 +1,19 @@
+# ylyw 项目依赖（由旧机 imports 统计生成，2026-09-26）
+# 核心科研依赖；机器人/SDK 相关按需装（mjlab/rclpy/aimdk_msgs 属 x2 具身 SDK）
+numpy==1.24.4
+scipy
+scikit-learn
+scikit-image
+matplotlib
+Pillow
+python-docx
+opencv-python
+torch
+torchvision
+
+# 仿真（MuJoCo）
+mujoco
+
+# LIBERO-PRO 阶段二用（新机单独环境，见迁移文档）
+# robosuite
+# libero
