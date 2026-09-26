@@ -31,10 +31,8 @@ motion_control/unitree_models/
 *.stl
 *.dae
 
-# Document outputs (large, generated)
-*.docx
-*.pdf
-monograph/易理研物*.docx
+# Document outputs — 现改为入库（迁移需要，2026-09-26）
+# *.docx / *.pdf 已放行
 calligraphy/output/
 calligraphy/input/
 
